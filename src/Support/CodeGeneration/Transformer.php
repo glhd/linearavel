@@ -63,11 +63,7 @@ class Transformer
 			new Interface_($node->name->value)
 		];
 		
-		if (empty($node->name->value)) {
-			dd($node);
-		}
-		
-		$filename = realpath(__DIR__.'/../../../src/Data/Contracts/').$node->name->value.'.php';
+		$filename = realpath(__DIR__.'/../../../src/Data/').'/Contracts/'.$node->name->value.'.php';
 		$php = (new Standard())->prettyPrint($tree);
 		
 		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
