@@ -3,7 +3,7 @@
 namespace Glhd\Linearavel\Tests\Feature;
 
 use Glhd\Linearavel\Support\Client;
-use Glhd\Linearavel\Support\Transformer;
+use Glhd\Linearavel\Support\CodeGeneration\Transformer;
 use Glhd\Linearavel\Tests\TestCase;
 use GraphQL\Language\AST\DefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
