@@ -9,12 +9,15 @@ use GraphQL\Language\AST\InterfaceTypeDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Enum_;
 use PhpParser\Node\Stmt\EnumCase;
 use PhpParser\Node\Stmt\Interface_;
+use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\ParserFactory;
 use PhpParser\PrettyPrinter\Standard;
+use RuntimeException;
 
 class Transformer
 {
@@ -40,37 +43,49 @@ class Transformer
 		}
 	}
 	
-	public function transform()
+	public function write()
 	{
 		$schema = file_get_contents($this->filename);
 		
-		$tree = collect(Parser::parse($schema)->definitions)
-			->map(fn(DefinitionNode $definition) => match ($definition::class) {
+		collect(Parser::parse($schema)->definitions)
+			->each(fn(DefinitionNode $definition) => match ($definition::class) {
 				InterfaceTypeDefinitionNode::class => $this->interface($definition),
 				ObjectTypeDefinitionNode::class => $this->class($definition),
 				EnumTypeDefinitionNode::class => $this->enum($definition),
 				default => null,
-			})
-			->filter()
-			->flatten(1)
-			->all();
+			});
+	}
+	
+	protected function interface(InterfaceTypeDefinitionNode $node): void
+	{
+		$tree = [
+			new Namespace_(new Name($this->namespace.'Data\\Contracts')),
+			new Interface_($node->name->value)
+		];
 		
-		return (new Standard())->prettyPrint($tree);
+		if (empty($node->name->value)) {
+			dd($node);
+		}
+		
+		$filename = realpath(__DIR__.'/../../../src/Data/Contracts/').$node->name->value.'.php';
+		$php = (new Standard())->prettyPrint($tree);
+		
+		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
+			throw new RuntimeException("Unable to write to '{$filename}'");
+		}
 	}
 	
-	protected function interface(InterfaceTypeDefinitionNode $node): array
+	protected function class(ObjectTypeDefinitionNode $node): void
 	{
-		return [new Interface_($node->name->value)];
+		$tree = ClassTransformer::transform($node, $this->namespace);
+		
+		// echo (new Standard())->prettyPrint($tree);
 	}
 	
-	protected function class(ObjectTypeDefinitionNode $node): array
+	protected function enum(EnumTypeDefinitionNode $node): void
 	{
-		return ClassTransformer::transform($node, $this->namespace);
-	}
-	
-	protected function enum(EnumTypeDefinitionNode $node): array
-	{
-		return [
+		$tree = [
+			new Namespace_(new Name($this->namespace.'Enums')),
 			new Enum_($node->name->value, [
 				'scalarType' => new Identifier('string'),
 				'stmts' => collect($node->values)
@@ -80,5 +95,7 @@ class Transformer
 					->all(),
 			]),
 		];
+		
+		// echo (new Standard())->prettyPrint($tree);
 	}
 }

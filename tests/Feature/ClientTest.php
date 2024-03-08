@@ -27,6 +27,6 @@ class ClientTest extends TestCase
 	public function test_transformer(): void
 	{
 		$transformer = new Transformer(__DIR__.'/../../local.graphql', 'Glhd\\Linearavel\\');
-		echo $transformer->transform();
+		echo $transformer->write();
 	}
 }
