@@ -9,4 +9,6 @@ return [
 	| Description
 	|
 	*/
+	
+	'api_key' => env('LINEAR_API_KEY'),
 ];

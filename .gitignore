@@ -1,9 +1,11 @@
 vendor/
 composer.phar
 composer.lock
+phpunit.xml
 .phpunit.result.cache
 .php_cs.cache
 .php-cs-fixer.cache
+.env
 
 .DS_Store
 .phpstorm.meta.php

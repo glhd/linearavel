@@ -2,9 +2,12 @@
 
 namespace Glhd\Linearavel\Tests;
 
+use Dotenv\Dotenv;
 use Glhd\Linearavel\Support\LinearavelServiceProvider;
 use Illuminate\Container\Container;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\LaravelData\LaravelDataServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -12,6 +15,7 @@ abstract class TestCase extends Orchestra
 	{
 		return [
 			LinearavelServiceProvider::class,
+			LaravelDataServiceProvider::class,
 		];
 	}
 	
