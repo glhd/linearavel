@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\UseItem;
+use Spatie\LaravelData\Data;
 
 class ClassTransformer
 {
@@ -30,6 +31,7 @@ class ClassTransformer
 		protected ObjectTypeDefinitionNode $node,
 		public string $namespace = '\\',
 	) {
+		$this->use(Data::class);
 	}
 	
 	public function use(string $fqcn): static
@@ -50,6 +52,7 @@ class ClassTransformer
 			$this->uses(),
 			new Class_($this->node->name->value, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
+				'extends' => new Name('Data'),
 				'implements' => $implements,
 			]),
 		]);
@@ -61,7 +64,12 @@ class ClassTransformer
 			return null;
 		}
 		
-		return new Use_(collect($this->uses)->map(fn($fqcn) => new UseItem(new Name($fqcn)))->all());
+		$uses = collect($this->uses)
+			->unique()
+			->map(fn($fqcn) => new UseItem(new Name($fqcn)))
+			->all();
+		
+		return new Use_($uses);
 	}
 	
 	protected function params(): array

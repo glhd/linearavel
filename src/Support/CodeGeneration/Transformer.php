@@ -27,9 +27,13 @@ class Transformer
 		if (isset(self::$debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			namespace Foo;
-			use Bar;
-			class Baz {}
+			
+			class Baz {
+				public function __construct(
+					#[WithCast(DateTimeInterfaceCast::class, format: \DateTimeInterface::DATE_RFC3339_EXTENDED)]
+					public CarbonImmutable $c,
+				) {}
+			}
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);

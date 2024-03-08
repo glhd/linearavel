@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use DateTimeInterface;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use GraphQL\Language\AST\NamedTypeNode;
@@ -9,6 +10,10 @@ use GraphQL\Language\AST\NonNullTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Attribute;
+use PhpParser\Node\AttributeGroup;
+use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -17,6 +22,9 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
+use Spatie\LaravelData\Optional;
 
 class ParamTransformer
 {
@@ -58,27 +66,63 @@ class ParamTransformer
 	
 	protected function listType(ListTypeNode $node): Name
 	{
-		$type = $this->nodeType($node->type);
+		$type = $this->typeToName($node->type);
 		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
 		
 		return new Name('Collection');
 	}
 	
-	protected function namedType(NamedTypeNode $node, bool $nullable = false): UnionType|Identifier|Name
+	protected function namedType(NamedTypeNode $node, bool $nullable = false): UnionType
 	{
-		$type = match ($node->name->value) {
+		$this->parent->use(Optional::class);
+		
+		$type = $this->typeToName($node);
+		
+		if ('DateTime' === $node->name->value) {
+			$this->param->attrGroups ??= [];
+			$this->param->attrGroups[] = new AttributeGroup([
+				new Attribute($this->fqcn(WithCast::class), [
+					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
+					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('DATE_RFC3339_EXTENDED'))),
+				]),
+			]);
+		}
+		
+		$types = [
+			new Name('Optional'),
+			$type,
+		];
+		
+		if ($nullable) {
+			$types[] = new Identifier('null');
+		}
+		
+		return new UnionType($types);
+	}
+	
+	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): Identifier|Name
+	{
+		// FIXME: Scalars like "JSONObject"
+		
+		if ($node instanceof NonNullTypeNode) {
+			return $this->typeToName($node->type);
+		}
+		
+		return match ($node->name->value) {
 			'Boolean' => new Identifier('bool'),
 			'Float' => new Identifier('float'),
 			'Int' => new Identifier('int'),
 			'String', 'ID' => new Identifier('string'),
-			'DateTime' => new FullyQualified('Carbon\CarbonImmutable'),
-			'JSONObject' => new Identifier('object'),
-			default => new FullyQualified($this->parent->namespace.'Data\\'.$node->name->value),
+			'DateTime' => $this->fqcn('Carbon\CarbonImmutable'),
+			// 'JSONObject' => new Identifier('object'),
+			default => $this->fqcn($this->parent->namespace.'Data\\'.$node->name->value),
 		};
-		
-		return $nullable 
-			? new UnionType([$type, new Identifier('null')])
-			: $type;
+	}
+	
+	protected function fqcn(string $fqcn): Name
+	{
+		$this->parent->use($fqcn);
+		return new Name(class_basename($fqcn));
 	}
 }
