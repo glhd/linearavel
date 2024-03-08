@@ -1,0 +1,4 @@
+schema:
+  - https://api.linear.app/graphql:
+      headers:
+        Authorization: Bearer ${TOKEN}

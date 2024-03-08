@@ -19,6 +19,16 @@ class LinearavelServiceProvider extends ServiceProvider
 	public function register()
 	{
 		$this->mergeConfigFrom($this->packageConfigFile(), 'linearavel');
+		
+		$this->app->singleton(Client::class, function() {
+			return new Client(
+				api_key: config('linearavel.api_key'),
+				key_helper: app(KeyHelper::class),
+				base_url: config('linearavel.base_url'),
+			);
+		});
+		
+		$this->app->singleton(KeyHelper::class);
 	}
 	
 	protected function bootViews() : self

@@ -7,10 +7,8 @@ use Glhd\Linearavel\Tests\TestCase;
 
 class ClientTest extends TestCase
 {
-	public function test_it_can_fetch_me(): void
+	public function test_it_can_fetch_teams(): void
 	{
-		$client = new Client(config('linearavel.api_key'));
-		
-		dd($client->viewer());
+		dd(app(Client::class)->teams());
 	}
 }
