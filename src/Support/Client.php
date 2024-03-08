@@ -4,7 +4,9 @@ namespace Glhd\Linearavel\Support;
 
 use Glhd\Linearavel\Data\Queries\User;
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Spatie\LaravelData\Support\DataConfig;
 
 class Client
 {
@@ -15,14 +17,23 @@ class Client
 	{
 	}
 	
-	public function viewer(): User
+	public function viewer(
+		?array $only = null,
+		?array $except = null,
+	): User
 	{
+		$props = app(DataConfig::class)
+			->getDataClass(User::class)
+			->properties
+			->keys()
+			->when($only, fn(Collection $keys) => $keys->only($only))
+			->when($except, fn(Collection $keys) => $keys->except($except))
+			->implode("\n");
+		
 		$query = <<<GRAPHQL
-		query Me {
+		query ViewerQuery {
 			viewer {
-				id
-				name
-				email
+				{$props}
 			}
 		}
 		GRAPHQL;
