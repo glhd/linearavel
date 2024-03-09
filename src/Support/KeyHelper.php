@@ -11,27 +11,31 @@ use Spatie\LaravelData\Support\DataProperty;
 
 class KeyHelper
 {
+	protected array $seen = [];
+	
 	public function __construct(
 		protected DataConfig $data_config,
 	) {
 	}
 	
 	/** @var class-string<Data> $fqcn */
-	public function get(string $fqcn, ?array $only = null, ?array $except = null, bool $nested = false): Collection
+	public function get(string $fqcn, int $depth = 0, int $max = 2): Collection|array
 	{
 		return $this->data_config
 			->getDataClass($fqcn)
 			->properties
-			->mapWithKeys(function(DataProperty $property) use ($nested) {
-				return [
-					$property->name => $property->type->dataClass
-						? ($nested
-							? collect()
-							: $this->get($property->type->dataClass, nested: true))
-						: null,
-				];
+			->mapWithKeys(function(DataProperty $property) use ($depth, $max) {
+				if ($property->type->dataClass && $depth < $max) {
+					return [$property->name => $this->get($property->type->dataClass, depth: $depth + 1, max: $max)];
+				}
+				
+				return [$property->name => null];
 			})
-			->when($only, fn(Collection $keys) => $keys->only($only))
-			->when($except, fn(Collection $keys) => $keys->except($except));
+			->dot()
+			->when(
+				$depth, 
+				fn($collection) => $collection->toArray(),
+				fn($collection) => $collection->keys(),
+			);
 	}
 }

@@ -6,6 +6,7 @@ use Glhd\Linearavel\Data\Team;
 use Glhd\Linearavel\Data\User;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class Client
@@ -33,7 +34,8 @@ class Client
 		return User::from($result->json('data.viewer'));
 	}
 	
-	public function teams(array $keys = ['id', 'name'])
+	/** @return Collection<int, Team> */
+	public function teams(string ...$keys): Collection
 	{
 		$fields = $this->fields($keys);
 		
@@ -45,10 +47,9 @@ class Client
 					}
 				}
 			}
-		gql
-		);
+		gql);
 		
-		return Team::collect($result->json('data.teams.nodes'));
+		return Team::collect($result->json('data.teams.nodes'), Collection::class);
 	}
 	
 	protected function fields(array $keys, int $depth = 0): string
