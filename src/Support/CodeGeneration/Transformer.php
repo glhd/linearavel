@@ -33,7 +33,7 @@ class Transformer
 			
 			class Baz {
 				public function __construct(
-					#[WithCast(DateTimeInterfaceCast::class, format: \DateTimeInterface::DATE_RFC3339_EXTENDED)]
+					#[WithCast(DateTimeInterfaceCast::class, format: \DateTimeInterface::RFC3339_EXTENDED)]
 					public CarbonImmutable $c,
 				) {}
 			}

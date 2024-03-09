@@ -80,7 +80,7 @@ class ParamTransformer
 			$this->param->attrGroups[] = new AttributeGroup([
 				new Attribute($this->fqcn(WithCast::class), [
 					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('DATE_RFC3339_EXTENDED'))),
+					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
 				]),
 			]);
 		}

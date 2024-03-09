@@ -14,8 +14,8 @@ class DocumentContentHistoryType extends Data
 {
 	function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::DATE_RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::DATE_RFC3339_EXTENDED)] public Optional|CarbonImmutable $contentDataSnapshotAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $contentDataSnapshotAt,
 		public Optional|JSON $contentData,
 		/** @var Collection<int, string> */
 		public Collection $actorIds

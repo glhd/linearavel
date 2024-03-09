@@ -27,7 +27,7 @@ class AuthOauthClient extends Data
 		public Optional|string $creatorId,
 		public Optional|string $organizationId,
 		public Optional|string|null $webhookUrl,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::DATE_RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

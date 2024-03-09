@@ -19,7 +19,7 @@ class AuthOrganization extends Data
 		/** @var Collection<int, string> */
 		public Collection $previousUrlKeys,
 		public Optional|string|null $logoUrl,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::DATE_RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $deletionRequestedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $deletionRequestedAt,
 		public Optional|ReleaseChannel $releaseChannel,
 		public Optional|bool $samlEnabled,
 		public Optional|JSONObject|null $samlSettings,

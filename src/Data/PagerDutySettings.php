@@ -11,7 +11,7 @@ use Spatie\LaravelData\Optional;
 
 class PagerDutySettings extends Data
 {
-	function __construct(#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::DATE_RFC3339_EXTENDED)] public Optional|CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
+	function __construct(#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
 	{
 	}
 }
