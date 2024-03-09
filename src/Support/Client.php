@@ -6,7 +6,6 @@ use Glhd\Linearavel\Data\Team;
 use Glhd\Linearavel\Data\User;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class Client

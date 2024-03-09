@@ -25,7 +25,9 @@ class KeyHelper
 			->mapWithKeys(function(DataProperty $property) use ($nested) {
 				return [
 					$property->name => $property->type->dataClass
-						? ($nested ? collect() : $this->get($property->type->dataClass, nested: true))
+						? ($nested
+							? collect()
+							: $this->get($property->type->dataClass, nested: true))
 						: null,
 				];
 			})
