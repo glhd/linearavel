@@ -33,7 +33,7 @@ class KeyHelper
 			})
 			->dot()
 			->when(
-				$depth, 
+				$depth,
 				fn($collection) => $collection->toArray(),
 				fn($collection) => $collection->keys(),
 			);

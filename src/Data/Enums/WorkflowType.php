@@ -2,9 +2,9 @@
 
 namespace Glhd\Linearavel\Data\Enums;
 
-enum WorkflowType : string
+enum WorkflowType: string
 {
-    case sla = 'sla';
-    case custom = 'custom';
-    case viewSubscription = 'viewSubscription';
+	case sla = 'sla';
+	case custom = 'custom';
+	case viewSubscription = 'viewSubscription';
 }

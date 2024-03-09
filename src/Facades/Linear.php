@@ -2,11 +2,13 @@
 
 namespace Glhd\Linearavel\Facades;
 
+use Glhd\Linearavel\Data\Team;
 use Glhd\Linearavel\Support\Client;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Illuminate\Support\Collection<int, \Glhd\Linearavel\Data\Team> teams(string ...$keys)
+ * @method static Collection<int, Team> teams(string ...$keys)
  */
 class Linear extends Facade
 {

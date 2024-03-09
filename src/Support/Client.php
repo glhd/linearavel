@@ -47,7 +47,8 @@ class Client
 					}
 				}
 			}
-		gql);
+		gql
+		);
 		
 		return Team::collect($result->json('data.teams.nodes'), Collection::class);
 	}

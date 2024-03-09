@@ -2,7 +2,7 @@
 
 namespace Glhd\Linearavel\Data\Enums;
 
-enum UserContextViewType : string
+enum UserContextViewType: string
 {
-    case assigned = 'assigned';
+	case assigned = 'assigned';
 }
