@@ -108,20 +108,22 @@ class ParamTransformer
 			return $this->typeToName($node->type);
 		}
 		
-		// Treat all scalars as strings for now
-		if ($this->parent->parent->scalars->has($node->name->value)) {
-			return new Identifier('string');
-		}
-		
 		return match ($node->name->value) {
 			'Boolean' => new Identifier('bool'),
 			'Float' => new Identifier('float'),
 			'Int' => new Identifier('int'),
 			'String', 'ID' => new Identifier('string'),
 			'DateTime' => $this->fqcn('Carbon\CarbonImmutable'),
-			default => $this->fqcn(
-				$this->parent->parent->registry->get($node->name->value) ?? $this->parent->namespace.'Data\\'.$node->name->value
-			),
+			default => value(function() use ($node) {
+				// Treat all scalars as strings for now
+				if ($this->parent->parent->scalars->has($node->name->value)) {
+					return new Identifier('string');
+				}
+				
+				return $this->fqcn(
+					$this->parent->parent->registry->get($node->name->value) ?? $this->parent->namespace.'Data\\'.$node->name->value
+				);
+			}),
 		};
 	}
 	
