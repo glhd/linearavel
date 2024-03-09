@@ -75,7 +75,12 @@ class Transformer
 	{
 		$tree = ClassTransformer::transform($node, $this->namespace);
 		
-		// echo (new Standard())->prettyPrint($tree);
+		$filename = realpath(__DIR__.'/../../../src/Data').'/'.$node->name->value.'.php';
+		$php = (new Standard())->prettyPrint($tree);
+		
+		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
+			throw new RuntimeException("Unable to write to '{$filename}'");
+		}
 	}
 	
 	protected function enum(EnumTypeDefinitionNode $node): void

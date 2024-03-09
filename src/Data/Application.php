@@ -1,0 +1,11 @@
+<?php
+
+namespace Glhd\Linearavel\Data;
+
+use Spatie\LaravelData\Data, Spatie\LaravelData\Optional;
+class Application extends Data
+{
+    function __construct(public Optional|string $id, public Optional|string $clientId, public Optional|string $name, public Optional|string|null $description, public Optional|string $developer, public Optional|string $developerUrl, public Optional|string|null $imageUrl)
+    {
+    }
+}
