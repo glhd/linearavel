@@ -20,7 +20,7 @@ class Template extends Data implements Node
 		public Optional|string $type,
 		public Optional|string $name,
 		public Optional|string|null $description,
-		public Optional|JSON $templateData,
+		public Optional|string $templateData,
 		public Optional|Organization|null $organization,
 		public Optional|Team|null $team,
 		public Optional|User|null $creator,

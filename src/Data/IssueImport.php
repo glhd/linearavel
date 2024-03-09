@@ -21,11 +21,11 @@ class IssueImport extends Data implements Node
 		public Optional|string $creatorId,
 		public Optional|string $service,
 		public Optional|string $status,
-		public Optional|JSONObject|null $mapping,
+		public Optional|string|null $mapping,
 		public Optional|string|null $error,
 		public Optional|float|null $progress,
 		public Optional|string|null $csvFileUrl,
-		public Optional|JSONObject|null $errorMetadata
+		public Optional|string|null $errorMetadata
 	) {
 	}
 }

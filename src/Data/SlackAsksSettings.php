@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Data;
 
+use Glhd\Linearavel\Data\Enums\UserRoleType;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;

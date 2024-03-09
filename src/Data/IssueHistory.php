@@ -67,9 +67,9 @@ class IssueHistory extends Data implements Node
 		public Optional|Collection $relationChanges,
 		public Optional|bool|null $autoClosed,
 		public Optional|bool|null $autoArchived,
-		public Optional|TimelessDate|null $fromDueDate,
-		public Optional|TimelessDate|null $toDueDate,
-		public Optional|JSONObject|null $changes,
+		public Optional|string|null $fromDueDate,
+		public Optional|string|null $toDueDate,
+		public Optional|string|null $changes,
 		public Optional|ActorBot|null $botActor,
 		/** @var Collection<int, IssueLabel> */
 		public Optional|Collection $addedLabels,

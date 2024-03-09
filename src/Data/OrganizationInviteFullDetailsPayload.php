@@ -4,6 +4,8 @@ namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
+use Glhd\Linearavel\Data\Enums\OrganizationInviteStatus;
+use Glhd\Linearavel\Data\Enums\UserRoleType;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;

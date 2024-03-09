@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
+use Glhd\Linearavel\Data\Enums\ReleaseChannel;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
@@ -22,7 +23,7 @@ class AuthOrganization extends Data
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $deletionRequestedAt,
 		public Optional|ReleaseChannel $releaseChannel,
 		public Optional|bool $samlEnabled,
-		public Optional|JSONObject|null $samlSettings,
+		public Optional|string|null $samlSettings,
 		/** @var Collection<int, string> */
 		public Optional|Collection $allowedAuthServices,
 		public Optional|bool $scimEnabled,

@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\DateResolutionType;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
@@ -25,7 +26,7 @@ class Initiative extends Data implements Node
 		public Optional|string $slugId,
 		public Optional|float $sortOrder,
 		public Optional|string|null $color,
-		public Optional|TimelessDate|null $targetDate,
+		public Optional|string|null $targetDate,
 		public Optional|DateResolutionType|null $targetDateResolution,
 		public Optional|ProjectConnection $projects
 	) {

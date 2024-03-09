@@ -21,7 +21,7 @@ class IssueDraft extends Data implements Node
 		public Optional|string|null $description,
 		public Optional|float $priority,
 		public Optional|float|null $estimate,
-		public Optional|TimelessDate|null $dueDate,
+		public Optional|string|null $dueDate,
 		public Optional|string $teamId,
 		public Optional|string|null $cycleId,
 		public Optional|string|null $projectId,
@@ -33,8 +33,8 @@ class IssueDraft extends Data implements Node
 		public Optional|Issue|null $parentIssue,
 		public Optional|float|null $subIssueSortOrder,
 		public Optional|string $priorityLabel,
-		public Optional|JSON|null $descriptionData,
-		public Optional|JSONObject $attachments
+		public Optional|string|null $descriptionData,
+		public Optional|string $attachments
 	) {
 	}
 }

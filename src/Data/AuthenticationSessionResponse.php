@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
+use Glhd\Linearavel\Data\Enums\AuthenticationSessionType;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;

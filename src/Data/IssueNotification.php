@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Glhd\Linearavel\Data\Contracts\Entity;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Contracts\Notification;
+use Glhd\Linearavel\Data\Contracts\NotificationSubscription;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;

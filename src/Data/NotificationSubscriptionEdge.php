@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Data;
 
+use Glhd\Linearavel\Data\Contracts\NotificationSubscription;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 

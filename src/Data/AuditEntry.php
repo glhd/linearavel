@@ -23,8 +23,8 @@ class AuditEntry extends Data implements Node
 		public Optional|string|null $actorId,
 		public Optional|string|null $ip,
 		public Optional|string|null $countryCode,
-		public Optional|JSONObject|null $metadata,
-		public Optional|JSONObject|null $requestInformation
+		public Optional|string|null $metadata,
+		public Optional|string|null $requestInformation
 	) {
 	}
 }

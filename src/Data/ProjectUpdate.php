@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\ProjectUpdateHealthType;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
@@ -22,11 +23,11 @@ class ProjectUpdate extends Data implements Node
 		public Optional|ProjectUpdateHealthType $health,
 		public Optional|User $user,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $editedAt,
-		public Optional|JSONObject|null $infoSnapshot,
+		public Optional|string|null $infoSnapshot,
 		public Optional|bool $isDiffHidden,
 		public Optional|string $bodyData,
 		public Optional|string $url,
-		public Optional|JSONObject|null $diff,
+		public Optional|string|null $diff,
 		public Optional|string|null $diffMarkdown
 	) {
 	}

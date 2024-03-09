@@ -26,9 +26,9 @@ class CustomView extends Data implements Node
 		public Optional|User $creator,
 		public Optional|User $owner,
 		public Optional|User $updatedBy,
-		public Optional|JSONObject $filters,
-		public Optional|JSONObject $filterData,
-		public Optional|JSONObject|null $projectFilterData,
+		public Optional|string $filters,
+		public Optional|string $filterData,
+		public Optional|string|null $projectFilterData,
 		public Optional|bool $shared,
 		public Optional|string $modelName,
 		public Optional|IssueConnection $issues

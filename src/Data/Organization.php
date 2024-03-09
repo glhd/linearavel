@@ -5,6 +5,10 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\Day;
+use Glhd\Linearavel\Data\Enums\ProjectUpdateReminderFrequency;
+use Glhd\Linearavel\Data\Enums\ReleaseChannel;
+use Glhd\Linearavel\Data\Enums\SLADayCountType;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
@@ -31,7 +35,7 @@ class Organization extends Data implements Node
 		public Optional|float $projectUpdateRemindersHour,
 		public Optional|float $fiscalYearStartMonth,
 		public Optional|bool $samlEnabled,
-		public Optional|JSONObject|null $samlSettings,
+		public Optional|string|null $samlSettings,
 		public Optional|bool $scimEnabled,
 		/** @var Collection<int, string> */
 		public Optional|Collection $allowedAuthServices,

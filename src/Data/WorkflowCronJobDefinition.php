@@ -22,8 +22,8 @@ class WorkflowCronJobDefinition extends Data implements Node
 		public Optional|bool $enabled,
 		public Optional|Team $team,
 		public Optional|User $creator,
-		public Optional|JSONObject $schedule,
-		public Optional|JSONObject $activities,
+		public Optional|string $schedule,
+		public Optional|string $activities,
 		public Optional|string $sortOrder
 	) {
 	}

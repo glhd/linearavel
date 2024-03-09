@@ -19,7 +19,7 @@ class DocumentContentHistory extends Data implements Node
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|DocumentContent $documentContent,
-		public Optional|JSONObject|null $contentData,
+		public Optional|string|null $contentData,
 		/** @var Collection<int, string> */
 		public Optional|Collection $actorIds,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $contentDataSnapshotAt

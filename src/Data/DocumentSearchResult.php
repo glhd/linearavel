@@ -28,8 +28,8 @@ class DocumentSearchResult extends Data implements Node
 		public Optional|float $sortOrder,
 		public Optional|string|null $content,
 		public Optional|string|null $contentState,
-		public Optional|JSON|null $contentData,
-		public Optional|JSONObject $metadata
+		public Optional|string|null $contentData,
+		public Optional|string $metadata
 	) {
 	}
 }

@@ -31,7 +31,7 @@ class Comment extends Data implements Node
 		public Optional|string $bodyData,
 		public Optional|string|null $quotedText,
 		public Optional|string|null $summaryText,
-		public Optional|JSONObject $reactionData,
+		public Optional|string $reactionData,
 		public Optional|string $url,
 		public Optional|CommentConnection $children,
 		public Optional|ActorBot|null $botActor

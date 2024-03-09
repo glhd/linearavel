@@ -22,8 +22,8 @@ class Attachment extends Data implements Node
 		public Optional|string $url,
 		public Optional|User|null $creator,
 		public Optional|ExternalUser|null $externalUserCreator,
-		public Optional|JSONObject $metadata,
-		public Optional|JSONObject|null $source,
+		public Optional|string $metadata,
+		public Optional|string|null $source,
 		public Optional|string|null $sourceType,
 		public Optional|bool $groupBySource,
 		public Optional|Issue $issue

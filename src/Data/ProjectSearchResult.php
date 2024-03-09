@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\DateResolutionType;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
@@ -27,9 +28,9 @@ class ProjectSearchResult extends Data implements Node
 		public Optional|User|null $creator,
 		public Optional|User|null $lead,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $projectUpdateRemindersPausedUntilAt,
-		public Optional|TimelessDate|null $startDate,
+		public Optional|string|null $startDate,
 		public Optional|DateResolutionType|null $startDateResolution,
-		public Optional|TimelessDate|null $targetDate,
+		public Optional|string|null $targetDate,
 		public Optional|DateResolutionType|null $targetDateResolution,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $startedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $pausedAt,
@@ -67,7 +68,7 @@ class ProjectSearchResult extends Data implements Node
 		public Optional|string|null $content,
 		public Optional|string|null $contentState,
 		public Optional|string $state,
-		public Optional|JSONObject $metadata
+		public Optional|string $metadata
 	) {
 	}
 }

@@ -23,7 +23,7 @@ class Company extends Data implements Node
 		public Optional|string|null $logoUrl,
 		public Optional|User $creator,
 		public Optional|Organization $organization,
-		public Optional|JSONObject $companyProperties
+		public Optional|string $companyProperties
 	) {
 	}
 }

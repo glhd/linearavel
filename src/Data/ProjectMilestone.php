@@ -18,11 +18,11 @@ class ProjectMilestone extends Data implements Node
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string $name,
-		public Optional|TimelessDate|null $targetDate,
+		public Optional|string|null $targetDate,
 		public Optional|Project $project,
 		public Optional|float $sortOrder,
 		public Optional|string|null $description,
-		public Optional|JSON|null $descriptionData,
+		public Optional|string|null $descriptionData,
 		public Optional|string|null $descriptionState,
 		public Optional|IssueConnection $issues
 	) {

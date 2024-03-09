@@ -5,6 +5,11 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\ContextViewType;
+use Glhd\Linearavel\Data\Enums\UserContextViewType;
+use Glhd\Linearavel\Data\Enums\WorkflowTrigger;
+use Glhd\Linearavel\Data\Enums\WorkflowTriggerType;
+use Glhd\Linearavel\Data\Enums\WorkflowType;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
@@ -23,11 +28,11 @@ class WorkflowDefinition extends Data implements Node
 		public Optional|WorkflowType $type,
 		public Optional|WorkflowTrigger $trigger,
 		public Optional|WorkflowTriggerType $triggerType,
-		public Optional|JSONObject $conditions,
+		public Optional|string $conditions,
 		public Optional|bool $enabled,
 		public Optional|Team|null $team,
 		public Optional|User $creator,
-		public Optional|JSONObject $activities,
+		public Optional|string $activities,
 		public Optional|string $sortOrder,
 		public Optional|IssueLabel|null $label,
 		public Optional|Cycle|null $cycle,

@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\IntegrationService;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
@@ -31,7 +32,7 @@ class Issue extends Data implements Node
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $canceledAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $autoClosedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $autoArchivedAt,
-		public Optional|TimelessDate|null $dueDate,
+		public Optional|string|null $dueDate,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $slaStartedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $slaBreachesAt,
 		public Optional|bool|null $trashed,
@@ -70,7 +71,7 @@ class Issue extends Data implements Node
 		public Optional|IssueRelationConnection $inverseRelations,
 		public Optional|AttachmentConnection $attachments,
 		public Optional|string|null $description,
-		public Optional|JSON|null $descriptionData,
+		public Optional|string|null $descriptionData,
 		public Optional|string|null $descriptionState
 	) {
 	}

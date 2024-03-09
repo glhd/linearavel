@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class AttachmentSourcesPayload extends Data
 {
-	function __construct(public Optional|JSONObject $sources)
+	function __construct(public Optional|string $sources)
 	{
 	}
 }
