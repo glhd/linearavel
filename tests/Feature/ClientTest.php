@@ -11,12 +11,6 @@ class ClientTest extends TestCase
 {
 	public function test_it_can_fetch_teams(): void
 	{
-		Linear::teams('id', 'members.edges.node.id');
-	}
-	
-	public function test_meta_generator(): void
-	{
-		$generator = new MetaGenerator(Team::class, 'teams');
-		$generator->generate();
+		dd(Linear::viewer('id', 'name', 'organization.id', 'organization.name'));
 	}
 }

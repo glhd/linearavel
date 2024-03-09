@@ -18,14 +18,14 @@ class Client
 	) {
 	}
 	
-	public function viewer(?array $only = null, ?array $except = null): User
+	public function viewer(string ...$keys): User
 	{
-		$props = $this->key_helper->get(User::class, $only, $except);
+		$fields = $this->fields($keys);
 		
 		$result = $this->query(<<<gql
 			query ViewerQuery {
 				viewer {
-					{$props}
+					{$fields}
 				}
 			}
 		gql

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static Collection<int, Team> teams(string ...$keys)
+ * @method static \Glhd\Linearavel\Data\User viewer(string ...$keys)
  */
 class Linear extends Facade
 {
