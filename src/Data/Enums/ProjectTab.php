@@ -1,10 +1,10 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum ProjectTab: string
+enum ProjectTab : string
 {
-	case documents = 'documents';
-	case issues = 'issues';
-	case activity = 'activity';
+    case documents = 'documents';
+    case issues = 'issues';
+    case activity = 'activity';
 }

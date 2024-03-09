@@ -30,7 +30,6 @@ class Transformer
 		if (isset(self::$debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			
 			class Baz {
 				public function __construct(
 					#[WithCast(DateTimeInterfaceCast::class, format: \DateTimeInterface::RFC3339_EXTENDED)]
@@ -86,7 +85,7 @@ class Transformer
 	protected function enum(EnumTypeDefinitionNode $node): void
 	{
 		$tree = [
-			new Namespace_(new Name($this->namespace.'Enums')),
+			new Namespace_(new Name($this->namespace.'Data\\Enums')),
 			new Enum_($node->name->value, [
 				'scalarType' => new Identifier('string'),
 				'stmts' => collect($node->values)

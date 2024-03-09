@@ -1,12 +1,12 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum GitAutomationStates: string
+enum GitAutomationStates : string
 {
-	case draft = 'draft';
-	case start = 'start';
-	case review = 'review';
-	case mergeable = 'mergeable';
-	case merge = 'merge';
+    case draft = 'draft';
+    case start = 'start';
+    case review = 'review';
+    case mergeable = 'mergeable';
+    case merge = 'merge';
 }

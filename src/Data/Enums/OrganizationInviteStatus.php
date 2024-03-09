@@ -1,10 +1,10 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum OrganizationInviteStatus: string
+enum OrganizationInviteStatus : string
 {
-	case pending = 'pending';
-	case accepted = 'accepted';
-	case expired = 'expired';
+    case pending = 'pending';
+    case accepted = 'accepted';
+    case expired = 'expired';
 }

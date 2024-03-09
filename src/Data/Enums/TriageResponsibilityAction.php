@@ -1,9 +1,9 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum TriageResponsibilityAction: string
+enum TriageResponsibilityAction : string
 {
-	case assign = 'assign';
-	case notify = 'notify';
+    case assign = 'assign';
+    case notify = 'notify';
 }

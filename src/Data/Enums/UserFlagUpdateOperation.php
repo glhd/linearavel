@@ -1,11 +1,11 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum UserFlagUpdateOperation: string
+enum UserFlagUpdateOperation : string
 {
-	case incr = 'incr';
-	case decr = 'decr';
-	case clear = 'clear';
-	case lock = 'lock';
+    case incr = 'incr';
+    case decr = 'decr';
+    case clear = 'clear';
+    case lock = 'lock';
 }

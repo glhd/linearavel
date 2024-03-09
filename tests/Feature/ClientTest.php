@@ -12,12 +12,12 @@ class ClientTest extends TestCase
 {
 	public function test_it_can_fetch_teams(): void
 	{
-		Linear::teams('name', 'icon', 'key');
+		Linear::teams('id', 'members.edges.node.id');
 	}
 	
 	public function test_meta_generator(): void
 	{
-		$generator = new MetaGenerator(Team::class);
+		$generator = new MetaGenerator(Team::class, 'teams');
 		$generator->generate();
 	}
 	
@@ -25,7 +25,5 @@ class ClientTest extends TestCase
 	{
 		$transformer = new Transformer(__DIR__.'/../../local.graphql', 'Glhd\\Linearavel\\');
 		// echo $transformer->write();
-		// ->first()
-		// 			->organization->users->nodes->first()->name
 	}
 }

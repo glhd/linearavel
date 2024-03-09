@@ -1,10 +1,10 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum UserRoleType: string
+enum UserRoleType : string
 {
-	case admin = 'admin';
-	case guest = 'guest';
-	case user = 'user';
+    case admin = 'admin';
+    case guest = 'guest';
+    case user = 'user';
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum PaginationSortOrder: string
+enum PaginationSortOrder : string
 {
-	case Ascending = 'Ascending';
-	case Descending = 'Descending';
+    case Ascending = 'Ascending';
+    case Descending = 'Descending';
 }

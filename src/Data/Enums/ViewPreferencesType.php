@@ -1,9 +1,9 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum ViewPreferencesType: string
+enum ViewPreferencesType : string
 {
-	case organization = 'organization';
-	case user = 'user';
+    case organization = 'organization';
+    case user = 'user';
 }

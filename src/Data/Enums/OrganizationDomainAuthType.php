@@ -1,9 +1,9 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum OrganizationDomainAuthType: string
+enum OrganizationDomainAuthType : string
 {
-	case saml = 'saml';
-	case general = 'general';
+    case saml = 'saml';
+    case general = 'general';
 }

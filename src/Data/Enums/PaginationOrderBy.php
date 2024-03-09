@@ -1,9 +1,9 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum PaginationOrderBy: string
+enum PaginationOrderBy : string
 {
-	case createdAt = 'createdAt';
-	case updatedAt = 'updatedAt';
+    case createdAt = 'createdAt';
+    case updatedAt = 'updatedAt';
 }

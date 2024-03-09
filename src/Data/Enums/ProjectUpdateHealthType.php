@@ -1,10 +1,10 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum ProjectUpdateHealthType: string
+enum ProjectUpdateHealthType : string
 {
-	case onTrack = 'onTrack';
-	case atRisk = 'atRisk';
-	case offTrack = 'offTrack';
+    case onTrack = 'onTrack';
+    case atRisk = 'atRisk';
+    case offTrack = 'offTrack';
 }

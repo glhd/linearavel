@@ -1,9 +1,9 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum SLADayCountType: string
+enum SLADayCountType : string
 {
-	case all = 'all';
-	case onlyBusinessDays = 'onlyBusinessDays';
+    case all = 'all';
+    case onlyBusinessDays = 'onlyBusinessDays';
 }

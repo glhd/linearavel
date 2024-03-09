@@ -1,10 +1,10 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum IssueRelationType: string
+enum IssueRelationType : string
 {
-	case blocks = 'blocks';
-	case duplicate = 'duplicate';
-	case related = 'related';
+    case blocks = 'blocks';
+    case duplicate = 'duplicate';
+    case related = 'related';
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Glhd\Linearavel\Enums;
+namespace Glhd\Linearavel\Data\Enums;
 
-enum SlackChannelType: string
+enum SlackChannelType : string
 {
-	case DirectMessage = 'DirectMessage';
-	case MultiPersonDirectMessage = 'MultiPersonDirectMessage';
-	case Private = 'Private';
-	case Public = 'Public';
+    case DirectMessage = 'DirectMessage';
+    case MultiPersonDirectMessage = 'MultiPersonDirectMessage';
+    case Private = 'Private';
+    case Public = 'Public';
 }
