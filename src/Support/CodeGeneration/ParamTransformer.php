@@ -71,10 +71,6 @@ class ParamTransformer
 			new Name('Collection'),
 		];
 		
-		// if ($nullable) {
-		// 	$types[] = new Identifier('null');
-		// }
-		
 		return new UnionType($types);
 	}
 	
@@ -108,10 +104,13 @@ class ParamTransformer
 	
 	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): Identifier|Name
 	{
-		// FIXME: Scalars like "JSONObject"
-		
 		if ($node instanceof NonNullTypeNode) {
 			return $this->typeToName($node->type);
+		}
+		
+		// Treat all scalars as strings for now
+		if ($this->parent->parent->scalars->has($node->name->value)) {
+			return new Identifier('string');
 		}
 		
 		return match ($node->name->value) {
@@ -120,8 +119,7 @@ class ParamTransformer
 			'Int' => new Identifier('int'),
 			'String', 'ID' => new Identifier('string'),
 			'DateTime' => $this->fqcn('Carbon\CarbonImmutable'),
-			// 'JSONObject' => new Identifier('object'),
-			default => $this->fqcn($this->parent->namespace.'Data\\'.$node->name->value),
+			default => $this->parent->parent->registry->get($node->name->value) ?? $this->fqcn($this->parent->namespace.'Data\\'.$node->name->value),
 		};
 	}
 	

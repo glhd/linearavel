@@ -22,13 +22,13 @@ class Transformer
 {
 	// protected static $debugging = true;
 	
-	protected Collection $registry;
+	public Collection $registry;
 	
-	protected Collection $scalars;
+	public Collection $scalars;
 	
 	public function __construct(
 		protected string $filename,
-		protected string $namespace = 'Glhd\\Linearavel\\',
+		public string $namespace = 'Glhd\\Linearavel\\',
 		protected ?Command $command = null,
 		protected PrettyPrinter $printer = new PrettyPrinter\Standard(),
 	) {
@@ -91,7 +91,7 @@ class Transformer
 	
 	protected function class(ObjectTypeDefinitionNode $node): bool
 	{
-		$tree = ClassTransformer::transform($node, $this->namespace);
+		$tree = ClassTransformer::transform($node, $this);
 		
 		return $this->save($node, $tree);
 	}

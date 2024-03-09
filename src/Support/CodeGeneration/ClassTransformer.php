@@ -15,20 +15,23 @@ use Spatie\LaravelData\Data;
 
 class ClassTransformer
 {
+	public string $namespace;
+	
 	protected array $uses = [];
 	
 	public static function transform(
 		ObjectTypeDefinitionNode $node,
-		string $namespace = '\\',
+		Transformer $parent,
 	) {
-		$transformer = new static($node, $namespace);
+		$transformer = new static($node, $parent);
 		return $transformer();
 	}
 	
 	public function __construct(
 		protected ObjectTypeDefinitionNode $node,
-		public string $namespace = '\\',
+		public Transformer $parent,
 	) {
+		$this->namespace = $this->parent->namespace;
 		$this->use(Data::class);
 	}
 	
