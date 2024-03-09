@@ -2,9 +2,9 @@
 
 namespace Glhd\Linearavel\Enums;
 
-enum OAuthClientApprovalStatus : string
+enum OAuthClientApprovalStatus: string
 {
-    case requested = 'requested';
-    case approved = 'approved';
-    case denied = 'denied';
+	case requested = 'requested';
+	case approved = 'approved';
+	case denied = 'denied';
 }

@@ -2,15 +2,17 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\Issue, Illuminate\Support\Collection;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class IssueBatchPayload extends Data
 {
-    function __construct(
-        public Optional|float $lastSyncId,
-        /** @var Collection<int, Issue> */
-        public Collection $issues,
-        public Optional|bool $success
-    )
-    {
-    }
+	function __construct(
+		public Optional|float $lastSyncId,
+		/** @var Collection<int, Issue> */
+		public Collection $issues,
+		public Optional|bool $success
+	) {
+	}
 }

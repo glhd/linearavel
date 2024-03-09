@@ -4,9 +4,7 @@ namespace Glhd\Linearavel\Support;
 
 use Glhd\Linearavel\Data\Queries\Team;
 use Glhd\Linearavel\Data\Queries\User;
-use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Http;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\DataConfig;
 

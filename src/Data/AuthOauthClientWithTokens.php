@@ -2,14 +2,16 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\AuthOauthClient, Glhd\Linearavel\Data\OauthToken, Illuminate\Support\Collection;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class AuthOauthClientWithTokens extends Data
 {
-    function __construct(
-        public Optional|AuthOauthClient $client,
-        /** @var Collection<int, OauthToken> */
-        public Collection $tokens
-    )
-    {
-    }
+	function __construct(
+		public Optional|AuthOauthClient $client,
+		/** @var Collection<int, OauthToken> */
+		public Collection $tokens
+	) {
+	}
 }

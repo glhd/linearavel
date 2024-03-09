@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\AuthApiKey;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class AuthApiKeyPayload extends Data
 {
-    function __construct(public Optional|bool $success, public Optional|AuthApiKey $authApiKey)
-    {
-    }
+	function __construct(public Optional|bool $success, public Optional|AuthApiKey $authApiKey)
+	{
+	}
 }

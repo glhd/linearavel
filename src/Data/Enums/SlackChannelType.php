@@ -2,10 +2,10 @@
 
 namespace Glhd\Linearavel\Enums;
 
-enum SlackChannelType : string
+enum SlackChannelType: string
 {
-    case DirectMessage = 'DirectMessage';
-    case MultiPersonDirectMessage = 'MultiPersonDirectMessage';
-    case Private = 'Private';
-    case Public = 'Public';
+	case DirectMessage = 'DirectMessage';
+	case MultiPersonDirectMessage = 'MultiPersonDirectMessage';
+	case Private = 'Private';
+	case Public = 'Public';
 }

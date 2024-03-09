@@ -2,8 +2,8 @@
 
 namespace Glhd\Linearavel\Enums;
 
-enum PaginationSortOrder : string
+enum PaginationSortOrder: string
 {
-    case Ascending = 'Ascending';
-    case Descending = 'Descending';
+	case Ascending = 'Ascending';
+	case Descending = 'Descending';
 }

@@ -2,8 +2,8 @@
 
 namespace Glhd\Linearavel\Enums;
 
-enum PaginationNulls : string
+enum PaginationNulls: string
 {
-    case first = 'first';
-    case last = 'last';
+	case first = 'first';
+	case last = 'last';
 }

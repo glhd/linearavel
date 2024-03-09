@@ -2,8 +2,8 @@
 
 namespace Glhd\Linearavel\Enums;
 
-enum PaginationOrderBy : string
+enum PaginationOrderBy: string
 {
-    case createdAt = 'createdAt';
-    case updatedAt = 'updatedAt';
+	case createdAt = 'createdAt';
+	case updatedAt = 'updatedAt';
 }

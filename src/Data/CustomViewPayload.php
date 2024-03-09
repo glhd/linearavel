@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\CustomView;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class CustomViewPayload extends Data
 {
-    function __construct(public Optional|float $lastSyncId, public Optional|CustomView $customView, public Optional|bool $success)
-    {
-    }
+	function __construct(public Optional|float $lastSyncId, public Optional|CustomView $customView, public Optional|bool $success)
+	{
+	}
 }

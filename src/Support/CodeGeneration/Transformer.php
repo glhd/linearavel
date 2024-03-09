@@ -60,7 +60,7 @@ class Transformer
 	{
 		$tree = [
 			new Namespace_(new Name($this->namespace.'Data\\Contracts')),
-			new Interface_($node->name->value)
+			new Interface_($node->name->value),
 		];
 		
 		$filename = realpath(__DIR__.'/../../../src/Data/Contracts/').'/'.$node->name->value.'.php';

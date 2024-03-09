@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\Comment;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class CommentEdge extends Data
 {
-    function __construct(public Optional|Comment $node, public Optional|string $cursor)
-    {
-    }
+	function __construct(public Optional|Comment $node, public Optional|string $cursor)
+	{
+	}
 }

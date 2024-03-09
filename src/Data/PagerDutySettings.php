@@ -2,10 +2,16 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Carbon\CarbonImmutable, Spatie\LaravelData\Attributes\WithCast, Spatie\LaravelData\Casts\DateTimeInterfaceCast, DateTimeInterface;
+use Carbon\CarbonImmutable;
+use DateTimeInterface;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class PagerDutySettings extends Data
 {
-    function __construct(#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::DATE_RFC3339_EXTENDED)] public Optional|CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
-    {
-    }
+	function __construct(#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::DATE_RFC3339_EXTENDED)] public Optional|CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
+	{
+	}
 }

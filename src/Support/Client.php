@@ -6,9 +6,7 @@ use Glhd\Linearavel\Data\Queries\Team;
 use Glhd\Linearavel\Data\Queries\User;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
-use Spatie\LaravelData\Support\DataConfig;
 
 class Client
 {
@@ -19,7 +17,8 @@ class Client
 	) {
 	}
 	
-	public function viewer(?array $only = null, ?array $except = null): User {
+	public function viewer(?array $only = null, ?array $except = null): User
+	{
 		$props = $this->key_helper->get(User::class, $only, $except)->implode("\n");
 		
 		$result = $this->query(<<<gql
@@ -28,7 +27,8 @@ class Client
 					{$props}
 				}
 			}
-		gql);
+		gql
+		);
 		
 		return User::from($result->json('data.viewer'));
 	}
@@ -45,7 +45,8 @@ class Client
 					}
 				}
 			}
-		gql);
+		gql
+		);
 		
 		return Team::collect($result->json('data.teams.nodes'));
 	}

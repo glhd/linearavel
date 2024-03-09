@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Support;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,7 +30,7 @@ class LinearavelServiceProvider extends ServiceProvider
 		$this->app->singleton(KeyHelper::class);
 	}
 	
-	protected function bootViews() : self
+	protected function bootViews(): self
 	{
 		$this->loadViewsFrom($this->packageViewsDirectory(), 'linearavel');
 		
@@ -42,7 +41,7 @@ class LinearavelServiceProvider extends ServiceProvider
 		return $this;
 	}
 	
-	protected function bootBladeComponents() : self
+	protected function bootBladeComponents(): self
 	{
 		if (version_compare($this->app->version(), '8.0.0', '>=')) {
 			Blade::componentNamespace('Glhd\\Linearavel\\Components', 'linearavel');
@@ -51,7 +50,7 @@ class LinearavelServiceProvider extends ServiceProvider
 		return $this;
 	}
 	
-	protected function bootConfig() : self
+	protected function bootConfig(): self
 	{
 		$this->publishes([
 			$this->packageConfigFile() => $this->app->configPath('linearavel.php'),

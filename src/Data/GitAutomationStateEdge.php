@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\GitAutomationState;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class GitAutomationStateEdge extends Data
 {
-    function __construct(public Optional|GitAutomationState $node, public Optional|string $cursor)
-    {
-    }
+	function __construct(public Optional|GitAutomationState $node, public Optional|string $cursor)
+	{
+	}
 }

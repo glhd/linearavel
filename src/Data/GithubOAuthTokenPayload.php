@@ -2,14 +2,16 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\GithubOrg, Illuminate\Support\Collection;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class GithubOAuthTokenPayload extends Data
 {
-    function __construct(
-        public Optional|string|null $token,
-        /** @var Collection<int, GithubOrg> */
-        public Collection $organizations
-    )
-    {
-    }
+	function __construct(
+		public Optional|string|null $token,
+		/** @var Collection<int, GithubOrg> */
+		public Collection $organizations
+	) {
+	}
 }

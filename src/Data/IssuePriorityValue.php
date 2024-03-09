@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class IssuePriorityValue extends Data
 {
-    function __construct(public Optional|int $priority, public Optional|string $label)
-    {
-    }
+	function __construct(public Optional|int $priority, public Optional|string $label)
+	{
+	}
 }

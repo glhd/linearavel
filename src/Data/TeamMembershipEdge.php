@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\TeamMembership;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class TeamMembershipEdge extends Data
 {
-    function __construct(public Optional|TeamMembership $node, public Optional|string $cursor)
-    {
-    }
+	function __construct(public Optional|TeamMembership $node, public Optional|string $cursor)
+	{
+	}
 }

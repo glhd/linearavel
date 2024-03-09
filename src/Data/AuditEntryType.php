@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class AuditEntryType extends Data
 {
-    function __construct(public Optional|string $type, public Optional|string $description)
-    {
-    }
+	function __construct(public Optional|string $type, public Optional|string $description)
+	{
+	}
 }

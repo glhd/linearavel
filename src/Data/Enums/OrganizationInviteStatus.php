@@ -2,9 +2,9 @@
 
 namespace Glhd\Linearavel\Enums;
 
-enum OrganizationInviteStatus : string
+enum OrganizationInviteStatus: string
 {
-    case pending = 'pending';
-    case accepted = 'accepted';
-    case expired = 'expired';
+	case pending = 'pending';
+	case accepted = 'accepted';
+	case expired = 'expired';
 }

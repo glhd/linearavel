@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\Organization;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
 class OrganizationPayload extends Data
 {
-    function __construct(public Optional|float $lastSyncId, public Optional|Organization|null $organization, public Optional|bool $success)
-    {
-    }
+	function __construct(public Optional|float $lastSyncId, public Optional|Organization|null $organization, public Optional|bool $success)
+	{
+	}
 }
