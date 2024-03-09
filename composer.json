@@ -16,7 +16,9 @@
     "illuminate/support": "^9|^10|11.x-dev|dev-master",
     "ext-json": "*",
     "guzzlehttp/guzzle": "^7.8",
-    "spatie/laravel-data": "^4.2"
+    "spatie/laravel-data": "^4.2",
+    "webonyx/graphql-php": "^15.10",
+    "nikic/php-parser": "^5.0"
   },
   "require-dev": {
     "orchestra/testbench": "^6.24|^7.10|^8|9.x-dev|10.x-dev|dev-master",
