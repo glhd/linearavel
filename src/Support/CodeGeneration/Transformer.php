@@ -3,33 +3,38 @@
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
 use GraphQL\Language\AST\DefinitionNode;
+use GraphQL\Language\AST\DirectiveDefinitionNode;
 use GraphQL\Language\AST\EnumTypeDefinitionNode;
-use GraphQL\Language\AST\EnumValueDefinitionNode;
+use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
 use GraphQL\Language\AST\InterfaceTypeDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use GraphQL\Language\AST\ScalarTypeDefinitionNode;
+use GraphQL\Language\AST\UnionTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Console\Command;
-use Illuminate\Console\OutputStyle;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\Enum_;
-use PhpParser\Node\Stmt\EnumCase;
-use PhpParser\Node\Stmt\Interface_;
-use PhpParser\Node\Stmt\Namespace_;
+use Illuminate\Support\Collection;
 use PhpParser\ParserFactory;
-use PhpParser\PrettyPrinter\Standard;
+use PhpParser\PrettyPrinter;
 use RuntimeException;
+use UnexpectedValueException;
 
 class Transformer
 {
 	// protected static $debugging = true;
 	
+	protected Collection $registry;
+	
+	protected Collection $scalars;
+	
 	public function __construct(
 		protected string $filename,
 		protected string $namespace = 'Glhd\\Linearavel\\',
 		protected ?Command $command = null,
+		protected PrettyPrinter $printer = new PrettyPrinter\Standard(),
 	) {
+		$this->registry = new Collection();
+		$this->scalars = new Collection();
+		
 		if (isset(self::$debugging)) {
 			$debug = <<<'PHP'
 			<?php
@@ -52,66 +57,73 @@ class Transformer
 		$schema = file_get_contents($this->filename);
 		
 		collect(Parser::parse($schema)->definitions)
+			->each($this->register(...))
 			->each(fn(DefinitionNode $definition) => match ($definition::class) {
 				InterfaceTypeDefinitionNode::class => $this->interface($definition),
 				ObjectTypeDefinitionNode::class => $this->class($definition),
 				EnumTypeDefinitionNode::class => $this->enum($definition),
+				InputObjectTypeDefinitionNode::class => null, // TODO
+				UnionTypeDefinitionNode::class => null, // TODO
+				DirectiveDefinitionNode::class => null,
 				default => null,
 			});
 	}
 	
-	protected function interface(InterfaceTypeDefinitionNode $node): void
+	public function register(DefinitionNode $node): DefinitionNode
 	{
-		$tree = [
-			new Namespace_(new Name($this->namespace.'Data\\Contracts')),
-			new Interface_($node->name->value),
-		];
+		match ($node::class) {
+			InterfaceTypeDefinitionNode::class => $this->registry->put($node->name->value, $this->namespace.'Data\\Contracts\\'.$node->name->value),
+			ObjectTypeDefinitionNode::class => $this->registry->put($node->name->value, $this->namespace.'Data\\'.$node->name->value),
+			EnumTypeDefinitionNode::class => $this->registry->put($node->name->value, $this->namespace.'Data\\Enums\\'.$node->name->value),
+			ScalarTypeDefinitionNode::class => $this->scalars->put($node->name->value, 'string'),
+			default => null,
+		};
 		
-		$filename = realpath(__DIR__.'/../../../src/Data/Contracts/').'/'.$node->name->value.'.php';
-		$php = (new Standard())->prettyPrint($tree);
-		
-		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
-			throw new RuntimeException("Unable to write to '{$filename}'");
-		}
-		
-		$this->command?->line("Wrote <info>interface</info> to <info>{$filename}</info>");
+		return $node;
 	}
 	
-	protected function class(ObjectTypeDefinitionNode $node): void
+	protected function interface(InterfaceTypeDefinitionNode $node): bool
+	{
+		$tree = InterfaceTransformer::transform($node, $this->namespace);
+		
+		return $this->save($node, $tree);
+	}
+	
+	protected function class(ObjectTypeDefinitionNode $node): bool
 	{
 		$tree = ClassTransformer::transform($node, $this->namespace);
 		
-		$filename = realpath(__DIR__.'/../../../src/Data').'/'.$node->name->value.'.php';
-		$php = (new Standard())->prettyPrint($tree);
-		
-		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
-			throw new RuntimeException("Unable to write to '{$filename}'");
-		}
-		
-		$this->command?->line("Wrote <info>class</info> to <info>{$filename}</info>");
+		return $this->save($node, $tree);
 	}
 	
-	protected function enum(EnumTypeDefinitionNode $node): void
+	protected function enum(EnumTypeDefinitionNode $node): bool
 	{
-		$tree = [
-			new Namespace_(new Name($this->namespace.'Data\\Enums')),
-			new Enum_($node->name->value, [
-				'scalarType' => new Identifier('string'),
-				'stmts' => collect($node->values)
-					->map(function(EnumValueDefinitionNode $node) {
-						return (new EnumCase($node->name->value, new String_($node->name->value)));
-					})
-					->all(),
-			]),
-		];
+		$tree = EnumTransformer::transform($node, $this->namespace);
 		
-		$filename = realpath(__DIR__.'/../../../src/Data/Enums').'/'.$node->name->value.'.php';
-		$php = (new Standard())->prettyPrint($tree);
+		return $this->save($node, $tree);
+	}
+	
+	protected function save(DefinitionNode $node, array $tree): bool
+	{
+		[$label, $directory] = match ($node::class) {
+			InterfaceTypeDefinitionNode::class => ['interface', 'Data/Contracts'],
+			ObjectTypeDefinitionNode::class => ['type', 'Data'],
+			EnumTypeDefinitionNode::class => ['enum', 'Data/Enums'],
+			InputObjectTypeDefinitionNode::class => ['input', 'Data/Inputs'],
+			UnionTypeDefinitionNode::class => ['union', 'Data/Contracts'],
+			DirectiveDefinitionNode::class => ['directive', 'Data/Directives'],
+			default => throw new UnexpectedValueException("Did not expect: ".class_basename($node)),
+		};
+		
+		$filename = sprintf("%s/%s/%s.php", realpath(__DIR__.'/../../../src/'), $directory, $node->name->value);
+		$php = $this->printer->prettyPrint($tree);
 		
 		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
 			throw new RuntimeException("Unable to write to '{$filename}'");
 		}
 		
-		$this->command?->line("Wrote <info>enum</info> to <info>{$filename}</info>");
+		$this->command?->line("Wrote <info>{$label}</info> to <info>{$filename}</info>");
+		
+		return true;
 	}
 }
