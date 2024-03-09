@@ -4,6 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="Glhd\Linearavel\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Glhd\Linearavel\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/workbench/app" isTestSource="true" packagePrefix="Workbench\App\" />
+      <sourceFolder url="file://$MODULE_DIR$/workbench/database/factories" isTestSource="true" packagePrefix="Workbench\Database\Factories\" />
+      <sourceFolder url="file://$MODULE_DIR$/workbench/database/seeders" isTestSource="true" packagePrefix="Workbench\Database\Seeders\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/schema" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/utils" />

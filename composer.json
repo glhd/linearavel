@@ -1,55 +1,76 @@
 {
-  "name": "glhd/linearavel",
-  "description": "",
-  "keywords": [
-    "laravel"
-  ],
-  "authors": [
-    {
-      "name": "Chris Morrell",
-      "homepage": "http://www.cmorrell.com"
-    }
-  ],
-  "type": "library",
-  "license": "MIT",
-  "require": {
-    "illuminate/support": "^9|^10|11.x-dev|dev-master",
-    "ext-json": "*",
-    "guzzlehttp/guzzle": "^7.8",
-    "spatie/laravel-data": "^4.2",
-    "webonyx/graphql-php": "^15.10",
-    "nikic/php-parser": "^5.0"
-  },
-  "require-dev": {
-    "orchestra/testbench": "^6.24|^7.10|^8|9.x-dev|10.x-dev|dev-master",
-    "friendsofphp/php-cs-fixer": "^3.34",
-    "mockery/mockery": "^1.6",
-    "phpunit/phpunit": "^10.3"
-  },
-  "autoload": {
-    "psr-4": {
-      "Glhd\\Linearavel\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "classmap": [
-      "tests/TestCase.php"
+    "name": "glhd/linearavel",
+    "description": "",
+    "keywords": [
+        "laravel"
     ],
-    "psr-4": {
-      "Glhd\\Linearavel\\Tests\\": "tests/"
-    }
-  },
-  "scripts": {
-    "fix-style": "vendor/bin/php-cs-fixer fix",
-    "check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Glhd\\Linearavel\\Support\\LinearavelServiceProvider"
-      ]
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "authors": [
+        {
+            "name": "Chris Morrell",
+            "homepage": "http://www.cmorrell.com"
+        }
+    ],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "illuminate/support": "^9|^10|11.x-dev|dev-master",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.8",
+        "spatie/laravel-data": "^4.2",
+        "webonyx/graphql-php": "^15.10",
+        "nikic/php-parser": "^5.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.24|^7.10|^8|9.x-dev|10.x-dev|dev-master",
+        "friendsofphp/php-cs-fixer": "^3.34",
+        "mockery/mockery": "^1.6",
+        "phpunit/phpunit": "^10.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Glhd\\Linearavel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ],
+        "psr-4": {
+            "Glhd\\Linearavel\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "scripts": {
+        "fix-style": "vendor/bin/php-cs-fixer fix",
+        "check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run",
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "lint": [
+            "@php vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "@php vendor/bin/phpunit"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Glhd\\Linearavel\\Support\\LinearavelServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

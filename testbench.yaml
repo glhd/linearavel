@@ -1,0 +1,13 @@
+providers:
+workbench:
+  start: '/'
+  install: true
+  discovers:
+    web: true
+    api: false
+    commands: true
+    components: false
+    views: false
+  build: []
+  assets: []
+  sync: []

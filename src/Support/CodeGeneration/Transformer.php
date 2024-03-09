@@ -8,6 +8,7 @@ use GraphQL\Language\AST\EnumValueDefinitionNode;
 use GraphQL\Language\AST\InterfaceTypeDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
+use Illuminate\Console\OutputStyle;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
@@ -25,7 +26,8 @@ class Transformer
 	
 	public function __construct(
 		protected string $filename,
-		protected string $namespace = '\\',
+		protected string $namespace = 'Glhd\\Linearavel\\',
+		protected ?OutputStyle $output = null,
 	) {
 		if (isset(self::$debugging)) {
 			$debug = <<<'PHP'
@@ -44,6 +46,8 @@ class Transformer
 	
 	public function write()
 	{
+		$this->output?->info('Parsing schema...');
+		
 		$schema = file_get_contents($this->filename);
 		
 		collect(Parser::parse($schema)->definitions)
@@ -68,6 +72,8 @@ class Transformer
 		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
 			throw new RuntimeException("Unable to write to '{$filename}'");
 		}
+		
+		$this->output?->line("Wrote to <info>{$filename}</info>");
 	}
 	
 	protected function class(ObjectTypeDefinitionNode $node): void
@@ -80,6 +86,8 @@ class Transformer
 		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
 			throw new RuntimeException("Unable to write to '{$filename}'");
 		}
+		
+		$this->output?->line("Wrote to <info>{$filename}</info>");
 	}
 	
 	protected function enum(EnumTypeDefinitionNode $node): void
@@ -102,5 +110,7 @@ class Transformer
 		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
 			throw new RuntimeException("Unable to write to '{$filename}'");
 		}
+		
+		$this->output?->line("Wrote to <info>{$filename}</info>");
 	}
 }
