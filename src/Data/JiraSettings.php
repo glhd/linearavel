@@ -10,9 +10,9 @@ class JiraSettings extends Data
 {
 	function __construct(
 		/** @var Collection<int, JiraLinearMapping> */
-		public Collection $projectMapping,
+		public Optional|Collection $projectMapping,
 		/** @var Collection<int, JiraProjectData> */
-		public Collection $projects,
+		public Optional|Collection $projects,
 		public Optional|bool|null $isJiraServer
 	) {
 	}

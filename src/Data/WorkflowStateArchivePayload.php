@@ -2,13 +2,10 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Glhd\Linearavel\Data\Contracts\ArchivePayload;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Optional;
-
+use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\WorkflowState, Glhd\Linearavel\Data\Contracts\ArchivePayload;
 class WorkflowStateArchivePayload extends Data implements ArchivePayload
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|WorkflowState|null $entity)
-	{
-	}
+    function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|WorkflowState|null $entity)
+    {
+    }
 }

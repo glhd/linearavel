@@ -12,25 +12,25 @@ class Query extends Data
 		public Optional|ApiKeyConnection $apiKeys,
 		public Optional|Application $applicationInfo,
 		/** @var Collection<int, Application> */
-		public Collection $applicationInfoByIds,
+		public Optional|Collection $applicationInfoByIds,
 		/** @var Collection<int, WorkspaceAuthorizedApplication> */
-		public Collection $applicationInfoWithMembershipsByIds,
+		public Optional|Collection $applicationInfoWithMembershipsByIds,
 		public Optional|UserAuthorizedApplication $applicationWithAuthorization,
 		/** @var Collection<int, AuthorizedApplication> */
-		public Collection $authorizedApplications,
+		public Optional|Collection $authorizedApplications,
 		/** @var Collection<int, WorkspaceAuthorizedApplication> */
-		public Collection $workspaceAuthorizedApplications,
+		public Optional|Collection $workspaceAuthorizedApplications,
 		public Optional|AttachmentConnection $attachments,
 		public Optional|Attachment $attachment,
 		public Optional|AttachmentConnection $attachmentsForURL,
 		public Optional|Issue $attachmentIssue,
 		public Optional|AttachmentSourcesPayload $attachmentSources,
 		/** @var Collection<int, AuditEntryType> */
-		public Collection $auditEntryTypes,
+		public Optional|Collection $auditEntryTypes,
 		public Optional|AuditEntryConnection $auditEntries,
 		public Optional|AuthResolverResponse $availableUsers,
 		/** @var Collection<int, AuthenticationSessionResponse> */
-		public Collection $authenticationSessions,
+		public Optional|Collection $authenticationSessions,
 		public Optional|SsoUrlFromEmailResponse $ssoUrlFromEmail,
 		public Optional|CommentConnection $comments,
 		public Optional|Comment $comment,
@@ -72,7 +72,7 @@ class Query extends Data
 		public Optional|Issue|null $issueVcsBranchSearch,
 		public Optional|IssueConnection $issueFigmaFileKeySearch,
 		/** @var Collection<int, IssuePriorityValue> */
-		public Collection $issuePriorityValues,
+		public Optional|Collection $issuePriorityValues,
 		public Optional|IssueFilterSuggestionPayload $issueFilterSuggestion,
 		public Optional|NotificationConnection $notifications,
 		public Optional|Notification $notification,
@@ -85,7 +85,7 @@ class Query extends Data
 		public Optional|Organization $organization,
 		public Optional|OrganizationExistsPayload $organizationExists,
 		/** @var Collection<int, Team> */
-		public Collection $archivedTeams,
+		public Optional|Collection $archivedTeams,
 		public Optional|ProjectLinkConnection $projectLinks,
 		public Optional|ProjectLink $projectLink,
 		public Optional|ProjectMilestoneConnection $projectMilestones,
@@ -111,10 +111,10 @@ class Query extends Data
 		public Optional|TeamConnection $administrableTeams,
 		public Optional|Team $team,
 		/** @var Collection<int, Template> */
-		public Collection $templates,
+		public Optional|Collection $templates,
 		public Optional|Template $template,
 		/** @var Collection<int, Template> */
-		public Collection $templatesForIntegration,
+		public Optional|Collection $templatesForIntegration,
 		public Optional|TimeScheduleConnection $timeSchedules,
 		public Optional|TimeSchedule $timeSchedule,
 		public Optional|TriageResponsibilityConnection $triageResponsibilities,

@@ -19,7 +19,7 @@ class AuthenticationSession extends Data
 		public Optional|string|null $locationCountry,
 		public Optional|string|null $locationCountryCode,
 		/** @var Collection<int, string> */
-		public Collection $countryCodes,
+		public Optional|Collection $countryCodes,
 		public Optional|string|null $locationCity,
 		public Optional|string|null $userAgent,
 		public Optional|string|null $browserType,

@@ -11,7 +11,7 @@ class IssueBatchPayload extends Data
 	function __construct(
 		public Optional|float $lastSyncId,
 		/** @var Collection<int, Issue> */
-		public Collection $issues,
+		public Optional|Collection $issues,
 		public Optional|bool $success
 	) {
 	}

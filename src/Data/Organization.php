@@ -34,11 +34,11 @@ class Organization extends Data implements Node
 		public Optional|JSONObject|null $samlSettings,
 		public Optional|bool $scimEnabled,
 		/** @var Collection<int, string> */
-		public Collection $allowedAuthServices,
+		public Optional|Collection $allowedAuthServices,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $deletionRequestedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $trialEndsAt,
 		/** @var Collection<int, string> */
-		public Collection $previousUrlKeys,
+		public Optional|Collection $previousUrlKeys,
 		public Optional|bool|null $allowMembersToInvite,
 		public Optional|ReleaseChannel $releaseChannel,
 		public Optional|SLADayCountType $slaDayCount,

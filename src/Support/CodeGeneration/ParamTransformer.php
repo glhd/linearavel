@@ -60,13 +60,22 @@ class ParamTransformer
 		};
 	}
 	
-	protected function listType(ListTypeNode $node): Name
+	protected function listType(ListTypeNode $node): UnionType
 	{
 		$type = $this->typeToName($node->type);
 		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
 		
-		return new Name('Collection');
+		$types = [
+			new Name('Optional'),
+			new Name('Collection'),
+		];
+		
+		// if ($nullable) {
+		// 	$types[] = new Identifier('null');
+		// }
+		
+		return new UnionType($types);
 	}
 	
 	protected function namedType(NamedTypeNode $node, bool $nullable = false): UnionType

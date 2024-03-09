@@ -2,12 +2,10 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Optional;
-
+use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\NotificationSubscription;
 class NotificationSubscriptionEdge extends Data
 {
-	function __construct(public Optional|NotificationSubscription $node, public Optional|string $cursor)
-	{
-	}
+    function __construct(public Optional|NotificationSubscription $node, public Optional|string $cursor)
+    {
+    }
 }

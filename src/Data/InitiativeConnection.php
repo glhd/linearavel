@@ -10,9 +10,9 @@ class InitiativeConnection extends Data
 {
 	function __construct(
 		/** @var Collection<int, InitiativeEdge> */
-		public Collection $edges,
+		public Optional|Collection $edges,
 		/** @var Collection<int, Initiative> */
-		public Collection $nodes,
+		public Optional|Collection $nodes,
 		public Optional|PageInfo $pageInfo
 	) {
 	}

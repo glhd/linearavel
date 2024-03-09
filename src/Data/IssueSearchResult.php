@@ -37,14 +37,14 @@ class IssueSearchResult extends Data implements Node
 		public Optional|bool|null $trashed,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $snoozedUntilAt,
 		/** @var Collection<int, string> */
-		public Collection $labelIds,
+		public Optional|Collection $labelIds,
 		public Optional|Team $team,
 		public Optional|Cycle|null $cycle,
 		public Optional|Project|null $project,
 		public Optional|ProjectMilestone|null $projectMilestone,
 		public Optional|Template|null $lastAppliedTemplate,
 		/** @var Collection<int, string> */
-		public Collection $previousIdentifiers,
+		public Optional|Collection $previousIdentifiers,
 		public Optional|User|null $creator,
 		public Optional|ExternalUser|null $externalUserCreator,
 		public Optional|User|null $assignee,

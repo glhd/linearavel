@@ -21,7 +21,7 @@ class DocumentContentHistory extends Data implements Node
 		public Optional|DocumentContent $documentContent,
 		public Optional|JSONObject|null $contentData,
 		/** @var Collection<int, string> */
-		public Collection $actorIds,
+		public Optional|Collection $actorIds,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $contentDataSnapshotAt
 	) {
 	}

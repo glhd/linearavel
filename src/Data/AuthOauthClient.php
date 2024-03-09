@@ -22,7 +22,7 @@ class AuthOauthClient extends Data
 		public Optional|string|null $imageUrl,
 		public Optional|string $clientSecret,
 		/** @var Collection<int, string> */
-		public Collection $redirectUris,
+		public Optional|Collection $redirectUris,
 		public Optional|bool $publicEnabled,
 		public Optional|string $creatorId,
 		public Optional|string $organizationId,

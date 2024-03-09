@@ -16,7 +16,7 @@ class UploadFile extends Data
 		public Optional|string $assetUrl,
 		public Optional|JSONObject|null $metaData,
 		/** @var Collection<int, UploadFileHeader> */
-		public Collection $headers
+		public Optional|Collection $headers
 	) {
 	}
 }

@@ -10,9 +10,9 @@ class TimeScheduleConnection extends Data
 {
 	function __construct(
 		/** @var Collection<int, TimeScheduleEdge> */
-		public Collection $edges,
+		public Optional|Collection $edges,
 		/** @var Collection<int, TimeSchedule> */
-		public Collection $nodes,
+		public Optional|Collection $nodes,
 		public Optional|PageInfo $pageInfo
 	) {
 	}

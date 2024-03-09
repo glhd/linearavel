@@ -26,7 +26,7 @@ class Webhook extends Data implements Node
 		public Optional|User|null $creator,
 		public Optional|string|null $secret,
 		/** @var Collection<int, string> */
-		public Collection $resourceTypes
+		public Optional|Collection $resourceTypes
 	) {
 	}
 }

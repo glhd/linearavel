@@ -11,7 +11,7 @@ class AuthOauthClientWithTokens extends Data
 	function __construct(
 		public Optional|AuthOauthClient $client,
 		/** @var Collection<int, OauthToken> */
-		public Collection $tokens
+		public Optional|Collection $tokens
 	) {
 	}
 }

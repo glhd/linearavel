@@ -60,11 +60,11 @@ class IssueHistory extends Data implements Node
 		public Optional|Attachment|null $attachment,
 		public Optional|string|null $attachmentId,
 		/** @var Collection<int, string> */
-		public Collection $addedLabelIds,
+		public Optional|Collection $addedLabelIds,
 		/** @var Collection<int, string> */
-		public Collection $removedLabelIds,
+		public Optional|Collection $removedLabelIds,
 		/** @var Collection<int, IssueRelationHistoryPayload> */
-		public Collection $relationChanges,
+		public Optional|Collection $relationChanges,
 		public Optional|bool|null $autoClosed,
 		public Optional|bool|null $autoArchived,
 		public Optional|TimelessDate|null $fromDueDate,
@@ -72,9 +72,9 @@ class IssueHistory extends Data implements Node
 		public Optional|JSONObject|null $changes,
 		public Optional|ActorBot|null $botActor,
 		/** @var Collection<int, IssueLabel> */
-		public Collection $addedLabels,
+		public Optional|Collection $addedLabels,
 		/** @var Collection<int, IssueLabel> */
-		public Collection $removedLabels
+		public Optional|Collection $removedLabels
 	) {
 	}
 }

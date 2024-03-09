@@ -17,14 +17,14 @@ class AuthOrganization extends Data
 		public Optional|string $name,
 		public Optional|string $urlKey,
 		/** @var Collection<int, string> */
-		public Collection $previousUrlKeys,
+		public Optional|Collection $previousUrlKeys,
 		public Optional|string|null $logoUrl,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $deletionRequestedAt,
 		public Optional|ReleaseChannel $releaseChannel,
 		public Optional|bool $samlEnabled,
 		public Optional|JSONObject|null $samlSettings,
 		/** @var Collection<int, string> */
-		public Collection $allowedAuthServices,
+		public Optional|Collection $allowedAuthServices,
 		public Optional|bool $scimEnabled,
 		public Optional|string $serviceId,
 		public Optional|float $userCount

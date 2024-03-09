@@ -10,9 +10,9 @@ class IssueLabelConnection extends Data
 {
 	function __construct(
 		/** @var Collection<int, IssueLabelEdge> */
-		public Collection $edges,
+		public Optional|Collection $edges,
 		/** @var Collection<int, IssueLabel> */
-		public Collection $nodes,
+		public Optional|Collection $nodes,
 		public Optional|PageInfo $pageInfo
 	) {
 	}

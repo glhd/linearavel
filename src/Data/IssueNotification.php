@@ -34,7 +34,7 @@ class IssueNotification extends Data implements Notification, Entity, Node
 		public Optional|Comment|null $comment,
 		public Optional|Team $team,
 		/** @var Collection<int, NotificationSubscription> */
-		public Collection $subscriptions
+		public Optional|Collection $subscriptions
 	) {
 	}
 }

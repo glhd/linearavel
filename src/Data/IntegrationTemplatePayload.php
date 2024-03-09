@@ -2,8 +2,7 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Optional;
+use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\IntegrationTemplate;
 
 class IntegrationTemplatePayload extends Data
 {

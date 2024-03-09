@@ -26,12 +26,12 @@ class OauthClient extends Data implements Node
 		public Optional|string|null $imageUrl,
 		public Optional|string $clientSecret,
 		/** @var Collection<int, string> */
-		public Collection $redirectUris,
+		public Optional|Collection $redirectUris,
 		public Optional|bool $publicEnabled,
 		public Optional|User $creator,
 		public Optional|Organization $organization,
 		/** @var Collection<int, string> */
-		public Collection $webhookResourceTypes,
+		public Optional|Collection $webhookResourceTypes,
 		public Optional|string|null $webhookUrl,
 		public Optional|string|null $webhookSecret
 	) {

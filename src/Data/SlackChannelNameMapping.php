@@ -15,7 +15,7 @@ class SlackChannelNameMapping extends Data
 		public Optional|bool|null $isShared,
 		public Optional|bool|null $botAdded,
 		/** @var Collection<int, SlackAsksTeamSettings> */
-		public Collection $teams,
+		public Optional|Collection $teams,
 		public Optional|bool|null $autoCreateOnMessage,
 		public Optional|bool|null $autoCreateOnEmoji,
 		public Optional|bool|null $autoCreateOnBotMention,

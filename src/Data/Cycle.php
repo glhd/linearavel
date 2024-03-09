@@ -26,15 +26,15 @@ class Cycle extends Data implements Node
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $completedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $autoArchivedAt,
 		/** @var Collection<int, float> */
-		public Collection $issueCountHistory,
+		public Optional|Collection $issueCountHistory,
 		/** @var Collection<int, float> */
-		public Collection $completedIssueCountHistory,
+		public Optional|Collection $completedIssueCountHistory,
 		/** @var Collection<int, float> */
-		public Collection $scopeHistory,
+		public Optional|Collection $scopeHistory,
 		/** @var Collection<int, float> */
-		public Collection $completedScopeHistory,
+		public Optional|Collection $completedScopeHistory,
 		/** @var Collection<int, float> */
-		public Collection $inProgressScopeHistory,
+		public Optional|Collection $inProgressScopeHistory,
 		public Optional|Team $team,
 		public Optional|IssueConnection $issues,
 		public Optional|IssueConnection $uncompletedIssuesUponClose,

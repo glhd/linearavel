@@ -7,6 +7,7 @@ use Glhd\Linearavel\Data\Queries\User;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\DataConfig;
+use Spatie\LaravelData\Support\DataProperty;
 
 class KeyHelper
 {
@@ -16,12 +17,18 @@ class KeyHelper
 	}
 	
 	/** @var class-string<Data> $fqcn */
-	public function get(string $fqcn, ?array $only = null, ?array $except = null): Collection
+	public function get(string $fqcn, ?array $only = null, ?array $except = null, bool $nested = false): Collection
 	{
 		return $this->data_config
 			->getDataClass($fqcn)
 			->properties
-			->keys()
+			->mapWithKeys(function(DataProperty $property) use ($nested) {
+				return [
+					$property->name => $property->type->dataClass
+						? ($nested ? collect() : $this->get($property->type->dataClass, nested: true))
+						: null,
+				];
+			})
 			->when($only, fn(Collection $keys) => $keys->only($only))
 			->when($except, fn(Collection $keys) => $keys->except($except));
 	}

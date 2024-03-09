@@ -12,7 +12,7 @@ class AuthorizedApplicationBase extends Data
 		public Optional|string $name,
 		public Optional|string|null $imageUrl,
 		/** @var Collection<int, string> */
-		public Collection $scope,
+		public Optional|Collection $scope,
 		public Optional|string $appId,
 		public Optional|string $clientId
 	) {

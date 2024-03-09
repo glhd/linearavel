@@ -10,9 +10,9 @@ class ProjectLinkConnection extends Data
 {
 	function __construct(
 		/** @var Collection<int, ProjectLinkEdge> */
-		public Collection $edges,
+		public Optional|Collection $edges,
 		/** @var Collection<int, ProjectLink> */
-		public Collection $nodes,
+		public Optional|Collection $nodes,
 		public Optional|PageInfo $pageInfo
 	) {
 	}

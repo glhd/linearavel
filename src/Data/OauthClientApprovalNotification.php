@@ -2,33 +2,10 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Carbon\CarbonImmutable;
-use DateTimeInterface;
-use Glhd\Linearavel\Data\Contracts\Entity;
-use Glhd\Linearavel\Data\Contracts\Node;
-use Glhd\Linearavel\Data\Contracts\Notification;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Optional;
-
+use Spatie\LaravelData\Data, Spatie\LaravelData\Optional, Carbon\CarbonImmutable, Spatie\LaravelData\Attributes\WithCast, Spatie\LaravelData\Casts\DateTimeInterfaceCast, DateTimeInterface, Glhd\Linearavel\Data\User, Glhd\Linearavel\Data\ExternalUser, Glhd\Linearavel\Data\ActorBot, Glhd\Linearavel\Data\OauthClientApproval, Glhd\Linearavel\Data\Contracts\Notification, Glhd\Linearavel\Data\Contracts\Entity, Glhd\Linearavel\Data\Contracts\Node;
 class OauthClientApprovalNotification extends Data implements Notification, Entity, Node
 {
-	function __construct(
-		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|string $type,
-		public Optional|User|null $actor,
-		public Optional|ExternalUser|null $externalUserActor,
-		public Optional|User $user,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $readAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $emailedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $snoozedUntilAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $unsnoozedAt,
-		public Optional|ActorBot|null $botActor,
-		public Optional|OauthClientApproval $oauthClientApproval
-	) {
-	}
+    function __construct(public Optional|string $id, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt, public Optional|string $type, public Optional|User|null $actor, public Optional|ExternalUser|null $externalUserActor, public Optional|User $user, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $readAt, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $emailedAt, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $snoozedUntilAt, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $unsnoozedAt, public Optional|ActorBot|null $botActor, public Optional|OauthClientApproval $oauthClientApproval)
+    {
+    }
 }

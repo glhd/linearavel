@@ -20,7 +20,7 @@ class UserSettings extends Data implements Node
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|JSONObject $notificationPreferences,
 		/** @var Collection<int, string> */
-		public Collection $unsubscribedFrom,
+		public Optional|Collection $unsubscribedFrom,
 		public Optional|User $user,
 		public Optional|string|null $calendarHash,
 		public Optional|bool $subscribedToChangelog,

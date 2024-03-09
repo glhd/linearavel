@@ -2,10 +2,11 @@
 
 namespace Glhd\Linearavel\Support;
 
-use Glhd\Linearavel\Data\Queries\Team;
-use Glhd\Linearavel\Data\Queries\User;
+use Glhd\Linearavel\Data\Team;
+use Glhd\Linearavel\Data\User;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class Client
@@ -19,7 +20,7 @@ class Client
 	
 	public function viewer(?array $only = null, ?array $except = null): User
 	{
-		$props = $this->key_helper->get(User::class, $only, $except)->implode("\n");
+		$props = $this->key_helper->get(User::class, $only, $except);
 		
 		$result = $this->query(<<<gql
 			query ViewerQuery {
@@ -33,15 +34,15 @@ class Client
 		return User::from($result->json('data.viewer'));
 	}
 	
-	public function teams(?array $only = null, ?array $except = null)
+	public function teams(array $keys = ['id', 'name'])
 	{
-		$props = $this->key_helper->get(Team::class, $only, $except)->implode("\n");
+		$fields = $this->fields($keys);
 		
 		$result = $this->query(<<<gql
 			query TeamsQuery {
 				teams {
 					nodes {
-						{$props}		
+						{$fields}		
 					}
 				}
 			}
@@ -49,6 +50,22 @@ class Client
 		);
 		
 		return Team::collect($result->json('data.teams.nodes'));
+	}
+	
+	protected function fields(array $keys, int $depth = 0): string
+	{
+		return collect($keys)
+			->unless($depth, fn($keys) => $keys->flip()->undot())
+			->map(function($value, $key) use ($depth) {
+				$line = $key;
+				
+				if (is_array($value)) {
+					$line .= " {\n".$this->fields($value, $depth + 1)."\n}";
+				}
+				
+				return $line;
+			})
+			->implode("\n");
 	}
 	
 	protected function query(string $query): Response

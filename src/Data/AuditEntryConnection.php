@@ -10,9 +10,9 @@ class AuditEntryConnection extends Data
 {
 	function __construct(
 		/** @var Collection<int, AuditEntryEdge> */
-		public Collection $edges,
+		public Optional|Collection $edges,
 		/** @var Collection<int, AuditEntry> */
-		public Collection $nodes,
+		public Optional|Collection $nodes,
 		public Optional|PageInfo $pageInfo
 	) {
 	}

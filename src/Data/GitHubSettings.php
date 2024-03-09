@@ -12,9 +12,9 @@ class GitHubSettings extends Data
 		public Optional|string $orgAvatarUrl,
 		public Optional|string $orgLogin,
 		/** @var Collection<int, GitHubRepo> */
-		public Collection $repositories,
+		public Optional|Collection $repositories,
 		/** @var Collection<int, TeamRepoMapping> */
-		public Collection $repositoriesMapping
+		public Optional|Collection $repositoriesMapping
 	) {
 	}
 }

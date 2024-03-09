@@ -12,7 +12,7 @@ class SlackAsksSettings extends Data
 		public Optional|string|null $teamName,
 		public Optional|string|null $teamId,
 		/** @var Collection<int, SlackChannelNameMapping> */
-		public Collection $slackChannelMapping,
+		public Optional|Collection $slackChannelMapping,
 		public Optional|UserRoleType $canAdministrate
 	) {
 	}

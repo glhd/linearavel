@@ -41,15 +41,15 @@ class ProjectSearchResult extends Data implements Node
 		public Optional|Issue|null $convertedFromIssue,
 		public Optional|Template|null $lastAppliedTemplate,
 		/** @var Collection<int, float> */
-		public Collection $issueCountHistory,
+		public Optional|Collection $issueCountHistory,
 		/** @var Collection<int, float> */
-		public Collection $completedIssueCountHistory,
+		public Optional|Collection $completedIssueCountHistory,
 		/** @var Collection<int, float> */
-		public Collection $scopeHistory,
+		public Optional|Collection $scopeHistory,
 		/** @var Collection<int, float> */
-		public Collection $completedScopeHistory,
+		public Optional|Collection $completedScopeHistory,
 		/** @var Collection<int, float> */
-		public Collection $inProgressScopeHistory,
+		public Optional|Collection $inProgressScopeHistory,
 		public Optional|bool $slackNewIssue,
 		public Optional|bool $slackIssueComments,
 		public Optional|bool $slackIssueStatuses,

@@ -12,7 +12,7 @@ class RateLimitPayload extends Data
 		public Optional|string|null $identifier,
 		public Optional|string $kind,
 		/** @var Collection<int, RateLimitResultPayload> */
-		public Collection $limits
+		public Optional|Collection $limits
 	) {
 	}
 }

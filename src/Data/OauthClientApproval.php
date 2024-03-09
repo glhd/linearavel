@@ -23,7 +23,7 @@ class OauthClientApproval extends Data implements Node
 		public Optional|string|null $responderId,
 		public Optional|OAuthClientApprovalStatus $status,
 		/** @var Collection<int, string> */
-		public Collection $scopes,
+		public Optional|Collection $scopes,
 		public Optional|string|null $requestReason,
 		public Optional|string|null $denyReason
 	) {
