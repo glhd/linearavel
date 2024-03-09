@@ -63,7 +63,7 @@ class Transformer
 			new Interface_($node->name->value)
 		];
 		
-		$filename = realpath(__DIR__.'/../../../src/Data/').'/Contracts/'.$node->name->value.'.php';
+		$filename = realpath(__DIR__.'/../../../src/Data/Contracts/').'/'.$node->name->value.'.php';
 		$php = (new Standard())->prettyPrint($tree);
 		
 		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
@@ -92,6 +92,11 @@ class Transformer
 			]),
 		];
 		
-		// echo (new Standard())->prettyPrint($tree);
+		$filename = realpath(__DIR__.'/../../../src/Data/Enums').'/'.$node->name->value.'.php';
+		$php = (new Standard())->prettyPrint($tree);
+		
+		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
+			throw new RuntimeException("Unable to write to '{$filename}'");
+		}
 	}
 }
