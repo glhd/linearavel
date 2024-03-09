@@ -119,7 +119,9 @@ class ParamTransformer
 			'Int' => new Identifier('int'),
 			'String', 'ID' => new Identifier('string'),
 			'DateTime' => $this->fqcn('Carbon\CarbonImmutable'),
-			default => $this->parent->parent->registry->get($node->name->value) ?? $this->fqcn($this->parent->namespace.'Data\\'.$node->name->value),
+			default => $this->fqcn(
+				$this->parent->parent->registry->get($node->name->value) ?? $this->parent->namespace.'Data\\'.$node->name->value
+			),
 		};
 	}
 	
