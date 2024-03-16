@@ -14,14 +14,11 @@ abstract class LinearRequest extends Request implements HasBody
 	
 	protected Method $method = Method::POST;
 	
+	protected ?string $response = LinearResponse::class;
+	
 	public function resolveEndpoint(): string
 	{
 		return '/';
-	}
-	
-	public function resolveResponseClass(): ?string
-	{
-		return LinearResponse::class;
 	}
 	
 	abstract protected function gql(): string;
