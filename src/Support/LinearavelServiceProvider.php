@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Support;
 
+use Glhd\Linearavel\Connectors\LinearConnector;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,8 +17,8 @@ class LinearavelServiceProvider extends ServiceProvider
 	{
 		$this->mergeConfigFrom($this->packageConfigFile(), 'linearavel');
 		
-		$this->app->singleton(Client::class, function() {
-			return new Client(
+		$this->app->singleton(LinearConnector::class, function() {
+			return new LinearConnector(
 				api_key: config('linearavel.api_key'),
 				key_helper: app(KeyHelper::class),
 				base_url: config('linearavel.base_url', 'https://api.linear.app/graphql'),
