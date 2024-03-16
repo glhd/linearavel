@@ -3,7 +3,6 @@
 namespace Glhd\Linearavel\Support;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class LinearavelServiceProvider extends ServiceProvider

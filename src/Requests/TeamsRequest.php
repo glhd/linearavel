@@ -2,7 +2,7 @@
 
 namespace Glhd\Linearavel\Requests;
 
-class TeamsRequest extends GraphQlRequest
+class TeamsRequest extends LinearRequest
 {
 	public function __construct(
 		protected array $keys

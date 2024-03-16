@@ -2,23 +2,29 @@
 
 namespace Glhd\Linearavel\Requests;
 
+use Glhd\Linearavel\Responses\LinearResponse;
+use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
-use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 
-abstract class GraphQlRequest extends Request implements HasBody
+abstract class LinearRequest extends Request implements HasBody
 {
 	use HasJsonBody;
 	
 	protected Method $method = Method::POST;
 	
-	abstract protected function gql(): string;
-	
 	public function resolveEndpoint(): string
 	{
 		return '/';
 	}
+	
+	public function resolveResponseClass(): ?string
+	{
+		return LinearResponse::class;
+	}
+	
+	abstract protected function gql(): string;
 	
 	protected function fields(array $keys, int $depth = 0): string
 	{

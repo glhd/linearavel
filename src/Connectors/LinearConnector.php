@@ -21,7 +21,7 @@ class LinearConnector extends Connector
 	{
 		$response = $this->send(new TeamsRequest($keys));
 		
-		dd($response->body());
+		return $response->json();
 	}
 	
 	public function resolveBaseUrl(): string
