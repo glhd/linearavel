@@ -4,6 +4,11 @@ namespace Glhd\Linearavel\Support;
 
 class GraphQueryBuilder
 {
+	public static function make(string $type, string $name): static
+	{
+		return new static($type, $name);
+	}
+	
 	public function __construct(
 		protected string $type,
 		protected string $name,
@@ -13,9 +18,29 @@ class GraphQueryBuilder
 	) {
 	}
 	
+	public function withFields(array $fields, bool $overwrite = false): static
+	{
+		$this->fields = $overwrite
+			? $fields
+			: array_merge($this->fields, $fields);
+		
+		return $this;
+	}
+	
+	public function withArguments(array $arguments, bool $overwrite = false): static
+	{
+		$this->arguments = $overwrite
+			? $arguments
+			: array_replace_recursive($this->arguments, $arguments);
+		
+		return $this;
+	}
+	
 	public function __toString(): string
 	{
-		$alias = $this->alias ? " {$this->alias}" : '';
+		$alias = $this->alias
+			? " {$this->alias}"
+			: '';
 		$args = $this->formatArguments($this->arguments);
 		$fields = $this->formatFields($this->fields);
 		
@@ -60,7 +85,7 @@ class GraphQueryBuilder
 		$indent = "\t\t".(str_repeat("\t", $depth));
 		
 		return collect($keys)
-			->unless($depth, fn ($keys) => $keys->flip()->undot())
+			->unless($depth, fn($keys) => $keys->flip()->undot())
 			->map(function($value, $key) use ($depth, $indent) {
 				$line = $key;
 				

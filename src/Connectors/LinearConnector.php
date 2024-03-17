@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Connectors;
 
+use Glhd\Linearavel\Support\GraphQueryBuilder;
 use Glhd\Linearavel\Support\KeyHelper;
 use Saloon\Contracts\Authenticator;
 use Saloon\Http\Auth\TokenAuthenticator;
@@ -32,13 +33,12 @@ class LinearConnector extends Connector
 	
 	protected function linearQuery(string $name, array $args)
 	{
-		$args = collect($args)->reject(fn ($arg) => null === $arg);
+		$args = collect($args)->reject(fn ($arg) => null === $arg)->all();
 		
-		$query = $args->isEmpty()
-			? $name
-			: $name.'('.$args->toJson().')';
+		$builder = GraphQueryBuilder::make('query', $name)
+			->withArguments($args);
 		
-		dd($query);
+		dd((string) $builder);
 		
 		return '';
 	}
