@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Support\CodeGeneration;
 
 use DateTimeInterface;
 use GraphQL\Language\AST\FieldDefinitionNode;
+use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\NonNullTypeNode;
@@ -12,10 +13,13 @@ use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
+use PhpParser\Node\ComplexType;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\UnionType;
 use Spatie\LaravelData\Attributes\WithCast;
@@ -27,16 +31,16 @@ class ParamTransformer
 	protected Param $param;
 	
 	public static function transform(
-		FieldDefinitionNode $node,
-		ClassTransformer $parent
+		FieldDefinitionNode|InputValueDefinitionNode $node,
+		ClassTransformer|InputTransformer $parent
 	) {
 		$transformer = new static($node, $parent);
 		return $transformer();
 	}
 	
 	public function __construct(
-		protected FieldDefinitionNode $node,
-		protected ClassTransformer $parent,
+		protected FieldDefinitionNode|InputValueDefinitionNode $node,
+		protected ClassTransformer|InputTransformer $parent,
 	) {
 		$this->param = new Param(
 			var: new Variable($this->node->name->value),
@@ -47,6 +51,10 @@ class ParamTransformer
 	public function __invoke()
 	{
 		$this->param->type = $this->nodeType($this->node->type);
+		
+		if ($this->param->type instanceof NullableType) {
+			$this->param->default = new ConstFetch(new Name('null'));
+		}
 		
 		return $this->param;
 	}
@@ -60,46 +68,56 @@ class ParamTransformer
 		};
 	}
 	
-	protected function listType(ListTypeNode $node): UnionType
+	protected function listType(ListTypeNode $node): UnionType|Name
 	{
 		$type = $this->typeToName($node->type);
 		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
 		
-		$types = [
-			new Name('Optional'),
-			new Name('Collection'),
-		];
-		
-		return new UnionType($types);
-	}
-	
-	protected function namedType(NamedTypeNode $node, bool $nullable = false): UnionType
-	{
-		$this->parent->use(Optional::class);
-		
-		$type = $this->typeToName($node);
-		
-		if ('DateTime' === $node->name->value) {
-			$this->param->attrGroups ??= [];
-			$this->param->attrGroups[] = new AttributeGroup([
-				new Attribute($this->fqcn(WithCast::class), [
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
-				]),
-			]);
+		if ($this->node instanceof InputValueDefinitionNode) {
+			return new Name('Collection');
 		}
 		
-		$types = [
+		return new UnionType([
 			new Name('Optional'),
-			$type,
-		];
+			new Name('Collection'),
+		]);
+	}
+	
+	protected function namedType(NamedTypeNode $node, bool $nullable = false): ComplexType|Name
+	{
+		$type = $this->typeToName($node);
+		
+		if ($this->node instanceof InputValueDefinitionNode) {
+			return $nullable 
+				? new NullableType($type) 
+				: $type;
+		} else {
+			if ('DateTime' === $node->name->value) {
+				$this->param->attrGroups ??= [];
+				$this->param->attrGroups[] = new AttributeGroup([
+					new Attribute($this->fqcn(WithCast::class), [
+						new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
+						new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
+					]),
+				]);
+			}
+			
+			$this->parent->use(Optional::class);
+			
+			$types = [
+				new Name('Optional'),
+				$type,
+			];
+		}
 		
 		if ($nullable) {
 			$types[] = new Identifier('null');
 		}
 		
-		return new UnionType($types);
+		return count($types) > 1 
+			? new UnionType($types)
+			: $types[0];
 	}
 	
 	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): Identifier|Name
