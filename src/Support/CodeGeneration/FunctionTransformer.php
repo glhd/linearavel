@@ -49,7 +49,7 @@ class FunctionTransformer
 	public function __invoke()
 	{
 		$args = collect($this->node->arguments)
-			->map(fn(InputValueDefinitionNode $arg) => ParamTransformer::transform($arg, $this->parent, 0))
+			->map(fn(InputValueDefinitionNode $arg) => FunctionParamTransformer::transform($arg, $this->parent, 0))
 			->all();
 		
 		$this->method->params = $args;

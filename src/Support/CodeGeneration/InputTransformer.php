@@ -77,7 +77,7 @@ class InputTransformer
 	protected function params(): array
 	{
 		return collect($this->node->fields)
-			->map(fn(InputValueDefinitionNode $node) => ParamTransformer::transform($node, $this))
+			->map(fn(InputValueDefinitionNode $node) => ConstructorParamTransformer::transform($node, $this))
 			->all();
 	}
 }

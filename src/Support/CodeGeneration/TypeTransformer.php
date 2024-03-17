@@ -53,7 +53,7 @@ class TypeTransformer extends ClassTransformer
 	protected function params(): array
 	{
 		return collect($this->node->fields)
-			->map(fn(FieldDefinitionNode $node) => ParamTransformer::transform($node, $this))
+			->map(fn(FieldDefinitionNode $node) => ConstructorParamTransformer::transform($node, $this))
 			->all();
 	}
 	

@@ -8,12 +8,12 @@ use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\NonNullTypeNode;
+use GraphQL\Language\AST\TypeNode;
 use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\ComplexType;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
@@ -27,42 +27,13 @@ use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Optional;
 
-class ParamTransformer
+abstract class ParamTransformer
 {
-	protected Param $param;
+	protected ClassTransformer $parent;
 	
-	public static function transform(
-		FieldDefinitionNode|InputValueDefinitionNode $node,
-		ClassTransformer $parent,
-		int $flags = 1,
-	) {
-		$transformer = new static($node, $parent, $flags);
-		return $transformer();
-	}
+	abstract public function __invoke(): Param;
 	
-	public function __construct(
-		protected FieldDefinitionNode|InputValueDefinitionNode $node,
-		protected ClassTransformer $parent,
-		int $flags,
-	) {
-		$this->param = new Param(
-			var: new Variable($this->node->name->value),
-			flags: $flags,
-		);
-	}
-	
-	public function __invoke()
-	{
-		$this->param->type = $this->nodeType($this->node->type);
-		
-		if ($this->param->type instanceof NullableType) {
-			$this->param->default = new ConstFetch(new Name('null'));
-		}
-		
-		return $this->param;
-	}
-	
-	protected function nodeType(NamedTypeNode|ListTypeNode|NonNullTypeNode $node, bool $nullable = true)
+	protected function nodeType(TypeNode $node, bool $nullable = true)
 	{
 		return match ($node::class) {
 			NamedTypeNode::class => $this->namedType($node, $nullable),
@@ -71,59 +42,21 @@ class ParamTransformer
 		};
 	}
 	
-	protected function listType(ListTypeNode $node): UnionType|Name
+	protected function listType(ListTypeNode $node): NodeAbstract
 	{
-		$type = $this->typeToName($node->type);
-		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
-		$this->parent->use(Collection::class);
-		
-		if ($this->node instanceof InputValueDefinitionNode) {
-			return new Name('Collection');
-		}
-		
-		return new UnionType([
-			new Name('Optional'),
-			new Name('Collection'),
-		]);
+		return new Name('array');
 	}
 	
 	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract
 	{
 		$type = $this->typeToName($node);
 		
-		if ($this->node instanceof InputValueDefinitionNode) {
-			return $nullable 
-				? new NullableType($type) 
-				: $type;
-		} else {
-			if ('DateTime' === $node->name->value) {
-				$this->param->attrGroups ??= [];
-				$this->param->attrGroups[] = new AttributeGroup([
-					new Attribute($this->fqcn(WithCast::class), [
-						new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
-						new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
-					]),
-				]);
-			}
-			
-			$this->parent->use(Optional::class);
-			
-			$types = [
-				new Name('Optional'),
-				$type,
-			];
-		}
-		
-		if ($nullable) {
-			$types[] = new Identifier('null');
-		}
-		
-		return count($types) > 1 
-			? new UnionType($types)
-			: $types[0];
+		return $nullable
+			? new NullableType($type)
+			: $type;
 	}
 	
-	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): Identifier|Name
+	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): NodeAbstract
 	{
 		if ($node instanceof NonNullTypeNode) {
 			return $this->typeToName($node->type);
@@ -134,7 +67,7 @@ class ParamTransformer
 			'Float' => new Identifier('float'),
 			'Int' => new Identifier('int'),
 			'String', 'ID' => new Identifier('string'),
-			'DateTime' => $this->fqcn('Carbon\CarbonImmutable'),
+			'DateTime' => $this->dateTimeType(),
 			default => value(function() use ($node) {
 				// Treat all scalars as strings for now
 				if ($this->parent->parent->scalars->has($node->name->value)) {
@@ -148,9 +81,15 @@ class ParamTransformer
 		};
 	}
 	
+	protected function dateTimeType(): Name
+	{
+		return $this->fqcn('Carbon\CarbonImmutable');
+	}
+	
 	protected function fqcn(string $fqcn): Name
 	{
 		$this->parent->use($fqcn);
+		
 		return new Name(class_basename($fqcn));
 	}
 }
