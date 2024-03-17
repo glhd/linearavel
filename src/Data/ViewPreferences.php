@@ -21,7 +21,7 @@ class ViewPreferences extends Data implements Node
 		public Optional|string $type,
 		public Optional|string $viewType,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

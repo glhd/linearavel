@@ -26,13 +26,13 @@ class DocumentSearchResult extends Data implements Node
 		public Optional|float $sortOrder,
 		public Optional|string $metadata,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $icon = null,
-		public Optional|string|null $color = null,
-		public Optional|Template|null $lastAppliedTemplate = null,
-		public Optional|string|null $content = null,
-		public Optional|string|null $contentState = null,
-		public Optional|string|null $contentData = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $icon,
+		public Optional|string|null $color,
+		public Optional|Template|null $lastAppliedTemplate,
+		public Optional|string|null $content,
+		public Optional|string|null $contentState,
+		public Optional|string|null $contentData
 	) {
 	}
 }

@@ -17,9 +17,9 @@ class AuthResolverResponse extends Data
 		public Optional|Collection $availableOrganizations,
 		/** @var Collection<int, AuthOrganization> */
 		public Optional|Collection $lockedOrganizations,
-		public Optional|bool|null $allowDomainAccess = null,
-		public Optional|string|null $lastUsedOrganizationId = null,
-		public Optional|string|null $token = null
+		public Optional|bool|null $allowDomainAccess,
+		public Optional|string|null $lastUsedOrganizationId,
+		public Optional|string|null $token
 	) {
 	}
 }

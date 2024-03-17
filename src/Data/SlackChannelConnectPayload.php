@@ -11,9 +11,9 @@ class SlackChannelConnectPayload extends Data
 		public Optional|float $lastSyncId,
 		public Optional|bool $success,
 		public Optional|bool $addBot,
-		public Optional|Integration|null $integration = null,
-		public Optional|bool|null $nudgeToConnectMainSlackIntegration = null,
-		public Optional|bool|null $nudgeToUpdateMainSlackIntegration = null
+		public Optional|Integration|null $integration,
+		public Optional|bool|null $nudgeToConnectMainSlackIntegration,
+		public Optional|bool|null $nudgeToUpdateMainSlackIntegration
 	) {
 	}
 }

@@ -18,7 +18,7 @@ class WorkspaceAuthorizedApplication extends Data
 		public Optional|float $totalMembers,
 		/** @var Collection<int, AuthMembership> */
 		public Optional|Collection $memberships,
-		public Optional|string|null $imageUrl = null
+		public Optional|string|null $imageUrl
 	) {
 	}
 }

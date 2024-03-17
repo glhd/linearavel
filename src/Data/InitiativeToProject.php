@@ -22,7 +22,7 @@ class InitiativeToProject extends Data implements Node
 		public Optional|Initiative $initiative,
 		public Optional|string $sortOrder,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

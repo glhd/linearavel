@@ -22,7 +22,7 @@ class RoadmapToProject extends Data implements Node
 		public Optional|Roadmap $roadmap,
 		public Optional|string $sortOrder,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

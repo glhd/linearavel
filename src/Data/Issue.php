@@ -45,47 +45,47 @@ class Issue extends Data implements Node
 		public Optional|IssueRelationConnection $inverseRelations,
 		public Optional|AttachmentConnection $attachments,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|float|null $estimate = null,
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|float|null $estimate,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $startedAt = null,
+		public Optional|CarbonImmutable|null $startedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $completedAt = null,
+		public Optional|CarbonImmutable|null $completedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $startedTriageAt = null,
+		public Optional|CarbonImmutable|null $startedTriageAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $triagedAt = null,
+		public Optional|CarbonImmutable|null $triagedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $canceledAt = null,
+		public Optional|CarbonImmutable|null $canceledAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $autoClosedAt = null,
+		public Optional|CarbonImmutable|null $autoClosedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $autoArchivedAt = null,
-		public Optional|string|null $dueDate = null,
+		public Optional|CarbonImmutable|null $autoArchivedAt,
+		public Optional|string|null $dueDate,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $slaStartedAt = null,
+		public Optional|CarbonImmutable|null $slaStartedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $slaBreachesAt = null,
-		public Optional|bool|null $trashed = null,
+		public Optional|CarbonImmutable|null $slaBreachesAt,
+		public Optional|bool|null $trashed,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $snoozedUntilAt = null,
-		public Optional|Cycle|null $cycle = null,
-		public Optional|Project|null $project = null,
-		public Optional|ProjectMilestone|null $projectMilestone = null,
-		public Optional|Template|null $lastAppliedTemplate = null,
-		public Optional|User|null $creator = null,
-		public Optional|ExternalUser|null $externalUserCreator = null,
-		public Optional|User|null $assignee = null,
-		public Optional|User|null $snoozedBy = null,
-		public Optional|float|null $subIssueSortOrder = null,
-		public Optional|Comment|null $sourceComment = null,
-		public Optional|IntegrationService|null $integrationSourceType = null,
-		public Optional|ActorBot|null $botActor = null,
-		public Optional|Favorite|null $favorite = null,
-		public Optional|Issue|null $parent = null,
-		public Optional|string|null $description = null,
-		public Optional|string|null $descriptionData = null,
-		public Optional|string|null $descriptionState = null
+		public Optional|CarbonImmutable|null $snoozedUntilAt,
+		public Optional|Cycle|null $cycle,
+		public Optional|Project|null $project,
+		public Optional|ProjectMilestone|null $projectMilestone,
+		public Optional|Template|null $lastAppliedTemplate,
+		public Optional|User|null $creator,
+		public Optional|ExternalUser|null $externalUserCreator,
+		public Optional|User|null $assignee,
+		public Optional|User|null $snoozedBy,
+		public Optional|float|null $subIssueSortOrder,
+		public Optional|Comment|null $sourceComment,
+		public Optional|IntegrationService|null $integrationSourceType,
+		public Optional|ActorBot|null $botActor,
+		public Optional|Favorite|null $favorite,
+		public Optional|Issue|null $parent,
+		public Optional|string|null $description,
+		public Optional|string|null $descriptionData,
+		public Optional|string|null $descriptionState
 	) {
 	}
 }

@@ -23,7 +23,7 @@ class ProjectUpdateInteraction extends Data implements Node
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable $readAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

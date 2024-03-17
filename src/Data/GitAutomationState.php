@@ -22,10 +22,10 @@ class GitAutomationState extends Data implements Node
 		public Optional|Team $team,
 		public Optional|GitAutomationStates $event,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|WorkflowState|null $state = null,
-		public Optional|GitAutomationTargetBranch|null $targetBranch = null,
-		public Optional|string|null $branchPattern = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|WorkflowState|null $state,
+		public Optional|GitAutomationTargetBranch|null $targetBranch,
+		public Optional|string|null $branchPattern
 	) {
 	}
 }

@@ -23,9 +23,9 @@ class EmailIntakeAddress extends Data implements Node
 		public Optional|Team $team,
 		public Optional|Organization $organization,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|Template|null $template = null,
-		public Optional|User|null $creator = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Template|null $template,
+		public Optional|User|null $creator
 	) {
 	}
 }

@@ -26,18 +26,18 @@ class IssueDraft extends Data implements Node
 		public Optional|string $priorityLabel,
 		public Optional|string $attachments,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null,
-		public Optional|float|null $estimate = null,
-		public Optional|string|null $dueDate = null,
-		public Optional|string|null $cycleId = null,
-		public Optional|string|null $projectId = null,
-		public Optional|string|null $projectMilestoneId = null,
-		public Optional|string|null $assigneeId = null,
-		public Optional|IssueDraft|null $parent = null,
-		public Optional|Issue|null $parentIssue = null,
-		public Optional|float|null $subIssueSortOrder = null,
-		public Optional|string|null $descriptionData = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description,
+		public Optional|float|null $estimate,
+		public Optional|string|null $dueDate,
+		public Optional|string|null $cycleId,
+		public Optional|string|null $projectId,
+		public Optional|string|null $projectMilestoneId,
+		public Optional|string|null $assigneeId,
+		public Optional|IssueDraft|null $parent,
+		public Optional|Issue|null $parentIssue,
+		public Optional|float|null $subIssueSortOrder,
+		public Optional|string|null $descriptionData
 	) {
 	}
 }

@@ -26,8 +26,8 @@ class WorkflowCronJobDefinition extends Data implements Node
 		public Optional|string $activities,
 		public Optional|string $sortOrder,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description
 	) {
 	}
 }

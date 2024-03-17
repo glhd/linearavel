@@ -16,8 +16,8 @@ class TimeScheduleEntry extends Data
 		public Optional|CarbonImmutable $startsAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable $endsAt,
-		public Optional|string|null $userId = null,
-		public Optional|string|null $userEmail = null
+		public Optional|string|null $userId,
+		public Optional|string|null $userEmail
 	) {
 	}
 }

@@ -27,12 +27,12 @@ class ProjectUpdate extends Data implements Node
 		public Optional|string $bodyData,
 		public Optional|string $url,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|CarbonImmutable|null $archivedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $editedAt = null,
-		public Optional|string|null $infoSnapshot = null,
-		public Optional|string|null $diff = null,
-		public Optional|string|null $diffMarkdown = null
+		public Optional|CarbonImmutable|null $editedAt,
+		public Optional|string|null $infoSnapshot,
+		public Optional|string|null $diff,
+		public Optional|string|null $diffMarkdown
 	) {
 	}
 }

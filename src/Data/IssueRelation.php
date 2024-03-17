@@ -22,7 +22,7 @@ class IssueRelation extends Data implements Node
 		public Optional|Issue $issue,
 		public Optional|Issue $relatedIssue,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

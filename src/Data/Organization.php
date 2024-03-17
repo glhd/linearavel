@@ -49,16 +49,16 @@ class Organization extends Data implements Node
 		public Optional|TemplateConnection $templates,
 		public Optional|IssueLabelConnection $labels,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $logoUrl = null,
-		public Optional|string|null $gitBranchFormat = null,
-		public Optional|string|null $samlSettings = null,
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $logoUrl,
+		public Optional|string|null $gitBranchFormat,
+		public Optional|string|null $samlSettings,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $deletionRequestedAt = null,
+		public Optional|CarbonImmutable|null $deletionRequestedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $trialEndsAt = null,
-		public Optional|bool|null $allowMembersToInvite = null,
-		public Optional|PaidSubscription|null $subscription = null
+		public Optional|CarbonImmutable|null $trialEndsAt,
+		public Optional|bool|null $allowMembersToInvite,
+		public Optional|PaidSubscription|null $subscription
 	) {
 	}
 }

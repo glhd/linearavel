@@ -24,7 +24,7 @@ class OrganizationInviteFullDetailsPayload extends Data
 		public Optional|string $organizationId,
 		public Optional|bool $accepted,
 		public Optional|bool $expired,
-		public Optional|string|null $organizationLogoUrl = null
+		public Optional|string|null $organizationLogoUrl
 	) {
 	}
 }

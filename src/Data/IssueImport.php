@@ -22,13 +22,13 @@ class IssueImport extends Data implements Node
 		public Optional|string $service,
 		public Optional|string $status,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $teamName = null,
-		public Optional|string|null $mapping = null,
-		public Optional|string|null $error = null,
-		public Optional|float|null $progress = null,
-		public Optional|string|null $csvFileUrl = null,
-		public Optional|string|null $errorMetadata = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $teamName,
+		public Optional|string|null $mapping,
+		public Optional|string|null $error,
+		public Optional|float|null $progress,
+		public Optional|string|null $csvFileUrl,
+		public Optional|string|null $errorMetadata
 	) {
 	}
 }

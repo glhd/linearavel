@@ -24,9 +24,9 @@ class Company extends Data implements Node
 		public Optional|Organization $organization,
 		public Optional|string $companyProperties,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $websiteUrl = null,
-		public Optional|string|null $logoUrl = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $websiteUrl,
+		public Optional|string|null $logoUrl
 	) {
 	}
 }

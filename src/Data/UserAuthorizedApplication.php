@@ -16,9 +16,9 @@ class UserAuthorizedApplication extends Data
 		public Optional|bool $isAuthorized,
 		public Optional|bool $createdByLinear,
 		public Optional|bool $webhooksEnabled,
-		public Optional|string|null $description = null,
-		public Optional|string|null $imageUrl = null,
-		public Optional|string|null $approvalErrorCode = null
+		public Optional|string|null $description,
+		public Optional|string|null $imageUrl,
+		public Optional|string|null $approvalErrorCode
 	) {
 	}
 }

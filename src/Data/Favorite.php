@@ -24,21 +24,21 @@ class Favorite extends Data implements Node
 		public Optional|float $sortOrder,
 		public Optional|FavoriteConnection $children,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|Favorite|null $parent = null,
-		public Optional|string|null $folderName = null,
-		public Optional|ProjectTab|null $projectTab = null,
-		public Optional|string|null $predefinedViewType = null,
-		public Optional|Issue|null $issue = null,
-		public Optional|Project|null $project = null,
-		public Optional|Team|null $projectTeam = null,
-		public Optional|Cycle|null $cycle = null,
-		public Optional|CustomView|null $customView = null,
-		public Optional|Team|null $predefinedViewTeam = null,
-		public Optional|Document|null $document = null,
-		public Optional|Roadmap|null $roadmap = null,
-		public Optional|IssueLabel|null $label = null,
-		public Optional|User|null $user = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Favorite|null $parent,
+		public Optional|string|null $folderName,
+		public Optional|ProjectTab|null $projectTab,
+		public Optional|string|null $predefinedViewType,
+		public Optional|Issue|null $issue,
+		public Optional|Project|null $project,
+		public Optional|Team|null $projectTeam,
+		public Optional|Cycle|null $cycle,
+		public Optional|CustomView|null $customView,
+		public Optional|Team|null $predefinedViewTeam,
+		public Optional|Document|null $document,
+		public Optional|Roadmap|null $roadmap,
+		public Optional|IssueLabel|null $label,
+		public Optional|User|null $user
 	) {
 	}
 }

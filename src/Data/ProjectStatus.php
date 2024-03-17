@@ -24,9 +24,9 @@ class ProjectStatus extends Data implements Node
 		public Optional|float $position,
 		public Optional|bool $indefinite,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null,
-		public Optional|ProjectStatusType|null $type = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description,
+		public Optional|ProjectStatusType|null $type
 	) {
 	}
 }

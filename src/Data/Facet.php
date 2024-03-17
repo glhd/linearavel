@@ -20,7 +20,7 @@ class Facet extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|float $sortOrder,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

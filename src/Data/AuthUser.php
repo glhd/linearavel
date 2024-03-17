@@ -15,7 +15,7 @@ class AuthUser extends Data
 		public Optional|bool $active,
 		public Optional|string $userAccountId,
 		public Optional|AuthOrganization $organization,
-		public Optional|string|null $avatarUrl = null
+		public Optional|string|null $avatarUrl
 	) {
 	}
 }

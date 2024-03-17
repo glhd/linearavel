@@ -26,10 +26,10 @@ class AuthOrganization extends Data
 		public Optional|bool $scimEnabled,
 		public Optional|string $serviceId,
 		public Optional|float $userCount,
-		public Optional|string|null $logoUrl = null,
+		public Optional|string|null $logoUrl,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $deletionRequestedAt = null,
-		public Optional|string|null $samlSettings = null
+		public Optional|CarbonImmutable|null $deletionRequestedAt,
+		public Optional|string|null $samlSettings
 	) {
 	}
 }

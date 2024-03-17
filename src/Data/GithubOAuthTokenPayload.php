@@ -11,7 +11,7 @@ class GithubOAuthTokenPayload extends Data
 	public function __construct(
 		/** @var Collection<int, GithubOrg> */
 		public Optional|Collection $organizations,
-		public Optional|string|null $token = null
+		public Optional|string|null $token
 	) {
 	}
 }

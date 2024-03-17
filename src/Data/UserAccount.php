@@ -21,8 +21,8 @@ class UserAccount extends Data
 		public Optional|string $service,
 		public Optional|bool $authTokenLinkDisabled,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $name = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $name
 	) {
 	}
 }

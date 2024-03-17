@@ -11,7 +11,7 @@ use Spatie\LaravelData\Optional;
 
 class AuthOrganizationInvite extends Data
 {
-	public function __construct(public Optional|string $id, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $expiresAt = null)
+	public function __construct(public Optional|string $id, #[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $expiresAt)
 	{
 	}
 }

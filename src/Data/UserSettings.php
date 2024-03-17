@@ -30,8 +30,8 @@ class UserSettings extends Data implements Node
 		public Optional|bool $subscribedToUnreadNotificationsReminder,
 		public Optional|bool $showFullUserNames,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $calendarHash = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $calendarHash
 	) {
 	}
 }

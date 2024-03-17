@@ -17,8 +17,8 @@ class AuthOauthClientWithMemberships extends Data
 		public Optional|float $totalMembers,
 		/** @var Collection<int, AuthMembership> */
 		public Optional|Collection $memberships,
-		public Optional|string|null $imageUrl = null,
-		public Optional|string|null $webhookUrl = null
+		public Optional|string|null $imageUrl,
+		public Optional|string|null $webhookUrl
 	) {
 	}
 }

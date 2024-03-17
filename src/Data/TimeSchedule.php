@@ -24,10 +24,10 @@ class TimeSchedule extends Data implements Node
 		public Optional|Collection $entries,
 		public Optional|Organization $organization,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $externalId = null,
-		public Optional|string|null $externalUrl = null,
-		public Optional|Integration|null $integration = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $externalId,
+		public Optional|string|null $externalUrl,
+		public Optional|Integration|null $integration
 	) {
 	}
 }

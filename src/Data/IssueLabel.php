@@ -25,11 +25,11 @@ class IssueLabel extends Data implements Node
 		public Optional|IssueConnection $issues,
 		public Optional|IssueLabelConnection $children,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null,
-		public Optional|Team|null $team = null,
-		public Optional|User|null $creator = null,
-		public Optional|IssueLabel|null $parent = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description,
+		public Optional|Team|null $team,
+		public Optional|User|null $creator,
+		public Optional|IssueLabel|null $parent
 	) {
 	}
 }

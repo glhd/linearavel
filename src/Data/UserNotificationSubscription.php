@@ -29,14 +29,14 @@ class UserNotificationSubscription extends Data implements NotificationSubscript
 		/** @var Collection<int, string> */
 		public Optional|Collection $notificationSubscriptionTypes,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|CustomView|null $customView = null,
-		public Optional|Cycle|null $cycle = null,
-		public Optional|IssueLabel|null $label = null,
-		public Optional|Project|null $project = null,
-		public Optional|Team|null $team = null,
-		public Optional|ContextViewType|null $contextViewType = null,
-		public Optional|UserContextViewType|null $userContextViewType = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|CustomView|null $customView,
+		public Optional|Cycle|null $cycle,
+		public Optional|IssueLabel|null $label,
+		public Optional|Project|null $project,
+		public Optional|Team|null $team,
+		public Optional|ContextViewType|null $contextViewType,
+		public Optional|UserContextViewType|null $userContextViewType
 	) {
 	}
 }

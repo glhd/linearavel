@@ -9,11 +9,11 @@ class ActorBot extends Data
 {
 	public function __construct(
 		public Optional|string $type,
-		public Optional|string|null $id = null,
-		public Optional|string|null $subType = null,
-		public Optional|string|null $name = null,
-		public Optional|string|null $userDisplayName = null,
-		public Optional|string|null $avatarUrl = null
+		public Optional|string|null $id,
+		public Optional|string|null $subType,
+		public Optional|string|null $name,
+		public Optional|string|null $userDisplayName,
+		public Optional|string|null $avatarUrl
 	) {
 	}
 }

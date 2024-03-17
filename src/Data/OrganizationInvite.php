@@ -26,12 +26,12 @@ class OrganizationInvite extends Data implements Node
 		public Optional|User $inviter,
 		public Optional|Organization $organization,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|CarbonImmutable|null $archivedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $acceptedAt = null,
+		public Optional|CarbonImmutable|null $acceptedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $expiresAt = null,
-		public Optional|User|null $invitee = null
+		public Optional|CarbonImmutable|null $expiresAt,
+		public Optional|User|null $invitee
 	) {
 	}
 }

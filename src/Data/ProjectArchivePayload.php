@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class ProjectArchivePayload extends Data implements ArchivePayload
 {
-	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Project|null $entity = null)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Project|null $entity)
 	{
 	}
 }

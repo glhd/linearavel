@@ -22,8 +22,8 @@ class TeamMembership extends Data implements Node
 		public Optional|Team $team,
 		public Optional|float $sortOrder,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|bool|null $owner = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|bool|null $owner
 	) {
 	}
 }

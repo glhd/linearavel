@@ -20,11 +20,11 @@ class Reaction extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $emoji,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|Issue|null $issue = null,
-		public Optional|Comment|null $comment = null,
-		public Optional|ProjectUpdate|null $projectUpdate = null,
-		public Optional|User|null $user = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Issue|null $issue,
+		public Optional|Comment|null $comment,
+		public Optional|ProjectUpdate|null $projectUpdate,
+		public Optional|User|null $user
 	) {
 	}
 }

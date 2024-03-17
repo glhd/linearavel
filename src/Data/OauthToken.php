@@ -20,7 +20,7 @@ class OauthToken extends Data
 		public Optional|AuthUser $user,
 		public Optional|string $userId,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $revokedAt = null
+		public Optional|CarbonImmutable|null $revokedAt
 	) {
 	}
 }

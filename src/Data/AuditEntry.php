@@ -20,14 +20,14 @@ class AuditEntry extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $type,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|Organization|null $organization = null,
-		public Optional|User|null $actor = null,
-		public Optional|string|null $actorId = null,
-		public Optional|string|null $ip = null,
-		public Optional|string|null $countryCode = null,
-		public Optional|string|null $metadata = null,
-		public Optional|string|null $requestInformation = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Organization|null $organization,
+		public Optional|User|null $actor,
+		public Optional|string|null $actorId,
+		public Optional|string|null $ip,
+		public Optional|string|null $countryCode,
+		public Optional|string|null $metadata,
+		public Optional|string|null $requestInformation
 	) {
 	}
 }

@@ -22,11 +22,11 @@ class ExternalUser extends Data implements Node
 		public Optional|string $displayName,
 		public Optional|Organization $organization,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $email = null,
-		public Optional|string|null $avatarUrl = null,
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $email,
+		public Optional|string|null $avatarUrl,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $lastSeen = null
+		public Optional|CarbonImmutable|null $lastSeen
 	) {
 	}
 }

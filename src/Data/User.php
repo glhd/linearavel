@@ -34,18 +34,18 @@ class User extends Data implements Node
 		public Optional|bool $isMe,
 		public Optional|bool $admin,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $avatarUrl = null,
-		public Optional|string|null $disableReason = null,
-		public Optional|string|null $calendarHash = null,
-		public Optional|string|null $description = null,
-		public Optional|string|null $statusEmoji = null,
-		public Optional|string|null $statusLabel = null,
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $avatarUrl,
+		public Optional|string|null $disableReason,
+		public Optional|string|null $calendarHash,
+		public Optional|string|null $description,
+		public Optional|string|null $statusEmoji,
+		public Optional|string|null $statusLabel,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $statusUntilAt = null,
-		public Optional|string|null $timezone = null,
+		public Optional|CarbonImmutable|null $statusUntilAt,
+		public Optional|string|null $timezone,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $lastSeen = null
+		public Optional|CarbonImmutable|null $lastSeen
 	) {
 	}
 }

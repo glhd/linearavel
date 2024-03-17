@@ -26,10 +26,10 @@ class OauthClientApproval extends Data implements Node
 		/** @var Collection<int, string> */
 		public Optional|Collection $scopes,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $responderId = null,
-		public Optional|string|null $requestReason = null,
-		public Optional|string|null $denyReason = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $responderId,
+		public Optional|string|null $requestReason,
+		public Optional|string|null $denyReason
 	) {
 	}
 }

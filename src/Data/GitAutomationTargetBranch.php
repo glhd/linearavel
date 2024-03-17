@@ -23,7 +23,7 @@ class GitAutomationTargetBranch extends Data implements Node
 		public Optional|bool $isRegex,
 		public Optional|GitAutomationStateConnection $automationStates,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

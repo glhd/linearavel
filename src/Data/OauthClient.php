@@ -32,11 +32,11 @@ class OauthClient extends Data implements Node
 		/** @var Collection<int, string> */
 		public Optional|Collection $webhookResourceTypes,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null,
-		public Optional|string|null $imageUrl = null,
-		public Optional|string|null $webhookUrl = null,
-		public Optional|string|null $webhookSecret = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description,
+		public Optional|string|null $imageUrl,
+		public Optional|string|null $webhookUrl,
+		public Optional|string|null $webhookSecret
 	) {
 	}
 }

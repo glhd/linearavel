@@ -21,8 +21,8 @@ class IntegrationTemplate extends Data implements Node
 		public Optional|Template $template,
 		public Optional|Integration $integration,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $foreignEntityId = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $foreignEntityId
 	) {
 	}
 }

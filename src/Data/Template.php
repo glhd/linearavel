@@ -22,12 +22,12 @@ class Template extends Data implements Node
 		public Optional|string $name,
 		public Optional|string $templateData,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null,
-		public Optional|Organization|null $organization = null,
-		public Optional|Team|null $team = null,
-		public Optional|User|null $creator = null,
-		public Optional|User|null $lastUpdatedBy = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description,
+		public Optional|Organization|null $organization,
+		public Optional|Team|null $team,
+		public Optional|User|null $creator,
+		public Optional|User|null $lastUpdatedBy
 	) {
 	}
 }

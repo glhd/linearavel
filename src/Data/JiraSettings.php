@@ -13,7 +13,7 @@ class JiraSettings extends Data
 		public Optional|Collection $projectMapping,
 		/** @var Collection<int, JiraProjectData> */
 		public Optional|Collection $projects,
-		public Optional|bool|null $isJiraServer = null
+		public Optional|bool|null $isJiraServer
 	) {
 	}
 }

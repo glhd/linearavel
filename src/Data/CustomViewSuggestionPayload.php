@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class CustomViewSuggestionPayload extends Data
 {
-	public function __construct(public Optional|string|null $name = null, public Optional|string|null $description = null, public Optional|string|null $icon = null)
+	public function __construct(public Optional|string|null $name, public Optional|string|null $description, public Optional|string|null $icon)
 	{
 	}
 }

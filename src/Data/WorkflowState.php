@@ -25,8 +25,8 @@ class WorkflowState extends Data implements Node
 		public Optional|Team $team,
 		public Optional|IssueConnection $issues,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description
 	) {
 	}
 }

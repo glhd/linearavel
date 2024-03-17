@@ -11,7 +11,7 @@ class TriageResponsibilityManualSelection extends Data
 	public function __construct(
 		/** @var Collection<int, string> */
 		public Optional|Collection $userIds,
-		public Optional|int|null $assignmentIndex = null
+		public Optional|int|null $assignmentIndex
 	) {
 	}
 }

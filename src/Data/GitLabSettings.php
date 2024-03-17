@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class GitLabSettings extends Data
 {
-	public function __construct(public Optional|string|null $url = null, public Optional|bool|null $readonly = null, public Optional|string|null $expiresAt = null)
+	public function __construct(public Optional|string|null $url, public Optional|bool|null $readonly, public Optional|string|null $expiresAt)
 	{
 	}
 }

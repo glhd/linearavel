@@ -27,11 +27,11 @@ class Initiative extends Data implements Node
 		public Optional|float $sortOrder,
 		public Optional|ProjectConnection $projects,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null,
-		public Optional|string|null $color = null,
-		public Optional|string|null $targetDate = null,
-		public Optional|DateResolutionType|null $targetDateResolution = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description,
+		public Optional|string|null $color,
+		public Optional|string|null $targetDate,
+		public Optional|DateResolutionType|null $targetDateResolution
 	) {
 	}
 }

@@ -12,7 +12,7 @@ class AsksChannelConnectPayload extends Data
 		public Optional|bool $success,
 		public Optional|SlackChannelNameMapping $mapping,
 		public Optional|bool $addBot,
-		public Optional|Integration|null $integration = null
+		public Optional|Integration|null $integration
 	) {
 	}
 }

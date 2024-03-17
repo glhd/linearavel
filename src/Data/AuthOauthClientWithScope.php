@@ -14,8 +14,8 @@ class AuthOauthClientWithScope extends Data
 		public Optional|Collection $scope,
 		public Optional|string $appId,
 		public Optional|string $clientId,
-		public Optional|string|null $imageUrl = null,
-		public Optional|string|null $webhookUrl = null
+		public Optional|string|null $imageUrl,
+		public Optional|string|null $webhookUrl
 	) {
 	}
 }

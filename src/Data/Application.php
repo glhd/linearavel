@@ -13,8 +13,8 @@ class Application extends Data
 		public Optional|string $name,
 		public Optional|string $developer,
 		public Optional|string $developerUrl,
-		public Optional|string|null $description = null,
-		public Optional|string|null $imageUrl = null
+		public Optional|string|null $description,
+		public Optional|string|null $imageUrl
 	) {
 	}
 }

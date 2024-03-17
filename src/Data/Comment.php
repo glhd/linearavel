@@ -24,22 +24,22 @@ class Comment extends Data implements Node
 		public Optional|string $url,
 		public Optional|CommentConnection $children,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|Issue|null $issue = null,
-		public Optional|DocumentContent|null $documentContent = null,
-		public Optional|ProjectUpdate|null $projectUpdate = null,
-		public Optional|Comment|null $parent = null,
-		public Optional|User|null $resolvingUser = null,
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Issue|null $issue,
+		public Optional|DocumentContent|null $documentContent,
+		public Optional|ProjectUpdate|null $projectUpdate,
+		public Optional|Comment|null $parent,
+		public Optional|User|null $resolvingUser,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $resolvedAt = null,
-		public Optional|Comment|null $resolvingComment = null,
-		public Optional|User|null $user = null,
-		public Optional|ExternalUser|null $externalUser = null,
+		public Optional|CarbonImmutable|null $resolvedAt,
+		public Optional|Comment|null $resolvingComment,
+		public Optional|User|null $user,
+		public Optional|ExternalUser|null $externalUser,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $editedAt = null,
-		public Optional|string|null $quotedText = null,
-		public Optional|string|null $summaryText = null,
-		public Optional|ActorBot|null $botActor = null
+		public Optional|CarbonImmutable|null $editedAt,
+		public Optional|string|null $quotedText,
+		public Optional|string|null $summaryText,
+		public Optional|ActorBot|null $botActor
 	) {
 	}
 }

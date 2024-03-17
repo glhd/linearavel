@@ -20,13 +20,13 @@ class UserAccountEmailChange extends Data
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable $expiresAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|CarbonImmutable|null $archivedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $oldEmailVerifiedAt = null,
+		public Optional|CarbonImmutable|null $oldEmailVerifiedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $newEmailVerifiedAt = null,
+		public Optional|CarbonImmutable|null $newEmailVerifiedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $canceledAt = null
+		public Optional|CarbonImmutable|null $canceledAt
 	) {
 	}
 }

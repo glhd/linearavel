@@ -23,17 +23,17 @@ class AuthenticationSession extends Data
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
-		public Optional|string|null $ip = null,
-		public Optional|string|null $locationCountry = null,
-		public Optional|string|null $locationCountryCode = null,
-		public Optional|string|null $locationCity = null,
-		public Optional|string|null $userAgent = null,
-		public Optional|string|null $browserType = null,
+		public Optional|string|null $ip,
+		public Optional|string|null $locationCountry,
+		public Optional|string|null $locationCountryCode,
+		public Optional|string|null $locationCity,
+		public Optional|string|null $userAgent,
+		public Optional|string|null $browserType,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $lastActiveAt = null,
-		public Optional|string|null $location = null,
-		public Optional|string|null $operatingSystem = null,
-		public Optional|string|null $client = null
+		public Optional|CarbonImmutable|null $lastActiveAt,
+		public Optional|string|null $location,
+		public Optional|string|null $operatingSystem,
+		public Optional|string|null $client
 	) {
 	}
 }

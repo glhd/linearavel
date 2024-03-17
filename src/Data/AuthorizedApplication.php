@@ -15,7 +15,7 @@ class AuthorizedApplication extends Data
 		public Optional|string $appId,
 		public Optional|string $clientId,
 		public Optional|bool $webhooksEnabled,
-		public Optional|string|null $imageUrl = null
+		public Optional|string|null $imageUrl
 	) {
 	}
 }

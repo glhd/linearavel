@@ -29,12 +29,12 @@ class CustomView extends Data implements Node
 		public Optional|string $modelName,
 		public Optional|IssueConnection $issues,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $description = null,
-		public Optional|string|null $icon = null,
-		public Optional|string|null $color = null,
-		public Optional|Team|null $team = null,
-		public Optional|string|null $projectFilterData = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $description,
+		public Optional|string|null $icon,
+		public Optional|string|null $color,
+		public Optional|Team|null $team,
+		public Optional|string|null $projectFilterData
 	) {
 	}
 }

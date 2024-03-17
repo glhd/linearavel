@@ -12,7 +12,6 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -49,10 +48,6 @@ class DataParamTransformer extends ConstructorParamTransformer
 		);
 		
 		$this->param->type = $this->nodeType($this->node->type);
-		
-		if (static::acceptsNull($this->param->type)) {
-			$this->param->default = new ConstFetch(new Name('null'));
-		}
 		
 		return $this->param;
 	}

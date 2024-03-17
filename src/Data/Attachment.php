@@ -24,12 +24,12 @@ class Attachment extends Data implements Node
 		public Optional|bool $groupBySource,
 		public Optional|Issue $issue,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|string|null $subtitle = null,
-		public Optional|User|null $creator = null,
-		public Optional|ExternalUser|null $externalUserCreator = null,
-		public Optional|string|null $source = null,
-		public Optional|string|null $sourceType = null
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $subtitle,
+		public Optional|User|null $creator,
+		public Optional|ExternalUser|null $externalUserCreator,
+		public Optional|string|null $source,
+		public Optional|string|null $sourceType
 	) {
 	}
 }

@@ -29,20 +29,20 @@ class IssueNotification extends Data implements Notification, Entity, Node
 		/** @var Collection<int, NotificationSubscription> */
 		public Optional|Collection $subscriptions,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
-		public Optional|User|null $actor = null,
-		public Optional|ExternalUser|null $externalUserActor = null,
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|User|null $actor,
+		public Optional|ExternalUser|null $externalUserActor,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $readAt = null,
+		public Optional|CarbonImmutable|null $readAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $emailedAt = null,
+		public Optional|CarbonImmutable|null $emailedAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $snoozedUntilAt = null,
+		public Optional|CarbonImmutable|null $snoozedUntilAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $unsnoozedAt = null,
-		public Optional|ActorBot|null $botActor = null,
-		public Optional|string|null $reactionEmoji = null,
-		public Optional|Comment|null $comment = null
+		public Optional|CarbonImmutable|null $unsnoozedAt,
+		public Optional|ActorBot|null $botActor,
+		public Optional|string|null $reactionEmoji,
+		public Optional|Comment|null $comment
 	) {
 	}
 }
