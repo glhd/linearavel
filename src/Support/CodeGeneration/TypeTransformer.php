@@ -2,9 +2,11 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use Glhd\Linearavel\Data\Wrappers\Connection;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Illuminate\Support\Str;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
@@ -36,6 +38,7 @@ class TypeTransformer extends ClassTransformer
 	{
 		// Generate the data first, since they may push items into `$uses`
 		$params = $this->params();
+		$extends = $this->extends();
 		$implements = $this->implements();
 		
 		return array_filter([
@@ -43,7 +46,7 @@ class TypeTransformer extends ClassTransformer
 			$this->uses(),
 			new Class_($this->node->name->value, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
-				'extends' => new Name('Data'),
+				'extends' => $extends,
 				'implements' => $implements,
 			]),
 		]);
@@ -56,6 +59,17 @@ class TypeTransformer extends ClassTransformer
 			->sortBy(fn (Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
 			->values()
 			->all();
+	}
+	
+	protected function extends(): Name
+	{
+		$extends = str_ends_with($this->node->name->value, 'Connection')
+			? Connection::class
+			: Data::class;
+		
+		$this->use($extends);
+		
+		return new Name(class_basename($extends));
 	}
 	
 	protected function implements(): array
