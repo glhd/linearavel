@@ -31,8 +31,38 @@
     </a>
 </div>
 
-# linearavel
+# Linearavel
+
+Linearavel is a fully-featured Linear SDK for PHP and Laravel.
 
 ## Installation
 
+```shell
+composer require glhd/linearavel
+```
+
 ## Usage
+
+Linear uses GraphQL which tends not to be particularly compatible with how PHP
+applications interact with APIs. This package attempts to bridge that gap—making
+API calls feel fluent but still exposing all the power of the Linear API.
+
+A typical API call will look something like:
+
+```php
+$viewer = Linear::viewer() // "viewer" is the name of the GraphQL query
+    ->with('organization', 'id', 'name') // `with` lets you quickly retrieve nested fields
+    ->get('id', 'name', 'active', 'avatarUrl', 'timezone'); // `get` defines the fields to retrieve
+```
+
+Each call returns a `LinearResponse`—a custom [Saloon](https://docs.saloon.dev/) object that exposes
+things like `status()` and `headers()` as well as letting you `resolve()` the response into a
+fully-typed Linear data object.
+
+```php
+$user = $viewer->resolve();
+assert($user instanceof Glhd\Linearavel\Data\User);
+assert($user->name === 'Chris Morrell');
+assert($user->organization instanceof Glhd\Linearavel\Data\Organization);
+assert($user->organization->name === 'InterNACHI');
+```
