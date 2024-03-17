@@ -13,7 +13,6 @@ use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\ComplexType;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
@@ -21,45 +20,41 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PhpParser\NodeAbstract;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Optional;
 
-class ParamTransformer
+class FunctionTransformer
 {
-	protected Param $param;
+	protected ClassMethod $method;
 	
 	public static function transform(
-		FieldDefinitionNode|InputValueDefinitionNode $node,
-		ClassTransformer $parent,
-		int $flags = 1,
+		FieldDefinitionNode $node,
+		ClassTransformer $parent
 	) {
-		$transformer = new static($node, $parent, $flags);
+		$transformer = new static($node, $parent);
 		return $transformer();
 	}
 	
 	public function __construct(
-		protected FieldDefinitionNode|InputValueDefinitionNode $node,
+		protected FieldDefinitionNode $node,
 		protected ClassTransformer $parent,
-		int $flags,
 	) {
-		$this->param = new Param(
-			var: new Variable($this->node->name->value),
-			flags: $flags,
-		);
+		$this->method = new ClassMethod($this->node->name->value);
 	}
 	
 	public function __invoke()
 	{
-		$this->param->type = $this->nodeType($this->node->type);
+		$args = collect($this->node->arguments)
+			->map(fn(InputValueDefinitionNode $arg) => ParamTransformer::transform($arg, $this->parent, 0))
+			->all();
 		
-		if ($this->param->type instanceof NullableType) {
-			$this->param->default = new ConstFetch(new Name('null'));
-		}
+		$this->method->params = $args;
 		
-		return $this->param;
+		return $this->method;
 	}
 	
 	protected function nodeType(NamedTypeNode|ListTypeNode|NonNullTypeNode $node, bool $nullable = true)
@@ -74,7 +69,7 @@ class ParamTransformer
 	protected function listType(ListTypeNode $node): UnionType|Name
 	{
 		$type = $this->typeToName($node->type);
-		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
+		$this->method->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
 		
 		if ($this->node instanceof InputValueDefinitionNode) {
@@ -97,8 +92,8 @@ class ParamTransformer
 				: $type;
 		} else {
 			if ('DateTime' === $node->name->value) {
-				$this->param->attrGroups ??= [];
-				$this->param->attrGroups[] = new AttributeGroup([
+				$this->method->attrGroups ??= [];
+				$this->method->attrGroups[] = new AttributeGroup([
 					new Attribute($this->fqcn(WithCast::class), [
 						new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
 						new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),

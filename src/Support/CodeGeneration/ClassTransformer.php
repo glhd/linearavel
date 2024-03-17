@@ -13,50 +13,17 @@ use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\UseItem;
 use Spatie\LaravelData\Data;
 
-class ClassTransformer
+abstract class ClassTransformer
 {
-	public string $namespace;
-	
 	protected array $uses = [];
 	
-	public static function transform(
-		ObjectTypeDefinitionNode $node,
-		Transformer $parent,
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
-	public function __construct(
-		protected ObjectTypeDefinitionNode $node,
-		public Transformer $parent,
-	) {
-		$this->namespace = $this->parent->namespace;
-		$this->use(Data::class);
-	}
+	abstract public function __invoke(): array;
 	
 	public function use(string $fqcn): static
 	{
 		$this->uses[] = $fqcn;
 		
 		return $this;
-	}
-	
-	public function __invoke(): array
-	{
-		// Generate the data first, since they may push items into `$uses`
-		$params = $this->params();
-		$implements = $this->implements();
-		
-		return array_filter([
-			new Namespace_(new Name($this->namespace.'Data')),
-			$this->uses(),
-			new Class_($this->node->name->value, [
-				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
-				'extends' => new Name('Data'),
-				'implements' => $implements,
-			]),
-		]);
 	}
 	
 	protected function uses(): ?Use_
@@ -71,24 +38,5 @@ class ClassTransformer
 			->all();
 		
 		return new Use_($uses);
-	}
-	
-	protected function params(): array
-	{
-		return collect($this->node->fields)
-			->map(fn(FieldDefinitionNode $node) => ParamTransformer::transform($node, $this))
-			->all();
-	}
-	
-	protected function implements(): array
-	{
-		return collect($this->node->interfaces)
-			->map(function(NamedTypeNode $node) {
-				$fqcn = $this->namespace.'Data\\Contracts\\'.$node->name->value;
-				$this->use($fqcn);
-				
-				return new Name($node->name->value);
-			})
-			->all();
 	}
 }
