@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use DateTimeInterface;
 use GraphQL\Language\AST\ListTypeNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\NonNullTypeNode;
@@ -88,7 +89,7 @@ abstract class ParamTransformer
 	
 	protected function dateTimeType(): Name
 	{
-		return $this->fqcn('Carbon\CarbonImmutable');
+		return $this->fqcn(DateTimeInterface::class);
 	}
 	
 	protected function fqcn(string $fqcn): Name

@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
@@ -57,7 +58,9 @@ class DataParamTransformer extends ConstructorParamTransformer
 		return new UnionType(array_filter([
 			new Name('Optional'),
 			new Name('Collection'),
-			$nullable ? new Identifier('null') : null,
+			$nullable
+				? new Identifier('null')
+				: null,
 		]));
 	}
 	
@@ -80,5 +83,10 @@ class DataParamTransformer extends ConstructorParamTransformer
 		}
 		
 		return new UnionType($types);
+	}
+	
+	protected function dateTimeType(): Name
+	{
+		return $this->fqcn(CarbonImmutable::class);
 	}
 }
