@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class FavoriteEdge extends Data
 {
-	function __construct(public Optional|Favorite $node, public Optional|string $cursor)
+	public function __construct(public Optional|Favorite $node, public Optional|string $cursor)
 	{
 	}
 }

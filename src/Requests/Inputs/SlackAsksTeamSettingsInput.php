@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class SlackAsksTeamSettingsInput
 {
-	function __construct(public string $id, public bool $hasDefaultAsk)
+	public function __construct(public string $id, public bool $hasDefaultAsk)
 	{
 	}
 }

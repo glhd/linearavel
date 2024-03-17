@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class SynchronizedPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId)
+	public function __construct(public Optional|float $lastSyncId)
 	{
 	}
 }

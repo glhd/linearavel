@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 
 class CommentCreateInput
 {
-	function __construct(
+	public function __construct(
 		public ?string $id = null,
 		public ?string $body = null,
 		public ?string $bodyData = null,

@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class GitHubPersonalSettingsInput
 {
-	function __construct(public string $login)
+	public function __construct(public string $login)
 	{
 	}
 }

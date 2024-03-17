@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 
 class PagerDutyInput
 {
-	function __construct(public CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
+	public function __construct(public CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
 	{
 	}
 }

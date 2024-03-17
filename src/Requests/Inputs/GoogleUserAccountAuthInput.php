@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class GoogleUserAccountAuthInput
 {
-	function __construct(
+	public function __construct(
 		public string $code,
 		public string $timezone,
 		/** @var Collection<int, string> */

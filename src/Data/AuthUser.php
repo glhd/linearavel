@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class AuthUser extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
 		public Optional|string $name,
 		public Optional|string $displayName,

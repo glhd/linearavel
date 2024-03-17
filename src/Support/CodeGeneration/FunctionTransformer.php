@@ -14,8 +14,6 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
@@ -51,8 +49,8 @@ class FunctionTransformer
 	public function __invoke()
 	{
 		$args = collect($this->node->arguments)
-			->map(fn(InputValueDefinitionNode $arg) => FunctionParamTransformer::transform($arg, $this->parent, $this))
-			->sortBy(fn(Param $param) => $param->type instanceof NullableType ? 1 : 0)
+			->map(fn (InputValueDefinitionNode $arg) => FunctionParamTransformer::transform($arg, $this->parent, $this))
+			->sortBy(fn (Param $param) => $param->type instanceof NullableType ? 1 : 0)
 			->all();
 		
 		$this->method->params = $args;
@@ -102,33 +100,32 @@ class FunctionTransformer
 		$type = $this->typeToName($node);
 		
 		if ($this->node instanceof InputValueDefinitionNode) {
-			return $nullable 
-				? new NullableType($type) 
+			return $nullable
+				? new NullableType($type)
 				: $type;
-		} else {
-			if ('DateTime' === $node->name->value) {
-				$this->method->attrGroups ??= [];
-				$this->method->attrGroups[] = new AttributeGroup([
-					new Attribute($this->fqcn(WithCast::class), [
-						new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
-						new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
-					]),
-				]);
-			}
-			
-			$this->parent->use(Optional::class);
-			
-			$types = [
-				new Name('Optional'),
-				$type,
-			];
 		}
+		if ('DateTime' === $node->name->value) {
+			$this->method->attrGroups ??= [];
+			$this->method->attrGroups[] = new AttributeGroup([
+				new Attribute($this->fqcn(WithCast::class), [
+					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
+					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
+				]),
+			]);
+		}
+			
+		$this->parent->use(Optional::class);
+			
+		$types = [
+			new Name('Optional'),
+			$type,
+		];
 		
 		if ($nullable) {
 			$types[] = new Identifier('null');
 		}
 		
-		return count($types) > 1 
+		return count($types) > 1
 			? new UnionType($types)
 			: $types[0];
 	}

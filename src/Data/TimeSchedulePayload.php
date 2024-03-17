@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class TimeSchedulePayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|TimeSchedule $timeSchedule, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|TimeSchedule $timeSchedule, public Optional|bool $success)
 	{
 	}
 }

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ApiKeyEdge extends Data
 {
-	function __construct(public Optional|ApiKey $node, public Optional|string $cursor)
+	public function __construct(public Optional|ApiKey $node, public Optional|string $cursor)
 	{
 	}
 }

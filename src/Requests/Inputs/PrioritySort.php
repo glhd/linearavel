@@ -7,7 +7,7 @@ use Glhd\Linearavel\Data\Enums\PaginationSortOrder;
 
 class PrioritySort
 {
-	function __construct(public ?PaginationNulls $nulls = null, public ?PaginationSortOrder $order = null, public ?bool $noPriorityFirst = null)
+	public function __construct(public ?PaginationNulls $nulls = null, public ?PaginationSortOrder $order = null, public ?bool $noPriorityFirst = null)
 	{
 	}
 }

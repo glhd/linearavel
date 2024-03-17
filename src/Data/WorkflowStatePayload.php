@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class WorkflowStatePayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|WorkflowState $workflowState, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|WorkflowState $workflowState, public Optional|bool $success)
 	{
 	}
 }

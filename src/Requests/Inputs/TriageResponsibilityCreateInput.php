@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class TriageResponsibilityCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $teamId,
 		public string $action,
 		public ?string $id = null,

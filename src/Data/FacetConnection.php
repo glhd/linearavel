@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class FacetConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, FacetEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, Facet> */

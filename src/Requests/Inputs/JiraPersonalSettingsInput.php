@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class JiraPersonalSettingsInput
 {
-	function __construct(public ?string $siteName = null)
+	public function __construct(public ?string $siteName = null)
 	{
 	}
 }

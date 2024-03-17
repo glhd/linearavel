@@ -17,11 +17,14 @@ use Spatie\LaravelData\Optional;
 
 class Organization extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $name,
 		public Optional|string $urlKey,
 		public Optional|string|null $logoUrl = null,
@@ -39,8 +42,10 @@ class Organization extends Data implements Node
 		public Optional|bool $scimEnabled,
 		/** @var Collection<int, string> */
 		public Optional|Collection $allowedAuthServices,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $deletionRequestedAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $trialEndsAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $deletionRequestedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $trialEndsAt = null,
 		/** @var Collection<int, string> */
 		public Optional|Collection $previousUrlKeys,
 		public Optional|bool|null $allowMembersToInvite = null,

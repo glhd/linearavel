@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class DateComparator
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, CarbonImmutable> */
 		public Collection $in,
 		/** @var Collection<int, CarbonImmutable> */

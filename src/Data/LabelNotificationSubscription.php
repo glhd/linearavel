@@ -17,11 +17,14 @@ use Spatie\LaravelData\Optional;
 
 class LabelNotificationSubscription extends Data implements NotificationSubscription, Entity, Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|User $subscriber,
 		public Optional|CustomView|null $customView = null,
 		public Optional|Cycle|null $cycle = null,

@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class InitiativeToProjectConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, InitiativeToProjectEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, InitiativeToProject> */

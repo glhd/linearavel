@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class RoadmapCollectionFilter
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, RoadmapCollectionFilter> */
 		public Collection $and,
 		/** @var Collection<int, RoadmapCollectionFilter> */

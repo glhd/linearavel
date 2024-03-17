@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class SlackChannelNameMapping extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
 		public Optional|string $name,
 		public Optional|bool|null $isPrivate = null,

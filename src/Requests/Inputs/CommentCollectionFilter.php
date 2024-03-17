@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class CommentCollectionFilter
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, CommentCollectionFilter> */
 		public Collection $and,
 		/** @var Collection<int, CommentCollectionFilter> */

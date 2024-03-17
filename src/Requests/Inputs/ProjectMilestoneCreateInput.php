@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class ProjectMilestoneCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $name,
 		public string $projectId,
 		public ?string $id = null,

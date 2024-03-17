@@ -53,7 +53,7 @@ class Transformer
 		
 		collect(Parser::parse($schema)->definitions)
 			->each($this->register(...))
-			->each(fn(DefinitionNode $definition) => match ($definition::class) {
+			->each(fn (DefinitionNode $definition) => match ($definition::class) {
 				InterfaceTypeDefinitionNode::class => $this->interface($definition),
 				ObjectTypeDefinitionNode::class => $this->class($definition),
 				EnumTypeDefinitionNode::class => $this->enum($definition),
@@ -91,7 +91,7 @@ class Transformer
 			return true; // FIXME
 		}
 		
-		$tree = match($node->name->value) {
+		$tree = match ($node->name->value) {
 			'Query' => QueryTransformer::transform($node, $this),
 			// 'Mutation' => TypeTransformer::transform($node, $this), // FIXME
 			default => TypeTransformer::transform($node, $this),
@@ -125,7 +125,7 @@ class Transformer
 			InputObjectTypeDefinitionNode::class => ['input', 'Requests/Inputs'],
 			UnionTypeDefinitionNode::class => ['union', 'Data/Contracts'],
 			DirectiveDefinitionNode::class => ['directive', 'Data/Directives'],
-			default => throw new UnexpectedValueException("Did not expect: ".class_basename($node)),
+			default => throw new UnexpectedValueException('Did not expect: '.class_basename($node)),
 		};
 		
 		if ('Query' === $name) {
@@ -134,7 +134,7 @@ class Transformer
 			$directory = 'Requests';
 		}
 		
-		$filename = sprintf("%s/%s/%s.php", realpath(__DIR__.'/../../../src/'), $directory, $name);
+		$filename = sprintf('%s/%s/%s.php', realpath(__DIR__.'/../../../src/'), $directory, $name);
 		$php = $this->printer->prettyPrint($tree);
 		
 		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {

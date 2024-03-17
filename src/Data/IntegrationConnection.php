@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class IntegrationConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, IntegrationEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, Integration> */

@@ -9,8 +9,6 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\Use_;
-use PhpParser\Node\UseItem;
 use Spatie\LaravelData\Data;
 
 class TypeTransformer extends ClassTransformer
@@ -53,7 +51,7 @@ class TypeTransformer extends ClassTransformer
 	protected function params(): array
 	{
 		return collect($this->node->fields)
-			->map(fn(FieldDefinitionNode $node) => ConstructorParamTransformer::transform($node, $this))
+			->map(fn (FieldDefinitionNode $node) => ConstructorParamTransformer::transform($node, $this))
 			->all();
 	}
 	

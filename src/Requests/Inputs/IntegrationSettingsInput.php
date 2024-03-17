@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class IntegrationSettingsInput
 {
-	function __construct(
+	public function __construct(
 		public ?SlackSettingsInput $slack = null,
 		public ?SlackAsksSettingsInput $slackAsks = null,
 		public ?SlackPostSettingsInput $slackPost = null,

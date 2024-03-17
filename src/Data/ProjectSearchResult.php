@@ -14,11 +14,14 @@ use Spatie\LaravelData\Optional;
 
 class ProjectSearchResult extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $name,
 		public Optional|string $description,
 		public Optional|string $slugId,
@@ -27,16 +30,22 @@ class ProjectSearchResult extends Data implements Node
 		public Optional|ProjectStatus $status,
 		public Optional|User|null $creator = null,
 		public Optional|User|null $lead = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $projectUpdateRemindersPausedUntilAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $projectUpdateRemindersPausedUntilAt = null,
 		public Optional|string|null $startDate = null,
 		public Optional|DateResolutionType|null $startDateResolution = null,
 		public Optional|string|null $targetDate = null,
 		public Optional|DateResolutionType|null $targetDateResolution = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $startedAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $pausedAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $completedAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $canceledAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $autoArchivedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $startedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $pausedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $completedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $canceledAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $autoArchivedAt = null,
 		public Optional|bool|null $trashed = null,
 		public Optional|float $sortOrder,
 		public Optional|Issue|null $convertedFromIssue = null,

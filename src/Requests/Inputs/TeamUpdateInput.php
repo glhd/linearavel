@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 
 class TeamUpdateInput
 {
-	function __construct(
+	public function __construct(
 		public ?string $name = null,
 		public ?string $description = null,
 		public ?string $key = null,

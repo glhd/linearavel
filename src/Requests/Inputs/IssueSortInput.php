@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class IssueSortInput
 {
-	function __construct(
+	public function __construct(
 		public ?PrioritySort $priority = null,
 		public ?EstimateSort $estimate = null,
 		public ?TitleSort $title = null,

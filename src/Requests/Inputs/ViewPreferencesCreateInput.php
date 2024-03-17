@@ -7,7 +7,7 @@ use Glhd\Linearavel\Data\Enums\ViewType;
 
 class ViewPreferencesCreateInput
 {
-	function __construct(
+	public function __construct(
 		public ViewPreferencesType $type,
 		public ViewType $viewType,
 		public string $preferences,

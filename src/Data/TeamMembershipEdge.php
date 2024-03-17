@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class TeamMembershipEdge extends Data
 {
-	function __construct(public Optional|TeamMembership $node, public Optional|string $cursor)
+	public function __construct(public Optional|TeamMembership $node, public Optional|string $cursor)
 	{
 	}
 }

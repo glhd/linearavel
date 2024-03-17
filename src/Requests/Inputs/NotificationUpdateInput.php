@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 
 class NotificationUpdateInput
 {
-	function __construct(public ?CarbonImmutable $readAt = null, public ?CarbonImmutable $snoozedUntilAt = null, public ?string $projectUpdateId = null)
+	public function __construct(public ?CarbonImmutable $readAt = null, public ?CarbonImmutable $snoozedUntilAt = null, public ?string $projectUpdateId = null)
 	{
 	}
 }

@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class InitiativeCollectionFilter
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, InitiativeCollectionFilter> */
 		public Collection $and,
 		/** @var Collection<int, InitiativeCollectionFilter> */

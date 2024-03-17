@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class IntegrationHasScopesPayload extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|bool $hasAllScopes,
 		/** @var Collection<int, string> */
 		public Optional|Collection $missingScopes

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ProjectFilterSuggestionPayload extends Data
 {
-	function __construct(public Optional|string|null $filter = null)
+	public function __construct(public Optional|string|null $filter = null)
 	{
 	}
 }

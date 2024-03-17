@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class ZendeskSettingsInput
 {
-	function __construct(
+	public function __construct(
 		public string $subdomain,
 		public string $url,
 		public ?bool $sendNoteOnStatusChange = null,

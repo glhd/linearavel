@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class CommentUpdateInput
 {
-	function __construct(
+	public function __construct(
 		public ?string $body = null,
 		public ?string $bodyData = null,
 		public ?string $resolvingUserId = null,

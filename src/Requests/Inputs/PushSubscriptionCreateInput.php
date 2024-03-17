@@ -6,7 +6,7 @@ use Glhd\Linearavel\Data\Enums\PushSubscriptionType;
 
 class PushSubscriptionCreateInput
 {
-	function __construct(public string $data, public ?string $id = null, public ?string $userId = null, public ?PushSubscriptionType $type = null)
+	public function __construct(public string $data, public ?string $id = null, public ?string $userId = null, public ?PushSubscriptionType $type = null)
 	{
 	}
 }

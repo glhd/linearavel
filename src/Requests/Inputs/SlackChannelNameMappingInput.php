@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class SlackChannelNameMappingInput
 {
-	function __construct(
+	public function __construct(
 		public string $id,
 		public string $name,
 		/** @var Collection<int, SlackAsksTeamSettingsInput> */

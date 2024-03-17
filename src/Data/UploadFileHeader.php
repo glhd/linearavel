@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class UploadFileHeader extends Data
 {
-	function __construct(public Optional|string $key, public Optional|string $value)
+	public function __construct(public Optional|string $key, public Optional|string $value)
 	{
 	}
 }

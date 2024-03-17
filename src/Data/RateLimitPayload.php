@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class RateLimitPayload extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string|null $identifier = null,
 		public Optional|string $kind,
 		/** @var Collection<int, RateLimitResultPayload> */

@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class ProjectUpdateInput
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, string> */
 		public Collection $teamIds,
 		/** @var Collection<int, string> */

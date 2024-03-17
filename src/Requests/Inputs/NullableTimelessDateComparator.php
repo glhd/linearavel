@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class NullableTimelessDateComparator
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, string> */
 		public Collection $in,
 		/** @var Collection<int, string> */

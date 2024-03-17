@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class FavoritePayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|Favorite $favorite, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|Favorite $favorite, public Optional|bool $success)
 	{
 	}
 }

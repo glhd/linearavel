@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ExternalUserEdge extends Data
 {
-	function __construct(public Optional|ExternalUser $node, public Optional|string $cursor)
+	public function __construct(public Optional|ExternalUser $node, public Optional|string $cursor)
 	{
 	}
 }

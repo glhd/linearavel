@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ApiKeyPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|ApiKey $apiKey, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|ApiKey $apiKey, public Optional|bool $success)
 	{
 	}
 }

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class UserAuthorizedApplication extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
 		public Optional|string $clientId,
 		public Optional|string $name,

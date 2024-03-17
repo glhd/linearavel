@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class IntegrationsSettingsEdge extends Data
 {
-	function __construct(public Optional|IntegrationsSettings $node, public Optional|string $cursor)
+	public function __construct(public Optional|IntegrationsSettings $node, public Optional|string $cursor)
 	{
 	}
 }

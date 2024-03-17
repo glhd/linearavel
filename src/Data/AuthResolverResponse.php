@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class AuthResolverResponse extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
 		public Optional|string $email,
 		public Optional|bool|null $allowDomainAccess = null,

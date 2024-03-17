@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class IssueCreateInput
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, string> */
 		public Collection $subscriberIds,
 		/** @var Collection<int, string> */

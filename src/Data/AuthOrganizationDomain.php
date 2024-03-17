@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class AuthOrganizationDomain extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
 		public Optional|string $organizationId,
 		public Optional|string $name,

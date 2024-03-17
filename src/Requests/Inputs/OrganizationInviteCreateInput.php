@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class OrganizationInviteCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $email,
 		/** @var Collection<int, string> */
 		public Collection $teamIds,

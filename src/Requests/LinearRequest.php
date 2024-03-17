@@ -26,7 +26,7 @@ abstract class LinearRequest extends Request implements HasBody
 	protected function fields(array $keys, int $depth = 0): string
 	{
 		return collect($keys)
-			->unless($depth, fn($keys) => $keys->flip()->undot())
+			->unless($depth, fn ($keys) => $keys->flip()->undot())
 			->map(function($value, $key) use ($depth) {
 				$line = $key;
 				

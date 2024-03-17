@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class IntegrationsSettingsUpdateInput
 {
-	function __construct(
+	public function __construct(
 		public ?bool $slackIssueCreated = null,
 		public ?bool $slackIssueNewComment = null,
 		public ?bool $slackIssueStatusChangedDone = null,

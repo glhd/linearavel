@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class AuditEntryFilter
 {
-	function __construct(
+	public function __construct(
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class AttachmentCollectionFilter
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, AttachmentCollectionFilter> */
 		public Collection $and,
 		/** @var Collection<int, AttachmentCollectionFilter> */

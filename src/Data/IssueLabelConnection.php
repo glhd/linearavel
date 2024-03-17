@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class IssueLabelConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, IssueLabelEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, IssueLabel> */

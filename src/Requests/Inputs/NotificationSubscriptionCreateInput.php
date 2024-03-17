@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class NotificationSubscriptionCreateInput
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, string> */
 		public Collection $notificationSubscriptionTypes,
 		public ?string $id = null,

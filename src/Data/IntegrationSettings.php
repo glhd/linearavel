@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class IntegrationSettings extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|SlackSettings|null $slack = null,
 		public Optional|SlackAsksSettings|null $slackAsks = null,
 		public Optional|SlackPostSettings|null $slackPost = null,

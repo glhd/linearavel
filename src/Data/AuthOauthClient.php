@@ -12,7 +12,7 @@ use Spatie\LaravelData\Optional;
 
 class AuthOauthClient extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
 		public Optional|string $clientId,
 		public Optional|string $name,
@@ -27,7 +27,8 @@ class AuthOauthClient extends Data
 		public Optional|string $creatorId,
 		public Optional|string $organizationId,
 		public Optional|string|null $webhookUrl = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null
 	) {
 	}
 }

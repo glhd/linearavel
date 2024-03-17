@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class SentrySettings extends Data
 {
-	function __construct(public Optional|string $organizationSlug)
+	public function __construct(public Optional|string $organizationSlug)
 	{
 	}
 }

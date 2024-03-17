@@ -9,7 +9,6 @@ use GraphQL\Language\AST\NamedTypeNode;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
-use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\NodeAbstract;
 use PhpParser\PrettyPrinter\Standard;
@@ -65,7 +64,6 @@ class FunctionParamTransformer extends ParamTransformer
 	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract
 	{
 		return parent::namedType($node, $nullable);
-		
 		// if ('DateTime' === $node->name->value) {
 		// 	$this->param->attrGroups ??= [];
 		// 	$this->param->attrGroups[] = new AttributeGroup([

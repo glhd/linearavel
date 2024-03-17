@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class OrganizationUpdateInput
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, string> */
 		public Collection $allowedAuthServices,
 		public ?string $name = null,

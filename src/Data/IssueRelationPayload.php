@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class IssueRelationPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|IssueRelation $issueRelation, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|IssueRelation $issueRelation, public Optional|bool $success)
 	{
 	}
 }

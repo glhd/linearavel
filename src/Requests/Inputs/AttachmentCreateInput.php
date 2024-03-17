@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class AttachmentCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $title,
 		public string $url,
 		public string $issueId,

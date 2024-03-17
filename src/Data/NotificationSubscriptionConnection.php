@@ -9,7 +9,7 @@ use Spatie\LaravelData\Optional;
 
 class NotificationSubscriptionConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, NotificationSubscriptionEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, NotificationSubscription> */

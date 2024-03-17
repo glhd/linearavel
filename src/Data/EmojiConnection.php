@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class EmojiConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, EmojiEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, Emoji> */

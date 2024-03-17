@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class DocumentCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $title,
 		public string $projectId,
 		public ?string $id = null,

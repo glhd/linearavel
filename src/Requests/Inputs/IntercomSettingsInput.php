@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class IntercomSettingsInput
 {
-	function __construct(
+	public function __construct(
 		public ?bool $sendNoteOnStatusChange = null,
 		public ?bool $sendNoteOnComment = null,
 		public ?bool $automateTicketReopeningOnCompletion = null,

@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class UploadFile extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $filename,
 		public Optional|string $contentType,
 		public Optional|int $size,

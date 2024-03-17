@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class TeamCollectionFilter
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, TeamCollectionFilter> */
 		public Collection $and,
 		/** @var Collection<int, TeamCollectionFilter> */

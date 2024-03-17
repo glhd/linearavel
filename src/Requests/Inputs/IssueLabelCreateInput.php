@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class IssueLabelCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $name,
 		public ?string $id = null,
 		public ?string $description = null,

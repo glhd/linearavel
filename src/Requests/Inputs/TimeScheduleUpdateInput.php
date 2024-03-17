@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class TimeScheduleUpdateInput
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, TimeScheduleEntryInput> */
 		public Collection $entries,
 		public ?string $name = null,

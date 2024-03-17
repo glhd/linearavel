@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class ProjectMilestoneCollectionFilter
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, ProjectMilestoneCollectionFilter> */
 		public Collection $and,
 		/** @var Collection<int, ProjectMilestoneCollectionFilter> */

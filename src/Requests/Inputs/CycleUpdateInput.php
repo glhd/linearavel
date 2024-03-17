@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 
 class CycleUpdateInput
 {
-	function __construct(
+	public function __construct(
 		public ?string $name = null,
 		public ?string $description = null,
 		public ?CarbonImmutable $startsAt = null,

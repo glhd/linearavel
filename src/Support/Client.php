@@ -22,7 +22,8 @@ class Client
 	{
 		$fields = $this->fields($keys);
 		
-		$result = $this->query(<<<gql
+		$result = $this->query(
+			<<<gql
 			query ViewerQuery {
 				viewer {
 					{$fields}
@@ -39,7 +40,8 @@ class Client
 	{
 		$fields = $this->fields($keys);
 		
-		$result = $this->query(<<<gql
+		$result = $this->query(
+			<<<gql
 			query TeamsQuery {
 				teams {
 					nodes {
@@ -56,7 +58,7 @@ class Client
 	protected function fields(array $keys, int $depth = 0): string
 	{
 		return collect($keys)
-			->unless($depth, fn($keys) => $keys->flip()->undot())
+			->unless($depth, fn ($keys) => $keys->flip()->undot())
 			->map(function($value, $key) use ($depth) {
 				$line = $key;
 				

@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class NotificationSubscriptionPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|NotificationSubscription $notificationSubscription, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|NotificationSubscription $notificationSubscription, public Optional|bool $success)
 	{
 	}
 }

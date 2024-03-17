@@ -9,7 +9,7 @@ use Spatie\LaravelData\Optional;
 
 class NotificationArchivePayload extends Data implements ArchivePayload
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Notification|null $entity = null)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Notification|null $entity = null)
 	{
 	}
 }

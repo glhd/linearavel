@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ProjectUpdatePayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|ProjectUpdate $projectUpdate, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|ProjectUpdate $projectUpdate, public Optional|bool $success)
 	{
 	}
 }

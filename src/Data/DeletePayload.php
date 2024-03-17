@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class DeletePayload extends Data implements ArchivePayload
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|string $entityId)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|string $entityId)
 	{
 	}
 }

@@ -3,15 +3,10 @@
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
 use GraphQL\Language\AST\FieldDefinitionNode;
-use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Trait_;
-use PhpParser\Node\Stmt\Use_;
-use PhpParser\Node\UseItem;
 use Spatie\LaravelData\Data;
 
 class QueryTransformer extends ClassTransformer
@@ -51,7 +46,7 @@ class QueryTransformer extends ClassTransformer
 	protected function queries(): array
 	{
 		return collect($this->node->fields)
-			->map(fn(FieldDefinitionNode $node) => FunctionTransformer::transform($node, $this))
+			->map(fn (FieldDefinitionNode $node) => FunctionTransformer::transform($node, $this))
 			->all();
 	}
 }

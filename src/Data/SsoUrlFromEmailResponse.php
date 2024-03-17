@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class SsoUrlFromEmailResponse extends Data
 {
-	function __construct(public Optional|bool $success, public Optional|string $samlSsoUrl)
+	public function __construct(public Optional|bool $success, public Optional|string $samlSsoUrl)
 	{
 	}
 }

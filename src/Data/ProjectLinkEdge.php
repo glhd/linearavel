@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ProjectLinkEdge extends Data
 {
-	function __construct(public Optional|ProjectLink $node, public Optional|string $cursor)
+	public function __construct(public Optional|ProjectLink $node, public Optional|string $cursor)
 	{
 	}
 }

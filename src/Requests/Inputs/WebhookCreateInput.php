@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class WebhookCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $url,
 		/** @var Collection<int, string> */
 		public Collection $resourceTypes,

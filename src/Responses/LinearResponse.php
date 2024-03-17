@@ -6,5 +6,4 @@ use Saloon\Http\Response;
 
 class LinearResponse extends Response
 {
-	
 }

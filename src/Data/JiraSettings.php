@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class JiraSettings extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, JiraLinearMapping> */
 		public Optional|Collection $projectMapping,
 		/** @var Collection<int, JiraProjectData> */

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ZendeskSettings extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|bool|null $sendNoteOnStatusChange = null,
 		public Optional|bool|null $sendNoteOnComment = null,
 		public Optional|bool|null $automateTicketReopeningOnCompletion = null,

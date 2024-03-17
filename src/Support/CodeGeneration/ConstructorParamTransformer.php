@@ -7,7 +7,6 @@ use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use GraphQL\Language\AST\NamedTypeNode;
-use GraphQL\Type\Definition\NullableType;
 use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;

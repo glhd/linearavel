@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class GitHubSettingsInput
 {
-	function __construct(
+	public function __construct(
 		public string $orgAvatarUrl,
 		public string $orgLogin,
 		/** @var Collection<int, GitHubRepoInput> */

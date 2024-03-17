@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class UserAdminPayload extends Data
 {
-	function __construct(public Optional|bool $success)
+	public function __construct(public Optional|bool $success)
 	{
 	}
 }

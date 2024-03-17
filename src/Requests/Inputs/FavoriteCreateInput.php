@@ -6,7 +6,7 @@ use Glhd\Linearavel\Data\Enums\ProjectTab;
 
 class FavoriteCreateInput
 {
-	function __construct(
+	public function __construct(
 		public ?string $id = null,
 		public ?string $folderName = null,
 		public ?string $parentId = null,

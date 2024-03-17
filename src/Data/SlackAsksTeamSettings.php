@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class SlackAsksTeamSettings extends Data
 {
-	function __construct(public Optional|string $id, public Optional|bool $hasDefaultAsk)
+	public function __construct(public Optional|string $id, public Optional|bool $hasDefaultAsk)
 	{
 	}
 }

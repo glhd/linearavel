@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class NullableNumberComparator
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, float> */
 		public Collection $in,
 		/** @var Collection<int, float> */

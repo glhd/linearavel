@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class OrganizationInviteConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, OrganizationInviteEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, OrganizationInvite> */

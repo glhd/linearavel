@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class TeamArchivePayload extends Data implements ArchivePayload
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Team|null $entity = null)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Team|null $entity = null)
 	{
 	}
 }

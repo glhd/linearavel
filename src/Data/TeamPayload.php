@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class TeamPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|Team|null $team = null, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|Team|null $team = null, public Optional|bool $success)
 	{
 	}
 }

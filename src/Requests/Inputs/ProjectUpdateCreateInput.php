@@ -6,7 +6,7 @@ use Glhd\Linearavel\Data\Enums\ProjectUpdateHealthType;
 
 class ProjectUpdateCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $projectId,
 		public ?string $id = null,
 		public ?string $body = null,

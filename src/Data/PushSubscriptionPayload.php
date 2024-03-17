@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class PushSubscriptionPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|PushSubscription $entity, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|PushSubscription $entity, public Optional|bool $success)
 	{
 	}
 }

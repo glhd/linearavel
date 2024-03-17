@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class OrganizationInvitePayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|OrganizationInvite $organizationInvite, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|OrganizationInvite $organizationInvite, public Optional|bool $success)
 	{
 	}
 }

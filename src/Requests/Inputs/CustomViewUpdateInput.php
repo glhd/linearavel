@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class CustomViewUpdateInput
 {
-	function __construct(
+	public function __construct(
 		public ?string $name = null,
 		public ?string $description = null,
 		public ?string $icon = null,

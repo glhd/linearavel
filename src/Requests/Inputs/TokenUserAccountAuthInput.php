@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class TokenUserAccountAuthInput
 {
-	function __construct(
+	public function __construct(
 		public string $email,
 		public string $token,
 		public string $timezone,

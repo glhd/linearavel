@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class DocumentCollectionFilter
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, DocumentCollectionFilter> */
 		public Collection $and,
 		/** @var Collection<int, DocumentCollectionFilter> */

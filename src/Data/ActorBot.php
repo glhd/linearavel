@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ActorBot extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string|null $id = null,
 		public Optional|string $type,
 		public Optional|string|null $subType = null,

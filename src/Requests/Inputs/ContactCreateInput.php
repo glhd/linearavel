@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class ContactCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $type,
 		public string $message,
 		public ?string $operatingSystem = null,

@@ -2,8 +2,6 @@
 
 namespace Glhd\Linearavel\Support;
 
-use Glhd\Linearavel\Data\Queries\Team;
-use Glhd\Linearavel\Data\Queries\User;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\DataConfig;
@@ -34,8 +32,8 @@ class KeyHelper
 			->dot()
 			->when(
 				$depth,
-				fn($collection) => $collection->toArray(),
-				fn($collection) => $collection->keys(),
+				fn ($collection) => $collection->toArray(),
+				fn ($collection) => $collection->keys(),
 			);
 	}
 }

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class DocumentPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|Document $document, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|Document $document, public Optional|bool $success)
 	{
 	}
 }

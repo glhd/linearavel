@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class UserSettingsUpdateInput
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, string> */
 		public Collection $unsubscribedFrom,
 		public ?string $settings = null,

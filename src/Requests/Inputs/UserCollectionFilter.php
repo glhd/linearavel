@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class UserCollectionFilter
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, UserCollectionFilter> */
 		public Collection $and,
 		/** @var Collection<int, UserCollectionFilter> */

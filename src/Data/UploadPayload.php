@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class UploadPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|UploadFile|null $uploadFile = null, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|UploadFile|null $uploadFile = null, public Optional|bool $success)
 	{
 	}
 }

@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 
 class UserUpdateInput
 {
-	function __construct(
+	public function __construct(
 		public ?string $name = null,
 		public ?string $displayName = null,
 		public ?string $avatarUrl = null,

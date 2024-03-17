@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class CycleConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, CycleEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, Cycle> */

@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class SlaStatusComparator
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, SlaStatus> */
 		public Collection $in,
 		/** @var Collection<int, SlaStatus> */

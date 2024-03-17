@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class OrganizationAcceptedOrExpiredInviteDetailsPayload extends Data
 {
-	function __construct(public Optional|OrganizationInviteStatus $status)
+	public function __construct(public Optional|OrganizationInviteStatus $status)
 	{
 	}
 }

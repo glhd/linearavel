@@ -6,7 +6,7 @@ use Glhd\Linearavel\Data\Enums\GitAutomationStates;
 
 class GitAutomationStateCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $teamId,
 		public GitAutomationStates $event,
 		public ?string $id = null,

@@ -6,7 +6,7 @@ use Carbon\CarbonImmutable;
 
 class CycleCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $teamId,
 		public CarbonImmutable $startsAt,
 		public CarbonImmutable $endsAt,

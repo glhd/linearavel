@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class ProjectLinkConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, ProjectLinkEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, ProjectLink> */

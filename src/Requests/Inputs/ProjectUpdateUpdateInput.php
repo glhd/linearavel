@@ -6,7 +6,7 @@ use Glhd\Linearavel\Data\Enums\ProjectUpdateHealthType;
 
 class ProjectUpdateUpdateInput
 {
-	function __construct(public ?string $body = null, public ?string $bodyData = null, public ?ProjectUpdateHealthType $health = null, public ?bool $isDiffHidden = null)
+	public function __construct(public ?string $body = null, public ?string $bodyData = null, public ?ProjectUpdateHealthType $health = null, public ?bool $isDiffHidden = null)
 	{
 	}
 }

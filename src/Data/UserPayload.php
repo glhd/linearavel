@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class UserPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|User|null $user = null, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|User|null $user = null, public Optional|bool $success)
 	{
 	}
 }

@@ -13,14 +13,15 @@ use Spatie\LaravelData\Optional;
 
 class AuthOrganization extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
 		public Optional|string $name,
 		public Optional|string $urlKey,
 		/** @var Collection<int, string> */
 		public Optional|Collection $previousUrlKeys,
 		public Optional|string|null $logoUrl = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $deletionRequestedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $deletionRequestedAt = null,
 		public Optional|ReleaseChannel $releaseChannel,
 		public Optional|bool $samlEnabled,
 		public Optional|string|null $samlSettings = null,

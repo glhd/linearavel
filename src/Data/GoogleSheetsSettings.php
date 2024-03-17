@@ -11,11 +11,12 @@ use Spatie\LaravelData\Optional;
 
 class GoogleSheetsSettings extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $spreadsheetId,
 		public Optional|string $spreadsheetUrl,
 		public Optional|float $sheetId,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedIssuesAt
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedIssuesAt
 	) {
 	}
 }

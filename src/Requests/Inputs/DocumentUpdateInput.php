@@ -4,7 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 class DocumentUpdateInput
 {
-	function __construct(
+	public function __construct(
 		public ?string $title = null,
 		public ?string $icon = null,
 		public ?string $color = null,

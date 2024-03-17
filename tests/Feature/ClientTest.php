@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Tests\Feature;
 
-use Glhd\Linearavel\Connectors\LinearConnector;
 use Glhd\Linearavel\Facades\Linear;
 use Glhd\Linearavel\Tests\TestCase;
 

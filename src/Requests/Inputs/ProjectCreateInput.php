@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class ProjectCreateInput
 {
-	function __construct(
+	public function __construct(
 		public string $name,
 		/** @var Collection<int, string> */
 		public Collection $teamIds,

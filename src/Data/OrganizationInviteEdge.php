@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class OrganizationInviteEdge extends Data
 {
-	function __construct(public Optional|OrganizationInvite $node, public Optional|string $cursor)
+	public function __construct(public Optional|OrganizationInvite $node, public Optional|string $cursor)
 	{
 	}
 }
