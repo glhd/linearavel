@@ -3,10 +3,8 @@
 namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
+use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -14,9 +12,9 @@ class User extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $displayName,
@@ -33,7 +31,7 @@ class User extends Data implements Node
 		public Optional|TeamMembershipConnection $teamMemberships,
 		public Optional|bool $isMe,
 		public Optional|bool $admin,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $avatarUrl,
 		public Optional|string|null $disableReason,
@@ -41,10 +39,10 @@ class User extends Data implements Node
 		public Optional|string|null $description,
 		public Optional|string|null $statusEmoji,
 		public Optional|string|null $statusLabel,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $statusUntilAt,
 		public Optional|string|null $timezone,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $lastSeen
 	) {
 	}

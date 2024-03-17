@@ -3,11 +3,9 @@
 namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
+use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Enums\OrganizationInviteStatus;
 use Glhd\Linearavel\Data\Enums\UserRoleType;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -18,7 +16,7 @@ class OrganizationInviteFullDetailsPayload extends Data
 		public Optional|string $inviter,
 		public Optional|string $email,
 		public Optional|UserRoleType $role,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,
 		public Optional|string $organizationName,
 		public Optional|string $organizationId,

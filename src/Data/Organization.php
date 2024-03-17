@@ -3,15 +3,13 @@
 namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
+use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Enums\Day;
 use Glhd\Linearavel\Data\Enums\ProjectUpdateReminderFrequency;
 use Glhd\Linearavel\Data\Enums\ReleaseChannel;
 use Glhd\Linearavel\Data\Enums\SLADayCountType;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -19,9 +17,9 @@ class Organization extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $urlKey,
@@ -48,14 +46,14 @@ class Organization extends Data implements Node
 		public Optional|int $createdIssueCount,
 		public Optional|TemplateConnection $templates,
 		public Optional|IssueLabelConnection $labels,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $logoUrl,
 		public Optional|string|null $gitBranchFormat,
 		public Optional|string|null $samlSettings,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $deletionRequestedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $trialEndsAt,
 		public Optional|bool|null $allowMembersToInvite,
 		public Optional|PaidSubscription|null $subscription

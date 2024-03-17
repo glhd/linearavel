@@ -3,15 +3,13 @@
 namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
+use Glhd\Linearavel\Data\Casts\LinearDate;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
 class OpsgenieSettings extends Data
 {
-	public function __construct(#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
+	public function __construct(#[LinearDate] public Optional|CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
 	{
 	}
 }

@@ -3,12 +3,10 @@
 namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
+use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Enums\DateResolutionType;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -16,9 +14,9 @@ class ProjectSearchResult extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $description,
@@ -51,26 +49,26 @@ class ProjectSearchResult extends Data implements Node
 		public Optional|float $scope,
 		public Optional|string $state,
 		public Optional|string $metadata,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $icon,
 		public Optional|User|null $creator,
 		public Optional|User|null $lead,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $projectUpdateRemindersPausedUntilAt,
 		public Optional|string|null $startDate,
 		public Optional|DateResolutionType|null $startDateResolution,
 		public Optional|string|null $targetDate,
 		public Optional|DateResolutionType|null $targetDateResolution,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $startedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $pausedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $completedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $canceledAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $autoArchivedAt,
 		public Optional|bool|null $trashed,
 		public Optional|Issue|null $convertedFromIssue,

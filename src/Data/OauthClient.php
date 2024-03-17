@@ -3,11 +3,9 @@
 namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
+use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -15,9 +13,9 @@ class OauthClient extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $clientId,
 		public Optional|string $name,
@@ -31,7 +29,7 @@ class OauthClient extends Data implements Node
 		public Optional|Organization $organization,
 		/** @var Collection<int, string> */
 		public Optional|Collection $webhookResourceTypes,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,
 		public Optional|string|null $imageUrl,

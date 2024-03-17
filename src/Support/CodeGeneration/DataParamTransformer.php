@@ -2,24 +2,20 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use DateTimeInterface;
+use Glhd\Linearavel\Data\Casts\LinearDate;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
-use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\UnionType;
 use PhpParser\NodeAbstract;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Optional;
 
 class DataParamTransformer extends ConstructorParamTransformer
@@ -69,12 +65,7 @@ class DataParamTransformer extends ConstructorParamTransformer
 	{
 		if ('DateTime' === $node->name->value) {
 			$this->param->attrGroups ??= [];
-			$this->param->attrGroups[] = new AttributeGroup([
-				new Attribute($this->fqcn(WithCast::class), [
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
-				]),
-			]);
+			$this->param->attrGroups[] = new AttributeGroup([new Attribute($this->fqcn(LinearDate::class))]);
 		}
 		
 		$this->parent->use(Optional::class);

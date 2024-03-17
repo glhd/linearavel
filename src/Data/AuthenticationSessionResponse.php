@@ -3,11 +3,9 @@
 namespace Glhd\Linearavel\Data;
 
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
+use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Enums\AuthenticationSessionType;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -18,9 +16,9 @@ class AuthenticationSessionResponse extends Data
 		public Optional|AuthenticationSessionType $type,
 		/** @var Collection<int, string> */
 		public Optional|Collection $countryCodes,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|bool $isCurrentSession,
@@ -30,7 +28,7 @@ class AuthenticationSessionResponse extends Data
 		public Optional|string|null $locationCity,
 		public Optional|string|null $userAgent,
 		public Optional|string|null $browserType,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		#[LinearDate]
 		public Optional|CarbonImmutable|null $lastActiveAt,
 		public Optional|string|null $location,
 		public Optional|string|null $operatingSystem,

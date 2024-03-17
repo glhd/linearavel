@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use DateTimeInterface;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
@@ -10,10 +9,6 @@ use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\NonNullTypeNode;
 use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Attribute;
-use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
@@ -21,9 +16,6 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PhpParser\NodeAbstract;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
-use Spatie\LaravelData\Optional;
 
 class FunctionTransformer
 {
@@ -100,35 +92,9 @@ class FunctionTransformer
 	{
 		$type = $this->typeToName($node);
 		
-		if ($this->node instanceof InputValueDefinitionNode) {
-			return $nullable
-				? new NullableType($type)
-				: $type;
-		}
-		if ('DateTime' === $node->name->value) {
-			$this->method->attrGroups ??= [];
-			$this->method->attrGroups[] = new AttributeGroup([
-				new Attribute($this->fqcn(WithCast::class), [
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
-				]),
-			]);
-		}
-			
-		$this->parent->use(Optional::class);
-			
-		$types = [
-			new Name('Optional'),
-			$type,
-		];
-		
-		if ($nullable) {
-			$types[] = new Identifier('null');
-		}
-		
-		return count($types) > 1
-			? new UnionType($types)
-			: $types[0];
+		return $nullable
+			? new NullableType($type)
+			: $type;
 	}
 	
 	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): Identifier|Name
