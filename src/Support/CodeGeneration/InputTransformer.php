@@ -51,7 +51,7 @@ class InputTransformer
 		$params = $this->params();
 		
 		return array_filter([
-			new Namespace_(new Name($this->namespace.'Requests')),
+			new Namespace_(new Name($this->namespace.'Requests\\Inputs')),
 			$this->uses(),
 			new Class_($this->node->name->value, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params])],

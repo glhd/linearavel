@@ -22,6 +22,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\UnionType;
+use PhpParser\NodeAbstract;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Optional;
@@ -84,7 +85,7 @@ class ParamTransformer
 		]);
 	}
 	
-	protected function namedType(NamedTypeNode $node, bool $nullable = false): ComplexType|Name
+	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract
 	{
 		$type = $this->typeToName($node);
 		
