@@ -24,9 +24,23 @@ use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Optional;
 
-class ConstructorParamTransformer extends ParamTransformer
+class DataParamTransformer extends ConstructorParamTransformer
 {
 	protected Param $param;
+	
+	public static function transform(
+		FieldDefinitionNode $node,
+		ClassTransformer $parent,
+	): Param {
+		$transformer = new static($node, $parent);
+		return $transformer();
+	}
+	
+	public function __construct(
+		protected FieldDefinitionNode $node,
+		protected ClassTransformer $parent,
+	) {
+	}
 	
 	public function __invoke(): Param
 	{
@@ -44,7 +58,7 @@ class ConstructorParamTransformer extends ParamTransformer
 		return $this->param;
 	}
 	
-	protected function listType(ListTypeNode $node): NodeAbstract
+	protected function listType(ListTypeNode $node): UnionType|Name
 	{
 		$type = $this->typeToName($node->type);
 		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
@@ -54,5 +68,31 @@ class ConstructorParamTransformer extends ParamTransformer
 			new Name('Optional'),
 			new Name('Collection'),
 		]);
+	}
+	
+	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract
+	{
+		if ('DateTime' === $node->name->value) {
+			$this->param->attrGroups ??= [];
+			$this->param->attrGroups[] = new AttributeGroup([
+				new Attribute($this->fqcn(WithCast::class), [
+					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
+					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
+				]),
+			]);
+		}
+		
+		$this->parent->use(Optional::class);
+		
+		$types = [
+			new Name('Optional'),
+			$this->typeToName($node),
+		];
+		
+		if ($nullable) {
+			$types[] = new Identifier('null');
+		}
+		
+		return new UnionType($types);
 	}
 }

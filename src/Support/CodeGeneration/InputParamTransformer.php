@@ -24,9 +24,23 @@ use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Optional;
 
-class ConstructorParamTransformer extends ParamTransformer
+class InputParamTransformer extends ConstructorParamTransformer
 {
 	protected Param $param;
+	
+	public static function transform(
+		InputValueDefinitionNode $node,
+		ClassTransformer $parent,
+	): Param {
+		$transformer = new static($node, $parent);
+		return $transformer();
+	}
+	
+	public function __construct(
+		protected InputValueDefinitionNode $node,
+		protected ClassTransformer $parent,
+	) {
+	}
 	
 	public function __invoke(): Param
 	{
@@ -50,9 +64,6 @@ class ConstructorParamTransformer extends ParamTransformer
 		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
 		
-		return new UnionType([
-			new Name('Optional'),
-			new Name('Collection'),
-		]);
+		return new Name('Collection');
 	}
 }

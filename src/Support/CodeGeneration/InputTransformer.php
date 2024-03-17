@@ -51,7 +51,7 @@ class InputTransformer extends ClassTransformer
 	protected function params(): array
 	{
 		return collect($this->node->fields)
-			->map(fn (InputValueDefinitionNode $node) => ConstructorParamTransformer::transform($node, $this))
+			->map(fn (InputValueDefinitionNode $node) => InputParamTransformer::transform($node, $this))
 			->sortBy(fn (Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
 			->all();
 	}
