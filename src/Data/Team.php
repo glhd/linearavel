@@ -12,8 +12,10 @@ class Team extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $key,
 		public Optional|Organization $organization,
@@ -54,7 +56,8 @@ class Team extends Data implements Node
 		public Optional|IssueLabelConnection $labels,
 		public Optional|WebhookConnection $webhooks,
 		public Optional|bool $issueSortOrderDefaultToBottom,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,
 		public Optional|string|null $icon,
 		public Optional|string|null $color,

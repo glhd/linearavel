@@ -21,7 +21,7 @@ class LinearConnector extends Connector
 	// public function teams(string ...$keys)
 	// {
 	// 	$response = $this->send(new TeamsRequest($keys));
-	//	
+	//
 	// 	return Team::collect($response->json('data.teams.nodes'), Collection::class);
 	// }
 	
@@ -32,7 +32,7 @@ class LinearConnector extends Connector
 	
 	protected function linearQuery(string $name, array $args)
 	{
-		$args = collect($args)->reject(fn($arg) => null === $arg);
+		$args = collect($args)->reject(fn ($arg) => null === $arg);
 		
 		$query = $args->isEmpty()
 			? $name

@@ -13,17 +13,22 @@ class OrganizationInvite extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $email,
 		public Optional|UserRoleType $role,
 		public Optional|bool $external,
 		public Optional|string $metadata,
 		public Optional|User $inviter,
 		public Optional|Organization $organization,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
-		#[LinearDate] public Optional|CarbonImmutable|null $acceptedAt,
-		#[LinearDate] public Optional|CarbonImmutable|null $expiresAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $acceptedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $expiresAt,
 		public Optional|User|null $invitee
 	) {
 	}

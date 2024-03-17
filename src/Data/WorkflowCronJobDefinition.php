@@ -12,8 +12,10 @@ class WorkflowCronJobDefinition extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|bool $enabled,
 		public Optional|Team $team,
@@ -21,7 +23,8 @@ class WorkflowCronJobDefinition extends Data implements Node
 		public Optional|string $schedule,
 		public Optional|string $activities,
 		public Optional|string $sortOrder,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description
 	) {
 	}

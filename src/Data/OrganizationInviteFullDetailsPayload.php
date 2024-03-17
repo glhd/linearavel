@@ -16,7 +16,8 @@ class OrganizationInviteFullDetailsPayload extends Data
 		public Optional|string $inviter,
 		public Optional|string $email,
 		public Optional|UserRoleType $role,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
 		public Optional|string $organizationName,
 		public Optional|string $organizationId,
 		public Optional|bool $accepted,

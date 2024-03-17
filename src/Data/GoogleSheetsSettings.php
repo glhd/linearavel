@@ -13,7 +13,8 @@ class GoogleSheetsSettings extends Data
 		public Optional|string $spreadsheetId,
 		public Optional|string $spreadsheetUrl,
 		public Optional|float $sheetId,
-		#[LinearDate] public Optional|CarbonImmutable $updatedIssuesAt
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedIssuesAt
 	) {
 	}
 }

@@ -12,14 +12,17 @@ class Company extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $externalId,
 		public Optional|User $creator,
 		public Optional|Organization $organization,
 		public Optional|string $companyProperties,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $websiteUrl,
 		public Optional|string|null $logoUrl
 	) {

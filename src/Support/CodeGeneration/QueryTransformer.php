@@ -54,7 +54,7 @@ class QueryTransformer extends ClassTransformer
 	protected function queries(): array
 	{
 		return collect($this->node->fields)
-			->map(fn(FieldDefinitionNode $node) => FunctionTransformer::transform($node, $this, function(ClassMethod $fn) {
+			->map(fn (FieldDefinitionNode $node) => FunctionTransformer::transform($node, $this, function(ClassMethod $fn) {
 				$fn->stmts = [
 					new Return_(
 						new MethodCall(
@@ -65,7 +65,7 @@ class QueryTransformer extends ClassTransformer
 								new Arg(new FuncCall(
 									name: new Name('compact'),
 									args: collect($fn->params)
-										->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
+										->map(fn (Param $param) => new Arg(new String_((string) $param->var->name)))
 										->all(),
 								)),
 							],

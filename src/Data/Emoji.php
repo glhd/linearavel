@@ -12,14 +12,17 @@ class Emoji extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $url,
 		public Optional|string $source,
 		public Optional|User $creator,
 		public Optional|Organization $organization,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

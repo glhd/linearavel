@@ -12,12 +12,15 @@ class Integration extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $service,
 		public Optional|Organization $organization,
 		public Optional|User $creator,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|Team|null $team
 	) {
 	}

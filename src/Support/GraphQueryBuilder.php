@@ -2,11 +2,6 @@
 
 namespace Glhd\Linearavel\Support;
 
-use Illuminate\Support\Collection;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Support\DataConfig;
-use Spatie\LaravelData\Support\DataProperty;
-
 class GraphQueryBuilder
 {
 	public function __construct(
@@ -65,7 +60,7 @@ class GraphQueryBuilder
 		$indent = "\t\t".(str_repeat("\t", $depth));
 		
 		return collect($keys)
-			->unless($depth, fn($keys) => $keys->flip()->undot())
+			->unless($depth, fn ($keys) => $keys->flip()->undot())
 			->map(function($value, $key) use ($depth, $indent) {
 				$line = $key;
 				

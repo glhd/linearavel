@@ -12,10 +12,13 @@ class Reaction extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $emoji,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|Issue|null $issue,
 		public Optional|Comment|null $comment,
 		public Optional|ProjectUpdate|null $projectUpdate,

@@ -12,15 +12,19 @@ class ExternalUser extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $displayName,
 		public Optional|Organization $organization,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $email,
 		public Optional|string|null $avatarUrl,
-		#[LinearDate] public Optional|CarbonImmutable|null $lastSeen
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $lastSeen
 	) {
 	}
 }

@@ -12,19 +12,24 @@ class PaidSubscription extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $type,
 		public Optional|float $seats,
 		public Optional|Organization $organization,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|float|null $seatsMinimum,
 		public Optional|float|null $seatsMaximum,
 		public Optional|User|null $creator,
 		public Optional|string|null $collectionMethod,
-		#[LinearDate] public Optional|CarbonImmutable|null $canceledAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $canceledAt,
 		public Optional|string|null $pendingChangeType,
-		#[LinearDate] public Optional|CarbonImmutable|null $nextBillingAt
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $nextBillingAt
 	) {
 	}
 }

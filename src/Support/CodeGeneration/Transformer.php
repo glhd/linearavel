@@ -91,9 +91,9 @@ class Transformer
 			return true; // FIXME
 		}
 		
-		if ('Query' !== $node->name->value) {
-			return true; // FIXME
-		}
+		// if ('Query' !== $node->name->value) {
+		// 	return true; // FIXME
+		// }
 		
 		$tree = match ($node->name->value) {
 			'Query' => QueryTransformer::transform($node, $this),

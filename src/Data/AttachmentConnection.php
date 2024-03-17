@@ -2,11 +2,11 @@
 
 namespace Glhd\Linearavel\Data;
 
+use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
-class AttachmentConnection extends Data
+class AttachmentConnection extends Connection
 {
 	public function __construct(
 		/** @var Collection<int, AttachmentEdge> */

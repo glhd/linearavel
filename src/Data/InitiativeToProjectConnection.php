@@ -2,11 +2,11 @@
 
 namespace Glhd\Linearavel\Data;
 
+use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
-class InitiativeToProjectConnection extends Data
+class InitiativeToProjectConnection extends Connection
 {
 	public function __construct(
 		/** @var Collection<int, InitiativeToProjectEdge> */

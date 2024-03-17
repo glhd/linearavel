@@ -6,7 +6,6 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Illuminate\Support\Str;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
@@ -45,7 +44,7 @@ class TypeTransformer extends ClassTransformer
 			new Namespace_(new Name($this->namespace.'Data')),
 			$this->uses(),
 			new Class_($this->node->name->value, [
-				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
+				'stmts' => [new ClassMethod('__construct', ['params' => $params, 'flags' => 1])],
 				'extends' => $extends,
 				'implements' => $implements,
 			]),

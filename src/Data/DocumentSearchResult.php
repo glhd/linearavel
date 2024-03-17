@@ -12,8 +12,10 @@ class DocumentSearchResult extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $title,
 		public Optional|User $creator,
 		public Optional|User $updatedBy,
@@ -21,7 +23,8 @@ class DocumentSearchResult extends Data implements Node
 		public Optional|string $slugId,
 		public Optional|float $sortOrder,
 		public Optional|string $metadata,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $icon,
 		public Optional|string|null $color,
 		public Optional|Template|null $lastAppliedTemplate,

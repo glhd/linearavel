@@ -12,12 +12,16 @@ class ProjectUpdateInteraction extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate] public Optional|CarbonImmutable $createdAt,
-		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|User $user,
 		public Optional|ProjectUpdate $projectUpdate,
-		#[LinearDate] public Optional|CarbonImmutable $readAt,
-		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt
+		#[LinearDate]
+		public Optional|CarbonImmutable $readAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

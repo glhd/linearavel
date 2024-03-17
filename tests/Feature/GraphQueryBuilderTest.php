@@ -63,7 +63,7 @@ class GraphQueryBuilderTest extends TestCase
 			arguments: [
 				'includeArchived' => true,
 				'filter' => [
-					'id' => ['eq' => '12345']
+					'id' => ['eq' => '12345'],
 				],
 			],
 		);
