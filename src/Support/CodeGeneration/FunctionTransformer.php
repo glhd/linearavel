@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use Closure;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
@@ -26,16 +27,16 @@ class FunctionTransformer
 	public static function transform(
 		FieldDefinitionNode $node,
 		ClassTransformer $parent,
-		array $stmts = [],
+		?Closure $callback = null,
 	) {
-		$transformer = new static($node, $parent, $stmts);
+		$transformer = new static($node, $parent, $callback);
 		return $transformer();
 	}
 	
 	public function __construct(
 		protected FieldDefinitionNode $node,
 		protected ClassTransformer $parent,
-		protected array $stmts,
+		protected ?Closure $callback,
 	) {
 		$this->method = new ClassMethod($this->node->name->value);
 	}
@@ -49,11 +50,14 @@ class FunctionTransformer
 			->all();
 		
 		$this->method->params = $args;
-		$this->method->stmts = $this->stmts;
 		
 		if (count($this->docs)) {
 			$comment = "/**\n * ".implode("\n * ", $this->docs)."\n */";
 			$this->method->setDocComment(new Doc($comment));
+		}
+		
+		if ($this->callback) {
+			call_user_func($this->callback, $this->method);
 		}
 		
 		return $this->method;

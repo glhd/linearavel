@@ -2,10 +2,7 @@
 
 namespace Glhd\Linearavel\Connectors;
 
-use Glhd\Linearavel\Data\Team;
-use Glhd\Linearavel\Requests\TeamsRequest;
 use Glhd\Linearavel\Support\KeyHelper;
-use Illuminate\Support\Collection;
 use Saloon\Contracts\Authenticator;
 use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Connector;
@@ -33,9 +30,17 @@ class LinearConnector extends Connector
 		return $this->base_url;
 	}
 	
-	protected function linearQuery($args)
+	protected function linearQuery(string $name, array $args)
 	{
-		dd(array_filter($args));
+		$args = collect($args)->reject(fn($arg) => null === $arg);
+		
+		$query = $args->isEmpty()
+			? $name
+			: $name.'('.$args->toJson().')';
+		
+		dd($query);
+		
+		return '';
 	}
 	
 	protected function defaultAuth(): ?Authenticator

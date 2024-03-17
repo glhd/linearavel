@@ -30,7 +30,7 @@ trait QueriesLinear
 	 */
 	function apiKeys(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('apiKeys', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -38,7 +38,7 @@ trait QueriesLinear
 	 */
 	function applicationInfo(string $clientId)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('applicationInfo', compact('clientId'));
 	}
 	
 	/**
@@ -46,7 +46,7 @@ trait QueriesLinear
 	 */
 	function applicationInfoByIds(iterable $ids)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('applicationInfoByIds', compact('ids'));
 	}
 	
 	/**
@@ -54,7 +54,7 @@ trait QueriesLinear
 	 */
 	function applicationInfoWithMembershipsByIds(iterable $clientIds)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('applicationInfoWithMembershipsByIds', compact('clientIds'));
 	}
 	
 	/**
@@ -65,17 +65,17 @@ trait QueriesLinear
 	 */
 	function applicationWithAuthorization(iterable $scope, string $clientId, ?string $actor = null, ?string $redirectUri = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('applicationWithAuthorization', compact('scope', 'clientId', 'actor', 'redirectUri'));
 	}
 	
 	function authorizedApplications()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('authorizedApplications', compact());
 	}
 	
 	function workspaceAuthorizedApplications()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('workspaceAuthorizedApplications', compact());
 	}
 	
 	/**
@@ -96,7 +96,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('attachments', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -104,7 +104,7 @@ trait QueriesLinear
 	 */
 	function attachment(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('attachment', compact('id'));
 	}
 	
 	/**
@@ -118,7 +118,7 @@ trait QueriesLinear
 	 */
 	function attachmentsForURL(string $url, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('attachmentsForURL', compact('url', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -126,7 +126,7 @@ trait QueriesLinear
 	 */
 	function attachmentIssue(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('attachmentIssue', compact('id'));
 	}
 	
 	/**
@@ -134,12 +134,12 @@ trait QueriesLinear
 	 */
 	function attachmentSources(?string $teamId = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('attachmentSources', compact('teamId'));
 	}
 	
 	function auditEntryTypes()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('auditEntryTypes', compact());
 	}
 	
 	/**
@@ -160,17 +160,17 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('auditEntries', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	function availableUsers()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('availableUsers', compact());
 	}
 	
 	function authenticationSessions()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('authenticationSessions', compact());
 	}
 	
 	/**
@@ -179,7 +179,7 @@ trait QueriesLinear
 	 */
 	function ssoUrlFromEmail(string $email, ?bool $isDesktop = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('ssoUrlFromEmail', compact('email', 'isDesktop'));
 	}
 	
 	/**
@@ -200,7 +200,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('comments', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -210,7 +210,7 @@ trait QueriesLinear
 	 */
 	function comment(?string $id = null, ?string $issueId = null, ?string $hash = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('comment', compact('id', 'issueId', 'hash'));
 	}
 	
 	/**
@@ -223,7 +223,7 @@ trait QueriesLinear
 	 */
 	function customViews(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('customViews', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -231,7 +231,7 @@ trait QueriesLinear
 	 */
 	function customView(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('customView', compact('id'));
 	}
 	
 	/**
@@ -240,7 +240,7 @@ trait QueriesLinear
 	 */
 	function customViewDetailsSuggestion(string $filter, ?string $modelName = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('customViewDetailsSuggestion', compact('filter', 'modelName'));
 	}
 	
 	/**
@@ -248,7 +248,7 @@ trait QueriesLinear
 	 */
 	function customViewHasSubscribers(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('customViewHasSubscribers', compact('id'));
 	}
 	
 	/**
@@ -269,7 +269,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('cycles', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -277,7 +277,7 @@ trait QueriesLinear
 	 */
 	function cycle(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('cycle', compact('id'));
 	}
 	
 	/**
@@ -285,7 +285,7 @@ trait QueriesLinear
 	 */
 	function documentContentHistory(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('documentContentHistory', compact('id'));
 	}
 	
 	/**
@@ -306,7 +306,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('documents', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -314,7 +314,7 @@ trait QueriesLinear
 	 */
 	function document(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('document', compact('id'));
 	}
 	
 	/**
@@ -327,7 +327,7 @@ trait QueriesLinear
 	 */
 	function emojis(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('emojis', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -335,7 +335,7 @@ trait QueriesLinear
 	 */
 	function emoji(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('emoji', compact('id'));
 	}
 	
 	/**
@@ -348,7 +348,7 @@ trait QueriesLinear
 	 */
 	function externalUsers(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('externalUsers', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -356,7 +356,7 @@ trait QueriesLinear
 	 */
 	function externalUser(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('externalUser', compact('id'));
 	}
 	
 	/**
@@ -369,7 +369,7 @@ trait QueriesLinear
 	 */
 	function initiativeToProjects(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('initiativeToProjects', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -377,7 +377,7 @@ trait QueriesLinear
 	 */
 	function initiativeToProject(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('initiativeToProject', compact('id'));
 	}
 	
 	/**
@@ -390,7 +390,7 @@ trait QueriesLinear
 	 */
 	function initiatives(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('initiatives', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -398,7 +398,7 @@ trait QueriesLinear
 	 */
 	function initiative(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('initiative', compact('id'));
 	}
 	
 	/**
@@ -411,7 +411,7 @@ trait QueriesLinear
 	 */
 	function favorites(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('favorites', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -419,7 +419,7 @@ trait QueriesLinear
 	 */
 	function favorite(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('favorite', compact('id'));
 	}
 	
 	/**
@@ -432,7 +432,7 @@ trait QueriesLinear
 	 */
 	function integrations(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('integrations', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -440,7 +440,7 @@ trait QueriesLinear
 	 */
 	function integration(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('integration', compact('id'));
 	}
 	
 	/**
@@ -449,7 +449,7 @@ trait QueriesLinear
 	 */
 	function integrationHasScopes(iterable $scopes, string $integrationId)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('integrationHasScopes', compact('scopes', 'integrationId'));
 	}
 	
 	/**
@@ -470,7 +470,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectUpdates', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -478,7 +478,7 @@ trait QueriesLinear
 	 */
 	function integrationsSettings(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('integrationsSettings', compact('id'));
 	}
 	
 	/**
@@ -491,7 +491,7 @@ trait QueriesLinear
 	 */
 	function integrationTemplates(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('integrationTemplates', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -499,7 +499,7 @@ trait QueriesLinear
 	 */
 	function integrationTemplate(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('integrationTemplate', compact('id'));
 	}
 	
 	/**
@@ -507,7 +507,7 @@ trait QueriesLinear
 	 */
 	function issueImportFinishGithubOAuth(string $code)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueImportFinishGithubOAuth', compact('code'));
 	}
 	
 	/**
@@ -516,7 +516,7 @@ trait QueriesLinear
 	 */
 	function issueImportCheckCSV(string $csvUrl, string $service)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueImportCheckCSV', compact('csvUrl', 'service'));
 	}
 	
 	/**
@@ -537,7 +537,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueLabels', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -545,7 +545,7 @@ trait QueriesLinear
 	 */
 	function issueLabel(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueLabel', compact('id'));
 	}
 	
 	/**
@@ -558,7 +558,7 @@ trait QueriesLinear
 	 */
 	function issueRelations(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueRelations', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -566,7 +566,7 @@ trait QueriesLinear
 	 */
 	function issueRelation(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueRelation', compact('id'));
 	}
 	
 	/**
@@ -589,7 +589,7 @@ trait QueriesLinear
 		?PaginationOrderBy $orderBy = null,
 		?iterable $sort = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issues', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy', 'sort'));
 	}
 	
 	/**
@@ -597,7 +597,7 @@ trait QueriesLinear
 	 */
 	function issue(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issue', compact('id'));
 	}
 	
 	/**
@@ -620,7 +620,7 @@ trait QueriesLinear
 		?PaginationOrderBy $orderBy = null,
 		?string $query = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueSearch', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy', 'query'));
 	}
 	
 	/**
@@ -628,7 +628,7 @@ trait QueriesLinear
 	 */
 	function issueVcsBranchSearch(string $branchName)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueVcsBranchSearch', compact('branchName'));
 	}
 	
 	/**
@@ -649,12 +649,12 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueFigmaFileKeySearch', compact('fileKey', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	function issuePriorityValues()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issuePriorityValues', compact());
 	}
 	
 	/**
@@ -663,7 +663,7 @@ trait QueriesLinear
 	 */
 	function issueFilterSuggestion(string $prompt, ?string $projectId = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('issueFilterSuggestion', compact('prompt', 'projectId'));
 	}
 	
 	/**
@@ -676,7 +676,7 @@ trait QueriesLinear
 	 */
 	function notifications(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('notifications', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -684,7 +684,7 @@ trait QueriesLinear
 	 */
 	function notification(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('notification', compact('id'));
 	}
 	
 	/**
@@ -697,7 +697,7 @@ trait QueriesLinear
 	 */
 	function notificationSubscriptions(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('notificationSubscriptions', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -705,7 +705,7 @@ trait QueriesLinear
 	 */
 	function notificationSubscription(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('notificationSubscription', compact('id'));
 	}
 	
 	/**
@@ -713,7 +713,7 @@ trait QueriesLinear
 	 */
 	function organizationDomainClaimRequest(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('organizationDomainClaimRequest', compact('id'));
 	}
 	
 	/**
@@ -726,7 +726,7 @@ trait QueriesLinear
 	 */
 	function organizationInvites(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('organizationInvites', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -734,7 +734,7 @@ trait QueriesLinear
 	 */
 	function organizationInvite(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('organizationInvite', compact('id'));
 	}
 	
 	/**
@@ -742,12 +742,12 @@ trait QueriesLinear
 	 */
 	function organizationInviteDetails(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('organizationInviteDetails', compact('id'));
 	}
 	
 	function organization()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('organization', compact());
 	}
 	
 	/**
@@ -755,12 +755,12 @@ trait QueriesLinear
 	 */
 	function organizationExists(string $urlKey)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('organizationExists', compact('urlKey'));
 	}
 	
 	function archivedTeams()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('archivedTeams', compact());
 	}
 	
 	/**
@@ -773,7 +773,7 @@ trait QueriesLinear
 	 */
 	function projectLinks(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectLinks', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -781,7 +781,7 @@ trait QueriesLinear
 	 */
 	function projectLink(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectLink', compact('id'));
 	}
 	
 	/**
@@ -802,7 +802,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectMilestones', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -810,7 +810,7 @@ trait QueriesLinear
 	 */
 	function projectMilestone(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectMilestone', compact('id'));
 	}
 	
 	/**
@@ -831,7 +831,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projects', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -839,7 +839,7 @@ trait QueriesLinear
 	 */
 	function project(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('project', compact('id'));
 	}
 	
 	/**
@@ -847,7 +847,7 @@ trait QueriesLinear
 	 */
 	function projectFilterSuggestion(string $prompt)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectFilterSuggestion', compact('prompt'));
 	}
 	
 	/**
@@ -860,7 +860,7 @@ trait QueriesLinear
 	 */
 	function projectUpdateInteractions(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectUpdateInteractions', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -868,7 +868,7 @@ trait QueriesLinear
 	 */
 	function projectUpdateInteraction(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectUpdateInteraction', compact('id'));
 	}
 	
 	/**
@@ -876,7 +876,7 @@ trait QueriesLinear
 	 */
 	function projectUpdate(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('projectUpdate', compact('id'));
 	}
 	
 	/**
@@ -885,12 +885,12 @@ trait QueriesLinear
 	 */
 	function pushSubscriptionTest(?bool $targetMobile = null, ?SendStrategy $sendStrategy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('pushSubscriptionTest', compact('targetMobile', 'sendStrategy'));
 	}
 	
 	function rateLimitStatus()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('rateLimitStatus', compact());
 	}
 	
 	/**
@@ -903,7 +903,7 @@ trait QueriesLinear
 	 */
 	function roadmaps(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('roadmaps', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -911,7 +911,7 @@ trait QueriesLinear
 	 */
 	function roadmap(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('roadmap', compact('id'));
 	}
 	
 	/**
@@ -924,7 +924,7 @@ trait QueriesLinear
 	 */
 	function roadmapToProjects(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('roadmapToProjects', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -932,7 +932,7 @@ trait QueriesLinear
 	 */
 	function roadmapToProject(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('roadmapToProject', compact('id'));
 	}
 	
 	/**
@@ -959,7 +959,7 @@ trait QueriesLinear
 		?bool $includeComments = null,
 		?string $teamId = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('searchDocuments', compact('term', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy', 'snippetSize', 'includeComments', 'teamId'));
 	}
 	
 	/**
@@ -986,7 +986,7 @@ trait QueriesLinear
 		?bool $includeComments = null,
 		?string $teamId = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('searchProjects', compact('term', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy', 'snippetSize', 'includeComments', 'teamId'));
 	}
 	
 	/**
@@ -1015,7 +1015,7 @@ trait QueriesLinear
 		?bool $includeComments = null,
 		?string $teamId = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('searchIssues', compact('term', 'filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy', 'snippetSize', 'includeComments', 'teamId'));
 	}
 	
 	/**
@@ -1028,7 +1028,7 @@ trait QueriesLinear
 	 */
 	function teamMemberships(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('teamMemberships', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -1036,7 +1036,7 @@ trait QueriesLinear
 	 */
 	function teamMembership(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('teamMembership', compact('id'));
 	}
 	
 	/**
@@ -1050,7 +1050,7 @@ trait QueriesLinear
 	 */
 	function teams(?TeamFilter $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
+		return $this->linearQuery('teams', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -1071,7 +1071,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('administrableTeams', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -1079,12 +1079,12 @@ trait QueriesLinear
 	 */
 	function team(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('team', compact('id'));
 	}
 	
 	function templates()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('templates', compact());
 	}
 	
 	/**
@@ -1092,7 +1092,7 @@ trait QueriesLinear
 	 */
 	function template(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('template', compact('id'));
 	}
 	
 	/**
@@ -1100,7 +1100,7 @@ trait QueriesLinear
 	 */
 	function templatesForIntegration(string $integrationType)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('templatesForIntegration', compact('integrationType'));
 	}
 	
 	/**
@@ -1113,7 +1113,7 @@ trait QueriesLinear
 	 */
 	function timeSchedules(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('timeSchedules', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -1121,7 +1121,7 @@ trait QueriesLinear
 	 */
 	function timeSchedule(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('timeSchedule', compact('id'));
 	}
 	
 	/**
@@ -1134,7 +1134,7 @@ trait QueriesLinear
 	 */
 	function triageResponsibilities(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('triageResponsibilities', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -1142,7 +1142,7 @@ trait QueriesLinear
 	 */
 	function triageResponsibility(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('triageResponsibility', compact('id'));
 	}
 	
 	/**
@@ -1165,7 +1165,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('users', compact('filter', 'includeDisabled', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -1173,17 +1173,17 @@ trait QueriesLinear
 	 */
 	function user(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('user', compact('id'));
 	}
 	
 	function viewer()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('viewer', compact());
 	}
 	
 	function userSettings()
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('userSettings', compact());
 	}
 	
 	/**
@@ -1196,7 +1196,7 @@ trait QueriesLinear
 	 */
 	function webhooks(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('webhooks', compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -1204,7 +1204,7 @@ trait QueriesLinear
 	 */
 	function webhook(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('webhook', compact('id'));
 	}
 	
 	/**
@@ -1225,7 +1225,7 @@ trait QueriesLinear
 		?bool $includeArchived = null,
 		?PaginationOrderBy $orderBy = null
 	) {
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('workflowStates', compact('filter', 'before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
@@ -1233,6 +1233,6 @@ trait QueriesLinear
 	 */
 	function workflowState(string $id)
 	{
-		return $this->linearQuery(func_get_args());
+		return $this->linearQuery('workflowState', compact('id'));
 	}
 }

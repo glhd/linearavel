@@ -10,10 +10,12 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
+use PhpParser\Node\Param;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Trait_;
-use Spatie\LaravelData\Data;
 
 class QueryTransformer extends ClassTransformer
 {
@@ -52,13 +54,25 @@ class QueryTransformer extends ClassTransformer
 	protected function queries(): array
 	{
 		return collect($this->node->fields)
-			->map(fn (FieldDefinitionNode $node) => FunctionTransformer::transform($node, $this, [
-				new Return_(new MethodCall(
-					var: new Variable('this'), 
-					name: new Identifier('linearQuery'),
-					args: [new Arg(new FuncCall(new Name('func_get_args')))], 
-				)),
-			]))
+			->map(fn(FieldDefinitionNode $node) => FunctionTransformer::transform($node, $this, function(ClassMethod $fn) {
+				$fn->stmts = [
+					new Return_(
+						new MethodCall(
+							var: new Variable('this'),
+							name: new Identifier('linearQuery'),
+							args: [
+								new Arg(new String_($fn->name->name)),
+								new Arg(new FuncCall(
+									name: new Name('compact'),
+									args: collect($fn->params)
+										->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
+										->all(),
+								)),
+							],
+						),
+					),
+				];
+			}))
 			->all();
 	}
 }

@@ -38,9 +38,7 @@ class Transformer
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			function foo() {
-				return $this->query(func_get_args());
-			}
+			compact('foo', 'bar');
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);
