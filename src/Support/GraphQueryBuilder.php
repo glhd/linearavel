@@ -33,9 +33,31 @@ class GraphQueryBuilder
 		gql;
 	}
 	
-	protected function formatArguments(array $arguments): string
+	protected function formatArguments(array $arguments, int $depth = 0): string
 	{
-		return '';
+		$indent = "\t\t".(str_repeat("\t", $depth));
+		
+		$result = collect($arguments)
+			->map(function($value, $key) use ($depth, $indent) {
+				$line = "{$key}: ";
+				
+				if (is_array($value)) {
+					$line .= "{\n{$indent}\t".$this->formatArguments($value, $depth + 1)."\n{$indent}}";
+				} else {
+					$line .= json_encode($value);
+				}
+				
+				return $line;
+			})
+			->implode(",\n{$indent}");
+		
+		if ($depth) {
+			return $result;
+		}
+		
+		return str_contains($result, "\n")
+			? "(\n{$indent}{$result}\n\t)"
+			: "({$result})";
 	}
 	
 	protected function formatFields(array $keys, int $depth = 0): string
