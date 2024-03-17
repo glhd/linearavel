@@ -165,6 +165,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-data" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-package-tools" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/php-structure-discoverer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/_laravel_idea" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/saloonphp/saloon" />
     </content>
     <orderEntry type="inheritedJdk" />

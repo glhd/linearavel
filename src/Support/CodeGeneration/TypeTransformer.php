@@ -17,14 +17,6 @@ class TypeTransformer extends ClassTransformer
 {
 	public string $namespace;
 	
-	public static function transform(
-		ObjectTypeDefinitionNode $node,
-		Transformer $parent,
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected ObjectTypeDefinitionNode $node,
 		public Transformer $parent,
@@ -54,8 +46,8 @@ class TypeTransformer extends ClassTransformer
 	protected function params(): array
 	{
 		return collect($this->node->fields)
-			->map(fn (FieldDefinitionNode $node) => DataParamTransformer::transform($node, $this))
-			->sortBy(fn (Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
+			->map(fn(FieldDefinitionNode $node) => DataParamTransformer::transform($node, $this))
+			->sortBy(fn(Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
 			->values()
 			->all();
 	}

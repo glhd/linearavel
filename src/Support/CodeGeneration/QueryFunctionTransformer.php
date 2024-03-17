@@ -23,14 +23,6 @@ use PhpParser\NodeAbstract;
 
 class QueryFunctionTransformer extends FunctionTransformer
 {
-	public static function transform(
-		FieldDefinitionNode $node,
-		ClassTransformer $parent,
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected FieldDefinitionNode $node,
 		protected ClassTransformer $parent,
@@ -66,11 +58,11 @@ class QueryFunctionTransformer extends FunctionTransformer
 						new Arg(new ConstFetch(new Name($this->isList($this->node->type) ? 'true' : 'false'))),
 						count($this->method->params)
 							? new Arg(new FuncCall(
-							name: new Name('compact'),
-							args: collect($this->method->params)
-								->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
-								->all(),
-						))
+								name: new Name('compact'),
+								args: collect($this->method->params)
+									->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
+									->all(),
+							))
 							: null,
 					]),
 				),

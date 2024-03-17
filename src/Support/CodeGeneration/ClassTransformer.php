@@ -6,7 +6,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\UseItem;
 
-abstract class ClassTransformer
+abstract class ClassTransformer extends InvokableTransformer
 {
 	protected array $uses = [];
 	
@@ -27,7 +27,7 @@ abstract class ClassTransformer
 		
 		$uses = collect($this->uses)
 			->unique()
-			->map(fn ($fqcn) => new UseItem(new Name($fqcn)))
+			->map(fn($fqcn) => new UseItem(new Name($fqcn)))
 			->all();
 		
 		return new Use_($uses);

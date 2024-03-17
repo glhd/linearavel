@@ -7,16 +7,8 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Namespace_;
 
-class InterfaceTransformer
+class InterfaceTransformer extends InvokableTransformer
 {
-	public static function transform(
-		InterfaceTypeDefinitionNode $node,
-		string $namespace,
-	) {
-		$transformer = new static($node, $namespace);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected InterfaceTypeDefinitionNode $node,
 		public string $namespace,

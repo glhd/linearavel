@@ -17,14 +17,6 @@ class InputParamTransformer extends ConstructorParamTransformer
 {
 	protected Param $param;
 	
-	public static function transform(
-		InputValueDefinitionNode $node,
-		ClassTransformer $parent,
-	): Param {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected InputValueDefinitionNode $node,
 		protected ClassTransformer $parent,

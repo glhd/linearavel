@@ -5,7 +5,7 @@ namespace Glhd\Linearavel\Support\CodeGeneration;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Stmt\ClassMethod;
 
-abstract class FunctionTransformer
+abstract class FunctionTransformer extends InvokableTransformer
 {
 	use HasTypeNodes;
 	use HasParent;

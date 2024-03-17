@@ -11,16 +11,8 @@ use PhpParser\Node\Stmt\Enum_;
 use PhpParser\Node\Stmt\EnumCase;
 use PhpParser\Node\Stmt\Namespace_;
 
-class EnumTransformer
+class EnumTransformer extends InvokableTransformer
 {
-	public static function transform(
-		EnumTypeDefinitionNode $node,
-		string $namespace,
-	) {
-		$transformer = new static($node, $namespace);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected EnumTypeDefinitionNode $node,
 		public string $namespace,

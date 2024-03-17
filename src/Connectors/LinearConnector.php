@@ -32,10 +32,10 @@ class LinearConnector extends Connector
 	protected function linearQuery(string $name, string $class, bool $collect, array $args = []): PendingLinearRequest
 	{
 		return new PendingLinearRequest(
-			name: $name, 
+			name: $name,
 			class: $class,
 			collect: $collect,
-			connector: $this, 
+			connector: $this,
 			query: GraphQueryBuilder::make('query', $name)
 				->withArguments(collect($args)->reject(fn($arg) => null === $arg)->all()),
 		);

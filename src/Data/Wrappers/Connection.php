@@ -8,9 +8,9 @@ use Illuminate\Support\Traits\ForwardsCalls;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
-/** 
+/**
  * @template T
- * @mixin Collection<int, T> 
+ * @mixin Collection<int, T>
  */
 abstract class Connection extends Data
 {

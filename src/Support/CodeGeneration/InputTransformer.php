@@ -17,14 +17,6 @@ class InputTransformer extends ClassTransformer
 	
 	protected array $uses = [];
 	
-	public static function transform(
-		InputObjectTypeDefinitionNode $node,
-		Transformer $parent,
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected InputObjectTypeDefinitionNode $node,
 		public Transformer $parent,
@@ -51,8 +43,8 @@ class InputTransformer extends ClassTransformer
 	protected function params(): array
 	{
 		return collect($this->node->fields)
-			->map(fn (InputValueDefinitionNode $node) => InputParamTransformer::transform($node, $this))
-			->sortBy(fn (Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
+			->map(fn(InputValueDefinitionNode $node) => InputParamTransformer::transform($node, $this))
+			->sortBy(fn(Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
 			->values()
 			->all();
 	}

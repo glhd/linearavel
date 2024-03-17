@@ -23,14 +23,6 @@ class DataParamTransformer extends ConstructorParamTransformer
 {
 	protected Param $param;
 	
-	public static function transform(
-		FieldDefinitionNode $node,
-		ClassTransformer $parent,
-	): Param {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected FieldDefinitionNode $node,
 		protected ClassTransformer $parent,

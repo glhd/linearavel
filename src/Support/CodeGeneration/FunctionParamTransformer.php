@@ -18,15 +18,6 @@ class FunctionParamTransformer extends ParamTransformer
 {
 	protected Param $param;
 	
-	public static function transform(
-		FieldDefinitionNode|InputValueDefinitionNode $node,
-		ClassTransformer $parent,
-		?FunctionTransformer $function = null,
-	): Param {
-		$transformer = new static($node, $parent, $function);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected FieldDefinitionNode|InputValueDefinitionNode $node,
 		protected ClassTransformer $parent,
