@@ -37,6 +37,20 @@ abstract class ParamTransformer
 	
 	abstract public function __invoke(): Param;
 	
+	public static function acceptsNull(Node $node): bool
+	{
+		if ($node instanceof NullableType) {
+			return true;
+		}
+		
+		if ($node instanceof UnionType) {
+			return collect($node->types)
+				->contains(fn($type) => $type instanceof Identifier && 'null' === $type->name);
+		}
+		
+		return false;
+	}
+	
 	protected function nodeType(TypeNode $node, bool $nullable = true)
 	{
 		return match ($node::class) {
@@ -83,20 +97,6 @@ abstract class ParamTransformer
 				);
 			}),
 		};
-	}
-	
-	protected function acceptsNull(Node $node): bool
-	{
-		if ($node instanceof NullableType) {
-			return true;
-		}
-		
-		if ($node instanceof UnionType) {
-			return collect($node->types)
-				->contains(fn($type) => $type instanceof Identifier && 'null' === $type->name);
-		}
-		
-		return false;
 	}
 	
 	protected function dateTimeType(): Name

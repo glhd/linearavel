@@ -42,7 +42,7 @@ class FunctionParamTransformer extends ParamTransformer
 		
 		$this->param->type = $this->nodeType($this->node->type);
 		
-		if ($this->acceptsNull($this->param->type)) {
+		if (static::acceptsNull($this->param->type)) {
 			$this->param->default = new ConstFetch(new Name('null'));
 		}
 		

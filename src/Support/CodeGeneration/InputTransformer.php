@@ -6,6 +6,8 @@ use Glhd\Linearavel\Requests\LinearRequest;
 use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
@@ -53,6 +55,7 @@ class InputTransformer extends ClassTransformer
 	{
 		return collect($this->node->fields)
 			->map(fn(InputValueDefinitionNode $node) => ConstructorParamTransformer::transform($node, $this))
+			->sortBy(fn(Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
 			->all();
 	}
 }
