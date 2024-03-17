@@ -2,12 +2,17 @@
 
 namespace Glhd\Linearavel\Connectors;
 
+use Glhd\Linearavel\Requests\LinearRequest;
+use Glhd\Linearavel\Requests\PendingLinearRequest;
+use Glhd\Linearavel\Responses\LinearResponse;
 use Glhd\Linearavel\Support\GraphQueryBuilder;
 use Glhd\Linearavel\Support\KeyHelper;
 use Saloon\Contracts\Authenticator;
 use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Connector;
+use Saloon\Http\Faking\MockClient;
 
+/** @method send(LinearRequest $request, MockClient $mockClient = null, callable $handleRetry = null): LinearResponse */
 class LinearConnector extends Connector
 {
 	use QueriesLinear;
@@ -19,28 +24,19 @@ class LinearConnector extends Connector
 	) {
 	}
 	
-	// public function teams(string ...$keys)
-	// {
-	// 	$response = $this->send(new TeamsRequest($keys));
-	//
-	// 	return Team::collect($response->json('data.teams.nodes'), Collection::class);
-	// }
-	
 	public function resolveBaseUrl(): string
 	{
 		return $this->base_url;
 	}
 	
-	protected function linearQuery(string $name, array $args)
+	protected function linearQuery(string $name, array $args): PendingLinearRequest
 	{
-		$args = collect($args)->reject(fn ($arg) => null === $arg)->all();
-		
-		$builder = GraphQueryBuilder::make('query', $name)
-			->withArguments($args);
-		
-		dd((string) $builder);
-		
-		return '';
+		return new PendingLinearRequest(
+			name: $name, 
+			connector: $this, 
+			query: GraphQueryBuilder::make('query', $name)
+				->withArguments(collect($args)->reject(fn($arg) => null === $arg)->all()),
+		);
 	}
 	
 	protected function defaultAuth(): ?Authenticator

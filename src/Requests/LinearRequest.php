@@ -8,7 +8,7 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Traits\Body\HasJsonBody;
 
-abstract class LinearRequest extends Request implements HasBody
+class LinearRequest extends Request implements HasBody
 {
 	use HasJsonBody;
 	
@@ -16,31 +16,18 @@ abstract class LinearRequest extends Request implements HasBody
 	
 	protected ?string $response = LinearResponse::class;
 	
+	public function __construct(
+		protected string $gql,
+	) {
+	}
+	
 	public function resolveEndpoint(): string
 	{
 		return '/';
 	}
 	
-	abstract protected function gql(): string;
-	
-	protected function fields(array $keys, int $depth = 0): string
-	{
-		return collect($keys)
-			->unless($depth, fn ($keys) => $keys->flip()->undot())
-			->map(function($value, $key) use ($depth) {
-				$line = $key;
-				
-				if (is_array($value)) {
-					$line .= " {\n".$this->fields($value, $depth + 1)."\n}";
-				}
-				
-				return $line;
-			})
-			->implode("\n");
-	}
-	
 	protected function defaultBody(): array
 	{
-		return ['query' => $this->gql()];
+		return ['query' => $this->gql];
 	}
 }

@@ -1,20 +1,22 @@
 <?php
 
-namespace Glhd\Linearavel\Tests\Feature;
+namespace Glhd\Linearavel\Responses;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
-use Glhd\Linearavel\Facades\Linear;
 use Glhd\Linearavel\Tests\TestCase;
 
 class LinearConnectorTest extends TestCase
 {
 	public function test_it_can_fetch_teams(): void
 	{
-		app(LinearConnector::class)
+		$response = app(LinearConnector::class)
 			->teams(
 				first: 10,
 				includeArchived: false,
-			);
-		// dd(Linear::teams()->get('id', 'name', 'organization.id', 'organization.name'));
+			)
+			->get('nodes.id', 'nodes.name', 'nodes.organization.id', 'nodes.organization.name')
+			->body();
+		
+		dd($response);
 	}
 }
