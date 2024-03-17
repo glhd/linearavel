@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class ProjectSearchResultConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, ProjectSearchResultEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, ProjectSearchResult> */

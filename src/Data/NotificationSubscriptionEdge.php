@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class NotificationSubscriptionEdge extends Data
 {
-	function __construct(public Optional|NotificationSubscription $node, public Optional|string $cursor)
+	public function __construct(public Optional|NotificationSubscription $node, public Optional|string $cursor)
 	{
 	}
 }

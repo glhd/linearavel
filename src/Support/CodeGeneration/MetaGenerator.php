@@ -16,7 +16,7 @@ class MetaGenerator
 	{
 		$keys = app(KeyHelper::class)
 			->get($this->root)
-			->map(fn($key) => var_export($key, true))
+			->map(fn ($key) => var_export($key, true))
 			->implode(', ');
 		
 		return <<<PHP

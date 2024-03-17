@@ -13,17 +13,20 @@ use Spatie\LaravelData\Optional;
 
 class OrganizationDomain extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|bool $verified,
-		public Optional|string|null $verificationEmail,
-		public Optional|User|null $creator,
 		public Optional|OrganizationDomainAuthType $authType,
-		public Optional|bool|null $claimed
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $verificationEmail = null,
+		public Optional|User|null $creator = null,
+		public Optional|bool|null $claimed = null
 	) {
 	}
 }

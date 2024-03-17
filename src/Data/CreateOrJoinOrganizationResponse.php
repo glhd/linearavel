@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class CreateOrJoinOrganizationResponse extends Data
 {
-	function __construct(public Optional|AuthOrganization $organization, public Optional|AuthUser $user)
+	public function __construct(public Optional|AuthOrganization $organization, public Optional|AuthUser $user)
 	{
 	}
 }

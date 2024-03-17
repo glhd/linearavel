@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class IntegrationsSettingsPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|IntegrationsSettings $integrationsSettings, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|IntegrationsSettings $integrationsSettings, public Optional|bool $success)
 	{
 	}
 }

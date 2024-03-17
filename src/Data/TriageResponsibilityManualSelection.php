@@ -8,10 +8,10 @@ use Spatie\LaravelData\Optional;
 
 class TriageResponsibilityManualSelection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, string> */
 		public Optional|Collection $userIds,
-		public Optional|int|null $assignmentIndex
+		public Optional|int|null $assignmentIndex = null
 	) {
 	}
 }

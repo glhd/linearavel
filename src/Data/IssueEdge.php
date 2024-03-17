@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class IssueEdge extends Data
 {
-	function __construct(public Optional|Issue $node, public Optional|string $cursor)
+	public function __construct(public Optional|Issue $node, public Optional|string $cursor)
 	{
 	}
 }

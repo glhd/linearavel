@@ -12,21 +12,24 @@ use Spatie\LaravelData\Optional;
 
 class Attachment extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $title,
-		public Optional|string|null $subtitle,
 		public Optional|string $url,
-		public Optional|User|null $creator,
-		public Optional|ExternalUser|null $externalUserCreator,
 		public Optional|string $metadata,
-		public Optional|string|null $source,
-		public Optional|string|null $sourceType,
 		public Optional|bool $groupBySource,
-		public Optional|Issue $issue
+		public Optional|Issue $issue,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $subtitle = null,
+		public Optional|User|null $creator = null,
+		public Optional|ExternalUser|null $externalUserCreator = null,
+		public Optional|string|null $source = null,
+		public Optional|string|null $sourceType = null
 	) {
 	}
 }

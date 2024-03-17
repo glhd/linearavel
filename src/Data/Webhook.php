@@ -13,20 +13,23 @@ use Spatie\LaravelData\Optional;
 
 class Webhook extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|string|null $label,
-		public Optional|string|null $url,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|bool $enabled,
-		public Optional|Team|null $team,
 		public Optional|bool $allPublicTeams,
-		public Optional|User|null $creator,
-		public Optional|string|null $secret,
 		/** @var Collection<int, string> */
-		public Optional|Collection $resourceTypes
+		public Optional|Collection $resourceTypes,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $label = null,
+		public Optional|string|null $url = null,
+		public Optional|Team|null $team = null,
+		public Optional|User|null $creator = null,
+		public Optional|string|null $secret = null
 	) {
 	}
 }

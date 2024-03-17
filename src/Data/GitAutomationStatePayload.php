@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class GitAutomationStatePayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|GitAutomationState $gitAutomationState, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|GitAutomationState $gitAutomationState, public Optional|bool $success)
 	{
 	}
 }

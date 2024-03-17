@@ -17,23 +17,26 @@ use Spatie\LaravelData\Optional;
 
 class UserNotificationSubscription extends Data implements NotificationSubscription, Entity, Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|User $subscriber,
-		public Optional|CustomView|null $customView,
-		public Optional|Cycle|null $cycle,
-		public Optional|IssueLabel|null $label,
-		public Optional|Project|null $project,
-		public Optional|Team|null $team,
 		public Optional|User $user,
-		public Optional|ContextViewType|null $contextViewType,
-		public Optional|UserContextViewType|null $userContextViewType,
 		public Optional|bool $active,
 		/** @var Collection<int, string> */
-		public Optional|Collection $notificationSubscriptionTypes
+		public Optional|Collection $notificationSubscriptionTypes,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|CustomView|null $customView = null,
+		public Optional|Cycle|null $cycle = null,
+		public Optional|IssueLabel|null $label = null,
+		public Optional|Project|null $project = null,
+		public Optional|Team|null $team = null,
+		public Optional|ContextViewType|null $contextViewType = null,
+		public Optional|UserContextViewType|null $userContextViewType = null
 	) {
 	}
 }

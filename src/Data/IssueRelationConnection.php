@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class IssueRelationConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, IssueRelationEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, IssueRelation> */

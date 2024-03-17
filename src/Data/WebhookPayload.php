@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class WebhookPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|Webhook $webhook, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|Webhook $webhook, public Optional|bool $success)
 	{
 	}
 }

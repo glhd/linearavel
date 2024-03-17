@@ -12,24 +12,27 @@ use Spatie\LaravelData\Optional;
 
 class DocumentSearchResult extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $title,
-		public Optional|string|null $icon,
-		public Optional|string|null $color,
 		public Optional|User $creator,
 		public Optional|User $updatedBy,
 		public Optional|Project $project,
 		public Optional|string $slugId,
-		public Optional|Template|null $lastAppliedTemplate,
 		public Optional|float $sortOrder,
-		public Optional|string|null $content,
-		public Optional|string|null $contentState,
-		public Optional|string|null $contentData,
-		public Optional|string $metadata
+		public Optional|string $metadata,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $icon = null,
+		public Optional|string|null $color = null,
+		public Optional|Template|null $lastAppliedTemplate = null,
+		public Optional|string|null $content = null,
+		public Optional|string|null $contentState = null,
+		public Optional|string|null $contentData = null
 	) {
 	}
 }

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ProjectMilestoneEdge extends Data
 {
-	function __construct(public Optional|ProjectMilestone $node, public Optional|string $cursor)
+	public function __construct(public Optional|ProjectMilestone $node, public Optional|string $cursor)
 	{
 	}
 }

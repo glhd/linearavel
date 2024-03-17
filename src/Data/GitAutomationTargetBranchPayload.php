@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class GitAutomationTargetBranchPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|GitAutomationTargetBranch $targetBranch, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|GitAutomationTargetBranch $targetBranch, public Optional|bool $success)
 	{
 	}
 }

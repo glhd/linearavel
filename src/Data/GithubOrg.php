@@ -8,12 +8,12 @@ use Spatie\LaravelData\Optional;
 
 class GithubOrg extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
 		public Optional|string $login,
 		/** @var Collection<int, GithubRepo> */
 		public Optional|Collection $repositories,
-		public Optional|bool|null $isPersonal
+		public Optional|bool|null $isPersonal = null
 	) {
 	}
 }

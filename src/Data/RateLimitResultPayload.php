@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class RateLimitResultPayload extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $type,
 		public Optional|float $requestedAmount,
 		public Optional|float $allowedAmount,

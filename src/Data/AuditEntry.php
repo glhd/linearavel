@@ -12,19 +12,22 @@ use Spatie\LaravelData\Optional;
 
 class AuditEntry extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $type,
-		public Optional|Organization|null $organization,
-		public Optional|User|null $actor,
-		public Optional|string|null $actorId,
-		public Optional|string|null $ip,
-		public Optional|string|null $countryCode,
-		public Optional|string|null $metadata,
-		public Optional|string|null $requestInformation
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|Organization|null $organization = null,
+		public Optional|User|null $actor = null,
+		public Optional|string|null $actorId = null,
+		public Optional|string|null $ip = null,
+		public Optional|string|null $countryCode = null,
+		public Optional|string|null $metadata = null,
+		public Optional|string|null $requestInformation = null
 	) {
 	}
 }

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class AttachmentPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|Attachment $attachment, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|Attachment $attachment, public Optional|bool $success)
 	{
 	}
 }

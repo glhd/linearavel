@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ViewPreferencesPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|ViewPreferences $viewPreferences, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|ViewPreferences $viewPreferences, public Optional|bool $success)
 	{
 	}
 }

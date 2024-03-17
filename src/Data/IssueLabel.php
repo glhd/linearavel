@@ -12,21 +12,24 @@ use Spatie\LaravelData\Optional;
 
 class IssueLabel extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
-		public Optional|string|null $description,
 		public Optional|string $color,
 		public Optional|Organization $organization,
-		public Optional|Team|null $team,
-		public Optional|User|null $creator,
-		public Optional|IssueLabel|null $parent,
 		public Optional|bool $isGroup,
 		public Optional|IssueConnection $issues,
-		public Optional|IssueLabelConnection $children
+		public Optional|IssueLabelConnection $children,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $description = null,
+		public Optional|Team|null $team = null,
+		public Optional|User|null $creator = null,
+		public Optional|IssueLabel|null $parent = null
 	) {
 	}
 }

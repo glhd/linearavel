@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class CommentPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|Comment $comment, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|Comment $comment, public Optional|bool $success)
 	{
 	}
 }

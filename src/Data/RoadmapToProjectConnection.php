@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class RoadmapToProjectConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, RoadmapToProjectEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, RoadmapToProject> */

@@ -12,20 +12,23 @@ use Spatie\LaravelData\Optional;
 
 class Roadmap extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
-		public Optional|string|null $description,
 		public Optional|Organization $organization,
 		public Optional|User $creator,
 		public Optional|User $owner,
 		public Optional|string $slugId,
 		public Optional|float $sortOrder,
-		public Optional|string|null $color,
-		public Optional|ProjectConnection $projects
+		public Optional|ProjectConnection $projects,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $description = null,
+		public Optional|string|null $color = null
 	) {
 	}
 }

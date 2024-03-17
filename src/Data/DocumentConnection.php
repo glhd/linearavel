@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class DocumentConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, DocumentEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, Document> */

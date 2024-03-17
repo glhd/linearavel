@@ -13,17 +13,18 @@ use Spatie\LaravelData\Optional;
 
 class OrganizationInviteFullDetailsPayload extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|OrganizationInviteStatus $status,
 		public Optional|string $inviter,
 		public Optional|string $email,
 		public Optional|UserRoleType $role,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
 		public Optional|string $organizationName,
 		public Optional|string $organizationId,
-		public Optional|string|null $organizationLogoUrl,
 		public Optional|bool $accepted,
-		public Optional|bool $expired
+		public Optional|bool $expired,
+		public Optional|string|null $organizationLogoUrl = null
 	) {
 	}
 }

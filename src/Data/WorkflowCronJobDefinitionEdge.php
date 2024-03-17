@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class WorkflowCronJobDefinitionEdge extends Data
 {
-	function __construct(public Optional|WorkflowCronJobDefinition $node, public Optional|string $cursor)
+	public function __construct(public Optional|WorkflowCronJobDefinition $node, public Optional|string $cursor)
 	{
 	}
 }

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class EmojiEdge extends Data
 {
-	function __construct(public Optional|Emoji $node, public Optional|string $cursor)
+	public function __construct(public Optional|Emoji $node, public Optional|string $cursor)
 	{
 	}
 }

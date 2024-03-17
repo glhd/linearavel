@@ -14,33 +14,18 @@ use Spatie\LaravelData\Optional;
 
 class Project extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $description,
 		public Optional|string $slugId,
-		public Optional|string|null $icon,
 		public Optional|string $color,
 		public Optional|ProjectStatus $status,
-		public Optional|User|null $creator,
-		public Optional|User|null $lead,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $projectUpdateRemindersPausedUntilAt,
-		public Optional|string|null $startDate,
-		public Optional|DateResolutionType|null $startDateResolution,
-		public Optional|string|null $targetDate,
-		public Optional|DateResolutionType|null $targetDateResolution,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $startedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $pausedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $completedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $canceledAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $autoArchivedAt,
-		public Optional|bool|null $trashed,
 		public Optional|float $sortOrder,
-		public Optional|Issue|null $convertedFromIssue,
-		public Optional|Template|null $lastAppliedTemplate,
 		/** @var Collection<int, float> */
 		public Optional|Collection $issueCountHistory,
 		/** @var Collection<int, float> */
@@ -64,10 +49,34 @@ class Project extends Data implements Node
 		public Optional|ProjectLinkConnection $links,
 		public Optional|float $progress,
 		public Optional|float $scope,
-		public Optional|IntegrationsSettings|null $integrationsSettings,
-		public Optional|string|null $content,
-		public Optional|string|null $contentState,
-		public Optional|string $state
+		public Optional|string $state,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $icon = null,
+		public Optional|User|null $creator = null,
+		public Optional|User|null $lead = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $projectUpdateRemindersPausedUntilAt = null,
+		public Optional|string|null $startDate = null,
+		public Optional|DateResolutionType|null $startDateResolution = null,
+		public Optional|string|null $targetDate = null,
+		public Optional|DateResolutionType|null $targetDateResolution = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $startedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $pausedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $completedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $canceledAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $autoArchivedAt = null,
+		public Optional|bool|null $trashed = null,
+		public Optional|Issue|null $convertedFromIssue = null,
+		public Optional|Template|null $lastAppliedTemplate = null,
+		public Optional|IntegrationsSettings|null $integrationsSettings = null,
+		public Optional|string|null $content = null,
+		public Optional|string|null $contentState = null
 	) {
 	}
 }

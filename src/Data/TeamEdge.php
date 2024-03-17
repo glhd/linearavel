@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class TeamEdge extends Data
 {
-	function __construct(public Optional|Team $node, public Optional|string $cursor)
+	public function __construct(public Optional|Team $node, public Optional|string $cursor)
 	{
 	}
 }

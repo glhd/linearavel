@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class WorkflowCronJobDefinitionConnection extends Data
 {
-	function __construct(
+	public function __construct(
 		/** @var Collection<int, WorkflowCronJobDefinitionEdge> */
 		public Optional|Collection $edges,
 		/** @var Collection<int, WorkflowCronJobDefinition> */

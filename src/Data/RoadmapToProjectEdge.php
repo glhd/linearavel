@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class RoadmapToProjectEdge extends Data
 {
-	function __construct(public Optional|RoadmapToProject $node, public Optional|string $cursor)
+	public function __construct(public Optional|RoadmapToProject $node, public Optional|string $cursor)
 	{
 	}
 }

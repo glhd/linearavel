@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class EmailUserAccountAuthChallengeResponse extends Data
 {
-	function __construct(public Optional|bool $success, public Optional|string $authType)
+	public function __construct(public Optional|bool $success, public Optional|string $authType)
 	{
 	}
 }

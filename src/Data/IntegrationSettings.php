@@ -7,25 +7,25 @@ use Spatie\LaravelData\Optional;
 
 class IntegrationSettings extends Data
 {
-	function __construct(
-		public Optional|SlackSettings|null $slack,
-		public Optional|SlackAsksSettings|null $slackAsks,
-		public Optional|SlackPostSettings|null $slackPost,
-		public Optional|SlackPostSettings|null $slackProjectPost,
-		public Optional|SlackPostSettings|null $slackOrgProjectUpdatesPost,
-		public Optional|GoogleSheetsSettings|null $googleSheets,
-		public Optional|GitHubSettings|null $gitHub,
-		public Optional|GitHubPersonalSettings|null $gitHubPersonal,
-		public Optional|GitLabSettings|null $gitLab,
-		public Optional|SentrySettings|null $sentry,
-		public Optional|ZendeskSettings|null $zendesk,
-		public Optional|IntercomSettings|null $intercom,
-		public Optional|FrontSettings|null $front,
-		public Optional|JiraSettings|null $jira,
-		public Optional|NotionSettings|null $notion,
-		public Optional|OpsgenieSettings|null $opsgenie,
-		public Optional|PagerDutySettings|null $pagerDuty,
-		public Optional|JiraPersonalSettings|null $jiraPersonal
+	public function __construct(
+		public Optional|SlackSettings|null $slack = null,
+		public Optional|SlackAsksSettings|null $slackAsks = null,
+		public Optional|SlackPostSettings|null $slackPost = null,
+		public Optional|SlackPostSettings|null $slackProjectPost = null,
+		public Optional|SlackPostSettings|null $slackOrgProjectUpdatesPost = null,
+		public Optional|GoogleSheetsSettings|null $googleSheets = null,
+		public Optional|GitHubSettings|null $gitHub = null,
+		public Optional|GitHubPersonalSettings|null $gitHubPersonal = null,
+		public Optional|GitLabSettings|null $gitLab = null,
+		public Optional|SentrySettings|null $sentry = null,
+		public Optional|ZendeskSettings|null $zendesk = null,
+		public Optional|IntercomSettings|null $intercom = null,
+		public Optional|FrontSettings|null $front = null,
+		public Optional|JiraSettings|null $jira = null,
+		public Optional|NotionSettings|null $notion = null,
+		public Optional|OpsgenieSettings|null $opsgenie = null,
+		public Optional|PagerDutySettings|null $pagerDuty = null,
+		public Optional|JiraPersonalSettings|null $jiraPersonal = null
 	) {
 	}
 }

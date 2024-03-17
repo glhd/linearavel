@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class AuditEntryType extends Data
 {
-	function __construct(public Optional|string $type, public Optional|string $description)
+	public function __construct(public Optional|string $type, public Optional|string $description)
 	{
 	}
 }

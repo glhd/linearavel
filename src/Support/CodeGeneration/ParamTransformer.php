@@ -2,56 +2,41 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use DateTimeInterface;
-use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\NonNullTypeNode;
-use Illuminate\Support\Collection;
-use PhpParser\Comment\Doc;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Attribute;
-use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\Variable;
+use GraphQL\Language\AST\TypeNode;
+use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\UnionType;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
-use Spatie\LaravelData\Optional;
+use PhpParser\NodeAbstract;
 
-class ParamTransformer
+abstract class ParamTransformer
 {
-	protected Param $param;
+	protected ClassTransformer $parent;
 	
-	public static function transform(
-		FieldDefinitionNode $node,
-		ClassTransformer $parent
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
+	protected ?FunctionTransformer $function = null;
 	
-	public function __construct(
-		protected FieldDefinitionNode $node,
-		protected ClassTransformer $parent,
-	) {
-		$this->param = new Param(
-			var: new Variable($this->node->name->value),
-			flags: 1,
-		);
-	}
+	abstract public function __invoke(): Param;
 	
-	public function __invoke()
+	public static function acceptsNull(Node $node): bool
 	{
-		$this->param->type = $this->nodeType($this->node->type);
+		if ($node instanceof NullableType) {
+			return true;
+		}
 		
-		return $this->param;
+		if ($node instanceof UnionType) {
+			return collect($node->types)
+				->contains(fn ($type) => $type instanceof Identifier && 'null' === $type->name);
+		}
+		
+		return false;
 	}
 	
-	protected function nodeType(NamedTypeNode|ListTypeNode|NonNullTypeNode $node, bool $nullable = true)
+	protected function nodeType(TypeNode $node, bool $nullable = true)
 	{
 		return match ($node::class) {
 			NamedTypeNode::class => $this->namedType($node, $nullable),
@@ -60,49 +45,21 @@ class ParamTransformer
 		};
 	}
 	
-	protected function listType(ListTypeNode $node): UnionType
+	protected function listType(ListTypeNode $node): NodeAbstract
 	{
-		$type = $this->typeToName($node->type);
-		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
-		$this->parent->use(Collection::class);
-		
-		$types = [
-			new Name('Optional'),
-			new Name('Collection'),
-		];
-		
-		return new UnionType($types);
+		return new Name('array');
 	}
 	
-	protected function namedType(NamedTypeNode $node, bool $nullable = false): UnionType
+	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract
 	{
-		$this->parent->use(Optional::class);
-		
 		$type = $this->typeToName($node);
 		
-		if ('DateTime' === $node->name->value) {
-			$this->param->attrGroups ??= [];
-			$this->param->attrGroups[] = new AttributeGroup([
-				new Attribute($this->fqcn(WithCast::class), [
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterfaceCast::class), new Identifier('class'))),
-					new Arg(new ClassConstFetch($this->fqcn(DateTimeInterface::class), new Identifier('RFC3339_EXTENDED'))),
-				]),
-			]);
-		}
-		
-		$types = [
-			new Name('Optional'),
-			$type,
-		];
-		
-		if ($nullable) {
-			$types[] = new Identifier('null');
-		}
-		
-		return new UnionType($types);
+		return $nullable
+			? new NullableType($type)
+			: $type;
 	}
 	
-	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): Identifier|Name
+	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): NodeAbstract
 	{
 		if ($node instanceof NonNullTypeNode) {
 			return $this->typeToName($node->type);
@@ -113,7 +70,7 @@ class ParamTransformer
 			'Float' => new Identifier('float'),
 			'Int' => new Identifier('int'),
 			'String', 'ID' => new Identifier('string'),
-			'DateTime' => $this->fqcn('Carbon\CarbonImmutable'),
+			'DateTime' => $this->dateTimeType(),
 			default => value(function() use ($node) {
 				// Treat all scalars as strings for now
 				if ($this->parent->parent->scalars->has($node->name->value)) {
@@ -127,9 +84,15 @@ class ParamTransformer
 		};
 	}
 	
+	protected function dateTimeType(): Name
+	{
+		return $this->fqcn('Carbon\CarbonImmutable');
+	}
+	
 	protected function fqcn(string $fqcn): Name
 	{
 		$this->parent->use($fqcn);
+		
 		return new Name(class_basename($fqcn));
 	}
 }

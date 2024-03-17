@@ -8,14 +8,14 @@ use Spatie\LaravelData\Optional;
 
 class AuthOauthClientWithScope extends Data
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $name,
-		public Optional|string|null $imageUrl,
 		/** @var Collection<int, string> */
 		public Optional|Collection $scope,
 		public Optional|string $appId,
 		public Optional|string $clientId,
-		public Optional|string|null $webhookUrl
+		public Optional|string|null $imageUrl = null,
+		public Optional|string|null $webhookUrl = null
 	) {
 	}
 }

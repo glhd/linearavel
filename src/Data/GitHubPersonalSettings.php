@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class GitHubPersonalSettings extends Data
 {
-	function __construct(public Optional|string $login)
+	public function __construct(public Optional|string $login)
 	{
 	}
 }

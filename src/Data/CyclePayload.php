@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class CyclePayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|Cycle|null $cycle, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Cycle|null $cycle = null)
 	{
 	}
 }

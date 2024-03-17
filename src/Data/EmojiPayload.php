@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class EmojiPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|Emoji $emoji, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|Emoji $emoji, public Optional|bool $success)
 	{
 	}
 }

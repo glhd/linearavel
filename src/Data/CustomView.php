@@ -12,26 +12,29 @@ use Spatie\LaravelData\Optional;
 
 class CustomView extends Data implements Node
 {
-	function __construct(
+	public function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
-		public Optional|string|null $description,
-		public Optional|string|null $icon,
-		public Optional|string|null $color,
 		public Optional|Organization $organization,
-		public Optional|Team|null $team,
 		public Optional|User $creator,
 		public Optional|User $owner,
 		public Optional|User $updatedBy,
 		public Optional|string $filters,
 		public Optional|string $filterData,
-		public Optional|string|null $projectFilterData,
 		public Optional|bool $shared,
 		public Optional|string $modelName,
-		public Optional|IssueConnection $issues
+		public Optional|IssueConnection $issues,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $description = null,
+		public Optional|string|null $icon = null,
+		public Optional|string|null $color = null,
+		public Optional|Team|null $team = null,
+		public Optional|string|null $projectFilterData = null
 	) {
 	}
 }

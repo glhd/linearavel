@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class IssueFilterSuggestionPayload extends Data
 {
-	function __construct(public Optional|string|null $filter)
+	public function __construct(public Optional|string|null $filter = null)
 	{
 	}
 }

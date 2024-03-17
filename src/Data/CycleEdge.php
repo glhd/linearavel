@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class CycleEdge extends Data
 {
-	function __construct(public Optional|Cycle $node, public Optional|string $cursor)
+	public function __construct(public Optional|Cycle $node, public Optional|string $cursor)
 	{
 	}
 }

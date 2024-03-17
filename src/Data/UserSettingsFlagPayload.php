@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class UserSettingsFlagPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|string $flag, public Optional|int $value, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|string $flag, public Optional|int $value, public Optional|bool $success)
 	{
 	}
 }

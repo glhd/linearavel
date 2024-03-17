@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ImageUploadFromUrlPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|string|null $url, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|string|null $url = null)
 	{
 	}
 }

@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class ProjectEdge extends Data
 {
-	function __construct(public Optional|Project $node, public Optional|string $cursor)
+	public function __construct(public Optional|Project $node, public Optional|string $cursor)
 	{
 	}
 }

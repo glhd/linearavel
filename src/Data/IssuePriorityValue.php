@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class IssuePriorityValue extends Data
 {
-	function __construct(public Optional|int $priority, public Optional|string $label)
+	public function __construct(public Optional|int $priority, public Optional|string $label)
 	{
 	}
 }

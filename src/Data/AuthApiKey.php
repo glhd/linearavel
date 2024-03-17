@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class AuthApiKey extends Data
 {
-	function __construct(public Optional|string $id)
+	public function __construct(public Optional|string $id)
 	{
 	}
 }

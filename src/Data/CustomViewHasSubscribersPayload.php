@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class CustomViewHasSubscribersPayload extends Data
 {
-	function __construct(public Optional|bool $hasSubscribers)
+	public function __construct(public Optional|bool $hasSubscribers)
 	{
 	}
 }
