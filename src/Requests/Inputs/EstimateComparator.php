@@ -7,14 +7,14 @@ use Illuminate\Support\Collection;
 class EstimateComparator
 {
 	public function __construct(
-		/** @var Collection<int, float> */
-		public Collection $in,
-		/** @var Collection<int, float> */
-		public Collection $nin,
-		/** @var Collection<int, NullableNumberComparator> */
-		public Collection $or,
-		/** @var Collection<int, NullableNumberComparator> */
-		public Collection $and,
+		/** @var iterable<float>|Collection<int, float> */
+		public iterable $in,
+		/** @var iterable<float>|Collection<int, float> */
+		public iterable $nin,
+		/** @var iterable<NullableNumberComparator>|Collection<int, NullableNumberComparator> */
+		public iterable $or,
+		/** @var iterable<NullableNumberComparator>|Collection<int, NullableNumberComparator> */
+		public iterable $and,
 		public ?float $eq = null,
 		public ?float $neq = null,
 		public ?bool $null = null,

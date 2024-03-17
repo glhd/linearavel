@@ -7,8 +7,8 @@ use Illuminate\Support\Collection;
 class OrganizationInviteUpdateInput
 {
 	public function __construct(
-		/** @var Collection<int, string> */
-		public Collection $teamIds
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $teamIds
 	) {
 	}
 }

@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class WorkflowStateFilter
 {
 	public function __construct(
-		/** @var Collection<int, WorkflowStateFilter> */
-		public Collection $and,
-		/** @var Collection<int, WorkflowStateFilter> */
-		public Collection $or,
+		/** @var iterable<WorkflowStateFilter>|Collection<int, WorkflowStateFilter> */
+		public iterable $and,
+		/** @var iterable<WorkflowStateFilter>|Collection<int, WorkflowStateFilter> */
+		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

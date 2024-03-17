@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class ProjectFilter
 {
 	public function __construct(
-		/** @var Collection<int, ProjectFilter> */
-		public Collection $and,
-		/** @var Collection<int, ProjectFilter> */
-		public Collection $or,
+		/** @var iterable<ProjectFilter>|Collection<int, ProjectFilter> */
+		public iterable $and,
+		/** @var iterable<ProjectFilter>|Collection<int, ProjectFilter> */
+		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

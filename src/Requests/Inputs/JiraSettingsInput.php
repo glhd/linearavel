@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class JiraSettingsInput
 {
 	public function __construct(
-		/** @var Collection<int, JiraLinearMappingInput> */
-		public Collection $projectMapping,
-		/** @var Collection<int, JiraProjectDataInput> */
-		public Collection $projects,
+		/** @var iterable<JiraLinearMappingInput>|Collection<int, JiraLinearMappingInput> */
+		public iterable $projectMapping,
+		/** @var iterable<JiraProjectDataInput>|Collection<int, JiraProjectDataInput> */
+		public iterable $projects,
 		public ?bool $isJiraServer = null
 	) {
 	}

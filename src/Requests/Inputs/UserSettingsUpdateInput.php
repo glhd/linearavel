@@ -7,8 +7,8 @@ use Illuminate\Support\Collection;
 class UserSettingsUpdateInput
 {
 	public function __construct(
-		/** @var Collection<int, string> */
-		public Collection $unsubscribedFrom,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $unsubscribedFrom,
 		public ?string $settings = null,
 		public ?bool $subscribedToChangelog = null,
 		public ?bool $subscribedToDPA = null,

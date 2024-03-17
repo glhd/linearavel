@@ -10,8 +10,8 @@ use Illuminate\Support\Collection;
 class OrganizationUpdateInput
 {
 	public function __construct(
-		/** @var Collection<int, string> */
-		public Collection $allowedAuthServices,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $allowedAuthServices,
 		public ?string $name = null,
 		public ?string $logoUrl = null,
 		public ?string $urlKey = null,

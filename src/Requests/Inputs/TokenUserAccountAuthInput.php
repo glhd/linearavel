@@ -10,8 +10,8 @@ class TokenUserAccountAuthInput
 		public string $email,
 		public string $token,
 		public string $timezone,
-		/** @var Collection<int, string> */
-		public Collection $teamIdsToJoin,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $teamIdsToJoin,
 		public ?string $inviteLink = null
 	) {
 	}

@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class NullableDocumentFilter
 {
 	public function __construct(
-		/** @var Collection<int, NullableDocumentFilter> */
-		public Collection $and,
-		/** @var Collection<int, NullableDocumentFilter> */
-		public Collection $or,
+		/** @var iterable<NullableDocumentFilter>|Collection<int, NullableDocumentFilter> */
+		public iterable $and,
+		/** @var iterable<NullableDocumentFilter>|Collection<int, NullableDocumentFilter> */
+		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

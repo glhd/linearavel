@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class IssueLabelCollectionFilter
 {
 	public function __construct(
-		/** @var Collection<int, IssueLabelCollectionFilter> */
-		public Collection $and,
-		/** @var Collection<int, IssueLabelCollectionFilter> */
-		public Collection $or,
+		/** @var iterable<IssueLabelCollectionFilter>|Collection<int, IssueLabelCollectionFilter> */
+		public iterable $and,
+		/** @var iterable<IssueLabelCollectionFilter>|Collection<int, IssueLabelCollectionFilter> */
+		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

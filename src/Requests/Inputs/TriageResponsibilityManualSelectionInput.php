@@ -7,8 +7,8 @@ use Illuminate\Support\Collection;
 class TriageResponsibilityManualSelectionInput
 {
 	public function __construct(
-		/** @var Collection<int, string> */
-		public Collection $userIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $userIds,
 		public ?int $assignmentIndex = null
 	) {
 	}

@@ -8,8 +8,8 @@ class TimeScheduleCreateInput
 {
 	public function __construct(
 		public string $name,
-		/** @var Collection<int, TimeScheduleEntryInput> */
-		public Collection $entries,
+		/** @var iterable<TimeScheduleEntryInput>|Collection<int, TimeScheduleEntryInput> */
+		public iterable $entries,
 		public ?string $id = null,
 		public ?string $externalId = null,
 		public ?string $externalUrl = null

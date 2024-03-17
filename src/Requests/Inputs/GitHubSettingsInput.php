@@ -9,10 +9,10 @@ class GitHubSettingsInput
 	public function __construct(
 		public string $orgAvatarUrl,
 		public string $orgLogin,
-		/** @var Collection<int, GitHubRepoInput> */
-		public Collection $repositories,
-		/** @var Collection<int, TeamRepoMappingInput> */
-		public Collection $repositoriesMapping
+		/** @var iterable<GitHubRepoInput>|Collection<int, GitHubRepoInput> */
+		public iterable $repositories,
+		/** @var iterable<TeamRepoMappingInput>|Collection<int, TeamRepoMappingInput> */
+		public iterable $repositoriesMapping
 	) {
 	}
 }

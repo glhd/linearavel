@@ -49,9 +49,9 @@ class InputParamTransformer extends ConstructorParamTransformer
 	protected function listType(ListTypeNode $node): NodeAbstract
 	{
 		$type = $this->typeToName($node->type);
-		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
+		$this->param->setDocComment(new Doc("/** @var iterable<{$type}>|Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
 		
-		return new Name('Collection');
+		return new Name('iterable');
 	}
 }

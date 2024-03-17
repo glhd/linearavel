@@ -8,8 +8,8 @@ class WebhookCreateInput
 {
 	public function __construct(
 		public string $url,
-		/** @var Collection<int, string> */
-		public Collection $resourceTypes,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $resourceTypes,
 		public ?string $label = null,
 		public ?string $id = null,
 		public ?bool $enabled = null,

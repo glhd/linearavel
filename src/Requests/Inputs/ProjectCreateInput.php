@@ -9,10 +9,10 @@ class ProjectCreateInput
 {
 	public function __construct(
 		public string $name,
-		/** @var Collection<int, string> */
-		public Collection $teamIds,
-		/** @var Collection<int, string> */
-		public Collection $memberIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $teamIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $memberIds,
 		public ?string $id = null,
 		public ?string $icon = null,
 		public ?string $color = null,

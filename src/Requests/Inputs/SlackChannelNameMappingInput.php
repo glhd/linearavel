@@ -9,8 +9,8 @@ class SlackChannelNameMappingInput
 	public function __construct(
 		public string $id,
 		public string $name,
-		/** @var Collection<int, SlackAsksTeamSettingsInput> */
-		public Collection $teams,
+		/** @var iterable<SlackAsksTeamSettingsInput>|Collection<int, SlackAsksTeamSettingsInput> */
+		public iterable $teams,
 		public ?bool $isPrivate = null,
 		public ?bool $isShared = null,
 		public ?bool $botAdded = null,

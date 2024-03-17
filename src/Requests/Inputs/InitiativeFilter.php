@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class InitiativeFilter
 {
 	public function __construct(
-		/** @var Collection<int, InitiativeFilter> */
-		public Collection $and,
-		/** @var Collection<int, InitiativeFilter> */
-		public Collection $or,
+		/** @var iterable<InitiativeFilter>|Collection<int, InitiativeFilter> */
+		public iterable $and,
+		/** @var iterable<InitiativeFilter>|Collection<int, InitiativeFilter> */
+		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

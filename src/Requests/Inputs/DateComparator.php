@@ -8,10 +8,10 @@ use Illuminate\Support\Collection;
 class DateComparator
 {
 	public function __construct(
-		/** @var Collection<int, CarbonImmutable> */
-		public Collection $in,
-		/** @var Collection<int, CarbonImmutable> */
-		public Collection $nin,
+		/** @var iterable<CarbonImmutable>|Collection<int, CarbonImmutable> */
+		public iterable $in,
+		/** @var iterable<CarbonImmutable>|Collection<int, CarbonImmutable> */
+		public iterable $nin,
 		public ?CarbonImmutable $eq = null,
 		public ?CarbonImmutable $neq = null,
 		public ?CarbonImmutable $lt = null,

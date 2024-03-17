@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class RoadmapCollectionFilter
 {
 	public function __construct(
-		/** @var Collection<int, RoadmapCollectionFilter> */
-		public Collection $and,
-		/** @var Collection<int, RoadmapCollectionFilter> */
-		public Collection $or,
+		/** @var iterable<RoadmapCollectionFilter>|Collection<int, RoadmapCollectionFilter> */
+		public iterable $and,
+		/** @var iterable<RoadmapCollectionFilter>|Collection<int, RoadmapCollectionFilter> */
+		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

@@ -9,8 +9,8 @@ use Illuminate\Support\Collection;
 class NotificationSubscriptionCreateInput
 {
 	public function __construct(
-		/** @var Collection<int, string> */
-		public Collection $notificationSubscriptionTypes,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $notificationSubscriptionTypes,
 		public ?string $id = null,
 		public ?string $customViewId = null,
 		public ?string $cycleId = null,

@@ -9,8 +9,8 @@ class OrganizationInviteCreateInput
 {
 	public function __construct(
 		public string $email,
-		/** @var Collection<int, string> */
-		public Collection $teamIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $teamIds,
 		public ?string $id = null,
 		public ?UserRoleType $role = null,
 		public ?string $message = null,

@@ -9,8 +9,8 @@ class GoogleUserAccountAuthInput
 	public function __construct(
 		public string $code,
 		public string $timezone,
-		/** @var Collection<int, string> */
-		public Collection $teamIdsToJoin,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $teamIdsToJoin,
 		public ?string $redirectUri = null,
 		public ?string $signupCode = null,
 		public ?string $inviteLink = null

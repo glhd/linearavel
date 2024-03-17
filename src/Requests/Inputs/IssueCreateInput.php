@@ -8,10 +8,10 @@ use Illuminate\Support\Collection;
 class IssueCreateInput
 {
 	public function __construct(
-		/** @var Collection<int, string> */
-		public Collection $subscriberIds,
-		/** @var Collection<int, string> */
-		public Collection $labelIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $subscriberIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $labelIds,
 		public string $teamId,
 		public ?string $id = null,
 		public ?string $title = null,

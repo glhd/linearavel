@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class CommentCollectionFilter
 {
 	public function __construct(
-		/** @var Collection<int, CommentCollectionFilter> */
-		public Collection $and,
-		/** @var Collection<int, CommentCollectionFilter> */
-		public Collection $or,
+		/** @var iterable<CommentCollectionFilter>|Collection<int, CommentCollectionFilter> */
+		public iterable $and,
+		/** @var iterable<CommentCollectionFilter>|Collection<int, CommentCollectionFilter> */
+		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

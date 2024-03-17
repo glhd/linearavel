@@ -8,12 +8,12 @@ use Illuminate\Support\Collection;
 class IssueUpdateInput
 {
 	public function __construct(
-		/** @var Collection<int, string> */
-		public Collection $subscriberIds,
-		/** @var Collection<int, string> */
-		public Collection $labelIds,
-		/** @var Collection<int, string> */
-		public Collection $companyIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $subscriberIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $labelIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $companyIds,
 		public ?string $title = null,
 		public ?string $description = null,
 		public ?string $descriptionData = null,

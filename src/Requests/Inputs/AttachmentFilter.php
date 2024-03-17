@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 class AttachmentFilter
 {
 	public function __construct(
-		/** @var Collection<int, AttachmentFilter> */
-		public Collection $and,
-		/** @var Collection<int, AttachmentFilter> */
-		public Collection $or,
+		/** @var iterable<AttachmentFilter>|Collection<int, AttachmentFilter> */
+		public iterable $and,
+		/** @var iterable<AttachmentFilter>|Collection<int, AttachmentFilter> */
+		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,

@@ -9,10 +9,10 @@ use Illuminate\Support\Collection;
 class ProjectUpdateInput
 {
 	public function __construct(
-		/** @var Collection<int, string> */
-		public Collection $teamIds,
-		/** @var Collection<int, string> */
-		public Collection $memberIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $teamIds,
+		/** @var iterable<string>|Collection<int, string> */
+		public iterable $memberIds,
 		public ?string $state = null,
 		public ?string $statusId = null,
 		public ?string $name = null,

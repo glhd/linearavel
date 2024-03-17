@@ -7,8 +7,8 @@ use Illuminate\Support\Collection;
 class TimeScheduleUpdateInput
 {
 	public function __construct(
-		/** @var Collection<int, TimeScheduleEntryInput> */
-		public Collection $entries,
+		/** @var iterable<TimeScheduleEntryInput>|Collection<int, TimeScheduleEntryInput> */
+		public iterable $entries,
 		public ?string $name = null,
 		public ?string $externalId = null,
 		public ?string $externalUrl = null
