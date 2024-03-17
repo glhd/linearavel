@@ -1,0 +1,16 @@
+{
+    "$schema": "https://laravel-ide.com/schema/laravel-ide-v2.json",
+    "helperCode": {
+        "methodsWithConstructorParameters": [
+            {
+                "baseFqn": "Glhd\\Linearavel\\Support\\CodeGeneration\\InvokableTransformer",
+                "methods": [
+                    {
+                        "name": "transform",
+                        "returnType": "static"
+                    }
+                ]
+            }
+        ]
+    }
+}

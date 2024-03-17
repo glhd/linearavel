@@ -17,14 +17,6 @@ class TypeTransformer extends ClassTransformer
 {
 	public string $namespace;
 	
-	public static function transform(
-		ObjectTypeDefinitionNode $node,
-		Transformer $parent,
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected ObjectTypeDefinitionNode $node,
 		public Transformer $parent,

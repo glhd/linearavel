@@ -4,30 +4,14 @@ namespace Glhd\Linearavel\Support\CodeGeneration;
 
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
-use PhpParser\Node\Param;
-use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Trait_;
 
 class QueryTransformer extends ClassTransformer
 {
 	public string $namespace;
-	
-	public static function transform(
-		ObjectTypeDefinitionNode $node,
-		Transformer $parent,
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
 	
 	public function __construct(
 		protected ObjectTypeDefinitionNode $node,
@@ -54,7 +38,7 @@ class QueryTransformer extends ClassTransformer
 	protected function queries(): array
 	{
 		return collect($this->node->fields)
-			->map(fn (FieldDefinitionNode $node) => QueryFunctionTransformer::transform($node, $this, function(ClassMethod $fn) {
+			->map(fn(FieldDefinitionNode $node) => QueryFunctionTransformer::transform($node, $this, function(ClassMethod $fn) {
 				
 			}))
 			->all();

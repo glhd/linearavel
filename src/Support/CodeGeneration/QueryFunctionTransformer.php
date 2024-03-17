@@ -23,14 +23,6 @@ use PhpParser\NodeAbstract;
 
 class QueryFunctionTransformer extends FunctionTransformer
 {
-	public static function transform(
-		FieldDefinitionNode $node,
-		ClassTransformer $parent,
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected FieldDefinitionNode $node,
 		protected ClassTransformer $parent,

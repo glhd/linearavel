@@ -17,14 +17,6 @@ class InputTransformer extends ClassTransformer
 	
 	protected array $uses = [];
 	
-	public static function transform(
-		InputObjectTypeDefinitionNode $node,
-		Transformer $parent,
-	) {
-		$transformer = new static($node, $parent);
-		return $transformer();
-	}
-	
 	public function __construct(
 		protected InputObjectTypeDefinitionNode $node,
 		public Transformer $parent,

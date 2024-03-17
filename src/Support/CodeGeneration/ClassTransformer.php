@@ -6,7 +6,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\UseItem;
 
-abstract class ClassTransformer
+abstract class ClassTransformer extends InvokableTransformer
 {
 	protected array $uses = [];
 	
