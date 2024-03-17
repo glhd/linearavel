@@ -15,7 +15,8 @@ class LinearConnectorTest extends TestCase
 				includeArchived: false,
 			)
 			->get('nodes.id', 'nodes.name', 'nodes.organization.id', 'nodes.organization.name')
-			->body();
+			->resolve()
+			->first();
 		
 		dd($response);
 	}

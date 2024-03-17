@@ -10,6 +10,8 @@ class PendingLinearRequest
 {
 	public function __construct(
 		protected string $name,
+		protected string $class,
+		protected bool $collect,
 		protected LinearConnector $connector,
 		protected GraphQueryBuilder $query,
 	) {
@@ -21,6 +23,12 @@ class PendingLinearRequest
 		
 		$request = new LinearRequest((string) $query);
 		
-		return $this->connector->send($request);
+		return $this->connector
+			->send($request)
+			->withConfiguration(
+				name: $this->name,
+				class: $this->class,
+				collect: $this->collect,
+			);
 	}
 }

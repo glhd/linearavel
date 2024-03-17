@@ -38,7 +38,7 @@ class Transformer
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			compact('foo', 'bar');
+			hello(false);
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);
@@ -91,9 +91,9 @@ class Transformer
 			return true; // FIXME
 		}
 		
-		// if ('Query' !== $node->name->value) {
-		// 	return true; // FIXME
-		// }
+		if ('Query' !== $node->name->value) {
+			return true; // FIXME
+		}
 		
 		$tree = match ($node->name->value) {
 			'Query' => QueryTransformer::transform($node, $this),

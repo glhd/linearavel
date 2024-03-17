@@ -17,7 +17,8 @@ use PhpParser\NodeAbstract;
 
 abstract class ParamTransformer
 {
-	protected ClassTransformer $parent;
+	use HasTypeNodes;
+	use HasParent;
 	
 	protected ?FunctionTransformer $function = null;
 	
@@ -36,66 +37,4 @@ abstract class ParamTransformer
 	}
 	
 	abstract public function __invoke(): Param;
-	
-	protected function nodeType(TypeNode $node, bool $nullable = true)
-	{
-		return match ($node::class) {
-			NamedTypeNode::class => $this->namedType($node, $nullable),
-			NonNullTypeNode::class => $this->nodeType($node->type, false),
-			ListTypeNode::class => $this->listType($node, $nullable),
-		};
-	}
-	
-	protected function listType(ListTypeNode $node, bool $nullable): NodeAbstract
-	{
-		return $nullable
-			? new NullableType(new Name('array'))
-			: new Name('array');
-	}
-	
-	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract
-	{
-		$type = $this->typeToName($node);
-		
-		return $nullable
-			? new NullableType($type)
-			: $type;
-	}
-	
-	protected function typeToName(NamedTypeNode|NonNullTypeNode $node): NodeAbstract
-	{
-		if ($node instanceof NonNullTypeNode) {
-			return $this->typeToName($node->type);
-		}
-		
-		return match ($node->name->value) {
-			'Boolean' => new Identifier('bool'),
-			'Float' => new Identifier('float'),
-			'Int' => new Identifier('int'),
-			'String', 'ID' => new Identifier('string'),
-			'DateTime' => $this->dateTimeType(),
-			default => value(function() use ($node) {
-				// Treat all scalars as strings for now
-				if ($this->parent->parent->scalars->has($node->name->value)) {
-					return new Identifier('string');
-				}
-				
-				return $this->fqcn(
-					$this->parent->parent->registry->get($node->name->value) ?? $this->parent->namespace.'Data\\'.$node->name->value
-				);
-			}),
-		};
-	}
-	
-	protected function dateTimeType(): Name
-	{
-		return $this->fqcn(DateTimeInterface::class);
-	}
-	
-	protected function fqcn(string $fqcn): Name
-	{
-		$this->parent->use($fqcn);
-		
-		return new Name(class_basename($fqcn));
-	}
 }

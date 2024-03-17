@@ -12,7 +12,7 @@ use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Connector;
 use Saloon\Http\Faking\MockClient;
 
-/** @method send(LinearRequest $request, MockClient $mockClient = null, callable $handleRetry = null): LinearResponse */
+/** @method LinearResponse send(LinearRequest $request, MockClient $mockClient = null, callable $handleRetry = null) */
 class LinearConnector extends Connector
 {
 	use QueriesLinear;
@@ -29,10 +29,12 @@ class LinearConnector extends Connector
 		return $this->base_url;
 	}
 	
-	protected function linearQuery(string $name, array $args): PendingLinearRequest
+	protected function linearQuery(string $name, string $class, bool $collect, array $args = []): PendingLinearRequest
 	{
 		return new PendingLinearRequest(
 			name: $name, 
+			class: $class,
+			collect: $collect,
 			connector: $this, 
 			query: GraphQueryBuilder::make('query', $name)
 				->withArguments(collect($args)->reject(fn($arg) => null === $arg)->all()),

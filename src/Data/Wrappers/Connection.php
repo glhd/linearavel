@@ -8,6 +8,10 @@ use Illuminate\Support\Traits\ForwardsCalls;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+/** 
+ * @template T
+ * @mixin Collection<int, T> 
+ */
 abstract class Connection extends Data
 {
 	use ForwardsCalls;
@@ -16,10 +20,10 @@ abstract class Connection extends Data
 	
 	public function __call(string $name, array $arguments)
 	{
-		if ($this->edges instanceof Optional) {
-			throw new BadMethodCallException('You must request edge data before you can use it.');
+		if ($this->nodes instanceof Optional) {
+			throw new BadMethodCallException('You must request node data before you can use it.');
 		}
 		
-		return $this->forwardDecoratedCallTo($this->edges, $name, $arguments);
+		return $this->forwardDecoratedCallTo($this->nodes, $name, $arguments);
 	}
 }
