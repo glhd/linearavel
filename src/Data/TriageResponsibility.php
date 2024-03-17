@@ -17,12 +17,12 @@ class TriageResponsibility extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|TriageResponsibilityAction $action,
-		public Optional|TriageResponsibilityManualSelection|null $manualSelection,
+		public Optional|TriageResponsibilityManualSelection|null $manualSelection = null,
 		public Optional|Team $team,
-		public Optional|TimeSchedule|null $timeSchedule,
-		public Optional|User|null $currentUser
+		public Optional|TimeSchedule|null $timeSchedule = null,
+		public Optional|User|null $currentUser = null
 	) {
 	}
 }

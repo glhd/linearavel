@@ -16,16 +16,16 @@ class IssueImport extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|string|null $teamName,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $teamName = null,
 		public Optional|string $creatorId,
 		public Optional|string $service,
 		public Optional|string $status,
-		public Optional|string|null $mapping,
-		public Optional|string|null $error,
-		public Optional|float|null $progress,
-		public Optional|string|null $csvFileUrl,
-		public Optional|string|null $errorMetadata
+		public Optional|string|null $mapping = null,
+		public Optional|string|null $error = null,
+		public Optional|float|null $progress = null,
+		public Optional|string|null $csvFileUrl = null,
+		public Optional|string|null $errorMetadata = null
 	) {
 	}
 }

@@ -13,7 +13,7 @@ class GithubOrg extends Data
 		public Optional|string $login,
 		/** @var Collection<int, GithubRepo> */
 		public Optional|Collection $repositories,
-		public Optional|bool|null $isPersonal
+		public Optional|bool|null $isPersonal = null
 	) {
 	}
 }

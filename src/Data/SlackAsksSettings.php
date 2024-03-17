@@ -10,8 +10,8 @@ use Spatie\LaravelData\Optional;
 class SlackAsksSettings extends Data
 {
 	function __construct(
-		public Optional|string|null $teamName,
-		public Optional|string|null $teamId,
+		public Optional|string|null $teamName = null,
+		public Optional|string|null $teamId = null,
 		/** @var Collection<int, SlackChannelNameMapping> */
 		public Optional|Collection $slackChannelMapping,
 		public Optional|UserRoleType $canAdministrate

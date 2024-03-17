@@ -17,12 +17,12 @@ class GitAutomationState extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|WorkflowState|null $state,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|WorkflowState|null $state = null,
 		public Optional|Team $team,
-		public Optional|GitAutomationTargetBranch|null $targetBranch,
+		public Optional|GitAutomationTargetBranch|null $targetBranch = null,
 		public Optional|GitAutomationStates $event,
-		public Optional|string|null $branchPattern
+		public Optional|string|null $branchPattern = null
 	) {
 	}
 }

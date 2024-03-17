@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 
 class CycleArchivePayload extends Data implements ArchivePayload
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Cycle|null $entity)
+	function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Cycle|null $entity = null)
 	{
 	}
 }

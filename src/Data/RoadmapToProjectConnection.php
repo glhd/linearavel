@@ -2,9 +2,7 @@
 
 namespace Glhd\Linearavel\Data;
 
-use Illuminate\Support\Collection;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Optional;
+use Spatie\LaravelData\Data, Glhd\Linearavel\Data\RoadmapToProjectEdge, Illuminate\Support\Collection, Glhd\Linearavel\Data\RoadmapToProject, Spatie\LaravelData\Optional, Glhd\Linearavel\Data\PageInfo;
 
 class RoadmapToProjectConnection extends Data
 {

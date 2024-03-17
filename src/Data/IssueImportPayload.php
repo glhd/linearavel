@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class IssueImportPayload extends Data
 {
-	function __construct(public Optional|float $lastSyncId, public Optional|IssueImport|null $issueImport, public Optional|bool $success)
+	function __construct(public Optional|float $lastSyncId, public Optional|IssueImport|null $issueImport = null, public Optional|bool $success)
 	{
 	}
 }

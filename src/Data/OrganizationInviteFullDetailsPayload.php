@@ -21,7 +21,7 @@ class OrganizationInviteFullDetailsPayload extends Data
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		public Optional|string $organizationName,
 		public Optional|string $organizationId,
-		public Optional|string|null $organizationLogoUrl,
+		public Optional|string|null $organizationLogoUrl = null,
 		public Optional|bool $accepted,
 		public Optional|bool $expired
 	) {

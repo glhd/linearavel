@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class SlackSettings extends Data
 {
-	function __construct(public Optional|string|null $teamName, public Optional|string|null $teamId, public Optional|bool $linkOnIssueIdMention)
+	function __construct(public Optional|string|null $teamName = null, public Optional|string|null $teamId = null, public Optional|bool $linkOnIssueIdMention)
 	{
 	}
 }

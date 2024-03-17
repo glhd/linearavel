@@ -54,9 +54,9 @@ class Transformer
 		collect(Parser::parse($schema)->definitions)
 			->each($this->register(...))
 			->each(fn(DefinitionNode $definition) => match ($definition::class) {
-				// InterfaceTypeDefinitionNode::class => $this->interface($definition),
+				InterfaceTypeDefinitionNode::class => $this->interface($definition),
 				ObjectTypeDefinitionNode::class => $this->class($definition),
-				// EnumTypeDefinitionNode::class => $this->enum($definition),
+				EnumTypeDefinitionNode::class => $this->enum($definition),
 				InputObjectTypeDefinitionNode::class => $this->input($definition),
 				UnionTypeDefinitionNode::class => null, // TODO
 				DirectiveDefinitionNode::class => null,
@@ -87,13 +87,13 @@ class Transformer
 	
 	protected function class(ObjectTypeDefinitionNode $node): bool
 	{
-		if ('Query' !== $node->name->value) {
+		if ('Mutation' === $node->name->value) {
 			return true; // FIXME
 		}
 		
 		$tree = match($node->name->value) {
 			'Query' => QueryTransformer::transform($node, $this),
-			'Mutation' => TypeTransformer::transform($node, $this), // FIXME
+			// 'Mutation' => TypeTransformer::transform($node, $this), // FIXME
 			default => TypeTransformer::transform($node, $this),
 		};
 		

@@ -16,19 +16,19 @@ class IntegrationsSettings extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|bool|null $slackIssueCreated,
-		public Optional|bool|null $slackIssueNewComment,
-		public Optional|bool|null $slackIssueStatusChangedDone,
-		public Optional|bool|null $slackIssueStatusChangedAll,
-		public Optional|bool|null $slackProjectUpdateCreated,
-		public Optional|bool|null $slackProjectUpdateCreatedToTeam,
-		public Optional|bool|null $slackProjectUpdateCreatedToWorkspace,
-		public Optional|bool|null $slackIssueAddedToTriage,
-		public Optional|bool|null $slackIssueSlaHighRisk,
-		public Optional|bool|null $slackIssueSlaBreached,
-		public Optional|Team|null $team,
-		public Optional|Project|null $project
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|bool|null $slackIssueCreated = null,
+		public Optional|bool|null $slackIssueNewComment = null,
+		public Optional|bool|null $slackIssueStatusChangedDone = null,
+		public Optional|bool|null $slackIssueStatusChangedAll = null,
+		public Optional|bool|null $slackProjectUpdateCreated = null,
+		public Optional|bool|null $slackProjectUpdateCreatedToTeam = null,
+		public Optional|bool|null $slackProjectUpdateCreatedToWorkspace = null,
+		public Optional|bool|null $slackIssueAddedToTriage = null,
+		public Optional|bool|null $slackIssueSlaHighRisk = null,
+		public Optional|bool|null $slackIssueSlaBreached = null,
+		public Optional|Team|null $team = null,
+		public Optional|Project|null $project = null
 	) {
 	}
 }

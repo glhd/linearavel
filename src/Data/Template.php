@@ -16,15 +16,15 @@ class Template extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $type,
 		public Optional|string $name,
-		public Optional|string|null $description,
+		public Optional|string|null $description = null,
 		public Optional|string $templateData,
-		public Optional|Organization|null $organization,
-		public Optional|Team|null $team,
-		public Optional|User|null $creator,
-		public Optional|User|null $lastUpdatedBy
+		public Optional|Organization|null $organization = null,
+		public Optional|Team|null $team = null,
+		public Optional|User|null $creator = null,
+		public Optional|User|null $lastUpdatedBy = null
 	) {
 	}
 }

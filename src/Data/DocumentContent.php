@@ -16,15 +16,15 @@ class DocumentContent extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|string|null $content,
-		public Optional|string|null $contentData,
-		public Optional|string|null $contentState,
-		public Optional|Issue|null $issue,
-		public Optional|Project|null $project,
-		public Optional|ProjectMilestone|null $projectMilestone,
-		public Optional|Document|null $document,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $restoredAt
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $content = null,
+		public Optional|string|null $contentData = null,
+		public Optional|string|null $contentState = null,
+		public Optional|Issue|null $issue = null,
+		public Optional|Project|null $project = null,
+		public Optional|ProjectMilestone|null $projectMilestone = null,
+		public Optional|Document|null $document = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $restoredAt = null
 	) {
 	}
 }

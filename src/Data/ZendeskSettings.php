@@ -8,14 +8,14 @@ use Spatie\LaravelData\Optional;
 class ZendeskSettings extends Data
 {
 	function __construct(
-		public Optional|bool|null $sendNoteOnStatusChange,
-		public Optional|bool|null $sendNoteOnComment,
-		public Optional|bool|null $automateTicketReopeningOnCompletion,
-		public Optional|bool|null $automateTicketReopeningOnCancellation,
-		public Optional|bool|null $automateTicketReopeningOnComment,
+		public Optional|bool|null $sendNoteOnStatusChange = null,
+		public Optional|bool|null $sendNoteOnComment = null,
+		public Optional|bool|null $automateTicketReopeningOnCompletion = null,
+		public Optional|bool|null $automateTicketReopeningOnCancellation = null,
+		public Optional|bool|null $automateTicketReopeningOnComment = null,
 		public Optional|string $subdomain,
 		public Optional|string $url,
-		public Optional|string|null $botUserId
+		public Optional|string|null $botUserId = null
 	) {
 	}
 }

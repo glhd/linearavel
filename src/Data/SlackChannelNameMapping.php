@@ -11,15 +11,15 @@ class SlackChannelNameMapping extends Data
 	function __construct(
 		public Optional|string $id,
 		public Optional|string $name,
-		public Optional|bool|null $isPrivate,
-		public Optional|bool|null $isShared,
-		public Optional|bool|null $botAdded,
+		public Optional|bool|null $isPrivate = null,
+		public Optional|bool|null $isShared = null,
+		public Optional|bool|null $botAdded = null,
 		/** @var Collection<int, SlackAsksTeamSettings> */
 		public Optional|Collection $teams,
-		public Optional|bool|null $autoCreateOnMessage,
-		public Optional|bool|null $autoCreateOnEmoji,
-		public Optional|bool|null $autoCreateOnBotMention,
-		public Optional|string|null $autoCreateTemplateId
+		public Optional|bool|null $autoCreateOnMessage = null,
+		public Optional|bool|null $autoCreateOnEmoji = null,
+		public Optional|bool|null $autoCreateOnBotMention = null,
+		public Optional|string|null $autoCreateTemplateId = null
 	) {
 	}
 }

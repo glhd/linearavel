@@ -10,7 +10,7 @@ class AuthorizedApplicationBase extends Data
 {
 	function __construct(
 		public Optional|string $name,
-		public Optional|string|null $imageUrl,
+		public Optional|string|null $imageUrl = null,
 		/** @var Collection<int, string> */
 		public Optional|Collection $scope,
 		public Optional|string $appId,

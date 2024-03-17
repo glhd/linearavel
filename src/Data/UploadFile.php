@@ -14,7 +14,7 @@ class UploadFile extends Data
 		public Optional|int $size,
 		public Optional|string $uploadUrl,
 		public Optional|string $assetUrl,
-		public Optional|string|null $metaData,
+		public Optional|string|null $metaData = null,
 		/** @var Collection<int, UploadFileHeader> */
 		public Optional|Collection $headers
 	) {

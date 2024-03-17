@@ -11,14 +11,14 @@ class UserAuthorizedApplication extends Data
 		public Optional|string $id,
 		public Optional|string $clientId,
 		public Optional|string $name,
-		public Optional|string|null $description,
+		public Optional|string|null $description = null,
 		public Optional|string $developer,
 		public Optional|string $developerUrl,
-		public Optional|string|null $imageUrl,
+		public Optional|string|null $imageUrl = null,
 		public Optional|bool $isAuthorized,
 		public Optional|bool $createdByLinear,
 		public Optional|bool $webhooksEnabled,
-		public Optional|string|null $approvalErrorCode
+		public Optional|string|null $approvalErrorCode = null
 	) {
 	}
 }
