@@ -21,16 +21,21 @@ class LinearConnector extends Connector
 	) {
 	}
 	
-	public function teams(string ...$keys)
-	{
-		$response = $this->send(new TeamsRequest($keys));
-		
-		return Team::collect($response->json('data.teams.nodes'), Collection::class);
-	}
+	// public function teams(string ...$keys)
+	// {
+	// 	$response = $this->send(new TeamsRequest($keys));
+	//	
+	// 	return Team::collect($response->json('data.teams.nodes'), Collection::class);
+	// }
 	
 	public function resolveBaseUrl(): string
 	{
 		return $this->base_url;
+	}
+	
+	protected function linearQuery($args)
+	{
+		dd(array_filter($args));
 	}
 	
 	protected function defaultAuth(): ?Authenticator

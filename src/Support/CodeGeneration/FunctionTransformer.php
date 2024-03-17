@@ -25,15 +25,17 @@ class FunctionTransformer
 	
 	public static function transform(
 		FieldDefinitionNode $node,
-		ClassTransformer $parent
+		ClassTransformer $parent,
+		array $stmts = [],
 	) {
-		$transformer = new static($node, $parent);
+		$transformer = new static($node, $parent, $stmts);
 		return $transformer();
 	}
 	
 	public function __construct(
 		protected FieldDefinitionNode $node,
 		protected ClassTransformer $parent,
+		protected array $stmts,
 	) {
 		$this->method = new ClassMethod($this->node->name->value);
 	}
@@ -47,6 +49,7 @@ class FunctionTransformer
 			->all();
 		
 		$this->method->params = $args;
+		$this->method->stmts = $this->stmts;
 		
 		if (count($this->docs)) {
 			$comment = "/**\n * ".implode("\n * ", $this->docs)."\n */";
