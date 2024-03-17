@@ -17,6 +17,13 @@ class PendingLinearRequest
 	) {
 	}
 	
+	public function with(string $related, string ...$fields): static
+	{
+		$this->query->withFields(array_map(fn($field) => "{$related}.{$field}", $fields));
+		
+		return $this;
+	}
+	
 	public function get(string ...$fields): LinearResponse
 	{
 		$query = $this->query->withFields($fields);

@@ -3,14 +3,11 @@
 namespace Glhd\Linearavel\Facades;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
-use Glhd\Linearavel\Data\Team;
 use Glhd\Linearavel\Data\User;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static Collection<int, Team> teams(string ...$keys)
- * @method static User viewer(string ...$keys)
+ * @method static \Glhd\Linearavel\Requests\PendingLinearRequest<User> viewer()
  */
 class Linear extends Facade
 {

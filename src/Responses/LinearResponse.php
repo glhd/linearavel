@@ -25,6 +25,11 @@ class LinearResponse extends Response
 			: $this->class::from($this->json("data.{$this->name}"));
 	}
 	
+	public function __get(string $name)
+	{
+		return data_get($this->resolve(), $name);
+	}
+	
 	public function withConfiguration(string $name, string $class, bool $collect): static
 	{
 		$this->name = $name;

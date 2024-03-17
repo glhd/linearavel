@@ -55,6 +55,10 @@ class GraphQueryBuilder
 	
 	protected function formatArguments(array $arguments, int $depth = 0): string
 	{
+		if (! count($arguments)) {
+			return '';
+		}
+		
 		$indent = "\t\t".(str_repeat("\t", $depth));
 		
 		$result = collect($arguments)
