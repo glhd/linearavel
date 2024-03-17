@@ -53,6 +53,7 @@ class InputTransformer extends ClassTransformer
 		return collect($this->node->fields)
 			->map(fn (InputValueDefinitionNode $node) => InputParamTransformer::transform($node, $this))
 			->sortBy(fn (Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
+			->values()
 			->all();
 	}
 }

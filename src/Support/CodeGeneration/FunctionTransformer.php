@@ -51,6 +51,7 @@ class FunctionTransformer
 		$args = collect($this->node->arguments)
 			->map(fn (InputValueDefinitionNode $arg) => FunctionParamTransformer::transform($arg, $this->parent, $this))
 			->sortBy(fn (Param $param) => $param->type instanceof NullableType ? 1 : 0)
+			->values()
 			->all();
 		
 		$this->method->params = $args;

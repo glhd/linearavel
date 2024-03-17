@@ -54,6 +54,7 @@ class TypeTransformer extends ClassTransformer
 		return collect($this->node->fields)
 			->map(fn (FieldDefinitionNode $node) => DataParamTransformer::transform($node, $this))
 			->sortBy(fn (Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
+			->values()
 			->all();
 	}
 	
