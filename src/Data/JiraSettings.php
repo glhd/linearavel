@@ -9,10 +9,10 @@ use Spatie\LaravelData\Optional;
 class JiraSettings extends Data
 {
 	public function __construct(
-		/** @var Collection<int, JiraLinearMapping> */
-		public Optional|Collection $projectMapping,
 		/** @var Collection<int, JiraProjectData> */
 		public Optional|Collection $projects,
+		/** @var Collection<int, JiraLinearMapping> */
+		public Optional|Collection|null $projectMapping,
 		public Optional|bool|null $isJiraServer
 	) {
 	}

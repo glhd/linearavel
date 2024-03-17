@@ -20,8 +20,6 @@ abstract class ParamTransformer
 	
 	protected ?FunctionTransformer $function = null;
 	
-	abstract public function __invoke(): Param;
-	
 	public static function acceptsNull(Node $node): bool
 	{
 		if ($node instanceof NullableType) {
@@ -36,18 +34,22 @@ abstract class ParamTransformer
 		return false;
 	}
 	
+	abstract public function __invoke(): Param;
+	
 	protected function nodeType(TypeNode $node, bool $nullable = true)
 	{
 		return match ($node::class) {
 			NamedTypeNode::class => $this->namedType($node, $nullable),
 			NonNullTypeNode::class => $this->nodeType($node->type, false),
-			ListTypeNode::class => $this->listType($node),
+			ListTypeNode::class => $this->listType($node, $nullable),
 		};
 	}
 	
-	protected function listType(ListTypeNode $node): NodeAbstract
+	protected function listType(ListTypeNode $node, bool $nullable): NodeAbstract
 	{
-		return new Name('array');
+		return $nullable
+			? new NullableType(new Name('array'))
+			: new Name('array');
 	}
 	
 	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract

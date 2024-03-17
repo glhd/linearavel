@@ -7,10 +7,6 @@ use Illuminate\Support\Collection;
 class NullableUserFilter
 {
 	public function __construct(
-		/** @var iterable<NullableUserFilter>|Collection<int, NullableUserFilter> */
-		public iterable $and,
-		/** @var iterable<NullableUserFilter>|Collection<int, NullableUserFilter> */
-		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,
@@ -21,7 +17,11 @@ class NullableUserFilter
 		public ?IssueCollectionFilter $assignedIssues = null,
 		public ?BooleanComparator $admin = null,
 		public ?BooleanComparator $isMe = null,
-		public ?bool $null = null
+		public ?bool $null = null,
+		/** @var iterable<NullableUserFilter>|Collection<int, NullableUserFilter> */
+		public ?iterable $and = null,
+		/** @var iterable<NullableUserFilter>|Collection<int, NullableUserFilter> */
+		public ?iterable $or = null
 	) {
 	}
 }

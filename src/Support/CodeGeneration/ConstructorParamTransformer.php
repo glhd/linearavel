@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\UnionType;
@@ -32,15 +33,16 @@ class ConstructorParamTransformer extends ParamTransformer
 		return $this->param;
 	}
 	
-	protected function listType(ListTypeNode $node): NodeAbstract
+	protected function listType(ListTypeNode $node, bool $nullable): NodeAbstract
 	{
 		$type = $this->typeToName($node->type);
 		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
 		
-		return new UnionType([
+		return new UnionType(array_filter([
 			new Name('Optional'),
 			new Name('Collection'),
-		]);
+			$nullable ? new Identifier('null') : null,
+		]));
 	}
 }

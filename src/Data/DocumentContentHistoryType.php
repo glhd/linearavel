@@ -20,7 +20,7 @@ class DocumentContentHistoryType extends Data
 		public Optional|CarbonImmutable $contentDataSnapshotAt,
 		public Optional|string $contentData,
 		/** @var Collection<int, string> */
-		public Optional|Collection $actorIds
+		public Optional|Collection|null $actorIds
 	) {
 	}
 }

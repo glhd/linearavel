@@ -9,6 +9,7 @@ use GraphQL\Language\AST\NamedTypeNode;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\NodeAbstract;
 use PhpParser\PrettyPrinter\Standard;
@@ -54,11 +55,11 @@ class FunctionParamTransformer extends ParamTransformer
 		return $this->param;
 	}
 	
-	protected function listType(ListTypeNode $node): NodeAbstract
+	protected function listType(ListTypeNode $node, bool $nullable): NodeAbstract
 	{
 		// $type = $this->typeToName($node->type);
 		// $this->param->setDocComment(new Doc("/** @var {$type}[]|Collection<int, {$type}> */"));
-		return new Name('iterable');
+		return $nullable ? new NullableType(new Name('iterable')) : new Name('iterable');
 	}
 	
 	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract

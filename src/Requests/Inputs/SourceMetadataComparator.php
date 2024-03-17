@@ -7,12 +7,12 @@ use Illuminate\Support\Collection;
 class SourceMetadataComparator
 {
 	public function __construct(
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $in,
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $nin,
 		public ?string $eq = null,
 		public ?string $neq = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $in = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $nin = null,
 		public ?bool $null = null,
 		public ?SubTypeComparator $subType = null
 	) {

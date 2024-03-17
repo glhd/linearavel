@@ -11,7 +11,7 @@ class IntegrationHasScopesPayload extends Data
 	public function __construct(
 		public Optional|bool $hasAllScopes,
 		/** @var Collection<int, string> */
-		public Optional|Collection $missingScopes
+		public Optional|Collection|null $missingScopes
 	) {
 	}
 }

@@ -8,12 +8,6 @@ use Illuminate\Support\Collection;
 class IssueUpdateInput
 {
 	public function __construct(
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $subscriberIds,
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $labelIds,
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $companyIds,
 		public ?string $title = null,
 		public ?string $description = null,
 		public ?string $descriptionData = null,
@@ -21,6 +15,10 @@ class IssueUpdateInput
 		public ?string $parentId = null,
 		public ?int $priority = null,
 		public ?int $estimate = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $subscriberIds = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $labelIds = null,
 		public ?string $teamId = null,
 		public ?string $cycleId = null,
 		public ?string $projectId = null,
@@ -34,7 +32,9 @@ class IssueUpdateInput
 		public ?bool $trashed = null,
 		public ?CarbonImmutable $slaBreachesAt = null,
 		public ?CarbonImmutable $snoozedUntilAt = null,
-		public ?string $snoozedById = null
+		public ?string $snoozedById = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $companyIds = null
 	) {
 	}
 }

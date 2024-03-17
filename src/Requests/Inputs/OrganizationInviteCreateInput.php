@@ -9,11 +9,11 @@ class OrganizationInviteCreateInput
 {
 	public function __construct(
 		public string $email,
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $teamIds,
 		public ?string $id = null,
 		public ?UserRoleType $role = null,
 		public ?string $message = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $teamIds = null,
 		public ?string $metadata = null
 	) {
 	}

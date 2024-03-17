@@ -9,8 +9,6 @@ use Illuminate\Support\Collection;
 class NotificationSubscriptionCreateInput
 {
 	public function __construct(
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $notificationSubscriptionTypes,
 		public ?string $id = null,
 		public ?string $customViewId = null,
 		public ?string $cycleId = null,
@@ -20,6 +18,8 @@ class NotificationSubscriptionCreateInput
 		public ?string $userId = null,
 		public ?ContextViewType $contextViewType = null,
 		public ?UserContextViewType $userContextViewType = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $notificationSubscriptionTypes = null,
 		public ?bool $active = null
 	) {
 	}

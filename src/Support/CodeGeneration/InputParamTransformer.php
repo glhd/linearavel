@@ -9,6 +9,7 @@ use PhpParser\Comment\Doc;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\NodeAbstract;
 
@@ -46,12 +47,14 @@ class InputParamTransformer extends ConstructorParamTransformer
 		return $this->param;
 	}
 	
-	protected function listType(ListTypeNode $node): NodeAbstract
+	protected function listType(ListTypeNode $node, bool $nullable): NodeAbstract
 	{
 		$type = $this->typeToName($node->type);
 		$this->param->setDocComment(new Doc("/** @var iterable<{$type}>|Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
 		
-		return new Name('iterable');
+		return $nullable
+			? new NullableType(new Name('iterable'))
+			: new Name('iterable');
 	}
 }

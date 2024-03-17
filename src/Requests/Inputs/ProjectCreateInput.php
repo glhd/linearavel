@@ -11,8 +11,6 @@ class ProjectCreateInput
 		public string $name,
 		/** @var iterable<string>|Collection<int, string> */
 		public iterable $teamIds,
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $memberIds,
 		public ?string $id = null,
 		public ?string $icon = null,
 		public ?string $color = null,
@@ -22,6 +20,8 @@ class ProjectCreateInput
 		public ?string $convertedFromIssueId = null,
 		public ?string $lastAppliedTemplateId = null,
 		public ?string $leadId = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $memberIds = null,
 		public ?string $startDate = null,
 		public ?DateResolutionType $startDateResolution = null,
 		public ?string $targetDate = null,

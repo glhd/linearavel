@@ -8,12 +8,12 @@ use Illuminate\Support\Collection;
 class NullableDateComparator
 {
 	public function __construct(
-		/** @var iterable<CarbonImmutable>|Collection<int, CarbonImmutable> */
-		public iterable $in,
-		/** @var iterable<CarbonImmutable>|Collection<int, CarbonImmutable> */
-		public iterable $nin,
 		public ?CarbonImmutable $eq = null,
 		public ?CarbonImmutable $neq = null,
+		/** @var iterable<CarbonImmutable>|Collection<int, CarbonImmutable> */
+		public ?iterable $in = null,
+		/** @var iterable<CarbonImmutable>|Collection<int, CarbonImmutable> */
+		public ?iterable $nin = null,
 		public ?bool $null = null,
 		public ?CarbonImmutable $lt = null,
 		public ?CarbonImmutable $lte = null,

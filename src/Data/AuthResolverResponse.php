@@ -13,11 +13,11 @@ class AuthResolverResponse extends Data
 		public Optional|string $email,
 		/** @var Collection<int, AuthUser> */
 		public Optional|Collection $users,
-		/** @var Collection<int, AuthOrganization> */
-		public Optional|Collection $availableOrganizations,
-		/** @var Collection<int, AuthOrganization> */
-		public Optional|Collection $lockedOrganizations,
 		public Optional|bool|null $allowDomainAccess,
+		/** @var Collection<int, AuthOrganization> */
+		public Optional|Collection|null $availableOrganizations,
+		/** @var Collection<int, AuthOrganization> */
+		public Optional|Collection|null $lockedOrganizations,
 		public Optional|string|null $lastUsedOrganizationId,
 		public Optional|string|null $token
 	) {

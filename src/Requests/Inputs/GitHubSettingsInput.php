@@ -10,9 +10,9 @@ class GitHubSettingsInput
 		public string $orgAvatarUrl,
 		public string $orgLogin,
 		/** @var iterable<GitHubRepoInput>|Collection<int, GitHubRepoInput> */
-		public iterable $repositories,
+		public ?iterable $repositories = null,
 		/** @var iterable<TeamRepoMappingInput>|Collection<int, TeamRepoMappingInput> */
-		public iterable $repositoriesMapping
+		public ?iterable $repositoriesMapping = null
 	) {
 	}
 }

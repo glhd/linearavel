@@ -26,8 +26,6 @@ class IssueNotification extends Data implements Notification, Entity, Node
 		public Optional|User $user,
 		public Optional|Issue $issue,
 		public Optional|Team $team,
-		/** @var Collection<int, NotificationSubscription> */
-		public Optional|Collection $subscriptions,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|User|null $actor,
@@ -42,7 +40,9 @@ class IssueNotification extends Data implements Notification, Entity, Node
 		public Optional|CarbonImmutable|null $unsnoozedAt,
 		public Optional|ActorBot|null $botActor,
 		public Optional|string|null $reactionEmoji,
-		public Optional|Comment|null $comment
+		public Optional|Comment|null $comment,
+		/** @var Collection<int, NotificationSubscription> */
+		public Optional|Collection|null $subscriptions
 	) {
 	}
 }

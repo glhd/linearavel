@@ -20,16 +20,6 @@ class IssueHistory extends Data implements Node
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|Issue $issue,
-		/** @var Collection<int, string> */
-		public Optional|Collection $addedLabelIds,
-		/** @var Collection<int, string> */
-		public Optional|Collection $removedLabelIds,
-		/** @var Collection<int, IssueRelationHistoryPayload> */
-		public Optional|Collection $relationChanges,
-		/** @var Collection<int, IssueLabel> */
-		public Optional|Collection $addedLabels,
-		/** @var Collection<int, IssueLabel> */
-		public Optional|Collection $removedLabels,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|User|null $actor,
@@ -72,12 +62,22 @@ class IssueHistory extends Data implements Node
 		public Optional|IssueImport|null $issueImport,
 		public Optional|Attachment|null $attachment,
 		public Optional|string|null $attachmentId,
+		/** @var Collection<int, string> */
+		public Optional|Collection|null $addedLabelIds,
+		/** @var Collection<int, string> */
+		public Optional|Collection|null $removedLabelIds,
+		/** @var Collection<int, IssueRelationHistoryPayload> */
+		public Optional|Collection|null $relationChanges,
 		public Optional|bool|null $autoClosed,
 		public Optional|bool|null $autoArchived,
 		public Optional|string|null $fromDueDate,
 		public Optional|string|null $toDueDate,
 		public Optional|string|null $changes,
-		public Optional|ActorBot|null $botActor
+		public Optional|ActorBot|null $botActor,
+		/** @var Collection<int, IssueLabel> */
+		public Optional|Collection|null $addedLabels,
+		/** @var Collection<int, IssueLabel> */
+		public Optional|Collection|null $removedLabels
 	) {
 	}
 }

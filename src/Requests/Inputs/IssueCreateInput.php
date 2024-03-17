@@ -8,10 +8,6 @@ use Illuminate\Support\Collection;
 class IssueCreateInput
 {
 	public function __construct(
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $subscriberIds,
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $labelIds,
 		public string $teamId,
 		public ?string $id = null,
 		public ?string $title = null,
@@ -21,6 +17,10 @@ class IssueCreateInput
 		public ?string $parentId = null,
 		public ?int $priority = null,
 		public ?int $estimate = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $subscriberIds = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $labelIds = null,
 		public ?string $cycleId = null,
 		public ?string $projectId = null,
 		public ?string $projectMilestoneId = null,

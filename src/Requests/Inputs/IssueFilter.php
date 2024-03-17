@@ -7,10 +7,6 @@ use Illuminate\Support\Collection;
 class IssueFilter
 {
 	public function __construct(
-		/** @var iterable<IssueFilter>|Collection<int, IssueFilter> */
-		public iterable $and,
-		/** @var iterable<IssueFilter>|Collection<int, IssueFilter> */
-		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,
@@ -48,7 +44,11 @@ class IssueFilter
 		public ?RelationExistsComparator $hasDuplicateRelations = null,
 		public ?RelationExistsComparator $hasBlockedByRelations = null,
 		public ?RelationExistsComparator $hasBlockingRelations = null,
-		public ?SlaStatusComparator $slaStatus = null
+		public ?SlaStatusComparator $slaStatus = null,
+		/** @var iterable<IssueFilter>|Collection<int, IssueFilter> */
+		public ?iterable $and = null,
+		/** @var iterable<IssueFilter>|Collection<int, IssueFilter> */
+		public ?iterable $or = null
 	) {
 	}
 }

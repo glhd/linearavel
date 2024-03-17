@@ -10,8 +10,6 @@ use Illuminate\Support\Collection;
 class OrganizationUpdateInput
 {
 	public function __construct(
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $allowedAuthServices,
 		public ?string $name = null,
 		public ?string $logoUrl = null,
 		public ?string $urlKey = null,
@@ -26,6 +24,8 @@ class OrganizationUpdateInput
 		public ?bool $reducedPersonalInformation = null,
 		public ?bool $oauthAppReview = null,
 		public ?string $linearPreviewFlags = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $allowedAuthServices = null,
 		public ?bool $slaEnabled = null,
 		public ?SLADayCountType $slaDayCount = null,
 		public ?bool $allowMembersToInvite = null

@@ -9,10 +9,6 @@ use Illuminate\Support\Collection;
 class ProjectUpdateInput
 {
 	public function __construct(
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $teamIds,
-		/** @var iterable<string>|Collection<int, string> */
-		public iterable $memberIds,
 		public ?string $state = null,
 		public ?string $statusId = null,
 		public ?string $name = null,
@@ -21,8 +17,12 @@ class ProjectUpdateInput
 		public ?string $lastAppliedTemplateId = null,
 		public ?string $icon = null,
 		public ?string $color = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $teamIds = null,
 		public ?CarbonImmutable $projectUpdateRemindersPausedUntilAt = null,
 		public ?string $leadId = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $memberIds = null,
 		public ?string $startDate = null,
 		public ?DateResolutionType $startDateResolution = null,
 		public ?string $targetDate = null,

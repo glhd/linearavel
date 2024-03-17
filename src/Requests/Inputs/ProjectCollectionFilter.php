@@ -7,10 +7,6 @@ use Illuminate\Support\Collection;
 class ProjectCollectionFilter
 {
 	public function __construct(
-		/** @var iterable<ProjectCollectionFilter>|Collection<int, ProjectCollectionFilter> */
-		public iterable $and,
-		/** @var iterable<ProjectCollectionFilter>|Collection<int, ProjectCollectionFilter> */
-		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,
@@ -35,6 +31,10 @@ class ProjectCollectionFilter
 		public ?ProjectMilestoneFilter $nextProjectMilestone = null,
 		public ?TeamCollectionFilter $accessibleTeams = null,
 		public ?NullableTemplateFilter $lastAppliedTemplate = null,
+		/** @var iterable<ProjectCollectionFilter>|Collection<int, ProjectCollectionFilter> */
+		public ?iterable $and = null,
+		/** @var iterable<ProjectCollectionFilter>|Collection<int, ProjectCollectionFilter> */
+		public ?iterable $or = null,
 		public ?ProjectFilter $some = null,
 		public ?ProjectFilter $every = null,
 		public ?NumberComparator $length = null

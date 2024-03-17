@@ -11,7 +11,7 @@ class TokenUserAccountAuthInput
 		public string $token,
 		public string $timezone,
 		/** @var iterable<string>|Collection<int, string> */
-		public iterable $teamIdsToJoin,
+		public ?iterable $teamIdsToJoin = null,
 		public ?string $inviteLink = null
 	) {
 	}

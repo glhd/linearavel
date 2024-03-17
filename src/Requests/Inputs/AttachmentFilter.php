@@ -7,10 +7,6 @@ use Illuminate\Support\Collection;
 class AttachmentFilter
 {
 	public function __construct(
-		/** @var iterable<AttachmentFilter>|Collection<int, AttachmentFilter> */
-		public iterable $and,
-		/** @var iterable<AttachmentFilter>|Collection<int, AttachmentFilter> */
-		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,
@@ -18,7 +14,11 @@ class AttachmentFilter
 		public ?NullableStringComparator $subtitle = null,
 		public ?StringComparator $url = null,
 		public ?NullableUserFilter $creator = null,
-		public ?SourceTypeComparator $sourceType = null
+		public ?SourceTypeComparator $sourceType = null,
+		/** @var iterable<AttachmentFilter>|Collection<int, AttachmentFilter> */
+		public ?iterable $and = null,
+		/** @var iterable<AttachmentFilter>|Collection<int, AttachmentFilter> */
+		public ?iterable $or = null
 	) {
 	}
 }

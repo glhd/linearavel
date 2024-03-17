@@ -7,10 +7,6 @@ use Illuminate\Support\Collection;
 class CycleFilter
 {
 	public function __construct(
-		/** @var iterable<CycleFilter>|Collection<int, CycleFilter> */
-		public iterable $and,
-		/** @var iterable<CycleFilter>|Collection<int, CycleFilter> */
-		public iterable $or,
 		public ?IDComparator $id = null,
 		public ?DateComparator $createdAt = null,
 		public ?DateComparator $updatedAt = null,
@@ -26,7 +22,11 @@ class CycleFilter
 		public ?BooleanComparator $isFuture = null,
 		public ?BooleanComparator $isPast = null,
 		public ?TeamFilter $team = null,
-		public ?IssueCollectionFilter $issues = null
+		public ?IssueCollectionFilter $issues = null,
+		/** @var iterable<CycleFilter>|Collection<int, CycleFilter> */
+		public ?iterable $and = null,
+		/** @var iterable<CycleFilter>|Collection<int, CycleFilter> */
+		public ?iterable $or = null
 	) {
 	}
 }
