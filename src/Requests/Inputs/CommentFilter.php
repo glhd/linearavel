@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class CommentFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -27,6 +27,7 @@ public ?DocumentContentFilter $documentContent = null,
 		public Collection $and,
 		/** @var Collection<int, CommentFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

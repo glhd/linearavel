@@ -7,7 +7,11 @@ use Spatie\LaravelData\Optional;
 
 class PageInfo extends Data
 {
-	public function __construct(public Optional|bool $hasPreviousPage, public Optional|bool $hasNextPage, public Optional|string|null $startCursor = null, public Optional|string|null $endCursor = null)
-	{
+	public function __construct(
+		public Optional|bool $hasPreviousPage,
+		public Optional|bool $hasNextPage,
+		public Optional|string|null $startCursor = null,
+		public Optional|string|null $endCursor = null
+	) {
 	}
 }

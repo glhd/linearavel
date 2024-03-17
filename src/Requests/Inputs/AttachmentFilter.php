@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class AttachmentFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -27,6 +27,7 @@ public ?SourceTypeComparator $sourceType = null,
 		public Collection $and,
 		/** @var Collection<int, AttachmentFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

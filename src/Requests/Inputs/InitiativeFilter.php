@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class InitiativeFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -23,6 +23,7 @@ public ?UserFilter $creator = null,
 		public Collection $and,
 		/** @var Collection<int, InitiativeFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

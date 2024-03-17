@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class IssueUpdateInput
 {
-	public ?string $title = null
+public ?string $title = null
         
 public ?string $description = null,
         
@@ -56,6 +56,7 @@ public ?string $snoozedById = null,
 		public Collection $labelIds,
 		/** @var Collection<int, string> */
 		public Collection $companyIds,
-	) {
-	}
+    )
+    {
+    }
 }

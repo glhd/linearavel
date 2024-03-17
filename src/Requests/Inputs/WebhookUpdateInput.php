@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class WebhookUpdateInput
 {
-	public ?string $label = null
+public ?string $label = null
         
 public ?string $secret = null,
         
@@ -17,6 +17,7 @@ public ?string $url = null,
 	function __construct(
 		/** @var Collection<int, string> */
 		public Collection $resourceTypes,
-	) {
-	}
+    )
+    {
+    }
 }

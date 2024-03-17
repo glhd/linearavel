@@ -15,8 +15,7 @@ class GoogleSheetsSettings extends Data
 		public Optional|string $spreadsheetId,
 		public Optional|string $spreadsheetUrl,
 		public Optional|float $sheetId,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable $updatedIssuesAt
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedIssuesAt
 	) {
 	}
 }

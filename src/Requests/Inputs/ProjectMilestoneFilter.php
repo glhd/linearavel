@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class ProjectMilestoneFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -21,6 +21,7 @@ public ?NullableDateComparator $targetDate = null,
 		public Collection $and,
 		/** @var Collection<int, ProjectMilestoneFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

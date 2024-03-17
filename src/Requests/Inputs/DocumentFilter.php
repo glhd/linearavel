@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class DocumentFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -25,6 +25,7 @@ public ?ProjectFilter $project = null,
 		public Collection $and,
 		/** @var Collection<int, DocumentFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

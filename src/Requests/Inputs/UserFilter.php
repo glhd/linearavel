@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class UserFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -31,6 +31,7 @@ public ?BooleanComparator $isMe = null,
 		public Collection $and,
 		/** @var Collection<int, UserFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class WorkflowStateFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -29,6 +29,7 @@ public ?IssueCollectionFilter $issues = null,
 		public Collection $and,
 		/** @var Collection<int, WorkflowStateFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

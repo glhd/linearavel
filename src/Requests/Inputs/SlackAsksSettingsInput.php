@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class SlackAsksSettingsInput
 {
-	public ?string $teamName = null
+public ?string $teamName = null
         
 public ?string $teamId = null,
         
@@ -15,6 +15,7 @@ public ?string $teamId = null,
 		/** @var Collection<int, SlackChannelNameMappingInput> */
 		public Collection $slackChannelMapping,
 		public UserRoleType $canAdministrate,
-	) {
-	}
+    )
+    {
+    }
 }

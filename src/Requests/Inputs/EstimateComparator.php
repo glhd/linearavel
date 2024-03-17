@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class EstimateComparator
 {
-	public ?float $eq = null
+public ?float $eq = null
         
 public ?float $neq = null,
         
@@ -29,6 +29,7 @@ public ?float $gte = null,
 		public Collection $or,
 		/** @var Collection<int, NullableNumberComparator> */
 		public Collection $and,
-	) {
-	}
+    )
+    {
+    }
 }

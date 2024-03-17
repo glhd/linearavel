@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class ProjectFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -59,6 +59,7 @@ public ?NullableTemplateFilter $lastAppliedTemplate = null,
 		public Collection $and,
 		/** @var Collection<int, ProjectFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

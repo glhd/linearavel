@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class TeamFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -25,6 +25,7 @@ public ?IssueCollectionFilter $issues = null,
 		public Collection $and,
 		/** @var Collection<int, TeamFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

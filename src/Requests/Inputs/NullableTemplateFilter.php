@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class NullableTemplateFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -21,6 +21,7 @@ public ?bool $null = null,
 		public Collection $and,
 		/** @var Collection<int, NullableTemplateFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

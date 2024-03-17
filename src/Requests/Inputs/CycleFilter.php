@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class CycleFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -43,6 +43,7 @@ public ?IssueCollectionFilter $issues = null,
 		public Collection $and,
 		/** @var Collection<int, CycleFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }

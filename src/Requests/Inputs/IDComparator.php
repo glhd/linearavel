@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class IDComparator
 {
-	public ?string $eq = null
+public ?string $eq = null
         
 public ?string $neq = null,
         
@@ -15,6 +15,7 @@ public ?string $neq = null,
 		public Collection $in,
 		/** @var Collection<int, string> */
 		public Collection $nin,
-	) {
-	}
+    )
+    {
+    }
 }

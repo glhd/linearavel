@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class IssueLabelFilter
 {
-	public ?IDComparator $id = null
+public ?IDComparator $id = null
         
 public ?DateComparator $createdAt = null,
         
@@ -25,6 +25,7 @@ public ?IssueLabelFilter $parent = null,
 		public Collection $and,
 		/** @var Collection<int, IssueLabelFilter> */
 		public Collection $or,
-	) {
-	}
+    )
+    {
+    }
 }
