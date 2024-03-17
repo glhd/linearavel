@@ -27,7 +27,7 @@ abstract class ClassTransformer extends InvokableTransformer
 		
 		$uses = collect($this->uses)
 			->unique()
-			->map(fn ($fqcn) => new UseItem(new Name($fqcn)))
+			->map(fn($fqcn) => new UseItem(new Name($fqcn)))
 			->all();
 		
 		return new Use_($uses);

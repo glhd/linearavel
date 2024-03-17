@@ -53,13 +53,13 @@ class Transformer
 		
 		collect(Parser::parse($schema)->definitions)
 			->each($this->register(...))
-			->each(fn (DefinitionNode $definition) => match ($definition::class) {
-				// InterfaceTypeDefinitionNode::class => $this->interface($definition),
+			->each(fn(DefinitionNode $definition) => match ($definition::class) {
+				InterfaceTypeDefinitionNode::class => $this->interface($definition),
 				ObjectTypeDefinitionNode::class => $this->class($definition),
-				// EnumTypeDefinitionNode::class => $this->enum($definition),
-				// InputObjectTypeDefinitionNode::class => $this->input($definition),
-				// UnionTypeDefinitionNode::class => null, // TODO
-				// DirectiveDefinitionNode::class => null,
+				EnumTypeDefinitionNode::class => $this->enum($definition),
+				InputObjectTypeDefinitionNode::class => $this->input($definition),
+				UnionTypeDefinitionNode::class => null, // TODO
+				DirectiveDefinitionNode::class => null,
 				default => null,
 			});
 	}
@@ -88,10 +88,6 @@ class Transformer
 	protected function class(ObjectTypeDefinitionNode $node): bool
 	{
 		if ('Mutation' === $node->name->value) {
-			return true; // FIXME
-		}
-		
-		if ('Query' !== $node->name->value) {
 			return true; // FIXME
 		}
 		

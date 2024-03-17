@@ -39,7 +39,6 @@ class QueryTransformer extends ClassTransformer
 	{
 		return collect($this->node->fields)
 			->map(fn(FieldDefinitionNode $node) => QueryFunctionTransformer::transform($node, $this, function(ClassMethod $fn) {
-				
 			}))
 			->all();
 	}

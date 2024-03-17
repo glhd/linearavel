@@ -46,8 +46,8 @@ class TypeTransformer extends ClassTransformer
 	protected function params(): array
 	{
 		return collect($this->node->fields)
-			->map(fn (FieldDefinitionNode $node) => DataParamTransformer::transform($node, $this))
-			->sortBy(fn (Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
+			->map(fn(FieldDefinitionNode $node) => DataParamTransformer::transform($node, $this))
+			->sortBy(fn(Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
 			->values()
 			->all();
 	}

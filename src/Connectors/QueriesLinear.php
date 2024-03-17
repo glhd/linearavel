@@ -118,7 +118,7 @@ use Glhd\Linearavel\Requests\PendingLinearRequest;
 trait QueriesLinear
 {
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -126,46 +126,46 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<ApiKeyConnection>
 	 */
-	function apiKeys(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function apiKeys(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('apiKeys', ApiKeyConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
-	 * @param string $clientId The client ID of the application.
+	 * @param string $clientId the client ID of the application
 	 * @returns PendingLinearRequest<Application>
 	 */
-	function applicationInfo(string $clientId): PendingLinearRequest
+	public function applicationInfo(string $clientId): PendingLinearRequest
 	{
 		return $this->linearQuery('applicationInfo', Application::class, false, compact('clientId'));
 	}
 	
 	/**
-	 * @param iterable $ids The IDs of the applications.
+	 * @param iterable $ids the IDs of the applications
 	 * @returns PendingLinearRequest<Application>
 	 */
-	function applicationInfoByIds(iterable $ids): PendingLinearRequest
+	public function applicationInfoByIds(iterable $ids): PendingLinearRequest
 	{
 		return $this->linearQuery('applicationInfoByIds', Application::class, true, compact('ids'));
 	}
 	
 	/**
-	 * @param iterable $clientIds The client IDs to look up.
+	 * @param iterable $clientIds the client IDs to look up
 	 * @returns PendingLinearRequest<WorkspaceAuthorizedApplication>
 	 */
-	function applicationInfoWithMembershipsByIds(iterable $clientIds): PendingLinearRequest
+	public function applicationInfoWithMembershipsByIds(iterable $clientIds): PendingLinearRequest
 	{
 		return $this->linearQuery('applicationInfoWithMembershipsByIds', WorkspaceAuthorizedApplication::class, true, compact('clientIds'));
 	}
 	
 	/**
-	 * @param ?string $actor Actor mode used for the authorization.
-	 * @param ?string $redirectUri Redirect URI for the application.
-	 * @param iterable $scope Scopes being requested by the application.
-	 * @param string $clientId The client ID of the application.
+	 * @param ?string $actor actor mode used for the authorization
+	 * @param ?string $redirectUri redirect URI for the application
+	 * @param iterable $scope scopes being requested by the application
+	 * @param string $clientId the client ID of the application
 	 * @returns PendingLinearRequest<UserAuthorizedApplication>
 	 */
-	function applicationWithAuthorization(iterable $scope, string $clientId, ?string $actor = null, ?string $redirectUri = null): PendingLinearRequest
+	public function applicationWithAuthorization(iterable $scope, string $clientId, ?string $actor = null, ?string $redirectUri = null): PendingLinearRequest
 	{
 		return $this->linearQuery('applicationWithAuthorization', UserAuthorizedApplication::class, false, compact('scope', 'clientId', 'actor', 'redirectUri'));
 	}
@@ -173,7 +173,7 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<AuthorizedApplication>
 	 */
-	function authorizedApplications(): PendingLinearRequest
+	public function authorizedApplications(): PendingLinearRequest
 	{
 		return $this->linearQuery('authorizedApplications', AuthorizedApplication::class, true);
 	}
@@ -181,14 +181,14 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<WorkspaceAuthorizedApplication>
 	 */
-	function workspaceAuthorizedApplications(): PendingLinearRequest
+	public function workspaceAuthorizedApplications(): PendingLinearRequest
 	{
 		return $this->linearQuery('workspaceAuthorizedApplications', WorkspaceAuthorizedApplication::class, true);
 	}
 	
 	/**
-	 * @param ?AttachmentFilter $filter Filter returned attachments.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?AttachmentFilter $filter filter returned attachments
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -196,7 +196,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<AttachmentConnection>
 	 */
-	function attachments(
+	public function attachments(
 		?AttachmentFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -212,22 +212,22 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Attachment>
 	 */
-	function attachment(string $id): PendingLinearRequest
+	public function attachment(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('attachment', Attachment::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
 	 * @param ?bool $includeArchived Should archived resources be included (default: false)
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
-	 * @param string $url The attachment URL.
+	 * @param string $url the attachment URL
 	 * @returns PendingLinearRequest<AttachmentConnection>
 	 */
-	function attachmentsForURL(
+	public function attachmentsForURL(
 		string $url,
 		?string $before = null,
 		?string $after = null,
@@ -243,16 +243,16 @@ trait QueriesLinear
 	 * @param string $id `id` of the attachment for which you'll want to get the issue for. [Deprecated] `url` as the `id` parameter.
 	 * @returns PendingLinearRequest<Issue>
 	 */
-	function attachmentIssue(string $id): PendingLinearRequest
+	public function attachmentIssue(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('attachmentIssue', Issue::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $teamId (optional) if provided will only return attachment sources for the given team.
+	 * @param ?string $teamId (optional) if provided will only return attachment sources for the given team
 	 * @returns PendingLinearRequest<AttachmentSourcesPayload>
 	 */
-	function attachmentSources(?string $teamId = null): PendingLinearRequest
+	public function attachmentSources(?string $teamId = null): PendingLinearRequest
 	{
 		return $this->linearQuery('attachmentSources', AttachmentSourcesPayload::class, false, compact('teamId'));
 	}
@@ -260,14 +260,14 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<AuditEntryType>
 	 */
-	function auditEntryTypes(): PendingLinearRequest
+	public function auditEntryTypes(): PendingLinearRequest
 	{
 		return $this->linearQuery('auditEntryTypes', AuditEntryType::class, true);
 	}
 	
 	/**
-	 * @param ?AuditEntryFilter $filter Filter returned audit entries.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?AuditEntryFilter $filter filter returned audit entries
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -275,7 +275,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<AuditEntryConnection>
 	 */
-	function auditEntries(
+	public function auditEntries(
 		?AuditEntryFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -290,7 +290,7 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<AuthResolverResponse>
 	 */
-	function availableUsers(): PendingLinearRequest
+	public function availableUsers(): PendingLinearRequest
 	{
 		return $this->linearQuery('availableUsers', AuthResolverResponse::class, false);
 	}
@@ -298,24 +298,24 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<AuthenticationSessionResponse>
 	 */
-	function authenticationSessions(): PendingLinearRequest
+	public function authenticationSessions(): PendingLinearRequest
 	{
 		return $this->linearQuery('authenticationSessions', AuthenticationSessionResponse::class, true);
 	}
 	
 	/**
-	 * @param ?bool $isDesktop Whether the client is the desktop app.
-	 * @param string $email Email to query the SSO login URL by.
+	 * @param ?bool $isDesktop whether the client is the desktop app
+	 * @param string $email email to query the SSO login URL by
 	 * @returns PendingLinearRequest<SsoUrlFromEmailResponse>
 	 */
-	function ssoUrlFromEmail(string $email, ?bool $isDesktop = null): PendingLinearRequest
+	public function ssoUrlFromEmail(string $email, ?bool $isDesktop = null): PendingLinearRequest
 	{
 		return $this->linearQuery('ssoUrlFromEmail', SsoUrlFromEmailResponse::class, false, compact('email', 'isDesktop'));
 	}
 	
 	/**
-	 * @param ?CommentFilter $filter Filter returned comments.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?CommentFilter $filter filter returned comments
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -323,7 +323,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<CommentConnection>
 	 */
-	function comments(
+	public function comments(
 		?CommentFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -336,18 +336,18 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param ?string $id The identifier of the comment to retrieve.
-	 * @param ?string $issueId [Deprecated] The issue for which to find the comment.
-	 * @param ?string $hash The hash of the comment to retrieve.
+	 * @param ?string $id the identifier of the comment to retrieve
+	 * @param ?string $issueId [Deprecated] The issue for which to find the comment
+	 * @param ?string $hash the hash of the comment to retrieve
 	 * @returns PendingLinearRequest<Comment>
 	 */
-	function comment(?string $id = null, ?string $issueId = null, ?string $hash = null): PendingLinearRequest
+	public function comment(?string $id = null, ?string $issueId = null, ?string $hash = null): PendingLinearRequest
 	{
 		return $this->linearQuery('comment', Comment::class, false, compact('id', 'issueId', 'hash'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -355,7 +355,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<CustomViewConnection>
 	 */
-	function customViews(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function customViews(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('customViews', CustomViewConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
@@ -364,7 +364,7 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<CustomView>
 	 */
-	function customView(string $id): PendingLinearRequest
+	public function customView(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('customView', CustomView::class, false, compact('id'));
 	}
@@ -374,23 +374,23 @@ trait QueriesLinear
 	 * @param string $filter
 	 * @returns PendingLinearRequest<CustomViewSuggestionPayload>
 	 */
-	function customViewDetailsSuggestion(string $filter, ?string $modelName = null): PendingLinearRequest
+	public function customViewDetailsSuggestion(string $filter, ?string $modelName = null): PendingLinearRequest
 	{
 		return $this->linearQuery('customViewDetailsSuggestion', CustomViewSuggestionPayload::class, false, compact('filter', 'modelName'));
 	}
 	
 	/**
-	 * @param string $id The identifier of the custom view.
+	 * @param string $id the identifier of the custom view
 	 * @returns PendingLinearRequest<CustomViewHasSubscribersPayload>
 	 */
-	function customViewHasSubscribers(string $id): PendingLinearRequest
+	public function customViewHasSubscribers(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('customViewHasSubscribers', CustomViewHasSubscribersPayload::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?CycleFilter $filter Filter returned users.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?CycleFilter $filter filter returned users
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -398,7 +398,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<CycleConnection>
 	 */
-	function cycles(
+	public function cycles(
 		?CycleFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -414,7 +414,7 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Cycle>
 	 */
-	function cycle(string $id): PendingLinearRequest
+	public function cycle(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('cycle', Cycle::class, false, compact('id'));
 	}
@@ -423,14 +423,14 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<DocumentContentHistoryPayload>
 	 */
-	function documentContentHistory(string $id): PendingLinearRequest
+	public function documentContentHistory(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('documentContentHistory', DocumentContentHistoryPayload::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?DocumentFilter $filter Filter returned documents.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?DocumentFilter $filter filter returned documents
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -438,7 +438,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<DocumentConnection>
 	 */
-	function documents(
+	public function documents(
 		?DocumentFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -454,13 +454,13 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Document>
 	 */
-	function document(string $id): PendingLinearRequest
+	public function document(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('document', Document::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -468,22 +468,22 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<EmojiConnection>
 	 */
-	function emojis(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function emojis(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('emojis', EmojiConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
-	 * @param string $id The identifier or the name of the emoji to retrieve.
+	 * @param string $id the identifier or the name of the emoji to retrieve
 	 * @returns PendingLinearRequest<Emoji>
 	 */
-	function emoji(string $id): PendingLinearRequest
+	public function emoji(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('emoji', Emoji::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -491,7 +491,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<ExternalUserConnection>
 	 */
-	function externalUsers(
+	public function externalUsers(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -503,16 +503,16 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param string $id The identifier of the external user to retrieve.
+	 * @param string $id the identifier of the external user to retrieve
 	 * @returns PendingLinearRequest<ExternalUser>
 	 */
-	function externalUser(string $id): PendingLinearRequest
+	public function externalUser(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('externalUser', ExternalUser::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -520,7 +520,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<InitiativeToProjectConnection>
 	 */
-	function initiativeToProjects(
+	public function initiativeToProjects(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -535,13 +535,13 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<InitiativeToProject>
 	 */
-	function initiativeToProject(string $id): PendingLinearRequest
+	public function initiativeToProject(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('initiativeToProject', InitiativeToProject::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -549,7 +549,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<InitiativeConnection>
 	 */
-	function initiatives(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function initiatives(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('initiatives', InitiativeConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
@@ -558,13 +558,13 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Initiative>
 	 */
-	function initiative(string $id): PendingLinearRequest
+	public function initiative(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('initiative', Initiative::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -572,7 +572,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<FavoriteConnection>
 	 */
-	function favorites(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function favorites(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('favorites', FavoriteConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
@@ -581,13 +581,13 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Favorite>
 	 */
-	function favorite(string $id): PendingLinearRequest
+	public function favorite(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('favorite', Favorite::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -595,7 +595,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<IntegrationConnection>
 	 */
-	function integrations(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function integrations(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('integrations', IntegrationConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
@@ -604,24 +604,24 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Integration>
 	 */
-	function integration(string $id): PendingLinearRequest
+	public function integration(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('integration', Integration::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param iterable $scopes Required scopes.
-	 * @param string $integrationId The integration ID.
+	 * @param iterable $scopes required scopes
+	 * @param string $integrationId the integration ID
 	 * @returns PendingLinearRequest<IntegrationHasScopesPayload>
 	 */
-	function integrationHasScopes(iterable $scopes, string $integrationId): PendingLinearRequest
+	public function integrationHasScopes(iterable $scopes, string $integrationId): PendingLinearRequest
 	{
 		return $this->linearQuery('integrationHasScopes', IntegrationHasScopesPayload::class, false, compact('scopes', 'integrationId'));
 	}
 	
 	/**
-	 * @param ?ProjectUpdateFilter $filter Filter returned project updates.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?ProjectUpdateFilter $filter filter returned project updates
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -629,7 +629,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<ProjectUpdateConnection>
 	 */
-	function projectUpdates(
+	public function projectUpdates(
 		?ProjectUpdateFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -645,13 +645,13 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<IntegrationsSettings>
 	 */
-	function integrationsSettings(string $id): PendingLinearRequest
+	public function integrationsSettings(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('integrationsSettings', IntegrationsSettings::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -659,7 +659,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<IntegrationTemplateConnection>
 	 */
-	function integrationTemplates(
+	public function integrationTemplates(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -674,33 +674,33 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<IntegrationTemplate>
 	 */
-	function integrationTemplate(string $id): PendingLinearRequest
+	public function integrationTemplate(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('integrationTemplate', IntegrationTemplate::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param string $code OAuth code.
+	 * @param string $code OAuth code
 	 * @returns PendingLinearRequest<GithubOAuthTokenPayload>
 	 */
-	function issueImportFinishGithubOAuth(string $code): PendingLinearRequest
+	public function issueImportFinishGithubOAuth(string $code): PendingLinearRequest
 	{
 		return $this->linearQuery('issueImportFinishGithubOAuth', GithubOAuthTokenPayload::class, false, compact('code'));
 	}
 	
 	/**
-	 * @param string $csvUrl CSV storage url.
-	 * @param string $service The service the CSV containing data from.
+	 * @param string $csvUrl CSV storage url
+	 * @param string $service the service the CSV containing data from
 	 * @returns PendingLinearRequest<IssueImportCheckPayload>
 	 */
-	function issueImportCheckCSV(string $csvUrl, string $service): PendingLinearRequest
+	public function issueImportCheckCSV(string $csvUrl, string $service): PendingLinearRequest
 	{
 		return $this->linearQuery('issueImportCheckCSV', IssueImportCheckPayload::class, false, compact('csvUrl', 'service'));
 	}
 	
 	/**
-	 * @param ?IssueLabelFilter $filter Filter returned issue labels.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?IssueLabelFilter $filter filter returned issue labels
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -708,7 +708,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<IssueLabelConnection>
 	 */
-	function issueLabels(
+	public function issueLabels(
 		?IssueLabelFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -724,13 +724,13 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<IssueLabel>
 	 */
-	function issueLabel(string $id): PendingLinearRequest
+	public function issueLabel(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('issueLabel', IssueLabel::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -738,7 +738,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<IssueRelationConnection>
 	 */
-	function issueRelations(
+	public function issueRelations(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -753,23 +753,23 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<IssueRelation>
 	 */
-	function issueRelation(string $id): PendingLinearRequest
+	public function issueRelation(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('issueRelation', IssueRelation::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?IssueFilter $filter Filter returned issues.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?IssueFilter $filter filter returned issues
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
 	 * @param ?bool $includeArchived Should archived resources be included (default: false)
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
-	 * @param ?iterable $sort [INTERNAL] Sort returned issues.
+	 * @param ?iterable $sort [INTERNAL] Sort returned issues
 	 * @returns PendingLinearRequest<IssueConnection>
 	 */
-	function issues(
+	public function issues(
 		?IssueFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -786,23 +786,23 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Issue>
 	 */
-	function issue(string $id): PendingLinearRequest
+	public function issue(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('issue', Issue::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?IssueFilter $filter Filter returned issues.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?IssueFilter $filter filter returned issues
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
 	 * @param ?bool $includeArchived Should archived resources be included (default: false)
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
-	 * @param ?string $query [Deprecated] Search string to look for.
+	 * @param ?string $query [Deprecated] Search string to look for
 	 * @returns PendingLinearRequest<IssueConnection>
 	 */
-	function issueSearch(
+	public function issueSearch(
 		?IssueFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -816,25 +816,25 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param string $branchName The VCS branch name to search for.
+	 * @param string $branchName the VCS branch name to search for
 	 * @returns PendingLinearRequest<Issue>
 	 */
-	function issueVcsBranchSearch(string $branchName): PendingLinearRequest
+	public function issueVcsBranchSearch(string $branchName): PendingLinearRequest
 	{
 		return $this->linearQuery('issueVcsBranchSearch', Issue::class, false, compact('branchName'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
 	 * @param ?bool $includeArchived Should archived resources be included (default: false)
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
-	 * @param string $fileKey The Figma file key.
+	 * @param string $fileKey the Figma file key
 	 * @returns PendingLinearRequest<IssueConnection>
 	 */
-	function issueFigmaFileKeySearch(
+	public function issueFigmaFileKeySearch(
 		string $fileKey,
 		?string $before = null,
 		?string $after = null,
@@ -849,7 +849,7 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<IssuePriorityValue>
 	 */
-	function issuePriorityValues(): PendingLinearRequest
+	public function issuePriorityValues(): PendingLinearRequest
 	{
 		return $this->linearQuery('issuePriorityValues', IssuePriorityValue::class, true);
 	}
@@ -859,13 +859,13 @@ trait QueriesLinear
 	 * @param string $prompt
 	 * @returns PendingLinearRequest<IssueFilterSuggestionPayload>
 	 */
-	function issueFilterSuggestion(string $prompt, ?string $projectId = null): PendingLinearRequest
+	public function issueFilterSuggestion(string $prompt, ?string $projectId = null): PendingLinearRequest
 	{
 		return $this->linearQuery('issueFilterSuggestion', IssueFilterSuggestionPayload::class, false, compact('prompt', 'projectId'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -873,7 +873,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<NotificationConnection>
 	 */
-	function notifications(
+	public function notifications(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -888,13 +888,13 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Notification>
 	 */
-	function notification(string $id): PendingLinearRequest
+	public function notification(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('notification', Notification::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -902,7 +902,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<NotificationSubscriptionConnection>
 	 */
-	function notificationSubscriptions(
+	public function notificationSubscriptions(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -917,22 +917,22 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<NotificationSubscription>
 	 */
-	function notificationSubscription(string $id): PendingLinearRequest
+	public function notificationSubscription(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('notificationSubscription', NotificationSubscription::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param string $id The ID of the organization domain to claim.
+	 * @param string $id the ID of the organization domain to claim
 	 * @returns PendingLinearRequest<OrganizationDomainClaimPayload>
 	 */
-	function organizationDomainClaimRequest(string $id): PendingLinearRequest
+	public function organizationDomainClaimRequest(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('organizationDomainClaimRequest', OrganizationDomainClaimPayload::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -940,7 +940,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<OrganizationInviteConnection>
 	 */
-	function organizationInvites(
+	public function organizationInvites(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -955,7 +955,7 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<OrganizationInvite>
 	 */
-	function organizationInvite(string $id): PendingLinearRequest
+	public function organizationInvite(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('organizationInvite', OrganizationInvite::class, false, compact('id'));
 	}
@@ -964,7 +964,7 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<OrganizationInviteDetailsPayload>
 	 */
-	function organizationInviteDetails(string $id): PendingLinearRequest
+	public function organizationInviteDetails(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('organizationInviteDetails', OrganizationInviteDetailsPayload::class, false, compact('id'));
 	}
@@ -972,7 +972,7 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<Organization>
 	 */
-	function organization(): PendingLinearRequest
+	public function organization(): PendingLinearRequest
 	{
 		return $this->linearQuery('organization', Organization::class, false);
 	}
@@ -981,7 +981,7 @@ trait QueriesLinear
 	 * @param string $urlKey
 	 * @returns PendingLinearRequest<OrganizationExistsPayload>
 	 */
-	function organizationExists(string $urlKey): PendingLinearRequest
+	public function organizationExists(string $urlKey): PendingLinearRequest
 	{
 		return $this->linearQuery('organizationExists', OrganizationExistsPayload::class, false, compact('urlKey'));
 	}
@@ -989,13 +989,13 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<Team>
 	 */
-	function archivedTeams(): PendingLinearRequest
+	public function archivedTeams(): PendingLinearRequest
 	{
 		return $this->linearQuery('archivedTeams', Team::class, true);
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1003,7 +1003,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<ProjectLinkConnection>
 	 */
-	function projectLinks(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function projectLinks(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('projectLinks', ProjectLinkConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
@@ -1012,14 +1012,14 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<ProjectLink>
 	 */
-	function projectLink(string $id): PendingLinearRequest
+	public function projectLink(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('projectLink', ProjectLink::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?ProjectMilestoneFilter $filter Filter returned project milestones.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?ProjectMilestoneFilter $filter filter returned project milestones
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1027,7 +1027,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<ProjectMilestoneConnection>
 	 */
-	function projectMilestones(
+	public function projectMilestones(
 		?ProjectMilestoneFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -1043,14 +1043,14 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<ProjectMilestone>
 	 */
-	function projectMilestone(string $id): PendingLinearRequest
+	public function projectMilestone(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('projectMilestone', ProjectMilestone::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?ProjectFilter $filter Filter returned projects.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?ProjectFilter $filter filter returned projects
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1058,7 +1058,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<ProjectConnection>
 	 */
-	function projects(
+	public function projects(
 		?ProjectFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -1074,7 +1074,7 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Project>
 	 */
-	function project(string $id): PendingLinearRequest
+	public function project(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('project', Project::class, false, compact('id'));
 	}
@@ -1083,13 +1083,13 @@ trait QueriesLinear
 	 * @param string $prompt
 	 * @returns PendingLinearRequest<ProjectFilterSuggestionPayload>
 	 */
-	function projectFilterSuggestion(string $prompt): PendingLinearRequest
+	public function projectFilterSuggestion(string $prompt): PendingLinearRequest
 	{
 		return $this->linearQuery('projectFilterSuggestion', ProjectFilterSuggestionPayload::class, false, compact('prompt'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1097,7 +1097,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<ProjectUpdateInteractionConnection>
 	 */
-	function projectUpdateInteractions(
+	public function projectUpdateInteractions(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -1109,29 +1109,29 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param string $id The identifier of the project update interaction to retrieve.
+	 * @param string $id the identifier of the project update interaction to retrieve
 	 * @returns PendingLinearRequest<ProjectUpdateInteraction>
 	 */
-	function projectUpdateInteraction(string $id): PendingLinearRequest
+	public function projectUpdateInteraction(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('projectUpdateInteraction', ProjectUpdateInteraction::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param string $id The identifier of the project update to retrieve.
+	 * @param string $id the identifier of the project update to retrieve
 	 * @returns PendingLinearRequest<ProjectUpdate>
 	 */
-	function projectUpdate(string $id): PendingLinearRequest
+	public function projectUpdate(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('projectUpdate', ProjectUpdate::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?bool $targetMobile Whether to send to mobile devices.
-	 * @param ?SendStrategy $sendStrategy The send strategy to use.
+	 * @param ?bool $targetMobile whether to send to mobile devices
+	 * @param ?SendStrategy $sendStrategy the send strategy to use
 	 * @returns PendingLinearRequest<PushSubscriptionTestPayload>
 	 */
-	function pushSubscriptionTest(?bool $targetMobile = null, ?SendStrategy $sendStrategy = null): PendingLinearRequest
+	public function pushSubscriptionTest(?bool $targetMobile = null, ?SendStrategy $sendStrategy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('pushSubscriptionTest', PushSubscriptionTestPayload::class, false, compact('targetMobile', 'sendStrategy'));
 	}
@@ -1139,13 +1139,13 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<RateLimitPayload>
 	 */
-	function rateLimitStatus(): PendingLinearRequest
+	public function rateLimitStatus(): PendingLinearRequest
 	{
 		return $this->linearQuery('rateLimitStatus', RateLimitPayload::class, false);
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1153,7 +1153,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<RoadmapConnection>
 	 */
-	function roadmaps(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function roadmaps(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('roadmaps', RoadmapConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
@@ -1162,13 +1162,13 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Roadmap>
 	 */
-	function roadmap(string $id): PendingLinearRequest
+	public function roadmap(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('roadmap', Roadmap::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1176,7 +1176,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<RoadmapToProjectConnection>
 	 */
-	function roadmapToProjects(
+	public function roadmapToProjects(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -1191,25 +1191,25 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<RoadmapToProject>
 	 */
-	function roadmapToProject(string $id): PendingLinearRequest
+	public function roadmapToProject(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('roadmapToProject', RoadmapToProject::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
 	 * @param ?bool $includeArchived Should archived resources be included (default: false)
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
-	 * @param string $term Search string to look for.
+	 * @param string $term search string to look for
 	 * @param ?float $snippetSize Size of search snippet to return (default: 100)
-	 * @param ?bool $includeComments Should associated comments be searched (default: true).
-	 * @param ?string $teamId UUID of a team to use as a boost.
+	 * @param ?bool $includeComments should associated comments be searched (default: true)
+	 * @param ?string $teamId UUID of a team to use as a boost
 	 * @returns PendingLinearRequest<DocumentSearchPayload>
 	 */
-	function searchDocuments(
+	public function searchDocuments(
 		string $term,
 		?string $before = null,
 		?string $after = null,
@@ -1225,19 +1225,19 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
 	 * @param ?bool $includeArchived Should archived resources be included (default: false)
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
-	 * @param string $term Search string to look for.
+	 * @param string $term search string to look for
 	 * @param ?float $snippetSize Size of search snippet to return (default: 100)
-	 * @param ?bool $includeComments Should associated comments be searched (default: true).
-	 * @param ?string $teamId UUID of a team to use as a boost.
+	 * @param ?bool $includeComments should associated comments be searched (default: true)
+	 * @param ?string $teamId UUID of a team to use as a boost
 	 * @returns PendingLinearRequest<ProjectSearchPayload>
 	 */
-	function searchProjects(
+	public function searchProjects(
 		string $term,
 		?string $before = null,
 		?string $after = null,
@@ -1253,20 +1253,20 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param ?IssueFilter $filter Filter returned issues.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?IssueFilter $filter filter returned issues
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
 	 * @param ?bool $includeArchived Should archived resources be included (default: false)
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
-	 * @param string $term Search string to look for.
+	 * @param string $term search string to look for
 	 * @param ?float $snippetSize Size of search snippet to return (default: 100)
-	 * @param ?bool $includeComments Should associated comments be searched (default: true).
-	 * @param ?string $teamId UUID of a team to use as a boost.
+	 * @param ?bool $includeComments should associated comments be searched (default: true)
+	 * @param ?string $teamId UUID of a team to use as a boost
 	 * @returns PendingLinearRequest<IssueSearchPayload>
 	 */
-	function searchIssues(
+	public function searchIssues(
 		string $term,
 		?IssueFilter $filter = null,
 		?string $before = null,
@@ -1283,7 +1283,7 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1291,7 +1291,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<TeamMembershipConnection>
 	 */
-	function teamMemberships(
+	public function teamMemberships(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -1306,14 +1306,14 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<TeamMembership>
 	 */
-	function teamMembership(string $id): PendingLinearRequest
+	public function teamMembership(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('teamMembership', TeamMembership::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?TeamFilter $filter Filter returned teams.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?TeamFilter $filter filter returned teams
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1321,7 +1321,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<TeamConnection>
 	 */
-	function teams(
+	public function teams(
 		?TeamFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -1334,8 +1334,8 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param ?TeamFilter $filter Filter returned teams.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?TeamFilter $filter filter returned teams
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1343,7 +1343,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<TeamConnection>
 	 */
-	function administrableTeams(
+	public function administrableTeams(
 		?TeamFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -1359,7 +1359,7 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<Team>
 	 */
-	function team(string $id): PendingLinearRequest
+	public function team(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('team', Team::class, false, compact('id'));
 	}
@@ -1367,31 +1367,31 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<Template>
 	 */
-	function templates(): PendingLinearRequest
+	public function templates(): PendingLinearRequest
 	{
 		return $this->linearQuery('templates', Template::class, true);
 	}
 	
 	/**
-	 * @param string $id The identifier of the template to retrieve.
+	 * @param string $id the identifier of the template to retrieve
 	 * @returns PendingLinearRequest<Template>
 	 */
-	function template(string $id): PendingLinearRequest
+	public function template(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('template', Template::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param string $integrationType The type of integration for which to return associated templates.
+	 * @param string $integrationType the type of integration for which to return associated templates
 	 * @returns PendingLinearRequest<Template>
 	 */
-	function templatesForIntegration(string $integrationType): PendingLinearRequest
+	public function templatesForIntegration(string $integrationType): PendingLinearRequest
 	{
 		return $this->linearQuery('templatesForIntegration', Template::class, true, compact('integrationType'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1399,7 +1399,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<TimeScheduleConnection>
 	 */
-	function timeSchedules(
+	public function timeSchedules(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -1411,16 +1411,16 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param string $id The identifier of the time schedule to retrieve.
+	 * @param string $id the identifier of the time schedule to retrieve
 	 * @returns PendingLinearRequest<TimeSchedule>
 	 */
-	function timeSchedule(string $id): PendingLinearRequest
+	public function timeSchedule(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('timeSchedule', TimeSchedule::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1428,7 +1428,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<TriageResponsibilityConnection>
 	 */
-	function triageResponsibilities(
+	public function triageResponsibilities(
 		?string $before = null,
 		?string $after = null,
 		?int $first = null,
@@ -1440,18 +1440,18 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @param string $id The identifier of the triage responsibility to retrieve.
+	 * @param string $id the identifier of the triage responsibility to retrieve
 	 * @returns PendingLinearRequest<TriageResponsibility>
 	 */
-	function triageResponsibility(string $id): PendingLinearRequest
+	public function triageResponsibility(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('triageResponsibility', TriageResponsibility::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?UserFilter $filter Filter returned users.
-	 * @param ?bool $includeDisabled Should query return disabled/suspended users (default: false).
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?UserFilter $filter filter returned users
+	 * @param ?bool $includeDisabled should query return disabled/suspended users (default: false)
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1459,7 +1459,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<UserConnection>
 	 */
-	function users(
+	public function users(
 		?UserFilter $filter = null,
 		?bool $includeDisabled = null,
 		?string $before = null,
@@ -1476,7 +1476,7 @@ trait QueriesLinear
 	 * @param string $id The identifier of the user to retrieve. To retrieve the authenticated user, use `viewer` query.
 	 * @returns PendingLinearRequest<User>
 	 */
-	function user(string $id): PendingLinearRequest
+	public function user(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('user', User::class, false, compact('id'));
 	}
@@ -1484,7 +1484,7 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<User>
 	 */
-	function viewer(): PendingLinearRequest
+	public function viewer(): PendingLinearRequest
 	{
 		return $this->linearQuery('viewer', User::class, false);
 	}
@@ -1492,13 +1492,13 @@ trait QueriesLinear
 	/**
 	 * @returns PendingLinearRequest<UserSettings>
 	 */
-	function userSettings(): PendingLinearRequest
+	public function userSettings(): PendingLinearRequest
 	{
 		return $this->linearQuery('userSettings', UserSettings::class, false);
 	}
 	
 	/**
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1506,23 +1506,23 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<WebhookConnection>
 	 */
-	function webhooks(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
+	public function webhooks(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingLinearRequest
 	{
 		return $this->linearQuery('webhooks', WebhookConnection::class, false, compact('before', 'after', 'first', 'last', 'includeArchived', 'orderBy'));
 	}
 	
 	/**
-	 * @param string $id The identifier of the webhook to retrieve.
+	 * @param string $id the identifier of the webhook to retrieve
 	 * @returns PendingLinearRequest<Webhook>
 	 */
-	function webhook(string $id): PendingLinearRequest
+	public function webhook(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('webhook', Webhook::class, false, compact('id'));
 	}
 	
 	/**
-	 * @param ?WorkflowStateFilter $filter Filter returned workflow states.
-	 * @param ?string $before A cursor to be used with last for backward pagination.
+	 * @param ?WorkflowStateFilter $filter filter returned workflow states
+	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
 	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
 	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
@@ -1530,7 +1530,7 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingLinearRequest<WorkflowStateConnection>
 	 */
-	function workflowStates(
+	public function workflowStates(
 		?WorkflowStateFilter $filter = null,
 		?string $before = null,
 		?string $after = null,
@@ -1546,7 +1546,7 @@ trait QueriesLinear
 	 * @param string $id
 	 * @returns PendingLinearRequest<WorkflowState>
 	 */
-	function workflowState(string $id): PendingLinearRequest
+	public function workflowState(string $id): PendingLinearRequest
 	{
 		return $this->linearQuery('workflowState', WorkflowState::class, false, compact('id'));
 	}
