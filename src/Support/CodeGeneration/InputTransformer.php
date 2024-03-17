@@ -3,20 +3,16 @@
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
 use Glhd\Linearavel\Requests\LinearRequest;
-use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
-use GraphQL\Language\AST\NamedTypeNode;
-use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\UseItem;
-use Spatie\LaravelData\Data;
 
-class InputTransformer
+class InputTransformer extends ClassTransformer
 {
 	public string $namespace;
 	
@@ -35,14 +31,7 @@ class InputTransformer
 		public Transformer $parent,
 	) {
 		$this->namespace = $this->parent->namespace;
-		$this->use(LinearRequest::class);
-	}
-	
-	public function use(string $fqcn): static
-	{
-		$this->uses[] = $fqcn;
-		
-		return $this;
+		// $this->use(LinearRequest::class);
 	}
 	
 	public function __invoke(): array
@@ -55,23 +44,9 @@ class InputTransformer
 			$this->uses(),
 			new Class_($this->node->name->value, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
-				'extends' => new Name(class_basename(LinearRequest::class)),
+				// 'extends' => new Name(class_basename(LinearRequest::class)),
 			]),
 		]);
-	}
-	
-	protected function uses(): ?Use_
-	{
-		if (! count($this->uses)) {
-			return null;
-		}
-		
-		$uses = collect($this->uses)
-			->unique()
-			->map(fn($fqcn) => new UseItem(new Name($fqcn)))
-			->all();
-		
-		return new Use_($uses);
 	}
 	
 	protected function params(): array

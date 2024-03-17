@@ -2,28 +2,17 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use DateTimeInterface;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use GraphQL\Language\AST\NamedTypeNode;
-use GraphQL\Type\Definition\NullableType;
-use Illuminate\Support\Collection;
-use PhpParser\Comment\Doc;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Attribute;
-use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
-use PhpParser\Node\UnionType;
 use PhpParser\NodeAbstract;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
-use Spatie\LaravelData\Optional;
+use PhpParser\PrettyPrinter\Standard;
 
 class FunctionParamTransformer extends ParamTransformer
 {
@@ -32,14 +21,16 @@ class FunctionParamTransformer extends ParamTransformer
 	public static function transform(
 		FieldDefinitionNode|InputValueDefinitionNode $node,
 		ClassTransformer $parent,
+		?FunctionTransformer $function = null,
 	): Param {
-		$transformer = new static($node, $parent);
+		$transformer = new static($node, $parent, $function);
 		return $transformer();
 	}
 	
 	public function __construct(
 		protected FieldDefinitionNode|InputValueDefinitionNode $node,
 		protected ClassTransformer $parent,
+		protected ?FunctionTransformer $function,
 	) {
 	}
 	
@@ -51,16 +42,24 @@ class FunctionParamTransformer extends ParamTransformer
 		
 		$this->param->type = $this->nodeType($this->node->type);
 		
-		if ($this->param->type instanceof NullableType) {
+		if ($this->acceptsNull($this->param->type)) {
 			$this->param->default = new ConstFetch(new Name('null'));
 		}
+		
+		$this->function?->documentParam(
+			name: $this->node->name->value,
+			type: (new Standard())->prettyPrint([$this->param->type]),
+			description: $this->node->description?->value ?? '',
+		);
 		
 		return $this->param;
 	}
 	
 	protected function listType(ListTypeNode $node): NodeAbstract
 	{
-		return new Name('array');
+		// $type = $this->typeToName($node->type);
+		// $this->param->setDocComment(new Doc("/** @var {$type}[]|Collection<int, {$type}> */"));
+		return new Name('iterable');
 	}
 	
 	protected function namedType(NamedTypeNode $node, bool $nullable = false): NodeAbstract

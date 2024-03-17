@@ -57,7 +57,7 @@ class Transformer
 				// InterfaceTypeDefinitionNode::class => $this->interface($definition),
 				ObjectTypeDefinitionNode::class => $this->class($definition),
 				// EnumTypeDefinitionNode::class => $this->enum($definition),
-				// InputObjectTypeDefinitionNode::class => $this->input($definition),
+				InputObjectTypeDefinitionNode::class => $this->input($definition),
 				UnionTypeDefinitionNode::class => null, // TODO
 				DirectiveDefinitionNode::class => null,
 				default => null,

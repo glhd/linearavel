@@ -31,6 +31,8 @@ class FunctionTransformer
 {
 	protected ClassMethod $method;
 	
+	protected array $docs = [];
+	
 	public static function transform(
 		FieldDefinitionNode $node,
 		ClassTransformer $parent
@@ -49,12 +51,25 @@ class FunctionTransformer
 	public function __invoke()
 	{
 		$args = collect($this->node->arguments)
-			->map(fn(InputValueDefinitionNode $arg) => FunctionParamTransformer::transform($arg, $this->parent, 0))
+			->map(fn(InputValueDefinitionNode $arg) => FunctionParamTransformer::transform($arg, $this->parent, $this))
+			->sortBy(fn(Param $param) => $param->type instanceof NullableType ? 1 : 0)
 			->all();
 		
 		$this->method->params = $args;
 		
+		if (count($this->docs)) {
+			$comment = "/**\n * ".implode("\n * ", $this->docs)."\n */";
+			$this->method->setDocComment(new Doc($comment));
+		}
+		
 		return $this->method;
+	}
+	
+	public function documentParam(string $name, string $type = '', string $description = ''): static
+	{
+		$this->docs[] = '@param '.trim("{$type} \${$name} {$description}");
+		
+		return $this;
 	}
 	
 	protected function nodeType(NamedTypeNode|ListTypeNode|NonNullTypeNode $node, bool $nullable = true)

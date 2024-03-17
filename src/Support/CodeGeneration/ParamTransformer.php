@@ -11,6 +11,7 @@ use GraphQL\Language\AST\NonNullTypeNode;
 use GraphQL\Language\AST\TypeNode;
 use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
+use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
@@ -21,6 +22,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PhpParser\NodeAbstract;
 use Spatie\LaravelData\Attributes\WithCast;
@@ -30,6 +32,8 @@ use Spatie\LaravelData\Optional;
 abstract class ParamTransformer
 {
 	protected ClassTransformer $parent;
+	
+	protected ?FunctionTransformer $function = null;
 	
 	abstract public function __invoke(): Param;
 	
@@ -79,6 +83,20 @@ abstract class ParamTransformer
 				);
 			}),
 		};
+	}
+	
+	protected function acceptsNull(Node $node): bool
+	{
+		if ($node instanceof NullableType) {
+			return true;
+		}
+		
+		if ($node instanceof UnionType) {
+			return collect($node->types)
+				->contains(fn($type) => $type instanceof Identifier && 'null' === $type->name);
+		}
+		
+		return false;
 	}
 	
 	protected function dateTimeType(): Name
