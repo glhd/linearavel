@@ -2,18 +2,18 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 
 class CycleCreateInput
 {
 	public function __construct(
 		public string $teamId,
-		public CarbonImmutable $startsAt,
-		public CarbonImmutable $endsAt,
+		public DateTimeInterface $startsAt,
+		public DateTimeInterface $endsAt,
 		public ?string $id = null,
 		public ?string $name = null,
 		public ?string $description = null,
-		public ?CarbonImmutable $completedAt = null
+		public ?DateTimeInterface $completedAt = null
 	) {
 	}
 }

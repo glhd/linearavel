@@ -2,7 +2,7 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 
 class TeamUpdateInput
 {
@@ -20,7 +20,7 @@ class TeamUpdateInput
 		public ?bool $cycleIssueAutoAssignCompleted = null,
 		public ?bool $cycleLockToActive = null,
 		public ?string $cycleEnabledStartWeek = null,
-		public ?CarbonImmutable $cycleEnabledStartDate = null,
+		public ?DateTimeInterface $cycleEnabledStartDate = null,
 		public ?float $upcomingCycleCount = null,
 		public ?string $timezone = null,
 		public ?bool $issueOrderingNoPriorityFirst = null,

@@ -11,14 +11,12 @@ class OauthToken extends Data
 {
 	public function __construct(
 		public Optional|float $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
 		public Optional|AuthOauthClient $client,
 		public Optional|string $clientId,
 		public Optional|AuthUser $user,
 		public Optional|string $userId,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $revokedAt
+		#[LinearDate] public Optional|CarbonImmutable|null $revokedAt
 	) {
 	}
 }

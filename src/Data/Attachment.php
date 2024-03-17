@@ -12,17 +12,14 @@ class Attachment extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $title,
 		public Optional|string $url,
 		public Optional|string $metadata,
 		public Optional|bool $groupBySource,
 		public Optional|Issue $issue,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $subtitle,
 		public Optional|User|null $creator,
 		public Optional|ExternalUser|null $externalUserCreator,

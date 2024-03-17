@@ -2,11 +2,11 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 
 class NotificationUpdateInput
 {
-	public function __construct(public ?CarbonImmutable $readAt = null, public ?CarbonImmutable $snoozedUntilAt = null, public ?string $projectUpdateId = null)
+	public function __construct(public ?DateTimeInterface $readAt = null, public ?DateTimeInterface $snoozedUntilAt = null, public ?string $projectUpdateId = null)
 	{
 	}
 }

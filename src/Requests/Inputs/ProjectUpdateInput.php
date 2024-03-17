@@ -2,7 +2,7 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 use Glhd\Linearavel\Data\Enums\DateResolutionType;
 use Illuminate\Support\Collection;
 
@@ -19,7 +19,7 @@ class ProjectUpdateInput
 		public ?string $color = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $teamIds = null,
-		public ?CarbonImmutable $projectUpdateRemindersPausedUntilAt = null,
+		public ?DateTimeInterface $projectUpdateRemindersPausedUntilAt = null,
 		public ?string $leadId = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $memberIds = null,
@@ -27,9 +27,9 @@ class ProjectUpdateInput
 		public ?DateResolutionType $startDateResolution = null,
 		public ?string $targetDate = null,
 		public ?DateResolutionType $targetDateResolution = null,
-		public ?CarbonImmutable $completedAt = null,
-		public ?CarbonImmutable $canceledAt = null,
-		public ?CarbonImmutable $pausedAt = null,
+		public ?DateTimeInterface $completedAt = null,
+		public ?DateTimeInterface $canceledAt = null,
+		public ?DateTimeInterface $pausedAt = null,
 		public ?bool $slackNewIssue = null,
 		public ?bool $slackIssueComments = null,
 		public ?bool $slackIssueStatuses = null,

@@ -12,13 +12,10 @@ class Facet extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
 		public Optional|float $sortOrder,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt
+		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }

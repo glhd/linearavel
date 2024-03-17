@@ -12,12 +12,9 @@ class IntegrationsSettings extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable $updatedAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|bool|null $slackIssueCreated,
 		public Optional|bool|null $slackIssueNewComment,
 		public Optional|bool|null $slackIssueStatusChangedDone,

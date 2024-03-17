@@ -2,7 +2,7 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 use Illuminate\Support\Collection;
 
 class IssueCreateInput
@@ -35,8 +35,8 @@ class IssueCreateInput
 		public ?string $createAsUser = null,
 		public ?string $displayIconUrl = null,
 		public ?bool $preserveSortOrderOnCreate = null,
-		public ?CarbonImmutable $createdAt = null,
-		public ?CarbonImmutable $slaBreachesAt = null,
+		public ?DateTimeInterface $createdAt = null,
+		public ?DateTimeInterface $slaBreachesAt = null,
 		public ?string $templateId = null
 	) {
 	}

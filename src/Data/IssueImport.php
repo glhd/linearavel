@@ -12,15 +12,12 @@ class IssueImport extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $creatorId,
 		public Optional|string $service,
 		public Optional|string $status,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $teamName,
 		public Optional|string|null $mapping,
 		public Optional|string|null $error,

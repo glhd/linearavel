@@ -13,14 +13,11 @@ class TriageResponsibility extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
 		public Optional|TriageResponsibilityAction $action,
 		public Optional|Team $team,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|TriageResponsibilityManualSelection|null $manualSelection,
 		public Optional|TimeSchedule|null $timeSchedule,
 		public Optional|User|null $currentUser

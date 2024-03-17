@@ -2,7 +2,7 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 use Illuminate\Support\Collection;
 
 class IssueUpdateInput
@@ -30,8 +30,8 @@ class IssueUpdateInput
 		public ?float $subIssueSortOrder = null,
 		public ?string $dueDate = null,
 		public ?bool $trashed = null,
-		public ?CarbonImmutable $slaBreachesAt = null,
-		public ?CarbonImmutable $snoozedUntilAt = null,
+		public ?DateTimeInterface $slaBreachesAt = null,
+		public ?DateTimeInterface $snoozedUntilAt = null,
 		public ?string $snoozedById = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $companyIds = null

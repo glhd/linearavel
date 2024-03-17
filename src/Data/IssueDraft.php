@@ -12,10 +12,8 @@ class IssueDraft extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $title,
 		public Optional|float $priority,
 		public Optional|string $teamId,
@@ -23,8 +21,7 @@ class IssueDraft extends Data implements Node
 		public Optional|string $stateId,
 		public Optional|string $priorityLabel,
 		public Optional|string $attachments,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,
 		public Optional|float|null $estimate,
 		public Optional|string|null $dueDate,

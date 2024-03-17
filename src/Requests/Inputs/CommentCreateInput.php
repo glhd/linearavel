@@ -2,7 +2,7 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 
 class CommentCreateInput
 {
@@ -16,7 +16,7 @@ class CommentCreateInput
 		public ?string $parentId = null,
 		public ?string $createAsUser = null,
 		public ?string $displayIconUrl = null,
-		public ?CarbonImmutable $createdAt = null,
+		public ?DateTimeInterface $createdAt = null,
 		public ?bool $doNotSubscribeToIssue = null,
 		public ?bool $createOnSyncedSlackThread = null,
 		public ?string $quotedText = null

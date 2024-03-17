@@ -2,11 +2,11 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 
 class OpsgenieInput
 {
-	public function __construct(public CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
+	public function __construct(public DateTimeInterface $apiFailedWithUnauthorizedErrorAt)
 	{
 	}
 }

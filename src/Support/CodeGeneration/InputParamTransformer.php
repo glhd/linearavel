@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use DateTimeInterface;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use Illuminate\Support\Collection;

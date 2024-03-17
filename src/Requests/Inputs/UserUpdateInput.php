@@ -2,7 +2,7 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 
 class UserUpdateInput
 {
@@ -16,7 +16,7 @@ class UserUpdateInput
 		public ?string $description = null,
 		public ?string $statusEmoji = null,
 		public ?string $statusLabel = null,
-		public ?CarbonImmutable $statusUntilAt = null,
+		public ?DateTimeInterface $statusUntilAt = null,
 		public ?string $timezone = null
 	) {
 	}

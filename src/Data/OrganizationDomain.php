@@ -13,15 +13,12 @@ class OrganizationDomain extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|bool $verified,
 		public Optional|OrganizationDomainAuthType $authType,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $verificationEmail,
 		public Optional|User|null $creator,
 		public Optional|bool|null $claimed

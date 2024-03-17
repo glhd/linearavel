@@ -9,7 +9,11 @@ use Spatie\LaravelData\Optional;
 
 class GoogleSheetsSettings extends Data
 {
-	public function __construct(public Optional|string $spreadsheetId, public Optional|string $spreadsheetUrl, public Optional|float $sheetId, #[LinearDate] public Optional|CarbonImmutable $updatedIssuesAt)
-	{
+	public function __construct(
+		public Optional|string $spreadsheetId,
+		public Optional|string $spreadsheetUrl,
+		public Optional|float $sheetId,
+		#[LinearDate] public Optional|CarbonImmutable $updatedIssuesAt
+	) {
 	}
 }

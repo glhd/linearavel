@@ -2,23 +2,23 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
-use Carbon\CarbonImmutable;
+use DateTimeInterface;
 use Illuminate\Support\Collection;
 
 class NullableDateComparator
 {
 	public function __construct(
-		public ?CarbonImmutable $eq = null,
-		public ?CarbonImmutable $neq = null,
-		/** @var iterable<CarbonImmutable>|Collection<int, CarbonImmutable> */
+		public ?DateTimeInterface $eq = null,
+		public ?DateTimeInterface $neq = null,
+		/** @var iterable<DateTimeInterface>|Collection<int, DateTimeInterface> */
 		public ?iterable $in = null,
-		/** @var iterable<CarbonImmutable>|Collection<int, CarbonImmutable> */
+		/** @var iterable<DateTimeInterface>|Collection<int, DateTimeInterface> */
 		public ?iterable $nin = null,
 		public ?bool $null = null,
-		public ?CarbonImmutable $lt = null,
-		public ?CarbonImmutable $lte = null,
-		public ?CarbonImmutable $gt = null,
-		public ?CarbonImmutable $gte = null
+		public ?DateTimeInterface $lt = null,
+		public ?DateTimeInterface $lte = null,
+		public ?DateTimeInterface $gt = null,
+		public ?DateTimeInterface $gte = null
 	) {
 	}
 }

@@ -17,10 +17,8 @@ class WorkflowDefinition extends Data implements Node
 {
 	public function __construct(
 		public Optional|string $id,
-		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable $updatedAt,
+		#[LinearDate] public Optional|CarbonImmutable $createdAt,
+		#[LinearDate] public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|WorkflowType $type,
 		public Optional|WorkflowTrigger $trigger,
@@ -30,8 +28,7 @@ class WorkflowDefinition extends Data implements Node
 		public Optional|User $creator,
 		public Optional|string $activities,
 		public Optional|string $sortOrder,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt,
+		#[LinearDate] public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $groupName,
 		public Optional|string|null $description,
 		public Optional|Team|null $team,
