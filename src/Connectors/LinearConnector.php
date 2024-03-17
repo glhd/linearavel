@@ -12,6 +12,8 @@ use Saloon\Http\Connector;
 
 class LinearConnector extends Connector
 {
+	use QueriesLinear;
+	
 	public function __construct(
 		protected string $api_key,
 		protected KeyHelper $key_helper,

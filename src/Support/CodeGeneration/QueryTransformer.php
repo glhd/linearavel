@@ -35,7 +35,7 @@ class QueryTransformer extends ClassTransformer
 		$queries = $this->queries();
 		
 		return array_filter([
-			new Namespace_(new Name($this->namespace.'Requests')),
+			new Namespace_(new Name($this->namespace.'Connectors')),
 			$this->uses(),
 			new Trait_('QueriesLinear', [
 				'stmts' => $queries,

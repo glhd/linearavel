@@ -131,7 +131,7 @@ class Transformer
 		if ('Query' === $name) {
 			$name = 'QueriesLinear';
 			$label = 'queries';
-			$directory = 'Requests';
+			$directory = 'Connectors';
 		}
 		
 		$filename = sprintf('%s/%s/%s.php', realpath(__DIR__.'/../../../src/'), $directory, $name);
