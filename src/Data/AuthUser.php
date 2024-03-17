@@ -12,10 +12,10 @@ class AuthUser extends Data
 		public Optional|string $name,
 		public Optional|string $displayName,
 		public Optional|string $email,
-		public Optional|string|null $avatarUrl = null,
 		public Optional|bool $active,
 		public Optional|string $userAccountId,
-		public Optional|AuthOrganization $organization
+		public Optional|AuthOrganization $organization,
+		public Optional|string|null $avatarUrl = null
 	) {
 	}
 }

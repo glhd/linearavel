@@ -16,17 +16,17 @@ class Attachment extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $title,
-		public Optional|string|null $subtitle = null,
 		public Optional|string $url,
+		public Optional|string $metadata,
+		public Optional|bool $groupBySource,
+		public Optional|Issue $issue,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $subtitle = null,
 		public Optional|User|null $creator = null,
 		public Optional|ExternalUser|null $externalUserCreator = null,
-		public Optional|string $metadata,
 		public Optional|string|null $source = null,
-		public Optional|string|null $sourceType = null,
-		public Optional|bool $groupBySource,
-		public Optional|Issue $issue
+		public Optional|string|null $sourceType = null
 	) {
 	}
 }

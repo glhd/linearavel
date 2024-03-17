@@ -7,7 +7,7 @@ use Spatie\LaravelData\Optional;
 
 class OrganizationPayload extends Data
 {
-	public function __construct(public Optional|float $lastSyncId, public Optional|Organization|null $organization = null, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|Organization|null $organization = null)
 	{
 	}
 }

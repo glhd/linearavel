@@ -16,12 +16,12 @@ class ProjectLink extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $url,
 		public Optional|string $label,
 		public Optional|float $sortOrder,
 		public Optional|User $creator,
-		public Optional|Project $project
+		public Optional|Project $project,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null
 	) {
 	}
 }

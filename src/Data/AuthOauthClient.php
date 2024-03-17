@@ -16,16 +16,16 @@ class AuthOauthClient extends Data
 		public Optional|string $id,
 		public Optional|string $clientId,
 		public Optional|string $name,
-		public Optional|string|null $description = null,
 		public Optional|string $developer,
 		public Optional|string $developerUrl,
-		public Optional|string|null $imageUrl = null,
 		public Optional|string $clientSecret,
 		/** @var Collection<int, string> */
 		public Optional|Collection $redirectUris,
 		public Optional|bool $publicEnabled,
 		public Optional|string $creatorId,
 		public Optional|string $organizationId,
+		public Optional|string|null $description = null,
+		public Optional|string|null $imageUrl = null,
 		public Optional|string|null $webhookUrl = null,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable|null $archivedAt = null

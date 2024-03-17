@@ -8,9 +8,10 @@ use Spatie\LaravelData\Optional;
 
 class WorkspaceAuthorizedApplication extends Data
 {
-	public function __construct(
+public Optional|string|null $imageUrl = null
+        
+	function __construct(
 		public Optional|string $name,
-		public Optional|string|null $imageUrl = null,
 		/** @var Collection<int, string> */
 		public Optional|Collection $scope,
 		public Optional|string $appId,
@@ -18,7 +19,8 @@ class WorkspaceAuthorizedApplication extends Data
 		public Optional|bool $webhooksEnabled,
 		public Optional|float $totalMembers,
 		/** @var Collection<int, AuthMembership> */
-		public Optional|Collection $memberships
-	) {
-	}
+		public Optional|Collection $memberships,
+    )
+    {
+    }
 }

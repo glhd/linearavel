@@ -6,6 +6,7 @@ use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use PhpParser\Node\Name;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
@@ -52,6 +53,7 @@ class TypeTransformer extends ClassTransformer
 	{
 		return collect($this->node->fields)
 			->map(fn (FieldDefinitionNode $node) => ConstructorParamTransformer::transform($node, $this))
+			->sortBy(fn (Param $param) => ParamTransformer::acceptsNull($param->type) ? 1 : 0)
 			->all();
 	}
 	

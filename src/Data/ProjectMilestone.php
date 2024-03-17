@@ -16,15 +16,15 @@ class ProjectMilestone extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $name,
-		public Optional|string|null $targetDate = null,
 		public Optional|Project $project,
 		public Optional|float $sortOrder,
+		public Optional|IssueConnection $issues,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $targetDate = null,
 		public Optional|string|null $description = null,
 		public Optional|string|null $descriptionData = null,
-		public Optional|string|null $descriptionState = null,
-		public Optional|IssueConnection $issues
+		public Optional|string|null $descriptionState = null
 	) {
 	}
 }

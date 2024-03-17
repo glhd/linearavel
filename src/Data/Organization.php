@@ -17,19 +17,29 @@ use Spatie\LaravelData\Optional;
 
 class Organization extends Data implements Node
 {
-	public function __construct(
+	#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null
+        
+public Optional|string|null $logoUrl = null,
+        
+public Optional|string|null $gitBranchFormat = null,
+        
+public Optional|string|null $samlSettings = null,
+        
+#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $deletionRequestedAt = null,
+        
+#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $trialEndsAt = null,
+        
+public Optional|bool|null $allowMembersToInvite = null,
+        
+public Optional|PaidSubscription|null $subscription = null,
+        
+	function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $urlKey,
-		public Optional|string|null $logoUrl = null,
 		public Optional|float $periodUploadVolume,
-		public Optional|string|null $gitBranchFormat = null,
 		public Optional|bool $gitLinkbackMessagesEnabled,
 		public Optional|bool $gitPublicLinkbackMessagesEnabled,
 		public Optional|bool $roadmapEnabled,
@@ -38,27 +48,20 @@ class Organization extends Data implements Node
 		public Optional|float $projectUpdateRemindersHour,
 		public Optional|float $fiscalYearStartMonth,
 		public Optional|bool $samlEnabled,
-		public Optional|string|null $samlSettings = null,
 		public Optional|bool $scimEnabled,
 		/** @var Collection<int, string> */
 		public Optional|Collection $allowedAuthServices,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $deletionRequestedAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $trialEndsAt = null,
 		/** @var Collection<int, string> */
 		public Optional|Collection $previousUrlKeys,
-		public Optional|bool|null $allowMembersToInvite = null,
 		public Optional|ReleaseChannel $releaseChannel,
 		public Optional|SLADayCountType $slaDayCount,
 		public Optional|UserConnection $users,
 		public Optional|TeamConnection $teams,
 		public Optional|IntegrationConnection $integrations,
-		public Optional|PaidSubscription|null $subscription = null,
 		public Optional|int $userCount,
 		public Optional|int $createdIssueCount,
 		public Optional|TemplateConnection $templates,
-		public Optional|IssueLabelConnection $labels
+		public Optional|IssueLabelConnection $labels,
 	) {
 	}
 }

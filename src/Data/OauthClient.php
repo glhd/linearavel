@@ -19,14 +19,10 @@ class OauthClient extends Data implements Node
 		public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $clientId,
 		public Optional|string $name,
-		public Optional|string|null $description = null,
 		public Optional|string $developer,
 		public Optional|string $developerUrl,
-		public Optional|string|null $imageUrl = null,
 		public Optional|string $clientSecret,
 		/** @var Collection<int, string> */
 		public Optional|Collection $redirectUris,
@@ -35,6 +31,10 @@ class OauthClient extends Data implements Node
 		public Optional|Organization $organization,
 		/** @var Collection<int, string> */
 		public Optional|Collection $webhookResourceTypes,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
+		public Optional|string|null $description = null,
+		public Optional|string|null $imageUrl = null,
 		public Optional|string|null $webhookUrl = null,
 		public Optional|string|null $webhookSecret = null
 	) {

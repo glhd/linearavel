@@ -8,17 +8,20 @@ use Spatie\LaravelData\Optional;
 
 class AuthOauthClientWithMemberships extends Data
 {
-	public function __construct(
+public Optional|string|null $imageUrl = null
+        
+public Optional|string|null $webhookUrl = null,
+        
+	function __construct(
 		public Optional|string $name,
-		public Optional|string|null $imageUrl = null,
 		/** @var Collection<int, string> */
 		public Optional|Collection $scope,
 		public Optional|string $appId,
 		public Optional|string $clientId,
-		public Optional|string|null $webhookUrl = null,
 		public Optional|float $totalMembers,
 		/** @var Collection<int, AuthMembership> */
-		public Optional|Collection $memberships
-	) {
-	}
+		public Optional|Collection $memberships,
+    )
+    {
+    }
 }

@@ -16,8 +16,12 @@ class Comment extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $body,
+		public Optional|string $bodyData,
+		public Optional|string $reactionData,
+		public Optional|string $url,
+		public Optional|CommentConnection $children,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|Issue|null $issue = null,
 		public Optional|DocumentContent|null $documentContent = null,
 		public Optional|ProjectUpdate|null $projectUpdate = null,
@@ -28,12 +32,8 @@ class Comment extends Data implements Node
 		public Optional|User|null $user = null,
 		public Optional|ExternalUser|null $externalUser = null,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $editedAt = null,
-		public Optional|string $bodyData,
 		public Optional|string|null $quotedText = null,
 		public Optional|string|null $summaryText = null,
-		public Optional|string $reactionData,
-		public Optional|string $url,
-		public Optional|CommentConnection $children,
 		public Optional|ActorBot|null $botActor = null
 	) {
 	}

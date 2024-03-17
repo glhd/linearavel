@@ -11,11 +11,11 @@ class SlackChannelNameMapping extends Data
 	public function __construct(
 		public Optional|string $id,
 		public Optional|string $name,
+		/** @var Collection<int, SlackAsksTeamSettings> */
+		public Optional|Collection $teams,
 		public Optional|bool|null $isPrivate = null,
 		public Optional|bool|null $isShared = null,
 		public Optional|bool|null $botAdded = null,
-		/** @var Collection<int, SlackAsksTeamSettings> */
-		public Optional|Collection $teams,
 		public Optional|bool|null $autoCreateOnMessage = null,
 		public Optional|bool|null $autoCreateOnEmoji = null,
 		public Optional|bool|null $autoCreateOnBotMention = null,

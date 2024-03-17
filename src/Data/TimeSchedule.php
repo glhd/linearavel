@@ -19,14 +19,14 @@ class TimeSchedule extends Data implements Node
 		public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
 		public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $name,
 		/** @var Collection<int, TimeScheduleEntry> */
 		public Optional|Collection $entries,
+		public Optional|Organization $organization,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
+		public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string|null $externalId = null,
 		public Optional|string|null $externalUrl = null,
-		public Optional|Organization $organization,
 		public Optional|Integration|null $integration = null
 	) {
 	}

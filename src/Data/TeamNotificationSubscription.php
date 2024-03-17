@@ -17,26 +17,32 @@ use Spatie\LaravelData\Optional;
 
 class TeamNotificationSubscription extends Data implements NotificationSubscription, Entity, Node
 {
-	public function __construct(
+#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null
+        
+public Optional|CustomView|null $customView = null,
+        
+public Optional|Cycle|null $cycle = null,
+        
+public Optional|IssueLabel|null $label = null,
+        
+public Optional|Project|null $project = null,
+        
+public Optional|User|null $user = null,
+        
+public Optional|ContextViewType|null $contextViewType = null,
+        
+public Optional|UserContextViewType|null $userContextViewType = null,
+        
+	function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
 		public Optional|User $subscriber,
-		public Optional|CustomView|null $customView = null,
-		public Optional|Cycle|null $cycle = null,
-		public Optional|IssueLabel|null $label = null,
-		public Optional|Project|null $project = null,
 		public Optional|Team $team,
-		public Optional|User|null $user = null,
-		public Optional|ContextViewType|null $contextViewType = null,
-		public Optional|UserContextViewType|null $userContextViewType = null,
 		public Optional|bool $active,
 		/** @var Collection<int, string> */
-		public Optional|Collection $notificationSubscriptionTypes
-	) {
-	}
+		public Optional|Collection $notificationSubscriptionTypes,
+    )
+    {
+    }
 }

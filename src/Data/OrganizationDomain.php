@@ -17,12 +17,12 @@ class OrganizationDomain extends Data implements Node
 		public Optional|string $id,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
 		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string $name,
 		public Optional|bool $verified,
+		public Optional|OrganizationDomainAuthType $authType,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null,
 		public Optional|string|null $verificationEmail = null,
 		public Optional|User|null $creator = null,
-		public Optional|OrganizationDomainAuthType $authType,
 		public Optional|bool|null $claimed = null
 	) {
 	}

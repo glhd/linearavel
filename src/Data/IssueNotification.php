@@ -16,33 +16,36 @@ use Spatie\LaravelData\Optional;
 
 class IssueNotification extends Data implements Notification, Entity, Node
 {
-	public function __construct(
+	#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $archivedAt = null
+        
+public Optional|User|null $actor = null,
+        
+public Optional|ExternalUser|null $externalUserActor = null,
+        
+#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $readAt = null,
+        
+#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $emailedAt = null,
+        
+#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $snoozedUntilAt = null,
+        
+#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable|null $unsnoozedAt = null,
+        
+public Optional|ActorBot|null $botActor = null,
+        
+public Optional|string|null $reactionEmoji = null,
+        
+public Optional|Comment|null $comment = null,
+        
+	function __construct(
 		public Optional|string $id,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable $createdAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable $updatedAt,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $archivedAt = null,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $createdAt,
+		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)] public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $type,
-		public Optional|User|null $actor = null,
-		public Optional|ExternalUser|null $externalUserActor = null,
 		public Optional|User $user,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $readAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $emailedAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $snoozedUntilAt = null,
-		#[WithCast(DateTimeInterfaceCast::class, DateTimeInterface::RFC3339_EXTENDED)]
-		public Optional|CarbonImmutable|null $unsnoozedAt = null,
-		public Optional|ActorBot|null $botActor = null,
-		public Optional|string|null $reactionEmoji = null,
 		public Optional|Issue $issue,
-		public Optional|Comment|null $comment = null,
 		public Optional|Team $team,
 		/** @var Collection<int, NotificationSubscription> */
-		public Optional|Collection $subscriptions
+		public Optional|Collection $subscriptions,
 	) {
 	}
 }

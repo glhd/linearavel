@@ -8,10 +8,11 @@ use Spatie\LaravelData\Optional;
 
 class GithubOAuthTokenPayload extends Data
 {
-	public function __construct(
-		public Optional|string|null $token = null,
+	public Optional|string|null $token = null
+        
+	function __construct(
 		/** @var Collection<int, GithubOrg> */
-		public Optional|Collection $organizations
+		public Optional|Collection $organizations,
 	) {
 	}
 }

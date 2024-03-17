@@ -13,8 +13,8 @@ class AuthOrganizationDomain extends Data
 		public Optional|string $organizationId,
 		public Optional|string $name,
 		public Optional|bool $verified,
-		public Optional|bool|null $claimed = null,
-		public Optional|OrganizationDomainAuthType $authType
+		public Optional|OrganizationDomainAuthType $authType,
+		public Optional|bool|null $claimed = null
 	) {
 	}
 }

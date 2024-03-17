@@ -8,13 +8,15 @@ use Spatie\LaravelData\Optional;
 
 class AuthorizedApplicationBase extends Data
 {
-	public function __construct(
+public Optional|string|null $imageUrl = null
+        
+	function __construct(
 		public Optional|string $name,
-		public Optional|string|null $imageUrl = null,
 		/** @var Collection<int, string> */
 		public Optional|Collection $scope,
 		public Optional|string $appId,
-		public Optional|string $clientId
-	) {
-	}
+		public Optional|string $clientId,
+    )
+    {
+    }
 }
