@@ -2,6 +2,8 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use Glhd\Linearavel\Requests\PendingLinearListRequest;
+use Glhd\Linearavel\Requests\PendingLinearObjectRequest;
 use Glhd\Linearavel\Requests\PendingLinearRequest;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
@@ -33,29 +35,30 @@ class QueryFunctionTransformer extends FunctionTransformer
 	{
 		$this->method = new ClassMethod($this->node->name->value);
 		
-		$args = collect($this->node->arguments)
+		$this->method->params = collect($this->node->arguments)
 			->map(fn(InputValueDefinitionNode $arg) => FunctionParamTransformer::transform($arg, $this->parent, $this))
-			->sortBy(fn(Param $param) => $param->type instanceof NullableType
-				? 1
-				: 0)
+			->sortBy(fn(Param $param) => $param->type instanceof NullableType ? 1 : 0)
 			->values()
 			->all();
 		
-		$this->method->params = $args;
+		$type = $this->getUnderlyingType($this->node->type);
 		
-		$returns = $this->getUnderlyingType($this->node->type);
-		$this->documentReturn("PendingLinearRequest<{$returns->name}>");
-		$this->method->returnType = $this->fqcn(PendingLinearRequest::class);
+		$returns = $this->isList($this->node->type) 
+			? $this->fqcn(PendingLinearListRequest::class)->name
+			: $this->fqcn(PendingLinearObjectRequest::class)->name;
+		
+		$this->documentReturn("{$returns}<{$type->name}>");
 		
 		$this->method->stmts = [
 			new Return_(
 				new MethodCall(
 					var: new Variable('this'),
-					name: new Identifier('linearQuery'),
+					name: $this->isList($this->node->type)
+						? new Identifier('linearListQuery')
+						: new Identifier('linearObjectQuery'),
 					args: array_filter([
 						new Arg(new String_($this->method->name->name)),
-						new Arg(new ClassConstFetch($returns, 'class')),
-						new Arg(new ConstFetch(new Name($this->isList($this->node->type) ? 'true' : 'false'))),
+						new Arg(new ClassConstFetch($type, 'class')),
 						count($this->method->params)
 							? new Arg(new FuncCall(
 								name: new Name('compact'),
@@ -69,9 +72,7 @@ class QueryFunctionTransformer extends FunctionTransformer
 			),
 		];
 		
-		if ($doc = $this->doc()) {
-			$this->method->setDocComment($doc);
-		}
+		$this->method->setDocComment($this->doc());
 		
 		return $this->method;
 	}

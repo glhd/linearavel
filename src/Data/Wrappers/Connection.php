@@ -9,8 +9,8 @@ use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
 /**
- * @template T
- * @mixin Collection<int, T>
+ * @template TCollectedData
+ * @mixin Collection<int, TCollectedData>
  */
 abstract class Connection extends Data
 {

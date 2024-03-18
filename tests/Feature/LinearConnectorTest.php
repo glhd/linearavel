@@ -9,10 +9,11 @@ class LinearConnectorTest extends TestCase
 {
 	public function test_generics(): void
 	{
-		$user = app(LinearConnector::class)
-			->viewer()
+		app(LinearConnector::class)
+			->teams()
 			->get()
 			->resolve()
-			->organization;
+			->first()
+			->name;
 	}
 }
