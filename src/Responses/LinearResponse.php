@@ -6,13 +6,13 @@ use Saloon\Http\Response;
 use Spatie\LaravelData\Data;
 
 /**
- * @template TDataImpl of Data
+ * @template TAbstractData of Data
  */
 abstract class LinearResponse extends Response
 {
 	protected string $name;
 	
-	/** @var class-string<TDataImpl> */
+	/** @var class-string<TAbstractData> */
 	protected string $class;
 	
 	protected ?Data $resolved;
