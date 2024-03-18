@@ -7,6 +7,7 @@ use Spatie\LaravelData\Data;
 /**
  * @template TResponseData of Data
  * @extends LinearResponse<TResponseData>
+ * @mixin TResponseData
  */
 class LinearObjectResponse extends LinearResponse
 {
