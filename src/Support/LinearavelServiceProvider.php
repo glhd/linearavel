@@ -25,6 +25,8 @@ class LinearavelServiceProvider extends ServiceProvider
 		});
 		
 		$this->app->singleton(KeyHelper::class);
+		
+		require_once __DIR__.'/helpers.php';
 	}
 	
 	protected function bootConfig(): self

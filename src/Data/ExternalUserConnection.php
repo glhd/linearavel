@@ -6,6 +6,7 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Optional;
 
+/** @extends Connection<ExternalUser> */
 class ExternalUserConnection extends Connection
 {
 	public function __construct(

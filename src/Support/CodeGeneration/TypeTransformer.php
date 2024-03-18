@@ -6,6 +6,7 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use PhpParser\Comment\Doc;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
@@ -31,6 +32,24 @@ class TypeTransformer extends ClassTransformer
 		$params = $this->params();
 		$extends = $this->extends();
 		$implements = $this->implements();
+		$attributes = [];
+		
+		if (str_ends_with($this->node->name->value, 'Connection')) {
+			/** @var FieldDefinitionNode $node */
+			$node = collect($this->node->fields)
+				->filter(fn(FieldDefinitionNode $node) => $node->name->value === 'nodes')
+				->first();
+			
+			$type = $node->type;
+			
+			while (! ($type instanceof NamedTypeNode)) {
+				$type = $type->type;
+			}
+			
+			$this->use($this->namespace.'Data\\'.$type->name->value);
+			
+			$attributes['comments'] = [new Doc("/** @extends Connection<{$type->name->value}> */")];
+		}
 		
 		return array_filter([
 			new Namespace_(new Name($this->namespace.'Data')),
@@ -39,7 +58,7 @@ class TypeTransformer extends ClassTransformer
 				'stmts' => [new ClassMethod('__construct', ['params' => $params, 'flags' => 1])],
 				'extends' => $extends,
 				'implements' => $implements,
-			]),
+			], $attributes),
 		]);
 	}
 	
