@@ -2,18 +2,17 @@
 
 namespace Glhd\Linearavel\Responses;
 
-use Illuminate\Support\Collection;
 use Saloon\Http\Response;
 use Spatie\LaravelData\Data;
 
 /**
- * @template T of Data
+ * @template TDataImpl of Data
  */
 abstract class LinearResponse extends Response
 {
 	protected string $name;
 	
-	/** @var class-string<T> */
+	/** @var class-string<TDataImpl> */
 	protected string $class;
 	
 	protected ?Data $resolved;

@@ -6,15 +6,16 @@ use Glhd\Linearavel\Responses\LinearObjectResponse;
 use Spatie\LaravelData\Data;
 
 /**
- * @template-covariant T of Data
+ * @template TDataImpl of Data
+ * @extends PendingLinearRequest<TDataImpl>
  */
 class PendingLinearObjectRequest extends PendingLinearRequest
 {
 	/**
 	 * @param string ...$fields
-	 * @return \Glhd\Linearavel\Responses\LinearObjectResponse<T>
+	 * @return LinearObjectResponse<TDataImpl>
 	 */
-	public function get(string ...$fields): LinearObjectResponse
+	public function get(string ...$fields)
 	{
 		$query = $this->query->withFields($fields);
 		

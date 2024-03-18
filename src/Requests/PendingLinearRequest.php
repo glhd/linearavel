@@ -33,6 +33,4 @@ abstract class PendingLinearRequest
 		
 		return $this;
 	}
-	
-	abstract public function get(string ...$fields): LinearObjectResponse|LinearListResponse;
 }
