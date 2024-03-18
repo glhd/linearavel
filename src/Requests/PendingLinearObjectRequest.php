@@ -6,7 +6,7 @@ use Glhd\Linearavel\Responses\LinearObjectResponse;
 use Spatie\LaravelData\Data;
 
 /**
- * @template T of Data
+ * @template-covariant T of Data
  */
 class PendingLinearObjectRequest extends PendingLinearRequest
 {

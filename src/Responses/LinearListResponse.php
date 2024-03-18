@@ -8,7 +8,7 @@ use Saloon\Http\Response;
 use Spatie\LaravelData\Data;
 
 /**
- * @template T
+ * @template T of Data
  */
 class LinearListResponse extends LinearResponse
 {

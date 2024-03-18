@@ -1487,7 +1487,6 @@ trait QueriesLinear
 	 */
 	public function viewer(): PendingLinearObjectRequest
 	{
-		$this->viewer()->get()->resolve();
 		return $this->linearObjectQuery('viewer', User::class);
 	}
 	

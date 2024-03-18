@@ -6,16 +6,16 @@ use Glhd\Linearavel\Connectors\LinearConnector;
 use Glhd\Linearavel\Responses\LinearListResponse;
 use Glhd\Linearavel\Responses\LinearObjectResponse;
 use Glhd\Linearavel\Support\GraphQueryBuilder;
+use Spatie\LaravelData\Data;
 
 /**
- * @template T
+ * @template T of Data
  */
 abstract class PendingLinearRequest
 {
 	/**
 	 * @param string $name
 	 * @param class-string<T> $class
-	 * @param bool $collect
 	 * @param \Glhd\Linearavel\Connectors\LinearConnector $connector
 	 * @param \Glhd\Linearavel\Support\GraphQueryBuilder $query
 	 */

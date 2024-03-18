@@ -18,9 +18,6 @@ abstract class LinearResponse extends Response
 	
 	protected ?Data $resolved;
 	
-	/** @return T */
-	abstract public function resolve(): Collection|Data;
-	
 	public function __get(string $name)
 	{
 		return data_get($this->resolve(), $name);

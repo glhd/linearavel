@@ -7,7 +7,8 @@ use Saloon\Http\Response;
 use Spatie\LaravelData\Data;
 
 /**
- * @template T of Data
+ * @template-covariant T of Data
+ * @mixin T
  */
 class LinearObjectResponse extends LinearResponse
 {
