@@ -11,7 +11,7 @@ class LinearConnectorTest extends TestCase
 	{
 		app(LinearConnector::class)
 			->teams()
-			->get()
+			->get('nodes.name')
 			->resolve()
 			->first()
 			->name;
