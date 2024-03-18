@@ -5,13 +5,12 @@ namespace Glhd\Linearavel\Responses;
 use Spatie\LaravelData\Data;
 
 /**
- * @template TDataImpl of Data
- * @extends LinearResponse<TDataImpl>
- * @mixin TDataImpl
+ * @template TResponseData of Data
+ * @extends LinearResponse<TResponseData>
  */
 class LinearObjectResponse extends LinearResponse
 {
-	/** @return TDataImpl */
+	/** @return TResponseData */
 	public function resolve()
 	{
 		return $this->class::from($this->json("data.{$this->name}"));

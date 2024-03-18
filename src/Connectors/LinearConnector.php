@@ -2,22 +2,15 @@
 
 namespace Glhd\Linearavel\Connectors;
 
-use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Requests\PendingLinearListRequest;
 use Glhd\Linearavel\Requests\PendingLinearObjectRequest;
-use Glhd\Linearavel\Requests\PendingLinearRequest;
-use Glhd\Linearavel\Responses\LinearListResponse;
-use Glhd\Linearavel\Responses\LinearObjectResponse;
-use Glhd\Linearavel\Responses\LinearResponse;
 use Glhd\Linearavel\Support\GraphQueryBuilder;
 use Glhd\Linearavel\Support\KeyHelper;
 use Saloon\Contracts\Authenticator;
 use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Connector;
-use Saloon\Http\Faking\MockClient;
 use Spatie\LaravelData\Data;
 
-/** @method LinearObjectResponse|LinearListResponse send(LinearRequest $request, MockClient $mockClient = null, callable $handleRetry = null) */
 class LinearConnector extends Connector
 {
 	use QueriesLinear;
