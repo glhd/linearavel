@@ -4,13 +4,11 @@ namespace Glhd\Linearavel\Support\CodeGeneration;
 
 use Glhd\Linearavel\Requests\PendingLinearListRequest;
 use Glhd\Linearavel\Requests\PendingLinearObjectRequest;
-use Glhd\Linearavel\Requests\PendingLinearRequest;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
@@ -43,7 +41,7 @@ class QueryFunctionTransformer extends FunctionTransformer
 		
 		$type = $this->getUnderlyingType($this->node->type);
 		
-		$returns = $this->isList($this->node->type) 
+		$returns = $this->isList($this->node->type)
 			? $this->fqcn(PendingLinearListRequest::class)->name
 			: $this->fqcn(PendingLinearObjectRequest::class)->name;
 		

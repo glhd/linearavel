@@ -7,6 +7,7 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Optional;
 
+/** @extends Connection<NotificationSubscription> */
 class NotificationSubscriptionConnection extends Connection
 {
 	public function __construct(

@@ -6,6 +6,7 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Optional;
 
+/** @extends Connection<IntegrationTemplate> */
 class IntegrationTemplateConnection extends Connection
 {
 	public function __construct(

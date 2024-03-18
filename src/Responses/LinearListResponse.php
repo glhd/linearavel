@@ -2,9 +2,7 @@
 
 namespace Glhd\Linearavel\Responses;
 
-use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
-use Saloon\Http\Response;
 use Spatie\LaravelData\Data;
 
 /**
