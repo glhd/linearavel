@@ -113,6 +113,7 @@ use Glhd\Linearavel\Requests\Inputs\ProjectUpdateFilter;
 use Glhd\Linearavel\Requests\Inputs\TeamFilter;
 use Glhd\Linearavel\Requests\Inputs\UserFilter;
 use Glhd\Linearavel\Requests\Inputs\WorkflowStateFilter;
+use Glhd\Linearavel\Requests\PendingLinearObjectRequest;
 use Glhd\Linearavel\Requests\PendingLinearRequest;
 
 trait QueriesLinear
@@ -1482,11 +1483,12 @@ trait QueriesLinear
 	}
 	
 	/**
-	 * @returns PendingLinearRequest<User>
+	 * @returns PendingLinearObjectRequest<User>
 	 */
-	public function viewer(): PendingLinearRequest
+	public function viewer(): PendingLinearObjectRequest
 	{
-		return $this->linearQuery('viewer', User::class, false);
+		$this->viewer()->get()->resolve();
+		return $this->linearObjectQuery('viewer', User::class);
 	}
 	
 	/**
