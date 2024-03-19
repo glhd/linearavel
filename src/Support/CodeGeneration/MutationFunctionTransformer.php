@@ -56,7 +56,7 @@ class MutationFunctionTransformer extends FunctionTransformer
 						? new Identifier('linearListMutation')
 						: new Identifier('linearObjectMutation'),
 					args: array_filter([
-						new Arg(new String_($this->method->name->name)),
+						new Arg(new String_($this->node->name->value)),
 						new Arg(new ClassConstFetch($type, 'class')),
 						count($this->method->params)
 							? new Arg(new FuncCall(

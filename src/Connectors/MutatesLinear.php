@@ -12,7 +12,7 @@ trait MutatesLinear
 	 */
 	function apiKeyCreateMutation(ApiKeyCreateInput $input)
 	{
-		return $this->linearObjectMutation('apiKeyCreateMutation', ApiKeyPayload::class, compact('input'));
+		return $this->linearObjectMutation('apiKeyCreate', ApiKeyPayload::class, compact('input'));
 	}
 	
 	/**
@@ -21,7 +21,7 @@ trait MutatesLinear
 	 */
 	function apiKeyDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('apiKeyDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('apiKeyDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -30,7 +30,7 @@ trait MutatesLinear
 	 */
 	function attachmentCreateMutation(AttachmentCreateInput $input)
 	{
-		return $this->linearObjectMutation('attachmentCreateMutation', AttachmentPayload::class, compact('input'));
+		return $this->linearObjectMutation('attachmentCreate', AttachmentPayload::class, compact('input'));
 	}
 	
 	/**
@@ -40,7 +40,7 @@ trait MutatesLinear
 	 */
 	function attachmentUpdateMutation(AttachmentUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('attachmentUpdateMutation', AttachmentPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('attachmentUpdate', AttachmentPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -49,7 +49,7 @@ trait MutatesLinear
 	 */
 	function attachmentUnsyncSlackMutation(string $id)
 	{
-		return $this->linearObjectMutation('attachmentUnsyncSlackMutation', AttachmentPayload::class, compact('id'));
+		return $this->linearObjectMutation('attachmentUnsyncSlack', AttachmentPayload::class, compact('id'));
 	}
 	
 	/**
@@ -63,7 +63,7 @@ trait MutatesLinear
 	 */
 	function attachmentLinkURLMutation(string $url, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
 	{
-		return $this->linearObjectMutation('attachmentLinkURLMutation', AttachmentPayload::class, compact('url', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+		return $this->linearObjectMutation('attachmentLinkURL', AttachmentPayload::class, compact('url', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
 	}
 	
 	/**
@@ -87,7 +87,7 @@ trait MutatesLinear
 		?string $title = null,
 		?string $id = null
 	) {
-		return $this->linearObjectMutation('attachmentLinkGitLabMRMutation', AttachmentPayload::class, compact('issueId', 'url', 'projectPathWithNamespace', 'number', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+		return $this->linearObjectMutation('attachmentLinkGitLabMR', AttachmentPayload::class, compact('issueId', 'url', 'projectPathWithNamespace', 'number', 'createAsUser', 'displayIconUrl', 'title', 'id'));
 	}
 	
 	/**
@@ -101,7 +101,7 @@ trait MutatesLinear
 	 */
 	function attachmentLinkGitHubIssueMutation(string $issueId, string $url, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
 	{
-		return $this->linearObjectMutation('attachmentLinkGitHubIssueMutation', AttachmentPayload::class, compact('issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+		return $this->linearObjectMutation('attachmentLinkGitHubIssue', AttachmentPayload::class, compact('issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id'));
 	}
 	
 	/**
@@ -127,7 +127,7 @@ trait MutatesLinear
 		?string $repo = null,
 		?float $number = null
 	) {
-		return $this->linearObjectMutation('attachmentLinkGitHubPRMutation', AttachmentPayload::class, compact('issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id', 'owner', 'repo', 'number'));
+		return $this->linearObjectMutation('attachmentLinkGitHubPR', AttachmentPayload::class, compact('issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id', 'owner', 'repo', 'number'));
 	}
 	
 	/**
@@ -141,7 +141,7 @@ trait MutatesLinear
 	 */
 	function attachmentLinkZendeskMutation(string $ticketId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
 	{
-		return $this->linearObjectMutation('attachmentLinkZendeskMutation', AttachmentPayload::class, compact('ticketId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+		return $this->linearObjectMutation('attachmentLinkZendesk', AttachmentPayload::class, compact('ticketId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
 	}
 	
 	/**
@@ -165,7 +165,7 @@ trait MutatesLinear
 		?string $title = null,
 		?string $id = null
 	) {
-		return $this->linearObjectMutation('attachmentLinkDiscordMutation', AttachmentPayload::class, compact('issueId', 'channelId', 'messageId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+		return $this->linearObjectMutation('attachmentLinkDiscord', AttachmentPayload::class, compact('issueId', 'channelId', 'messageId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id'));
 	}
 	
 	/**
@@ -191,7 +191,7 @@ trait MutatesLinear
 		?string $ts = null,
 		?string $id = null
 	) {
-		return $this->linearObjectMutation('attachmentLinkSlackMutation', AttachmentPayload::class, compact('channel', 'latest', 'issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'ts', 'id'));
+		return $this->linearObjectMutation('attachmentLinkSlack', AttachmentPayload::class, compact('channel', 'latest', 'issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'ts', 'id'));
 	}
 	
 	/**
@@ -205,7 +205,7 @@ trait MutatesLinear
 	 */
 	function attachmentLinkFrontMutation(string $conversationId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
 	{
-		return $this->linearObjectMutation('attachmentLinkFrontMutation', FrontAttachmentPayload::class, compact('conversationId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+		return $this->linearObjectMutation('attachmentLinkFront', FrontAttachmentPayload::class, compact('conversationId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
 	}
 	
 	/**
@@ -219,7 +219,7 @@ trait MutatesLinear
 	 */
 	function attachmentLinkIntercomMutation(string $conversationId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
 	{
-		return $this->linearObjectMutation('attachmentLinkIntercomMutation', AttachmentPayload::class, compact('conversationId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+		return $this->linearObjectMutation('attachmentLinkIntercom', AttachmentPayload::class, compact('conversationId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
 	}
 	
 	/**
@@ -229,7 +229,7 @@ trait MutatesLinear
 	 */
 	function attachmentLinkJiraIssueMutation(string $issueId, string $jiraIssueId)
 	{
-		return $this->linearObjectMutation('attachmentLinkJiraIssueMutation', AttachmentPayload::class, compact('issueId', 'jiraIssueId'));
+		return $this->linearObjectMutation('attachmentLinkJiraIssue', AttachmentPayload::class, compact('issueId', 'jiraIssueId'));
 	}
 	
 	/**
@@ -238,7 +238,7 @@ trait MutatesLinear
 	 */
 	function attachmentArchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('attachmentArchiveMutation', AttachmentArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('attachmentArchive', AttachmentArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -247,7 +247,7 @@ trait MutatesLinear
 	 */
 	function attachmentDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('attachmentDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('attachmentDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -256,7 +256,7 @@ trait MutatesLinear
 	 */
 	function emailUserAccountAuthChallengeMutation(EmailUserAccountAuthChallengeInput $input)
 	{
-		return $this->linearObjectMutation('emailUserAccountAuthChallengeMutation', EmailUserAccountAuthChallengeResponse::class, compact('input'));
+		return $this->linearObjectMutation('emailUserAccountAuthChallenge', EmailUserAccountAuthChallengeResponse::class, compact('input'));
 	}
 	
 	/**
@@ -265,7 +265,7 @@ trait MutatesLinear
 	 */
 	function emailTokenUserAccountAuthMutation(TokenUserAccountAuthInput $input)
 	{
-		return $this->linearObjectMutation('emailTokenUserAccountAuthMutation', AuthResolverResponse::class, compact('input'));
+		return $this->linearObjectMutation('emailTokenUserAccountAuth', AuthResolverResponse::class, compact('input'));
 	}
 	
 	/**
@@ -274,7 +274,7 @@ trait MutatesLinear
 	 */
 	function samlTokenUserAccountAuthMutation(TokenUserAccountAuthInput $input)
 	{
-		return $this->linearObjectMutation('samlTokenUserAccountAuthMutation', AuthResolverResponse::class, compact('input'));
+		return $this->linearObjectMutation('samlTokenUserAccountAuth', AuthResolverResponse::class, compact('input'));
 	}
 	
 	/**
@@ -283,7 +283,7 @@ trait MutatesLinear
 	 */
 	function googleUserAccountAuthMutation(GoogleUserAccountAuthInput $input)
 	{
-		return $this->linearObjectMutation('googleUserAccountAuthMutation', AuthResolverResponse::class, compact('input'));
+		return $this->linearObjectMutation('googleUserAccountAuth', AuthResolverResponse::class, compact('input'));
 	}
 	
 	/**
@@ -293,7 +293,7 @@ trait MutatesLinear
 	 */
 	function createOrganizationFromOnboardingMutation(CreateOrganizationInput $input, ?OnboardingCustomerSurvey $survey = null)
 	{
-		return $this->linearObjectMutation('createOrganizationFromOnboardingMutation', CreateOrJoinOrganizationResponse::class, compact('input', 'survey'));
+		return $this->linearObjectMutation('createOrganizationFromOnboarding', CreateOrJoinOrganizationResponse::class, compact('input', 'survey'));
 	}
 	
 	/**
@@ -302,7 +302,7 @@ trait MutatesLinear
 	 */
 	function joinOrganizationFromOnboardingMutation(JoinOrganizationInput $input)
 	{
-		return $this->linearObjectMutation('joinOrganizationFromOnboardingMutation', CreateOrJoinOrganizationResponse::class, compact('input'));
+		return $this->linearObjectMutation('joinOrganizationFromOnboarding', CreateOrJoinOrganizationResponse::class, compact('input'));
 	}
 	
 	/**
@@ -311,7 +311,7 @@ trait MutatesLinear
 	 */
 	function leaveOrganizationMutation(string $organizationId)
 	{
-		return $this->linearObjectMutation('leaveOrganizationMutation', CreateOrJoinOrganizationResponse::class, compact('organizationId'));
+		return $this->linearObjectMutation('leaveOrganization', CreateOrJoinOrganizationResponse::class, compact('organizationId'));
 	}
 	
 	/**
@@ -319,7 +319,7 @@ trait MutatesLinear
 	 */
 	function logoutMutation()
 	{
-		return $this->linearObjectMutation('logoutMutation', LogoutResponse::class);
+		return $this->linearObjectMutation('logout', LogoutResponse::class);
 	}
 	
 	/**
@@ -328,7 +328,7 @@ trait MutatesLinear
 	 */
 	function logoutSessionMutation(string $sessionId)
 	{
-		return $this->linearObjectMutation('logoutSessionMutation', LogoutResponse::class, compact('sessionId'));
+		return $this->linearObjectMutation('logoutSession', LogoutResponse::class, compact('sessionId'));
 	}
 	
 	/**
@@ -336,7 +336,7 @@ trait MutatesLinear
 	 */
 	function logoutAllSessionsMutation()
 	{
-		return $this->linearObjectMutation('logoutAllSessionsMutation', LogoutResponse::class);
+		return $this->linearObjectMutation('logoutAllSessions', LogoutResponse::class);
 	}
 	
 	/**
@@ -344,7 +344,7 @@ trait MutatesLinear
 	 */
 	function logoutOtherSessionsMutation()
 	{
-		return $this->linearObjectMutation('logoutOtherSessionsMutation', LogoutResponse::class);
+		return $this->linearObjectMutation('logoutOtherSessions', LogoutResponse::class);
 	}
 	
 	/**
@@ -353,7 +353,7 @@ trait MutatesLinear
 	 */
 	function commentCreateMutation(CommentCreateInput $input)
 	{
-		return $this->linearObjectMutation('commentCreateMutation', CommentPayload::class, compact('input'));
+		return $this->linearObjectMutation('commentCreate', CommentPayload::class, compact('input'));
 	}
 	
 	/**
@@ -363,7 +363,7 @@ trait MutatesLinear
 	 */
 	function commentUpdateMutation(CommentUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('commentUpdateMutation', CommentPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('commentUpdate', CommentPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -372,7 +372,7 @@ trait MutatesLinear
 	 */
 	function commentDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('commentDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('commentDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -382,7 +382,7 @@ trait MutatesLinear
 	 */
 	function commentResolveMutation(string $id, ?string $resolvingCommentId = null)
 	{
-		return $this->linearObjectMutation('commentResolveMutation', CommentPayload::class, compact('id', 'resolvingCommentId'));
+		return $this->linearObjectMutation('commentResolve', CommentPayload::class, compact('id', 'resolvingCommentId'));
 	}
 	
 	/**
@@ -391,7 +391,7 @@ trait MutatesLinear
 	 */
 	function commentUnresolveMutation(string $id)
 	{
-		return $this->linearObjectMutation('commentUnresolveMutation', CommentPayload::class, compact('id'));
+		return $this->linearObjectMutation('commentUnresolve', CommentPayload::class, compact('id'));
 	}
 	
 	/**
@@ -400,7 +400,7 @@ trait MutatesLinear
 	 */
 	function contactCreateMutation(ContactCreateInput $input)
 	{
-		return $this->linearObjectMutation('contactCreateMutation', ContactPayload::class, compact('input'));
+		return $this->linearObjectMutation('contactCreate', ContactPayload::class, compact('input'));
 	}
 	
 	/**
@@ -409,7 +409,7 @@ trait MutatesLinear
 	 */
 	function contactSalesCreateMutation(ContactSalesCreateInput $input)
 	{
-		return $this->linearObjectMutation('contactSalesCreateMutation', ContactPayload::class, compact('input'));
+		return $this->linearObjectMutation('contactSalesCreate', ContactPayload::class, compact('input'));
 	}
 	
 	/**
@@ -418,7 +418,7 @@ trait MutatesLinear
 	 */
 	function customViewCreateMutation(CustomViewCreateInput $input)
 	{
-		return $this->linearObjectMutation('customViewCreateMutation', CustomViewPayload::class, compact('input'));
+		return $this->linearObjectMutation('customViewCreate', CustomViewPayload::class, compact('input'));
 	}
 	
 	/**
@@ -428,7 +428,7 @@ trait MutatesLinear
 	 */
 	function customViewUpdateMutation(CustomViewUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('customViewUpdateMutation', CustomViewPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('customViewUpdate', CustomViewPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -437,7 +437,7 @@ trait MutatesLinear
 	 */
 	function customViewDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('customViewDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('customViewDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -446,7 +446,7 @@ trait MutatesLinear
 	 */
 	function cycleCreateMutation(CycleCreateInput $input)
 	{
-		return $this->linearObjectMutation('cycleCreateMutation', CyclePayload::class, compact('input'));
+		return $this->linearObjectMutation('cycleCreate', CyclePayload::class, compact('input'));
 	}
 	
 	/**
@@ -456,7 +456,7 @@ trait MutatesLinear
 	 */
 	function cycleUpdateMutation(CycleUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('cycleUpdateMutation', CyclePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('cycleUpdate', CyclePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -465,7 +465,7 @@ trait MutatesLinear
 	 */
 	function cycleArchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('cycleArchiveMutation', CycleArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('cycleArchive', CycleArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -474,7 +474,7 @@ trait MutatesLinear
 	 */
 	function cycleShiftAllMutation(CycleShiftAllInput $input)
 	{
-		return $this->linearObjectMutation('cycleShiftAllMutation', CyclePayload::class, compact('input'));
+		return $this->linearObjectMutation('cycleShiftAll', CyclePayload::class, compact('input'));
 	}
 	
 	/**
@@ -483,7 +483,7 @@ trait MutatesLinear
 	 */
 	function documentCreateMutation(DocumentCreateInput $input)
 	{
-		return $this->linearObjectMutation('documentCreateMutation', DocumentPayload::class, compact('input'));
+		return $this->linearObjectMutation('documentCreate', DocumentPayload::class, compact('input'));
 	}
 	
 	/**
@@ -493,7 +493,7 @@ trait MutatesLinear
 	 */
 	function documentUpdateMutation(DocumentUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('documentUpdateMutation', DocumentPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('documentUpdate', DocumentPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -502,7 +502,7 @@ trait MutatesLinear
 	 */
 	function documentDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('documentDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('documentDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -511,7 +511,7 @@ trait MutatesLinear
 	 */
 	function emailIntakeAddressCreateMutation(EmailIntakeAddressCreateInput $input)
 	{
-		return $this->linearObjectMutation('emailIntakeAddressCreateMutation', EmailIntakeAddressPayload::class, compact('input'));
+		return $this->linearObjectMutation('emailIntakeAddressCreate', EmailIntakeAddressPayload::class, compact('input'));
 	}
 	
 	/**
@@ -520,7 +520,7 @@ trait MutatesLinear
 	 */
 	function emailIntakeAddressRotateMutation(string $id)
 	{
-		return $this->linearObjectMutation('emailIntakeAddressRotateMutation', EmailIntakeAddressPayload::class, compact('id'));
+		return $this->linearObjectMutation('emailIntakeAddressRotate', EmailIntakeAddressPayload::class, compact('id'));
 	}
 	
 	/**
@@ -530,7 +530,7 @@ trait MutatesLinear
 	 */
 	function emailIntakeAddressUpdateMutation(EmailIntakeAddressUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('emailIntakeAddressUpdateMutation', EmailIntakeAddressPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('emailIntakeAddressUpdate', EmailIntakeAddressPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -539,7 +539,7 @@ trait MutatesLinear
 	 */
 	function emailIntakeAddressDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('emailIntakeAddressDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('emailIntakeAddressDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -548,7 +548,7 @@ trait MutatesLinear
 	 */
 	function emailUnsubscribeMutation(EmailUnsubscribeInput $input)
 	{
-		return $this->linearObjectMutation('emailUnsubscribeMutation', EmailUnsubscribePayload::class, compact('input'));
+		return $this->linearObjectMutation('emailUnsubscribe', EmailUnsubscribePayload::class, compact('input'));
 	}
 	
 	/**
@@ -557,7 +557,7 @@ trait MutatesLinear
 	 */
 	function emojiCreateMutation(EmojiCreateInput $input)
 	{
-		return $this->linearObjectMutation('emojiCreateMutation', EmojiPayload::class, compact('input'));
+		return $this->linearObjectMutation('emojiCreate', EmojiPayload::class, compact('input'));
 	}
 	
 	/**
@@ -566,7 +566,7 @@ trait MutatesLinear
 	 */
 	function emojiDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('emojiDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('emojiDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -575,7 +575,7 @@ trait MutatesLinear
 	 */
 	function initiativeToProjectCreateMutation(InitiativeToProjectCreateInput $input)
 	{
-		return $this->linearObjectMutation('initiativeToProjectCreateMutation', InitiativeToProjectPayload::class, compact('input'));
+		return $this->linearObjectMutation('initiativeToProjectCreate', InitiativeToProjectPayload::class, compact('input'));
 	}
 	
 	/**
@@ -585,7 +585,7 @@ trait MutatesLinear
 	 */
 	function initiativeToProjectUpdateMutation(InitiativeToProjectUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('initiativeToProjectUpdateMutation', InitiativeToProjectPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('initiativeToProjectUpdate', InitiativeToProjectPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -594,7 +594,7 @@ trait MutatesLinear
 	 */
 	function initiativeToProjectDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('initiativeToProjectDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('initiativeToProjectDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -603,7 +603,7 @@ trait MutatesLinear
 	 */
 	function initiativeCreateMutation(InitiativeCreateInput $input)
 	{
-		return $this->linearObjectMutation('initiativeCreateMutation', InitiativePayload::class, compact('input'));
+		return $this->linearObjectMutation('initiativeCreate', InitiativePayload::class, compact('input'));
 	}
 	
 	/**
@@ -613,7 +613,7 @@ trait MutatesLinear
 	 */
 	function initiativeUpdateMutation(InitiativeUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('initiativeUpdateMutation', InitiativePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('initiativeUpdate', InitiativePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -622,7 +622,7 @@ trait MutatesLinear
 	 */
 	function initiativeArchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('initiativeArchiveMutation', InitiativeArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('initiativeArchive', InitiativeArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -631,7 +631,7 @@ trait MutatesLinear
 	 */
 	function initiativeUnarchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('initiativeUnarchiveMutation', InitiativeArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('initiativeUnarchive', InitiativeArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -640,7 +640,7 @@ trait MutatesLinear
 	 */
 	function initiativeDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('initiativeDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('initiativeDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -649,7 +649,7 @@ trait MutatesLinear
 	 */
 	function favoriteCreateMutation(FavoriteCreateInput $input)
 	{
-		return $this->linearObjectMutation('favoriteCreateMutation', FavoritePayload::class, compact('input'));
+		return $this->linearObjectMutation('favoriteCreate', FavoritePayload::class, compact('input'));
 	}
 	
 	/**
@@ -659,7 +659,7 @@ trait MutatesLinear
 	 */
 	function favoriteUpdateMutation(FavoriteUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('favoriteUpdateMutation', FavoritePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('favoriteUpdate', FavoritePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -668,7 +668,7 @@ trait MutatesLinear
 	 */
 	function favoriteDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('favoriteDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('favoriteDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -681,7 +681,7 @@ trait MutatesLinear
 	 */
 	function fileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null, ?bool $makePublic = null)
 	{
-		return $this->linearObjectMutation('fileUploadMutation', UploadPayload::class, compact('size', 'contentType', 'filename', 'metaData', 'makePublic'));
+		return $this->linearObjectMutation('fileUpload', UploadPayload::class, compact('size', 'contentType', 'filename', 'metaData', 'makePublic'));
 	}
 	
 	/**
@@ -693,7 +693,7 @@ trait MutatesLinear
 	 */
 	function importFileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null)
 	{
-		return $this->linearObjectMutation('importFileUploadMutation', UploadPayload::class, compact('size', 'contentType', 'filename', 'metaData'));
+		return $this->linearObjectMutation('importFileUpload', UploadPayload::class, compact('size', 'contentType', 'filename', 'metaData'));
 	}
 	
 	/**
@@ -702,7 +702,7 @@ trait MutatesLinear
 	 */
 	function imageUploadFromUrlMutation(string $url)
 	{
-		return $this->linearObjectMutation('imageUploadFromUrlMutation', ImageUploadFromUrlPayload::class, compact('url'));
+		return $this->linearObjectMutation('imageUploadFromUrl', ImageUploadFromUrlPayload::class, compact('url'));
 	}
 	
 	/**
@@ -711,7 +711,7 @@ trait MutatesLinear
 	 */
 	function gitAutomationStateCreateMutation(GitAutomationStateCreateInput $input)
 	{
-		return $this->linearObjectMutation('gitAutomationStateCreateMutation', GitAutomationStatePayload::class, compact('input'));
+		return $this->linearObjectMutation('gitAutomationStateCreate', GitAutomationStatePayload::class, compact('input'));
 	}
 	
 	/**
@@ -721,7 +721,7 @@ trait MutatesLinear
 	 */
 	function gitAutomationStateUpdateMutation(GitAutomationStateUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('gitAutomationStateUpdateMutation', GitAutomationStatePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('gitAutomationStateUpdate', GitAutomationStatePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -730,7 +730,7 @@ trait MutatesLinear
 	 */
 	function gitAutomationStateDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('gitAutomationStateDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('gitAutomationStateDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -739,7 +739,7 @@ trait MutatesLinear
 	 */
 	function gitAutomationTargetBranchCreateMutation(GitAutomationTargetBranchCreateInput $input)
 	{
-		return $this->linearObjectMutation('gitAutomationTargetBranchCreateMutation', GitAutomationTargetBranchPayload::class, compact('input'));
+		return $this->linearObjectMutation('gitAutomationTargetBranchCreate', GitAutomationTargetBranchPayload::class, compact('input'));
 	}
 	
 	/**
@@ -749,7 +749,7 @@ trait MutatesLinear
 	 */
 	function gitAutomationTargetBranchUpdateMutation(GitAutomationTargetBranchUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('gitAutomationTargetBranchUpdateMutation', GitAutomationTargetBranchPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('gitAutomationTargetBranchUpdate', GitAutomationTargetBranchPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -758,7 +758,7 @@ trait MutatesLinear
 	 */
 	function gitAutomationTargetBranchDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('gitAutomationTargetBranchDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('gitAutomationTargetBranchDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -767,7 +767,7 @@ trait MutatesLinear
 	 */
 	function integrationRequestMutation(IntegrationRequestInput $input)
 	{
-		return $this->linearObjectMutation('integrationRequestMutation', IntegrationRequestPayload::class, compact('input'));
+		return $this->linearObjectMutation('integrationRequest', IntegrationRequestPayload::class, compact('input'));
 	}
 	
 	/**
@@ -777,7 +777,7 @@ trait MutatesLinear
 	 */
 	function integrationSettingsUpdateMutation(IntegrationSettingsInput $input, string $id)
 	{
-		return $this->linearObjectMutation('integrationSettingsUpdateMutation', IntegrationPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('integrationSettingsUpdate', IntegrationPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -785,7 +785,7 @@ trait MutatesLinear
 	 */
 	function integrationGithubCommitCreateMutation()
 	{
-		return $this->linearObjectMutation('integrationGithubCommitCreateMutation', GitHubCommitIntegrationPayload::class);
+		return $this->linearObjectMutation('integrationGithubCommitCreate', GitHubCommitIntegrationPayload::class);
 	}
 	
 	/**
@@ -794,7 +794,7 @@ trait MutatesLinear
 	 */
 	function integrationGithubConnectMutation(string $installationId)
 	{
-		return $this->linearObjectMutation('integrationGithubConnectMutation', IntegrationPayload::class, compact('installationId'));
+		return $this->linearObjectMutation('integrationGithubConnect', IntegrationPayload::class, compact('installationId'));
 	}
 	
 	/**
@@ -804,7 +804,7 @@ trait MutatesLinear
 	 */
 	function integrationGitlabConnectMutation(string $gitlabUrl, string $accessToken)
 	{
-		return $this->linearObjectMutation('integrationGitlabConnectMutation', IntegrationPayload::class, compact('gitlabUrl', 'accessToken'));
+		return $this->linearObjectMutation('integrationGitlabConnect', IntegrationPayload::class, compact('gitlabUrl', 'accessToken'));
 	}
 	
 	/**
@@ -813,7 +813,7 @@ trait MutatesLinear
 	 */
 	function airbyteIntegrationConnectMutation(AirbyteConfigurationInput $input)
 	{
-		return $this->linearObjectMutation('airbyteIntegrationConnectMutation', IntegrationPayload::class, compact('input'));
+		return $this->linearObjectMutation('airbyteIntegrationConnect', IntegrationPayload::class, compact('input'));
 	}
 	
 	/**
@@ -822,7 +822,7 @@ trait MutatesLinear
 	 */
 	function integrationGoogleCalendarPersonalConnectMutation(string $code)
 	{
-		return $this->linearObjectMutation('integrationGoogleCalendarPersonalConnectMutation', IntegrationPayload::class, compact('code'));
+		return $this->linearObjectMutation('integrationGoogleCalendarPersonalConnect', IntegrationPayload::class, compact('code'));
 	}
 	
 	/**
@@ -831,7 +831,7 @@ trait MutatesLinear
 	 */
 	function jiraIntegrationConnectMutation(JiraConfigurationInput $input)
 	{
-		return $this->linearObjectMutation('jiraIntegrationConnectMutation', IntegrationPayload::class, compact('input'));
+		return $this->linearObjectMutation('jiraIntegrationConnect', IntegrationPayload::class, compact('input'));
 	}
 	
 	/**
@@ -840,7 +840,7 @@ trait MutatesLinear
 	 */
 	function integrationJiraUpdateMutation(JiraUpdateInput $input)
 	{
-		return $this->linearObjectMutation('integrationJiraUpdateMutation', IntegrationPayload::class, compact('input'));
+		return $this->linearObjectMutation('integrationJiraUpdate', IntegrationPayload::class, compact('input'));
 	}
 	
 	/**
@@ -850,7 +850,7 @@ trait MutatesLinear
 	 */
 	function integrationJiraPersonalMutation(?string $code = null, ?string $accessToken = null)
 	{
-		return $this->linearObjectMutation('integrationJiraPersonalMutation', IntegrationPayload::class, compact('code', 'accessToken'));
+		return $this->linearObjectMutation('integrationJiraPersonal', IntegrationPayload::class, compact('code', 'accessToken'));
 	}
 	
 	/**
@@ -859,7 +859,7 @@ trait MutatesLinear
 	 */
 	function integrationGitHubPersonalMutation(string $code)
 	{
-		return $this->linearObjectMutation('integrationGitHubPersonalMutation', IntegrationPayload::class, compact('code'));
+		return $this->linearObjectMutation('integrationGitHubPersonal', IntegrationPayload::class, compact('code'));
 	}
 	
 	/**
@@ -870,7 +870,7 @@ trait MutatesLinear
 	 */
 	function integrationIntercomMutation(string $redirectUri, string $code, ?string $domainUrl = null)
 	{
-		return $this->linearObjectMutation('integrationIntercomMutation', IntegrationPayload::class, compact('redirectUri', 'code', 'domainUrl'));
+		return $this->linearObjectMutation('integrationIntercom', IntegrationPayload::class, compact('redirectUri', 'code', 'domainUrl'));
 	}
 	
 	/**
@@ -878,7 +878,7 @@ trait MutatesLinear
 	 */
 	function integrationIntercomDeleteMutation()
 	{
-		return $this->linearObjectMutation('integrationIntercomDeleteMutation', IntegrationPayload::class);
+		return $this->linearObjectMutation('integrationIntercomDelete', IntegrationPayload::class);
 	}
 	
 	/**
@@ -887,7 +887,7 @@ trait MutatesLinear
 	 */
 	function integrationIntercomSettingsUpdateMutation(IntercomSettingsInput $input)
 	{
-		return $this->linearObjectMutation('integrationIntercomSettingsUpdateMutation', IntegrationPayload::class, compact('input'));
+		return $this->linearObjectMutation('integrationIntercomSettingsUpdate', IntegrationPayload::class, compact('input'));
 	}
 	
 	/**
@@ -897,7 +897,7 @@ trait MutatesLinear
 	 */
 	function integrationDiscordMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationDiscordMutation', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationDiscord', IntegrationPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -906,7 +906,7 @@ trait MutatesLinear
 	 */
 	function integrationOpsgenieConnectMutation(string $apiKey)
 	{
-		return $this->linearObjectMutation('integrationOpsgenieConnectMutation', IntegrationPayload::class, compact('apiKey'));
+		return $this->linearObjectMutation('integrationOpsgenieConnect', IntegrationPayload::class, compact('apiKey'));
 	}
 	
 	/**
@@ -914,7 +914,7 @@ trait MutatesLinear
 	 */
 	function integrationOpsgenieRefreshScheduleMappingsMutation()
 	{
-		return $this->linearObjectMutation('integrationOpsgenieRefreshScheduleMappingsMutation', IntegrationPayload::class);
+		return $this->linearObjectMutation('integrationOpsgenieRefreshScheduleMappings', IntegrationPayload::class);
 	}
 	
 	/**
@@ -924,7 +924,7 @@ trait MutatesLinear
 	 */
 	function integrationPagerDutyConnectMutation(string $code, string $redirectUri)
 	{
-		return $this->linearObjectMutation('integrationPagerDutyConnectMutation', IntegrationPayload::class, compact('code', 'redirectUri'));
+		return $this->linearObjectMutation('integrationPagerDutyConnect', IntegrationPayload::class, compact('code', 'redirectUri'));
 	}
 	
 	/**
@@ -932,7 +932,7 @@ trait MutatesLinear
 	 */
 	function integrationPagerDutyRefreshScheduleMappingsMutation()
 	{
-		return $this->linearObjectMutation('integrationPagerDutyRefreshScheduleMappingsMutation', IntegrationPayload::class);
+		return $this->linearObjectMutation('integrationPagerDutyRefreshScheduleMappings', IntegrationPayload::class);
 	}
 	
 	/**
@@ -942,7 +942,7 @@ trait MutatesLinear
 	 */
 	function integrationUpdateSlackMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationUpdateSlackMutation', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationUpdateSlack', IntegrationPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -953,7 +953,7 @@ trait MutatesLinear
 	 */
 	function integrationSlackMutation(string $redirectUri, string $code, ?bool $shouldUseV2Auth = null)
 	{
-		return $this->linearObjectMutation('integrationSlackMutation', IntegrationPayload::class, compact('redirectUri', 'code', 'shouldUseV2Auth'));
+		return $this->linearObjectMutation('integrationSlack', IntegrationPayload::class, compact('redirectUri', 'code', 'shouldUseV2Auth'));
 	}
 	
 	/**
@@ -963,7 +963,7 @@ trait MutatesLinear
 	 */
 	function integrationSlackAsksMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationSlackAsksMutation', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationSlackAsks', IntegrationPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -973,7 +973,7 @@ trait MutatesLinear
 	 */
 	function integrationSlackPersonalMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationSlackPersonalMutation', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationSlackPersonal', IntegrationPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -983,7 +983,7 @@ trait MutatesLinear
 	 */
 	function integrationAsksConnectChannelMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationAsksConnectChannelMutation', AsksChannelConnectPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationAsksConnectChannel', AsksChannelConnectPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -995,7 +995,7 @@ trait MutatesLinear
 	 */
 	function integrationSlackPostMutation(string $redirectUri, string $teamId, string $code, ?bool $shouldUseV2Auth = null)
 	{
-		return $this->linearObjectMutation('integrationSlackPostMutation', SlackChannelConnectPayload::class, compact('redirectUri', 'teamId', 'code', 'shouldUseV2Auth'));
+		return $this->linearObjectMutation('integrationSlackPost', SlackChannelConnectPayload::class, compact('redirectUri', 'teamId', 'code', 'shouldUseV2Auth'));
 	}
 	
 	/**
@@ -1007,7 +1007,7 @@ trait MutatesLinear
 	 */
 	function integrationSlackProjectPostMutation(string $service, string $redirectUri, string $projectId, string $code)
 	{
-		return $this->linearObjectMutation('integrationSlackProjectPostMutation', SlackChannelConnectPayload::class, compact('service', 'redirectUri', 'projectId', 'code'));
+		return $this->linearObjectMutation('integrationSlackProjectPost', SlackChannelConnectPayload::class, compact('service', 'redirectUri', 'projectId', 'code'));
 	}
 	
 	/**
@@ -1017,7 +1017,7 @@ trait MutatesLinear
 	 */
 	function integrationSlackOrgProjectUpdatesPostMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationSlackOrgProjectUpdatesPostMutation', SlackChannelConnectPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationSlackOrgProjectUpdatesPost', SlackChannelConnectPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -1027,7 +1027,7 @@ trait MutatesLinear
 	 */
 	function integrationSlackImportEmojisMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationSlackImportEmojisMutation', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationSlackImportEmojis', IntegrationPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -1037,7 +1037,7 @@ trait MutatesLinear
 	 */
 	function integrationFigmaMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationFigmaMutation', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationFigma', IntegrationPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -1046,7 +1046,7 @@ trait MutatesLinear
 	 */
 	function integrationGoogleSheetsMutation(string $code)
 	{
-		return $this->linearObjectMutation('integrationGoogleSheetsMutation', IntegrationPayload::class, compact('code'));
+		return $this->linearObjectMutation('integrationGoogleSheets', IntegrationPayload::class, compact('code'));
 	}
 	
 	/**
@@ -1055,7 +1055,7 @@ trait MutatesLinear
 	 */
 	function refreshGoogleSheetsDataMutation(string $id)
 	{
-		return $this->linearObjectMutation('refreshGoogleSheetsDataMutation', IntegrationPayload::class, compact('id'));
+		return $this->linearObjectMutation('refreshGoogleSheetsData', IntegrationPayload::class, compact('id'));
 	}
 	
 	/**
@@ -1066,7 +1066,7 @@ trait MutatesLinear
 	 */
 	function integrationSentryConnectMutation(string $organizationSlug, string $code, string $installationId)
 	{
-		return $this->linearObjectMutation('integrationSentryConnectMutation', IntegrationPayload::class, compact('organizationSlug', 'code', 'installationId'));
+		return $this->linearObjectMutation('integrationSentryConnect', IntegrationPayload::class, compact('organizationSlug', 'code', 'installationId'));
 	}
 	
 	/**
@@ -1076,7 +1076,7 @@ trait MutatesLinear
 	 */
 	function integrationFrontMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('integrationFrontMutation', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('integrationFront', IntegrationPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -1088,7 +1088,7 @@ trait MutatesLinear
 	 */
 	function integrationZendeskMutation(string $subdomain, string $code, string $scope, string $redirectUri)
 	{
-		return $this->linearObjectMutation('integrationZendeskMutation', IntegrationPayload::class, compact('subdomain', 'code', 'scope', 'redirectUri'));
+		return $this->linearObjectMutation('integrationZendesk', IntegrationPayload::class, compact('subdomain', 'code', 'scope', 'redirectUri'));
 	}
 	
 	/**
@@ -1096,7 +1096,7 @@ trait MutatesLinear
 	 */
 	function integrationLoomMutation()
 	{
-		return $this->linearObjectMutation('integrationLoomMutation', IntegrationPayload::class);
+		return $this->linearObjectMutation('integrationLoom', IntegrationPayload::class);
 	}
 	
 	/**
@@ -1105,7 +1105,7 @@ trait MutatesLinear
 	 */
 	function integrationDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('integrationDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('integrationDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1114,7 +1114,7 @@ trait MutatesLinear
 	 */
 	function integrationArchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('integrationArchiveMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('integrationArchive', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1123,7 +1123,7 @@ trait MutatesLinear
 	 */
 	function integrationsSettingsCreateMutation(IntegrationsSettingsCreateInput $input)
 	{
-		return $this->linearObjectMutation('integrationsSettingsCreateMutation', IntegrationsSettingsPayload::class, compact('input'));
+		return $this->linearObjectMutation('integrationsSettingsCreate', IntegrationsSettingsPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1133,7 +1133,7 @@ trait MutatesLinear
 	 */
 	function integrationsSettingsUpdateMutation(IntegrationsSettingsUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('integrationsSettingsUpdateMutation', IntegrationsSettingsPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('integrationsSettingsUpdate', IntegrationsSettingsPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1142,7 +1142,7 @@ trait MutatesLinear
 	 */
 	function integrationTemplateCreateMutation(IntegrationTemplateCreateInput $input)
 	{
-		return $this->linearObjectMutation('integrationTemplateCreateMutation', IntegrationTemplatePayload::class, compact('input'));
+		return $this->linearObjectMutation('integrationTemplateCreate', IntegrationTemplatePayload::class, compact('input'));
 	}
 	
 	/**
@@ -1151,7 +1151,7 @@ trait MutatesLinear
 	 */
 	function integrationTemplateDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('integrationTemplateDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('integrationTemplateDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1179,7 +1179,7 @@ trait MutatesLinear
 		?bool $includeClosedIssues = null,
 		?string $id = null
 	) {
-		return $this->linearObjectMutation('issueImportCreateGithubMutation', IssueImportPayload::class, compact('githubToken', 'githubRepoName', 'githubRepoOwner', 'organizationId', 'teamId', 'teamName', 'githubShouldImportOrgProjects', 'instantProcess', 'includeClosedIssues', 'id'));
+		return $this->linearObjectMutation('issueImportCreateGithub', IssueImportPayload::class, compact('githubToken', 'githubRepoName', 'githubRepoOwner', 'organizationId', 'teamId', 'teamName', 'githubShouldImportOrgProjects', 'instantProcess', 'includeClosedIssues', 'id'));
 	}
 	
 	/**
@@ -1207,7 +1207,7 @@ trait MutatesLinear
 		?bool $includeClosedIssues = null,
 		?string $id = null
 	) {
-		return $this->linearObjectMutation('issueImportCreateJiraMutation', IssueImportPayload::class, compact('jiraToken', 'jiraProject', 'jiraEmail', 'jiraHostname', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
+		return $this->linearObjectMutation('issueImportCreateJira', IssueImportPayload::class, compact('jiraToken', 'jiraProject', 'jiraEmail', 'jiraHostname', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
 	}
 	
 	/**
@@ -1229,7 +1229,7 @@ trait MutatesLinear
 		?string $jiraToken = null,
 		?string $jiraEmail = null
 	) {
-		return $this->linearObjectMutation('issueImportCreateCSVJiraMutation', IssueImportPayload::class, compact('csvUrl', 'organizationId', 'teamId', 'teamName', 'jiraHostname', 'jiraToken', 'jiraEmail'));
+		return $this->linearObjectMutation('issueImportCreateCSVJira', IssueImportPayload::class, compact('csvUrl', 'organizationId', 'teamId', 'teamName', 'jiraHostname', 'jiraToken', 'jiraEmail'));
 	}
 	
 	/**
@@ -1253,7 +1253,7 @@ trait MutatesLinear
 		?bool $includeClosedIssues = null,
 		?string $id = null
 	) {
-		return $this->linearObjectMutation('issueImportCreateClubhouseMutation', IssueImportPayload::class, compact('clubhouseToken', 'clubhouseGroupName', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
+		return $this->linearObjectMutation('issueImportCreateClubhouse', IssueImportPayload::class, compact('clubhouseToken', 'clubhouseGroupName', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
 	}
 	
 	/**
@@ -1277,7 +1277,7 @@ trait MutatesLinear
 		?bool $includeClosedIssues = null,
 		?string $id = null
 	) {
-		return $this->linearObjectMutation('issueImportCreateAsanaMutation', IssueImportPayload::class, compact('asanaToken', 'asanaTeamName', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
+		return $this->linearObjectMutation('issueImportCreateAsana', IssueImportPayload::class, compact('asanaToken', 'asanaTeamName', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
 	}
 	
 	/**
@@ -1286,7 +1286,7 @@ trait MutatesLinear
 	 */
 	function issueImportDeleteMutation(string $issueImportId)
 	{
-		return $this->linearObjectMutation('issueImportDeleteMutation', IssueImportDeletePayload::class, compact('issueImportId'));
+		return $this->linearObjectMutation('issueImportDelete', IssueImportDeletePayload::class, compact('issueImportId'));
 	}
 	
 	/**
@@ -1296,7 +1296,7 @@ trait MutatesLinear
 	 */
 	function issueImportProcessMutation(string $mapping, string $issueImportId)
 	{
-		return $this->linearObjectMutation('issueImportProcessMutation', IssueImportPayload::class, compact('mapping', 'issueImportId'));
+		return $this->linearObjectMutation('issueImportProcess', IssueImportPayload::class, compact('mapping', 'issueImportId'));
 	}
 	
 	/**
@@ -1306,7 +1306,7 @@ trait MutatesLinear
 	 */
 	function issueImportUpdateMutation(IssueImportUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('issueImportUpdateMutation', IssueImportPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('issueImportUpdate', IssueImportPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1316,7 +1316,7 @@ trait MutatesLinear
 	 */
 	function issueLabelCreateMutation(IssueLabelCreateInput $input, ?bool $replaceTeamLabels = null)
 	{
-		return $this->linearObjectMutation('issueLabelCreateMutation', IssueLabelPayload::class, compact('input', 'replaceTeamLabels'));
+		return $this->linearObjectMutation('issueLabelCreate', IssueLabelPayload::class, compact('input', 'replaceTeamLabels'));
 	}
 	
 	/**
@@ -1326,7 +1326,7 @@ trait MutatesLinear
 	 */
 	function issueLabelUpdateMutation(IssueLabelUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('issueLabelUpdateMutation', IssueLabelPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('issueLabelUpdate', IssueLabelPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1335,7 +1335,7 @@ trait MutatesLinear
 	 */
 	function issueLabelDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('issueLabelDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('issueLabelDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1344,7 +1344,7 @@ trait MutatesLinear
 	 */
 	function issueRelationCreateMutation(IssueRelationCreateInput $input)
 	{
-		return $this->linearObjectMutation('issueRelationCreateMutation', IssueRelationPayload::class, compact('input'));
+		return $this->linearObjectMutation('issueRelationCreate', IssueRelationPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1354,7 +1354,7 @@ trait MutatesLinear
 	 */
 	function issueRelationUpdateMutation(IssueRelationUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('issueRelationUpdateMutation', IssueRelationPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('issueRelationUpdate', IssueRelationPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1363,7 +1363,7 @@ trait MutatesLinear
 	 */
 	function issueRelationDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('issueRelationDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('issueRelationDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1372,7 +1372,7 @@ trait MutatesLinear
 	 */
 	function issueCreateMutation(IssueCreateInput $input)
 	{
-		return $this->linearObjectMutation('issueCreateMutation', IssuePayload::class, compact('input'));
+		return $this->linearObjectMutation('issueCreate', IssuePayload::class, compact('input'));
 	}
 	
 	/**
@@ -1382,7 +1382,7 @@ trait MutatesLinear
 	 */
 	function issueUpdateMutation(IssueUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('issueUpdateMutation', IssuePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('issueUpdate', IssuePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1392,7 +1392,7 @@ trait MutatesLinear
 	 */
 	function issueBatchUpdateMutation(IssueUpdateInput $input, iterable $ids)
 	{
-		return $this->linearObjectMutation('issueBatchUpdateMutation', IssueBatchPayload::class, compact('input', 'ids'));
+		return $this->linearObjectMutation('issueBatchUpdate', IssueBatchPayload::class, compact('input', 'ids'));
 	}
 	
 	/**
@@ -1402,7 +1402,7 @@ trait MutatesLinear
 	 */
 	function issueArchiveMutation(string $id, ?bool $trash = null)
 	{
-		return $this->linearObjectMutation('issueArchiveMutation', IssueArchivePayload::class, compact('id', 'trash'));
+		return $this->linearObjectMutation('issueArchive', IssueArchivePayload::class, compact('id', 'trash'));
 	}
 	
 	/**
@@ -1411,7 +1411,7 @@ trait MutatesLinear
 	 */
 	function issueUnarchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('issueUnarchiveMutation', IssueArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('issueUnarchive', IssueArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1420,7 +1420,7 @@ trait MutatesLinear
 	 */
 	function issueDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('issueDeleteMutation', IssueArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('issueDelete', IssueArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1430,7 +1430,7 @@ trait MutatesLinear
 	 */
 	function issueAddLabelMutation(string $labelId, string $id)
 	{
-		return $this->linearObjectMutation('issueAddLabelMutation', IssuePayload::class, compact('labelId', 'id'));
+		return $this->linearObjectMutation('issueAddLabel', IssuePayload::class, compact('labelId', 'id'));
 	}
 	
 	/**
@@ -1440,7 +1440,7 @@ trait MutatesLinear
 	 */
 	function issueRemoveLabelMutation(string $labelId, string $id)
 	{
-		return $this->linearObjectMutation('issueRemoveLabelMutation', IssuePayload::class, compact('labelId', 'id'));
+		return $this->linearObjectMutation('issueRemoveLabel', IssuePayload::class, compact('labelId', 'id'));
 	}
 	
 	/**
@@ -1450,7 +1450,7 @@ trait MutatesLinear
 	 */
 	function issueReminderMutation(DateTimeInterface $reminderAt, string $id)
 	{
-		return $this->linearObjectMutation('issueReminderMutation', IssuePayload::class, compact('reminderAt', 'id'));
+		return $this->linearObjectMutation('issueReminder', IssuePayload::class, compact('reminderAt', 'id'));
 	}
 	
 	/**
@@ -1460,7 +1460,7 @@ trait MutatesLinear
 	 */
 	function issueSubscribeMutation(string $id, ?string $userId = null)
 	{
-		return $this->linearObjectMutation('issueSubscribeMutation', IssuePayload::class, compact('id', 'userId'));
+		return $this->linearObjectMutation('issueSubscribe', IssuePayload::class, compact('id', 'userId'));
 	}
 	
 	/**
@@ -1470,7 +1470,7 @@ trait MutatesLinear
 	 */
 	function issueUnsubscribeMutation(string $id, ?string $userId = null)
 	{
-		return $this->linearObjectMutation('issueUnsubscribeMutation', IssuePayload::class, compact('id', 'userId'));
+		return $this->linearObjectMutation('issueUnsubscribe', IssuePayload::class, compact('id', 'userId'));
 	}
 	
 	/**
@@ -1480,7 +1480,7 @@ trait MutatesLinear
 	 */
 	function issueDescriptionUpdateFromFrontMutation(string $description, string $id)
 	{
-		return $this->linearObjectMutation('issueDescriptionUpdateFromFrontMutation', IssuePayload::class, compact('description', 'id'));
+		return $this->linearObjectMutation('issueDescriptionUpdateFromFront', IssuePayload::class, compact('description', 'id'));
 	}
 	
 	/**
@@ -1490,7 +1490,7 @@ trait MutatesLinear
 	 */
 	function notificationUpdateMutation(NotificationUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('notificationUpdateMutation', NotificationPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('notificationUpdate', NotificationPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1500,7 +1500,7 @@ trait MutatesLinear
 	 */
 	function notificationMarkReadAllMutation(DateTimeInterface $readAt, NotificationEntityInput $input)
 	{
-		return $this->linearObjectMutation('notificationMarkReadAllMutation', NotificationBatchActionPayload::class, compact('readAt', 'input'));
+		return $this->linearObjectMutation('notificationMarkReadAll', NotificationBatchActionPayload::class, compact('readAt', 'input'));
 	}
 	
 	/**
@@ -1509,7 +1509,7 @@ trait MutatesLinear
 	 */
 	function notificationMarkUnreadAllMutation(NotificationEntityInput $input)
 	{
-		return $this->linearObjectMutation('notificationMarkUnreadAllMutation', NotificationBatchActionPayload::class, compact('input'));
+		return $this->linearObjectMutation('notificationMarkUnreadAll', NotificationBatchActionPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1519,7 +1519,7 @@ trait MutatesLinear
 	 */
 	function notificationSnoozeAllMutation(DateTimeInterface $snoozedUntilAt, NotificationEntityInput $input)
 	{
-		return $this->linearObjectMutation('notificationSnoozeAllMutation', NotificationBatchActionPayload::class, compact('snoozedUntilAt', 'input'));
+		return $this->linearObjectMutation('notificationSnoozeAll', NotificationBatchActionPayload::class, compact('snoozedUntilAt', 'input'));
 	}
 	
 	/**
@@ -1529,7 +1529,7 @@ trait MutatesLinear
 	 */
 	function notificationUnsnoozeAllMutation(DateTimeInterface $unsnoozedAt, NotificationEntityInput $input)
 	{
-		return $this->linearObjectMutation('notificationUnsnoozeAllMutation', NotificationBatchActionPayload::class, compact('unsnoozedAt', 'input'));
+		return $this->linearObjectMutation('notificationUnsnoozeAll', NotificationBatchActionPayload::class, compact('unsnoozedAt', 'input'));
 	}
 	
 	/**
@@ -1538,7 +1538,7 @@ trait MutatesLinear
 	 */
 	function notificationArchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('notificationArchiveMutation', NotificationArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('notificationArchive', NotificationArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1547,7 +1547,7 @@ trait MutatesLinear
 	 */
 	function notificationArchiveAllMutation(NotificationEntityInput $input)
 	{
-		return $this->linearObjectMutation('notificationArchiveAllMutation', NotificationBatchActionPayload::class, compact('input'));
+		return $this->linearObjectMutation('notificationArchiveAll', NotificationBatchActionPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1556,7 +1556,7 @@ trait MutatesLinear
 	 */
 	function notificationUnarchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('notificationUnarchiveMutation', NotificationArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('notificationUnarchive', NotificationArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1565,7 +1565,7 @@ trait MutatesLinear
 	 */
 	function notificationSubscriptionCreateMutation(NotificationSubscriptionCreateInput $input)
 	{
-		return $this->linearObjectMutation('notificationSubscriptionCreateMutation', NotificationSubscriptionPayload::class, compact('input'));
+		return $this->linearObjectMutation('notificationSubscriptionCreate', NotificationSubscriptionPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1575,7 +1575,7 @@ trait MutatesLinear
 	 */
 	function notificationSubscriptionUpdateMutation(NotificationSubscriptionUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('notificationSubscriptionUpdateMutation', NotificationSubscriptionPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('notificationSubscriptionUpdate', NotificationSubscriptionPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1584,7 +1584,7 @@ trait MutatesLinear
 	 */
 	function notificationSubscriptionDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('notificationSubscriptionDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('notificationSubscriptionDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1593,7 +1593,7 @@ trait MutatesLinear
 	 */
 	function organizationDomainClaimMutation(string $id)
 	{
-		return $this->linearObjectMutation('organizationDomainClaimMutation', OrganizationDomainSimplePayload::class, compact('id'));
+		return $this->linearObjectMutation('organizationDomainClaim', OrganizationDomainSimplePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1602,7 +1602,7 @@ trait MutatesLinear
 	 */
 	function organizationDomainVerifyMutation(OrganizationDomainVerificationInput $input)
 	{
-		return $this->linearObjectMutation('organizationDomainVerifyMutation', OrganizationDomainPayload::class, compact('input'));
+		return $this->linearObjectMutation('organizationDomainVerify', OrganizationDomainPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1612,7 +1612,7 @@ trait MutatesLinear
 	 */
 	function organizationDomainCreateMutation(OrganizationDomainCreateInput $input, ?bool $triggerEmailVerification = null)
 	{
-		return $this->linearObjectMutation('organizationDomainCreateMutation', OrganizationDomainPayload::class, compact('input', 'triggerEmailVerification'));
+		return $this->linearObjectMutation('organizationDomainCreate', OrganizationDomainPayload::class, compact('input', 'triggerEmailVerification'));
 	}
 	
 	/**
@@ -1621,7 +1621,7 @@ trait MutatesLinear
 	 */
 	function organizationDomainDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('organizationDomainDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('organizationDomainDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1630,7 +1630,7 @@ trait MutatesLinear
 	 */
 	function organizationInviteCreateMutation(OrganizationInviteCreateInput $input)
 	{
-		return $this->linearObjectMutation('organizationInviteCreateMutation', OrganizationInvitePayload::class, compact('input'));
+		return $this->linearObjectMutation('organizationInviteCreate', OrganizationInvitePayload::class, compact('input'));
 	}
 	
 	/**
@@ -1640,7 +1640,7 @@ trait MutatesLinear
 	 */
 	function organizationInviteUpdateMutation(OrganizationInviteUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('organizationInviteUpdateMutation', OrganizationInvitePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('organizationInviteUpdate', OrganizationInvitePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1649,7 +1649,7 @@ trait MutatesLinear
 	 */
 	function resendOrganizationInviteMutation(string $id)
 	{
-		return $this->linearObjectMutation('resendOrganizationInviteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('resendOrganizationInvite', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1658,7 +1658,7 @@ trait MutatesLinear
 	 */
 	function organizationInviteDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('organizationInviteDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('organizationInviteDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1667,7 +1667,7 @@ trait MutatesLinear
 	 */
 	function organizationUpdateMutation(OrganizationUpdateInput $input)
 	{
-		return $this->linearObjectMutation('organizationUpdateMutation', OrganizationPayload::class, compact('input'));
+		return $this->linearObjectMutation('organizationUpdate', OrganizationPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1675,7 +1675,7 @@ trait MutatesLinear
 	 */
 	function organizationDeleteChallengeMutation()
 	{
-		return $this->linearObjectMutation('organizationDeleteChallengeMutation', OrganizationDeletePayload::class);
+		return $this->linearObjectMutation('organizationDeleteChallenge', OrganizationDeletePayload::class);
 	}
 	
 	/**
@@ -1684,7 +1684,7 @@ trait MutatesLinear
 	 */
 	function organizationDeleteMutation(DeleteOrganizationInput $input)
 	{
-		return $this->linearObjectMutation('organizationDeleteMutation', OrganizationDeletePayload::class, compact('input'));
+		return $this->linearObjectMutation('organizationDelete', OrganizationDeletePayload::class, compact('input'));
 	}
 	
 	/**
@@ -1692,7 +1692,7 @@ trait MutatesLinear
 	 */
 	function organizationCancelDeleteMutation()
 	{
-		return $this->linearObjectMutation('organizationCancelDeleteMutation', OrganizationCancelDeletePayload::class);
+		return $this->linearObjectMutation('organizationCancelDelete', OrganizationCancelDeletePayload::class);
 	}
 	
 	/**
@@ -1700,7 +1700,7 @@ trait MutatesLinear
 	 */
 	function organizationStartPlusTrialMutation()
 	{
-		return $this->linearObjectMutation('organizationStartPlusTrialMutation', OrganizationStartPlusTrialPayload::class);
+		return $this->linearObjectMutation('organizationStartPlusTrial', OrganizationStartPlusTrialPayload::class);
 	}
 	
 	/**
@@ -1709,7 +1709,7 @@ trait MutatesLinear
 	 */
 	function projectLinkCreateMutation(ProjectLinkCreateInput $input)
 	{
-		return $this->linearObjectMutation('projectLinkCreateMutation', ProjectLinkPayload::class, compact('input'));
+		return $this->linearObjectMutation('projectLinkCreate', ProjectLinkPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1719,7 +1719,7 @@ trait MutatesLinear
 	 */
 	function projectLinkUpdateMutation(ProjectLinkUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('projectLinkUpdateMutation', ProjectLinkPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('projectLinkUpdate', ProjectLinkPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1728,7 +1728,7 @@ trait MutatesLinear
 	 */
 	function projectLinkDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('projectLinkDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('projectLinkDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1737,7 +1737,7 @@ trait MutatesLinear
 	 */
 	function projectMilestoneCreateMutation(ProjectMilestoneCreateInput $input)
 	{
-		return $this->linearObjectMutation('projectMilestoneCreateMutation', ProjectMilestonePayload::class, compact('input'));
+		return $this->linearObjectMutation('projectMilestoneCreate', ProjectMilestonePayload::class, compact('input'));
 	}
 	
 	/**
@@ -1747,7 +1747,7 @@ trait MutatesLinear
 	 */
 	function projectMilestoneUpdateMutation(ProjectMilestoneUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('projectMilestoneUpdateMutation', ProjectMilestonePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('projectMilestoneUpdate', ProjectMilestonePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1756,7 +1756,7 @@ trait MutatesLinear
 	 */
 	function projectMilestoneDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('projectMilestoneDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('projectMilestoneDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1766,7 +1766,7 @@ trait MutatesLinear
 	 */
 	function projectCreateMutation(ProjectCreateInput $input, ?bool $connectSlackChannel = null)
 	{
-		return $this->linearObjectMutation('projectCreateMutation', ProjectPayload::class, compact('input', 'connectSlackChannel'));
+		return $this->linearObjectMutation('projectCreate', ProjectPayload::class, compact('input', 'connectSlackChannel'));
 	}
 	
 	/**
@@ -1776,7 +1776,7 @@ trait MutatesLinear
 	 */
 	function projectUpdateMutation(ProjectUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('projectUpdateMutation', ProjectPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('projectUpdate', ProjectPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1785,7 +1785,7 @@ trait MutatesLinear
 	 */
 	function projectDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('projectDeleteMutation', ProjectArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('projectDelete', ProjectArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1795,7 +1795,7 @@ trait MutatesLinear
 	 */
 	function projectArchiveMutation(string $id, ?bool $trash = null)
 	{
-		return $this->linearObjectMutation('projectArchiveMutation', ProjectArchivePayload::class, compact('id', 'trash'));
+		return $this->linearObjectMutation('projectArchive', ProjectArchivePayload::class, compact('id', 'trash'));
 	}
 	
 	/**
@@ -1804,7 +1804,7 @@ trait MutatesLinear
 	 */
 	function projectUnarchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('projectUnarchiveMutation', ProjectArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('projectUnarchive', ProjectArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1813,7 +1813,7 @@ trait MutatesLinear
 	 */
 	function projectUpdateInteractionCreateMutation(ProjectUpdateInteractionCreateInput $input)
 	{
-		return $this->linearObjectMutation('projectUpdateInteractionCreateMutation', ProjectUpdateInteractionPayload::class, compact('input'));
+		return $this->linearObjectMutation('projectUpdateInteractionCreate', ProjectUpdateInteractionPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1822,7 +1822,7 @@ trait MutatesLinear
 	 */
 	function projectUpdateCreateMutation(ProjectUpdateCreateInput $input)
 	{
-		return $this->linearObjectMutation('projectUpdateCreateMutation', ProjectUpdatePayload::class, compact('input'));
+		return $this->linearObjectMutation('projectUpdateCreate', ProjectUpdatePayload::class, compact('input'));
 	}
 	
 	/**
@@ -1832,7 +1832,7 @@ trait MutatesLinear
 	 */
 	function projectUpdateUpdateMutation(ProjectUpdateUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('projectUpdateUpdateMutation', ProjectUpdatePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('projectUpdateUpdate', ProjectUpdatePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1841,7 +1841,7 @@ trait MutatesLinear
 	 */
 	function projectUpdateDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('projectUpdateDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('projectUpdateDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1850,7 +1850,7 @@ trait MutatesLinear
 	 */
 	function projectUpdateMarkAsReadMutation(string $id)
 	{
-		return $this->linearObjectMutation('projectUpdateMarkAsReadMutation', ProjectUpdateWithInteractionPayload::class, compact('id'));
+		return $this->linearObjectMutation('projectUpdateMarkAsRead', ProjectUpdateWithInteractionPayload::class, compact('id'));
 	}
 	
 	/**
@@ -1860,7 +1860,7 @@ trait MutatesLinear
 	 */
 	function createProjectUpdateReminderMutation(string $projectId, ?string $userId = null)
 	{
-		return $this->linearObjectMutation('createProjectUpdateReminderMutation', ProjectUpdateReminderPayload::class, compact('projectId', 'userId'));
+		return $this->linearObjectMutation('createProjectUpdateReminder', ProjectUpdateReminderPayload::class, compact('projectId', 'userId'));
 	}
 	
 	/**
@@ -1869,7 +1869,7 @@ trait MutatesLinear
 	 */
 	function pushSubscriptionCreateMutation(PushSubscriptionCreateInput $input)
 	{
-		return $this->linearObjectMutation('pushSubscriptionCreateMutation', PushSubscriptionPayload::class, compact('input'));
+		return $this->linearObjectMutation('pushSubscriptionCreate', PushSubscriptionPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1878,7 +1878,7 @@ trait MutatesLinear
 	 */
 	function pushSubscriptionDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('pushSubscriptionDeleteMutation', PushSubscriptionPayload::class, compact('id'));
+		return $this->linearObjectMutation('pushSubscriptionDelete', PushSubscriptionPayload::class, compact('id'));
 	}
 	
 	/**
@@ -1887,7 +1887,7 @@ trait MutatesLinear
 	 */
 	function reactionCreateMutation(ReactionCreateInput $input)
 	{
-		return $this->linearObjectMutation('reactionCreateMutation', ReactionPayload::class, compact('input'));
+		return $this->linearObjectMutation('reactionCreate', ReactionPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1896,7 +1896,7 @@ trait MutatesLinear
 	 */
 	function reactionDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('reactionDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('reactionDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1905,7 +1905,7 @@ trait MutatesLinear
 	 */
 	function createCsvExportReportMutation(?iterable $includePrivateTeamIds = null)
 	{
-		return $this->linearObjectMutation('createCsvExportReportMutation', CreateCsvExportReportPayload::class, compact('includePrivateTeamIds'));
+		return $this->linearObjectMutation('createCsvExportReport', CreateCsvExportReportPayload::class, compact('includePrivateTeamIds'));
 	}
 	
 	/**
@@ -1914,7 +1914,7 @@ trait MutatesLinear
 	 */
 	function roadmapCreateMutation(RoadmapCreateInput $input)
 	{
-		return $this->linearObjectMutation('roadmapCreateMutation', RoadmapPayload::class, compact('input'));
+		return $this->linearObjectMutation('roadmapCreate', RoadmapPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1924,7 +1924,7 @@ trait MutatesLinear
 	 */
 	function roadmapUpdateMutation(RoadmapUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('roadmapUpdateMutation', RoadmapPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('roadmapUpdate', RoadmapPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1933,7 +1933,7 @@ trait MutatesLinear
 	 */
 	function roadmapArchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('roadmapArchiveMutation', RoadmapArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('roadmapArchive', RoadmapArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1942,7 +1942,7 @@ trait MutatesLinear
 	 */
 	function roadmapUnarchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('roadmapUnarchiveMutation', RoadmapArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('roadmapUnarchive', RoadmapArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1951,7 +1951,7 @@ trait MutatesLinear
 	 */
 	function roadmapDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('roadmapDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('roadmapDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1960,7 +1960,7 @@ trait MutatesLinear
 	 */
 	function roadmapToProjectCreateMutation(RoadmapToProjectCreateInput $input)
 	{
-		return $this->linearObjectMutation('roadmapToProjectCreateMutation', RoadmapToProjectPayload::class, compact('input'));
+		return $this->linearObjectMutation('roadmapToProjectCreate', RoadmapToProjectPayload::class, compact('input'));
 	}
 	
 	/**
@@ -1970,7 +1970,7 @@ trait MutatesLinear
 	 */
 	function roadmapToProjectUpdateMutation(RoadmapToProjectUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('roadmapToProjectUpdateMutation', RoadmapToProjectPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('roadmapToProjectUpdate', RoadmapToProjectPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -1979,7 +1979,7 @@ trait MutatesLinear
 	 */
 	function roadmapToProjectDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('roadmapToProjectDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('roadmapToProjectDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1988,7 +1988,7 @@ trait MutatesLinear
 	 */
 	function teamKeyDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('teamKeyDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('teamKeyDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -1997,7 +1997,7 @@ trait MutatesLinear
 	 */
 	function teamMembershipCreateMutation(TeamMembershipCreateInput $input)
 	{
-		return $this->linearObjectMutation('teamMembershipCreateMutation', TeamMembershipPayload::class, compact('input'));
+		return $this->linearObjectMutation('teamMembershipCreate', TeamMembershipPayload::class, compact('input'));
 	}
 	
 	/**
@@ -2007,7 +2007,7 @@ trait MutatesLinear
 	 */
 	function teamMembershipUpdateMutation(TeamMembershipUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('teamMembershipUpdateMutation', TeamMembershipPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('teamMembershipUpdate', TeamMembershipPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2016,7 +2016,7 @@ trait MutatesLinear
 	 */
 	function teamMembershipDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('teamMembershipDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('teamMembershipDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2026,7 +2026,7 @@ trait MutatesLinear
 	 */
 	function teamCreateMutation(TeamCreateInput $input, ?string $copySettingsFromTeamId = null)
 	{
-		return $this->linearObjectMutation('teamCreateMutation', TeamPayload::class, compact('input', 'copySettingsFromTeamId'));
+		return $this->linearObjectMutation('teamCreate', TeamPayload::class, compact('input', 'copySettingsFromTeamId'));
 	}
 	
 	/**
@@ -2036,7 +2036,7 @@ trait MutatesLinear
 	 */
 	function teamUpdateMutation(TeamUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('teamUpdateMutation', TeamPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('teamUpdate', TeamPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2045,7 +2045,7 @@ trait MutatesLinear
 	 */
 	function teamDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('teamDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('teamDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2054,7 +2054,7 @@ trait MutatesLinear
 	 */
 	function teamUnarchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('teamUnarchiveMutation', TeamArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('teamUnarchive', TeamArchivePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2063,7 +2063,7 @@ trait MutatesLinear
 	 */
 	function teamCyclesDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('teamCyclesDeleteMutation', TeamPayload::class, compact('id'));
+		return $this->linearObjectMutation('teamCyclesDelete', TeamPayload::class, compact('id'));
 	}
 	
 	/**
@@ -2072,7 +2072,7 @@ trait MutatesLinear
 	 */
 	function templateCreateMutation(TemplateCreateInput $input)
 	{
-		return $this->linearObjectMutation('templateCreateMutation', TemplatePayload::class, compact('input'));
+		return $this->linearObjectMutation('templateCreate', TemplatePayload::class, compact('input'));
 	}
 	
 	/**
@@ -2082,7 +2082,7 @@ trait MutatesLinear
 	 */
 	function templateUpdateMutation(TemplateUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('templateUpdateMutation', TemplatePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('templateUpdate', TemplatePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2091,7 +2091,7 @@ trait MutatesLinear
 	 */
 	function templateDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('templateDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('templateDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2100,7 +2100,7 @@ trait MutatesLinear
 	 */
 	function timeScheduleCreateMutation(TimeScheduleCreateInput $input)
 	{
-		return $this->linearObjectMutation('timeScheduleCreateMutation', TimeSchedulePayload::class, compact('input'));
+		return $this->linearObjectMutation('timeScheduleCreate', TimeSchedulePayload::class, compact('input'));
 	}
 	
 	/**
@@ -2110,7 +2110,7 @@ trait MutatesLinear
 	 */
 	function timeScheduleUpdateMutation(TimeScheduleUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('timeScheduleUpdateMutation', TimeSchedulePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('timeScheduleUpdate', TimeSchedulePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2120,7 +2120,7 @@ trait MutatesLinear
 	 */
 	function timeScheduleUpsertExternalMutation(TimeScheduleUpdateInput $input, string $externalId)
 	{
-		return $this->linearObjectMutation('timeScheduleUpsertExternalMutation', TimeSchedulePayload::class, compact('input', 'externalId'));
+		return $this->linearObjectMutation('timeScheduleUpsertExternal', TimeSchedulePayload::class, compact('input', 'externalId'));
 	}
 	
 	/**
@@ -2129,7 +2129,7 @@ trait MutatesLinear
 	 */
 	function timeScheduleDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('timeScheduleDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('timeScheduleDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2138,7 +2138,7 @@ trait MutatesLinear
 	 */
 	function timeScheduleRefreshIntegrationScheduleMutation(string $id)
 	{
-		return $this->linearObjectMutation('timeScheduleRefreshIntegrationScheduleMutation', TimeSchedulePayload::class, compact('id'));
+		return $this->linearObjectMutation('timeScheduleRefreshIntegrationSchedule', TimeSchedulePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2147,7 +2147,7 @@ trait MutatesLinear
 	 */
 	function triageResponsibilityCreateMutation(TriageResponsibilityCreateInput $input)
 	{
-		return $this->linearObjectMutation('triageResponsibilityCreateMutation', TriageResponsibilityPayload::class, compact('input'));
+		return $this->linearObjectMutation('triageResponsibilityCreate', TriageResponsibilityPayload::class, compact('input'));
 	}
 	
 	/**
@@ -2157,7 +2157,7 @@ trait MutatesLinear
 	 */
 	function triageResponsibilityUpdateMutation(TriageResponsibilityUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('triageResponsibilityUpdateMutation', TriageResponsibilityPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('triageResponsibilityUpdate', TriageResponsibilityPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2166,7 +2166,7 @@ trait MutatesLinear
 	 */
 	function triageResponsibilityDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('triageResponsibilityDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('triageResponsibilityDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2176,7 +2176,7 @@ trait MutatesLinear
 	 */
 	function userUpdateMutation(UserUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('userUpdateMutation', UserPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('userUpdate', UserPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2186,7 +2186,7 @@ trait MutatesLinear
 	 */
 	function userDiscordConnectMutation(string $redirectUri, string $code)
 	{
-		return $this->linearObjectMutation('userDiscordConnectMutation', UserPayload::class, compact('redirectUri', 'code'));
+		return $this->linearObjectMutation('userDiscordConnect', UserPayload::class, compact('redirectUri', 'code'));
 	}
 	
 	/**
@@ -2195,7 +2195,7 @@ trait MutatesLinear
 	 */
 	function userExternalUserDisconnectMutation(string $service)
 	{
-		return $this->linearObjectMutation('userExternalUserDisconnectMutation', UserPayload::class, compact('service'));
+		return $this->linearObjectMutation('userExternalUserDisconnect', UserPayload::class, compact('service'));
 	}
 	
 	/**
@@ -2204,7 +2204,7 @@ trait MutatesLinear
 	 */
 	function userPromoteAdminMutation(string $id)
 	{
-		return $this->linearObjectMutation('userPromoteAdminMutation', UserAdminPayload::class, compact('id'));
+		return $this->linearObjectMutation('userPromoteAdmin', UserAdminPayload::class, compact('id'));
 	}
 	
 	/**
@@ -2213,7 +2213,7 @@ trait MutatesLinear
 	 */
 	function userDemoteAdminMutation(string $id)
 	{
-		return $this->linearObjectMutation('userDemoteAdminMutation', UserAdminPayload::class, compact('id'));
+		return $this->linearObjectMutation('userDemoteAdmin', UserAdminPayload::class, compact('id'));
 	}
 	
 	/**
@@ -2222,7 +2222,7 @@ trait MutatesLinear
 	 */
 	function userPromoteMemberMutation(string $id)
 	{
-		return $this->linearObjectMutation('userPromoteMemberMutation', UserAdminPayload::class, compact('id'));
+		return $this->linearObjectMutation('userPromoteMember', UserAdminPayload::class, compact('id'));
 	}
 	
 	/**
@@ -2231,7 +2231,7 @@ trait MutatesLinear
 	 */
 	function userDemoteMemberMutation(string $id)
 	{
-		return $this->linearObjectMutation('userDemoteMemberMutation', UserAdminPayload::class, compact('id'));
+		return $this->linearObjectMutation('userDemoteMember', UserAdminPayload::class, compact('id'));
 	}
 	
 	/**
@@ -2240,7 +2240,7 @@ trait MutatesLinear
 	 */
 	function userSuspendMutation(string $id)
 	{
-		return $this->linearObjectMutation('userSuspendMutation', UserAdminPayload::class, compact('id'));
+		return $this->linearObjectMutation('userSuspend', UserAdminPayload::class, compact('id'));
 	}
 	
 	/**
@@ -2249,7 +2249,7 @@ trait MutatesLinear
 	 */
 	function userUnsuspendMutation(string $id)
 	{
-		return $this->linearObjectMutation('userUnsuspendMutation', UserAdminPayload::class, compact('id'));
+		return $this->linearObjectMutation('userUnsuspend', UserAdminPayload::class, compact('id'));
 	}
 	
 	/**
@@ -2259,7 +2259,7 @@ trait MutatesLinear
 	 */
 	function userSettingsUpdateMutation(UserSettingsUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('userSettingsUpdateMutation', UserSettingsPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('userSettingsUpdate', UserSettingsPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2268,7 +2268,7 @@ trait MutatesLinear
 	 */
 	function userSettingsFlagIncrementMutation(string $flag)
 	{
-		return $this->linearObjectMutation('userSettingsFlagIncrementMutation', UserSettingsFlagPayload::class, compact('flag'));
+		return $this->linearObjectMutation('userSettingsFlagIncrement', UserSettingsFlagPayload::class, compact('flag'));
 	}
 	
 	/**
@@ -2277,7 +2277,7 @@ trait MutatesLinear
 	 */
 	function userSettingsFlagsResetMutation(?iterable $flags = null)
 	{
-		return $this->linearObjectMutation('userSettingsFlagsResetMutation', UserSettingsFlagsResetPayload::class, compact('flags'));
+		return $this->linearObjectMutation('userSettingsFlagsReset', UserSettingsFlagsResetPayload::class, compact('flags'));
 	}
 	
 	/**
@@ -2287,7 +2287,7 @@ trait MutatesLinear
 	 */
 	function userFlagUpdateMutation(UserFlagUpdateOperation $operation, UserFlagType $flag)
 	{
-		return $this->linearObjectMutation('userFlagUpdateMutation', UserSettingsFlagPayload::class, compact('operation', 'flag'));
+		return $this->linearObjectMutation('userFlagUpdate', UserSettingsFlagPayload::class, compact('operation', 'flag'));
 	}
 	
 	/**
@@ -2296,7 +2296,7 @@ trait MutatesLinear
 	 */
 	function viewPreferencesCreateMutation(ViewPreferencesCreateInput $input)
 	{
-		return $this->linearObjectMutation('viewPreferencesCreateMutation', ViewPreferencesPayload::class, compact('input'));
+		return $this->linearObjectMutation('viewPreferencesCreate', ViewPreferencesPayload::class, compact('input'));
 	}
 	
 	/**
@@ -2306,7 +2306,7 @@ trait MutatesLinear
 	 */
 	function viewPreferencesUpdateMutation(ViewPreferencesUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('viewPreferencesUpdateMutation', ViewPreferencesPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('viewPreferencesUpdate', ViewPreferencesPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2315,7 +2315,7 @@ trait MutatesLinear
 	 */
 	function viewPreferencesDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('viewPreferencesDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('viewPreferencesDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2324,7 +2324,7 @@ trait MutatesLinear
 	 */
 	function webhookCreateMutation(WebhookCreateInput $input)
 	{
-		return $this->linearObjectMutation('webhookCreateMutation', WebhookPayload::class, compact('input'));
+		return $this->linearObjectMutation('webhookCreate', WebhookPayload::class, compact('input'));
 	}
 	
 	/**
@@ -2334,7 +2334,7 @@ trait MutatesLinear
 	 */
 	function webhookUpdateMutation(WebhookUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('webhookUpdateMutation', WebhookPayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('webhookUpdate', WebhookPayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2343,7 +2343,7 @@ trait MutatesLinear
 	 */
 	function webhookDeleteMutation(string $id)
 	{
-		return $this->linearObjectMutation('webhookDeleteMutation', DeletePayload::class, compact('id'));
+		return $this->linearObjectMutation('webhookDelete', DeletePayload::class, compact('id'));
 	}
 	
 	/**
@@ -2352,7 +2352,7 @@ trait MutatesLinear
 	 */
 	function workflowStateCreateMutation(WorkflowStateCreateInput $input)
 	{
-		return $this->linearObjectMutation('workflowStateCreateMutation', WorkflowStatePayload::class, compact('input'));
+		return $this->linearObjectMutation('workflowStateCreate', WorkflowStatePayload::class, compact('input'));
 	}
 	
 	/**
@@ -2362,7 +2362,7 @@ trait MutatesLinear
 	 */
 	function workflowStateUpdateMutation(WorkflowStateUpdateInput $input, string $id)
 	{
-		return $this->linearObjectMutation('workflowStateUpdateMutation', WorkflowStatePayload::class, compact('input', 'id'));
+		return $this->linearObjectMutation('workflowStateUpdate', WorkflowStatePayload::class, compact('input', 'id'));
 	}
 	
 	/**
@@ -2371,6 +2371,6 @@ trait MutatesLinear
 	 */
 	function workflowStateArchiveMutation(string $id)
 	{
-		return $this->linearObjectMutation('workflowStateArchiveMutation', WorkflowStateArchivePayload::class, compact('id'));
+		return $this->linearObjectMutation('workflowStateArchive', WorkflowStateArchivePayload::class, compact('id'));
 	}
 }

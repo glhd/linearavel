@@ -65,6 +65,10 @@ class GraphQueryBuilder
 			->map(function($value, $key) use ($depth, $indent) {
 				$line = "{$key}: ";
 				
+				if (is_object($value)) {
+					$value = array_filter((array) $value);
+				}
+				
 				if (is_array($value)) {
 					$line .= "{\n{$indent}\t".$this->formatArguments($value, $depth + 1)."\n{$indent}}";
 				} else {
