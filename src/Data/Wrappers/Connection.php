@@ -16,7 +16,7 @@ abstract class Connection extends Data
 {
 	use ForwardsCalls;
 	
-	public Optional|Collection $edges;
+	public Optional|Collection $nodes;
 	
 	public function __call(string $name, array $arguments)
 	{

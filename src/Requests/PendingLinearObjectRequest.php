@@ -25,4 +25,10 @@ class PendingLinearObjectRequest extends PendingLinearRequest
 				class: $this->class,
 			);
 	}
+	
+	/** @return TPendingData */
+	public function resolve(string ...$fields)
+	{
+		return $this->get(...$fields)->resolve();
+	}
 }

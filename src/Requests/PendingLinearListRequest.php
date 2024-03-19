@@ -28,4 +28,10 @@ class PendingLinearListRequest extends PendingLinearRequest
 				class: $this->class,
 			);
 	}
+	
+	/** @return \Illuminate\Support\Collection<int, TPendingData> */
+	public function resolve(string ...$fields)
+	{
+		return $this->get(...$fields)->resolve();
+	}
 }
