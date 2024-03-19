@@ -88,17 +88,13 @@ class Transformer
 	
 	protected function class(ObjectTypeDefinitionNode $node): bool
 	{
-		if ('Mutation' === $node->name->value) {
+		if ('Mutation' !== $node->name->value) {
 			return true; // FIXME
-		}
-		
-		if ('Query' !== $node->name->value) {
-			// return true; // FIXME
 		}
 		
 		$tree = match ($node->name->value) {
 			'Query' => QueryTransformer::transform($node, $this),
-			// 'Mutation' => TypeTransformer::transform($node, $this), // FIXME
+			'Mutation' => MutationTransformer::transform($node, $this),
 			default => TypeTransformer::transform($node, $this),
 		};
 		
@@ -136,6 +132,12 @@ class Transformer
 		if ('Query' === $name) {
 			$name = 'QueriesLinear';
 			$label = 'queries';
+			$directory = 'Connectors';
+		}
+		
+		if ('Mutation' === $name) {
+			$name = 'MutatesLinear';
+			$label = 'mutations';
 			$directory = 'Connectors';
 		}
 		
