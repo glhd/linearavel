@@ -11,8 +11,14 @@ use Spatie\LaravelData\Data;
  */
 class PendingLinearObjectRequest extends PendingLinearRequest
 {
-	/** @return LinearObjectResponse<TPendingData> */
+	/** @return TPendingData */
 	public function get(string ...$fields)
+	{
+		return $this->response(...$fields)->resolve();
+	}
+	
+	/** @return LinearObjectResponse<TPendingData> */
+	public function response(string ...$fields)
 	{
 		$query = $this->query->withFields($fields);
 		
@@ -20,15 +26,10 @@ class PendingLinearObjectRequest extends PendingLinearRequest
 		
 		return $this->connector
 			->send($request)
+			->throw()
 			->withConfiguration(
 				name: $this->name,
 				class: $this->class,
 			);
-	}
-	
-	/** @return TPendingData */
-	public function resolve(string ...$fields)
-	{
-		return $this->get(...$fields)->resolve();
 	}
 }

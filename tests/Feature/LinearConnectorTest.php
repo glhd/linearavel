@@ -12,8 +12,7 @@ class LinearConnectorTest extends TestCase
 	{
 		$issues = app(LinearConnector::class)
 			->issues()
-			->get('nodes.id', 'nodes.title')
-			->resolve();
+			->get('nodes.id', 'nodes.title');
 		
 		dd($issues);
 	}
@@ -23,16 +22,15 @@ class LinearConnectorTest extends TestCase
 		$team = linear()
 			->teams()
 			->get('nodes.id', 'nodes.name')
-			->resolve()
 			->first();
 		
 		$result = app(LinearConnector::class)
 			->issueCreateMutation(new IssueCreateInput(
 				teamId: $team->id,
-				title: 'Issue created via Linearavel',
+				title: 'Issue created via Linearavel at '.now()->toFormattedDayDateString(),
 			))
 			->get('success', 'issue.id', 'issue.number', 'issue.title');
 		
-		dd($result->resolve());
+		dd($result);
 	}
 }
