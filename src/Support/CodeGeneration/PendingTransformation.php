@@ -20,7 +20,7 @@ class PendingTransformation
 	
 	protected ?PrettyPrinter $printer = null;
 	
-	public static function fromNode(DefinitionNode $node, array $tree)
+	public static function fromNode(DefinitionNode $node, array $tree): static
 	{
 		[$name, $directory] = match (true) {
 			$node->name->value === 'Query' => ['QueriesLinear', 'Connectors'],

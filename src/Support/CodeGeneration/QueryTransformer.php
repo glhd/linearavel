@@ -19,24 +19,18 @@ class QueryTransformer extends ClassTransformer
 		$this->namespace = $this->parent->namespace;
 	}
 	
-	public function __invoke(): array
+	public function __invoke(PendingTransformationQueue $queue): void
 	{
 		// Generate the data first, since they may push items into `$uses`
 		$queries = $this->queries();
 		
-		$tree = array_filter([
+		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name($this->namespace.'Connectors')),
 			$this->uses(),
 			new Trait_('QueriesLinear', [
 				'stmts' => $queries,
 			]),
-		]);
-		
-		app(PendingTransformationQueue::class)->add(
-			PendingTransformation::fromNode($this->node, $tree)
-		);
-		
-		return []; // FIXME
+		]));
 	}
 	
 	protected function queries(): array

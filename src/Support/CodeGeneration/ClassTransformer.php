@@ -10,7 +10,7 @@ abstract class ClassTransformer extends InvokableTransformer
 {
 	protected array $uses = [];
 	
-	abstract public function __invoke(): array;
+	abstract public function __invoke(PendingTransformationQueue $queue): void;
 	
 	public function use(string $fqcn): static
 	{

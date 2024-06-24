@@ -25,19 +25,19 @@ class InputTransformer extends ClassTransformer
 		// $this->use(LinearRequest::class);
 	}
 	
-	public function __invoke(): array
+	public function __invoke(PendingTransformationQueue $queue): void
 	{
 		// Generate the data first, since they may push items into `$uses`
 		$params = $this->params();
 		
-		return array_filter([
+		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name($this->namespace.'Requests\\Inputs')),
 			$this->uses(),
 			new Class_($this->node->name->value, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
 				// 'extends' => new Name(class_basename(LinearRequest::class)),
 			]),
-		]);
+		]));
 	}
 	
 	protected function params(): array

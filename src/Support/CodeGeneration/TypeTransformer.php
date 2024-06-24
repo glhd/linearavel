@@ -26,7 +26,7 @@ class TypeTransformer extends ClassTransformer
 		$this->use(Data::class);
 	}
 	
-	public function __invoke(): array
+	public function __invoke(PendingTransformationQueue $queue): void
 	{
 		// Generate the data first, since they may push items into `$uses`
 		$params = $this->params();
@@ -51,7 +51,7 @@ class TypeTransformer extends ClassTransformer
 			$attributes['comments'] = [new Doc("/** @extends Connection<{$type->name->value}> */")];
 		}
 		
-		return array_filter([
+		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name($this->namespace.'Data')),
 			$this->uses(),
 			new Class_($this->node->name->value, [
@@ -59,7 +59,7 @@ class TypeTransformer extends ClassTransformer
 				'extends' => $extends,
 				'implements' => $implements,
 			], $attributes),
-		]);
+		]));
 	}
 	
 	protected function params(): array

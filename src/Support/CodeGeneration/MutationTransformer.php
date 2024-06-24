@@ -19,18 +19,18 @@ class MutationTransformer extends ClassTransformer
 		$this->namespace = $this->parent->namespace;
 	}
 	
-	public function __invoke(): array
+	public function __invoke(PendingTransformationQueue $queue): void
 	{
 		// Generate the data first, since they may push items into `$uses`
 		$queries = $this->mutations();
 		
-		return array_filter([
+		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name($this->namespace.'Connectors')),
 			$this->uses(),
 			new Trait_('MutatesLinear', [
 				'stmts' => $queries,
 			]),
-		]);
+		]));
 	}
 	
 	protected function mutations(): array

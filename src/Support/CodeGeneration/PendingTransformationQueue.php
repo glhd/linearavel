@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use GraphQL\Language\AST\DefinitionNode;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use PhpParser\PrettyPrinter;
@@ -14,6 +15,11 @@ class PendingTransformationQueue
 		protected PrettyPrinter $printer = new PrettyPrinter\Standard(),
 		protected ?Command $command = null,
 	) {
+	}
+	
+	public function addFromNode(DefinitionNode $node, array $tree): static
+	{
+		return $this->add(PendingTransformation::fromNode($node, $tree));
 	}
 	
 	public function add(PendingTransformation $transformation): static

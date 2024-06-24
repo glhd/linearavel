@@ -94,7 +94,6 @@ class Transformer
 			return app(PendingTransformationQueue::class)->save();
 		}
 		
-		return true; // FIXME
 		$tree = match ($node->name->value) {
 			// 'Query' => QueryTransformer::transform($node, $this),
 			'Mutation' => MutationTransformer::transform($node, $this),
