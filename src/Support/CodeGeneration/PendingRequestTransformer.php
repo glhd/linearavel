@@ -3,7 +3,7 @@
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
-use Glhd\Linearavel\Requests\LinearObjectRequest;
+use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Requests\PendingLinearListRequest;
 use Glhd\Linearavel\Requests\PendingLinearObjectRequest;
 use Glhd\Linearavel\Support\GraphQueryBuilder;
@@ -13,6 +13,8 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Cast\String_ as StringCast;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -26,6 +28,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Return_;
 
 class PendingRequestTransformer extends ClassTransformer
@@ -97,8 +100,8 @@ class PendingRequestTransformer extends ClassTransformer
 						class: new Name('parent'),
 						name: new Identifier('__construct'),
 						args: [
-							new ClassConstFetch($this->getUnderlyingType($this->node->type), 'class'),
-							new String_($this->node->name->value),
+							// new ClassConstFetch($this->getUnderlyingType($this->node->type), 'class'),
+							// new String_($this->node->name->value),
 							new Variable('connector'),
 							new StaticCall($this->fqcn(GraphQueryBuilder::class), 'make', [
 								new Arg(new String_('query')),
@@ -126,12 +129,15 @@ class PendingRequestTransformer extends ClassTransformer
 			'flags' => 1, // public
 			'stmts' => [
 				new Return_(
-					new StaticCall(
-						class: new Name('parent'),
-						name: new Identifier('get'),
-						args: [
-							new Arg(new Variable('fields'), unpack: true),
-						],
+					new MethodCall(
+						var: new MethodCall(
+							var: new Variable('this'),
+							name: new Identifier('response'),
+							args: [
+								new Arg(new Variable('fields'), unpack: true),
+							],
+						),
+						name: new Identifier('resolve'),
 					),
 				),
 			],
@@ -166,25 +172,40 @@ class PendingRequestTransformer extends ClassTransformer
 						),
 					),
 				),
-				new Return_(
-					new MethodCall(
-						var: new MethodCall(
-							var: new PropertyFetch(new Variable('this'), new Identifier('connector')),
-							name: new Identifier('send'),
-							args: [
-								new Arg(
-									new New_(
-										class: $this->fqcn(LinearObjectRequest::class),
-										args: [
-											new Arg(new ClassConstFetch($response_type, 'class')),
-											new Arg(new StringCast(new Variable('query'))),
-										],
+				new Nop(),
+				new Expression(
+					new Assign(
+						var: new Variable('response'),
+						expr: new MethodCall(
+							var: new MethodCall(
+								var: new PropertyFetch(new Variable('this'), new Identifier('connector')),
+								name: new Identifier('send'),
+								args: [
+									new Arg(
+										new New_(
+											class: $this->fqcn(LinearRequest::class),
+											args: [
+												new Arg(new ClassConstFetch($response_type, 'class')),
+												new Arg(new StringCast(new Variable('query'))),
+											],
+										),
 									),
-								),
-							],
+								],
+							),
+							name: new Identifier('throw'),
 						),
-						name: new Identifier('throw'),
 					),
+				),
+				new Nop(),
+				new Expression(
+					new FuncCall(
+						name: new Name('assert'),
+						args: [new Arg(new Instanceof_(new Variable('response'), $response_type))],
+					),
+				),
+				new Nop(),
+				new Return_(
+					new Variable('response'),
 				),
 			],
 		]);

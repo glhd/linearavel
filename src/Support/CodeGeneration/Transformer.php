@@ -32,11 +32,11 @@ class Transformer
 		app(PendingTransformationQueue::class)->withCommand($this->command);
 		
 		// $debugging = true;
-		//
+		
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			return $this->connector->send(new LinearObjectRequest((string) $query))->throw();
+			assert($response instanceof ApiKeyConnectionResponse);
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);
