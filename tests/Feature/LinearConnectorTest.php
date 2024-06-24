@@ -27,7 +27,7 @@ class LinearConnectorTest extends TestCase
 		$result = app(LinearConnector::class)
 			->issueCreateMutation(new IssueCreateInput(
 				teamId: $team->id,
-				title: 'Issue created via Linearavel at '.now()->toFormattedDayDateString(),
+				title: 'Issue created via new SDK at '.now()->toFormattedDayDateString(),
 			))
 			->get('success', 'issue.id', 'issue.number', 'issue.title');
 		

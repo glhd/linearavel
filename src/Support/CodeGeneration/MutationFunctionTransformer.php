@@ -2,17 +2,14 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use Glhd\Linearavel\Requests\PendingLinearListRequest;
-use Glhd\Linearavel\Requests\PendingLinearObjectRequest;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ListTypeNode;
 use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\ArrayItem;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
@@ -39,38 +36,56 @@ class MutationFunctionTransformer extends FunctionTransformer
 			->values()
 			->all();
 		
-		$type = $this->getUnderlyingType($this->node->type);
+		// Create the typed request and response objects (this had been done using generics,
+		// but implementing concrete classes allows for better IDE support in a few ways)
+		PendingRequestTransformer::transform('Mutations', $this->node, $this->parent);
+		ResponseTransformer::transform('Mutations', $this->node, $this->parent);
 		
-		$returns = $this->isList($this->node->type)
-			? $this->fqcn(PendingLinearListRequest::class)->name
-			: $this->fqcn(PendingLinearObjectRequest::class)->name;
+		$request_class = $this->fqcn("{$this->parent->namespace}Requests\\Pending\\Mutations\\".str($this->node->name->value)->studly()->prepend('Pending')->append('Request'));
 		
-		$this->documentReturn("{$returns}<{$type->name}>");
+		$this->method->returnType = $request_class;
+		$this->documentReturn($request_class);
+		
+		$args = collect($this->method->params)
+			->map(fn(Param $param) => new ArrayItem(
+				value: new Variable((string) $param->var->name),
+				key: new String_((string) $param->var->name),
+			))
+			->all();
 		
 		$this->method->stmts = [
 			new Return_(
-				new MethodCall(
-					var: new Variable('this'),
-					name: $this->isList($this->node->type)
-						? new Identifier('linearListMutation')
-						: new Identifier('linearObjectMutation'),
-					args: array_filter([
-						new Arg(new String_($this->node->name->value)),
-						new Arg(new ClassConstFetch($type, 'class')),
-						count($this->method->params)
-							? new Arg(new FuncCall(
-							name: new Name('compact'),
-							args: collect($this->method->params)
-								->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
-								->all(),
-						))
-							: null,
-					]),
-				),
+				new New_($request_class, [
+					new Arg(new Variable('this')),
+					new Arg(new Array_($args)),
+				]),
 			),
 		];
 		
-		$this->method->setDocComment($this->doc());
+		// $this->method->stmts = [
+		// 	new Return_(
+		// 		new MethodCall(
+		// 			var: new Variable('this'),
+		// 			name: $this->isList($this->node->type)
+		// 				? new Identifier('linearListMutation')
+		// 				: new Identifier('linearObjectMutation'),
+		// 			args: array_filter([
+		// 				new Arg(new String_($this->node->name->value)),
+		// 				new Arg(new ClassConstFetch($type, 'class')),
+		// 				count($this->method->params)
+		// 					? new Arg(new FuncCall(
+		// 					name: new Name('compact'),
+		// 					args: collect($this->method->params)
+		// 						->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
+		// 						->all(),
+		// 				))
+		// 					: null,
+		// 			]),
+		// 		),
+		// 	),
+		// ];
+		//
+		// $this->method->setDocComment($this->doc());
 		
 		return $this->method;
 	}

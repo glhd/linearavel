@@ -3,88 +3,8 @@
 namespace Glhd\Linearavel\Connectors;
 
 use DateTimeInterface;
-use Glhd\Linearavel\Data\ApiKeyPayload;
-use Glhd\Linearavel\Data\AsksChannelConnectPayload;
-use Glhd\Linearavel\Data\AttachmentArchivePayload;
-use Glhd\Linearavel\Data\AttachmentPayload;
-use Glhd\Linearavel\Data\AuthResolverResponse;
-use Glhd\Linearavel\Data\CommentPayload;
-use Glhd\Linearavel\Data\ContactPayload;
-use Glhd\Linearavel\Data\CreateCsvExportReportPayload;
-use Glhd\Linearavel\Data\CreateOrJoinOrganizationResponse;
-use Glhd\Linearavel\Data\CustomViewPayload;
-use Glhd\Linearavel\Data\CycleArchivePayload;
-use Glhd\Linearavel\Data\CyclePayload;
-use Glhd\Linearavel\Data\DeletePayload;
-use Glhd\Linearavel\Data\DocumentPayload;
-use Glhd\Linearavel\Data\EmailIntakeAddressPayload;
-use Glhd\Linearavel\Data\EmailUnsubscribePayload;
-use Glhd\Linearavel\Data\EmailUserAccountAuthChallengeResponse;
-use Glhd\Linearavel\Data\EmojiPayload;
 use Glhd\Linearavel\Data\Enums\UserFlagType;
 use Glhd\Linearavel\Data\Enums\UserFlagUpdateOperation;
-use Glhd\Linearavel\Data\FavoritePayload;
-use Glhd\Linearavel\Data\FrontAttachmentPayload;
-use Glhd\Linearavel\Data\GitAutomationStatePayload;
-use Glhd\Linearavel\Data\GitAutomationTargetBranchPayload;
-use Glhd\Linearavel\Data\GitHubCommitIntegrationPayload;
-use Glhd\Linearavel\Data\ImageUploadFromUrlPayload;
-use Glhd\Linearavel\Data\InitiativeArchivePayload;
-use Glhd\Linearavel\Data\InitiativePayload;
-use Glhd\Linearavel\Data\InitiativeToProjectPayload;
-use Glhd\Linearavel\Data\IntegrationPayload;
-use Glhd\Linearavel\Data\IntegrationRequestPayload;
-use Glhd\Linearavel\Data\IntegrationsSettingsPayload;
-use Glhd\Linearavel\Data\IntegrationTemplatePayload;
-use Glhd\Linearavel\Data\IssueArchivePayload;
-use Glhd\Linearavel\Data\IssueBatchPayload;
-use Glhd\Linearavel\Data\IssueImportDeletePayload;
-use Glhd\Linearavel\Data\IssueImportPayload;
-use Glhd\Linearavel\Data\IssueLabelPayload;
-use Glhd\Linearavel\Data\IssuePayload;
-use Glhd\Linearavel\Data\IssueRelationPayload;
-use Glhd\Linearavel\Data\LogoutResponse;
-use Glhd\Linearavel\Data\NotificationArchivePayload;
-use Glhd\Linearavel\Data\NotificationBatchActionPayload;
-use Glhd\Linearavel\Data\NotificationPayload;
-use Glhd\Linearavel\Data\NotificationSubscriptionPayload;
-use Glhd\Linearavel\Data\OrganizationCancelDeletePayload;
-use Glhd\Linearavel\Data\OrganizationDeletePayload;
-use Glhd\Linearavel\Data\OrganizationDomainPayload;
-use Glhd\Linearavel\Data\OrganizationDomainSimplePayload;
-use Glhd\Linearavel\Data\OrganizationInvitePayload;
-use Glhd\Linearavel\Data\OrganizationPayload;
-use Glhd\Linearavel\Data\OrganizationStartPlusTrialPayload;
-use Glhd\Linearavel\Data\ProjectArchivePayload;
-use Glhd\Linearavel\Data\ProjectLinkPayload;
-use Glhd\Linearavel\Data\ProjectMilestonePayload;
-use Glhd\Linearavel\Data\ProjectPayload;
-use Glhd\Linearavel\Data\ProjectUpdateInteractionPayload;
-use Glhd\Linearavel\Data\ProjectUpdatePayload;
-use Glhd\Linearavel\Data\ProjectUpdateReminderPayload;
-use Glhd\Linearavel\Data\ProjectUpdateWithInteractionPayload;
-use Glhd\Linearavel\Data\PushSubscriptionPayload;
-use Glhd\Linearavel\Data\ReactionPayload;
-use Glhd\Linearavel\Data\RoadmapArchivePayload;
-use Glhd\Linearavel\Data\RoadmapPayload;
-use Glhd\Linearavel\Data\RoadmapToProjectPayload;
-use Glhd\Linearavel\Data\SlackChannelConnectPayload;
-use Glhd\Linearavel\Data\TeamArchivePayload;
-use Glhd\Linearavel\Data\TeamMembershipPayload;
-use Glhd\Linearavel\Data\TeamPayload;
-use Glhd\Linearavel\Data\TemplatePayload;
-use Glhd\Linearavel\Data\TimeSchedulePayload;
-use Glhd\Linearavel\Data\TriageResponsibilityPayload;
-use Glhd\Linearavel\Data\UploadPayload;
-use Glhd\Linearavel\Data\UserAdminPayload;
-use Glhd\Linearavel\Data\UserPayload;
-use Glhd\Linearavel\Data\UserSettingsFlagPayload;
-use Glhd\Linearavel\Data\UserSettingsFlagsResetPayload;
-use Glhd\Linearavel\Data\UserSettingsPayload;
-use Glhd\Linearavel\Data\ViewPreferencesPayload;
-use Glhd\Linearavel\Data\WebhookPayload;
-use Glhd\Linearavel\Data\WorkflowStateArchivePayload;
-use Glhd\Linearavel\Data\WorkflowStatePayload;
 use Glhd\Linearavel\Requests\Inputs\AirbyteConfigurationInput;
 use Glhd\Linearavel\Requests\Inputs\ApiKeyCreateInput;
 use Glhd\Linearavel\Requests\Inputs\AttachmentCreateInput;
@@ -178,81 +98,280 @@ use Glhd\Linearavel\Requests\Inputs\WebhookCreateInput;
 use Glhd\Linearavel\Requests\Inputs\WebhookUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\WorkflowStateCreateInput;
 use Glhd\Linearavel\Requests\Inputs\WorkflowStateUpdateInput;
-use Glhd\Linearavel\Requests\PendingLinearObjectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAirbyteIntegrationConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingApiKeyCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingApiKeyDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkDiscordRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkFrontRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkGitHubIssueRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkGitHubPRRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkGitLabMRRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkIntercomRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkJiraIssueRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkSlackRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkURLRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentLinkZendeskRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentUnsyncSlackRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingAttachmentUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCommentCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCommentDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCommentResolveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCommentUnresolveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCommentUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingContactCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingContactSalesCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCreateCsvExportReportRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCreateOrganizationFromOnboardingRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCreateProjectUpdateReminderRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCustomViewCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCustomViewDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCustomViewUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleShiftAllRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressRotateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailTokenUserAccountAuthRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailUnsubscribeRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailUserAccountAuthChallengeRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmojiCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmojiDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingFileUploadRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationStateCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationStateDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationStateUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationTargetBranchCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationTargetBranchDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationTargetBranchUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingGoogleUserAccountAuthRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingImageUploadFromUrlRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingImportFileUploadRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeToProjectCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeToProjectDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeToProjectUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeUnarchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationAsksConnectChannelRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationDiscordRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationFigmaRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationFrontRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGithubCommitCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGithubConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitHubPersonalRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGoogleCalendarPersonalConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGoogleSheetsRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationIntercomDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationIntercomRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationIntercomSettingsUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationJiraPersonalRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationJiraUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationLoomRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOpsgenieConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOpsgenieRefreshScheduleMappingsRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationPagerDutyConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationPagerDutyRefreshScheduleMappingsRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationRequestRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSentryConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSettingsUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackAsksRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackImportEmojisRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackOrgProjectUpdatesPostRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackPersonalRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackPostRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackProjectPostRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationsSettingsCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationsSettingsUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationTemplateCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationTemplateDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationUpdateSlackRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationZendeskRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueAddLabelRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueBatchUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueDescriptionUpdateFromFrontRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateAsanaRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateClubhouseRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateCSVJiraRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateGithubRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateJiraRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportProcessRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueLabelCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueLabelDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueLabelUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRelationCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRelationDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRelationUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueReminderRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRemoveLabelRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueSubscribeRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueUnarchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueUnsubscribeRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingJiraIntegrationConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingJoinOrganizationFromOnboardingRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingLeaveOrganizationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingLogoutAllSessionsRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingLogoutOtherSessionsRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingLogoutRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingLogoutSessionRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationArchiveAllRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationMarkReadAllRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationMarkUnreadAllRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationSnoozeAllRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationSubscriptionCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationSubscriptionDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationSubscriptionUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationUnarchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationUnsnoozeAllRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingNotificationUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationCancelDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDeleteChallengeRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainClaimRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainVerifyRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationInviteCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationInviteDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationInviteUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationStartPlusTrialRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLinkCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLinkDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLinkUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectUnarchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectUpdateCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectUpdateDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectUpdateInteractionCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectUpdateMarkAsReadRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectUpdateUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingPushSubscriptionCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingPushSubscriptionDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingReactionCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingReactionDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRefreshGoogleSheetsDataRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingResendOrganizationInviteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRoadmapArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRoadmapCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRoadmapDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRoadmapToProjectCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRoadmapToProjectDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRoadmapToProjectUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRoadmapUnarchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingRoadmapUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingSamlTokenUserAccountAuthRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamCyclesDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamKeyDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamMembershipCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamMembershipDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamMembershipUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamUnarchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTeamUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTemplateCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTemplateDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTemplateUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTimeScheduleCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTimeScheduleDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTimeScheduleRefreshIntegrationScheduleRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTimeScheduleUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTimeScheduleUpsertExternalRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTriageResponsibilityCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTriageResponsibilityDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingTriageResponsibilityUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserDemoteAdminRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserDemoteMemberRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserDiscordConnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserExternalUserDisconnectRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserFlagUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserPromoteAdminRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserPromoteMemberRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserSettingsFlagIncrementRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserSettingsFlagsResetRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserSettingsUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserSuspendRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserUnsuspendRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingViewPreferencesCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingViewPreferencesDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingViewPreferencesUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingWebhookCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingWebhookDeleteRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingWebhookUpdateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingWorkflowStateArchiveRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingWorkflowStateCreateRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingWorkflowStateUpdateRequest;
 
 trait MutatesLinear
 {
-	/**
-	 * @param ApiKeyCreateInput $input the api key object to create
-	 * @returns PendingLinearObjectRequest<ApiKeyPayload>
-	 */
-	public function apiKeyCreateMutation(ApiKeyCreateInput $input)
+	public function apiKeyCreateMutation(ApiKeyCreateInput $input): PendingApiKeyCreateRequest
 	{
-		return $this->linearObjectMutation('apiKeyCreate', ApiKeyPayload::class, compact('input'));
+		return new PendingApiKeyCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the API key to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function apiKeyDeleteMutation(string $id)
+	public function apiKeyDeleteMutation(string $id): PendingApiKeyDeleteRequest
 	{
-		return $this->linearObjectMutation('apiKeyDelete', DeletePayload::class, compact('id'));
+		return new PendingApiKeyDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param AttachmentCreateInput $input the attachment object to create
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
-	public function attachmentCreateMutation(AttachmentCreateInput $input)
+	public function attachmentCreateMutation(AttachmentCreateInput $input): PendingAttachmentCreateRequest
 	{
-		return $this->linearObjectMutation('attachmentCreate', AttachmentPayload::class, compact('input'));
+		return new PendingAttachmentCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param AttachmentUpdateInput $input a partial attachment object to update the attachment with
-	 * @param string $id the identifier of the attachment to update
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
-	public function attachmentUpdateMutation(AttachmentUpdateInput $input, string $id)
+	public function attachmentUpdateMutation(AttachmentUpdateInput $input, string $id): PendingAttachmentUpdateRequest
 	{
-		return $this->linearObjectMutation('attachmentUpdate', AttachmentPayload::class, compact('input', 'id'));
+		return new PendingAttachmentUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the attachment to unsync
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
-	public function attachmentUnsyncSlackMutation(string $id)
+	public function attachmentUnsyncSlackMutation(string $id): PendingAttachmentUnsyncSlackRequest
 	{
-		return $this->linearObjectMutation('attachmentUnsyncSlack', AttachmentPayload::class, compact('id'));
+		return new PendingAttachmentUnsyncSlackRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $url the url to link
-	 * @param string $issueId the issue for which to link the url
-	 * @param ?string $id the id for the attachment
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
-	public function attachmentLinkURLMutation(string $url, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
-	{
-		return $this->linearObjectMutation('attachmentLinkURL', AttachmentPayload::class, compact('url', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+	public function attachmentLinkURLMutation(
+		string $url,
+		string $issueId,
+		?string $createAsUser = null,
+		?string $displayIconUrl = null,
+		?string $title = null,
+		?string $id = null
+	): PendingAttachmentLinkURLRequest {
+		return new PendingAttachmentLinkURLRequest($this, ['url' => $url, 'issueId' => $issueId, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $issueId the issue for which to link the GitLab merge request
-	 * @param ?string $id optional attachment ID that may be provided through the API
-	 * @param string $url the URL of the GitLab merge request to link
-	 * @param string $projectPathWithNamespace The path name to the project including any (sub)groups. E.g. linear/main/client.
-	 * @param float $number the GitLab merge request number to link
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
 	public function attachmentLinkGitLabMRMutation(
 		string $issueId,
 		string $url,
@@ -262,36 +381,37 @@ trait MutatesLinear
 		?string $displayIconUrl = null,
 		?string $title = null,
 		?string $id = null
-	) {
-		return $this->linearObjectMutation('attachmentLinkGitLabMR', AttachmentPayload::class, compact('issueId', 'url', 'projectPathWithNamespace', 'number', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+	): PendingAttachmentLinkGitLabMRRequest {
+		return new PendingAttachmentLinkGitLabMRRequest($this, [
+			'issueId' => $issueId,
+			'url' => $url,
+			'projectPathWithNamespace' => $projectPathWithNamespace,
+			'number' => $number,
+			'createAsUser' => $createAsUser,
+			'displayIconUrl' => $displayIconUrl,
+			'title' => $title,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $issueId the Linear issue for which to link the GitHub issue
-	 * @param ?string $id optional attachment ID that may be provided through the API
-	 * @param string $url the URL of the GitHub issue to link
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
-	public function attachmentLinkGitHubIssueMutation(string $issueId, string $url, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
-	{
-		return $this->linearObjectMutation('attachmentLinkGitHubIssue', AttachmentPayload::class, compact('issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+	public function attachmentLinkGitHubIssueMutation(
+		string $issueId,
+		string $url,
+		?string $createAsUser = null,
+		?string $displayIconUrl = null,
+		?string $title = null,
+		?string $id = null
+	): PendingAttachmentLinkGitHubIssueRequest {
+		return new PendingAttachmentLinkGitHubIssueRequest($this, [
+			'issueId' => $issueId,
+			'url' => $url,
+			'createAsUser' => $createAsUser,
+			'displayIconUrl' => $displayIconUrl,
+			'title' => $title,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $issueId the issue for which to link the GitHub pull request
-	 * @param ?string $id optional attachment ID that may be provided through the API
-	 * @param string $url the URL of the GitHub pull request to link
-	 * @param ?string $owner the owner of the GitHub repository
-	 * @param ?string $repo the name of the GitHub repository
-	 * @param ?float $number the GitHub pull request number to link
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
 	public function attachmentLinkGitHubPRMutation(
 		string $issueId,
 		string $url,
@@ -302,35 +422,38 @@ trait MutatesLinear
 		?string $owner = null,
 		?string $repo = null,
 		?float $number = null
-	) {
-		return $this->linearObjectMutation('attachmentLinkGitHubPR', AttachmentPayload::class, compact('issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id', 'owner', 'repo', 'number'));
+	): PendingAttachmentLinkGitHubPRRequest {
+		return new PendingAttachmentLinkGitHubPRRequest($this, [
+			'issueId' => $issueId,
+			'url' => $url,
+			'createAsUser' => $createAsUser,
+			'displayIconUrl' => $displayIconUrl,
+			'title' => $title,
+			'id' => $id,
+			'owner' => $owner,
+			'repo' => $repo,
+			'number' => $number,
+		]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $ticketId the Zendesk ticket ID to link
-	 * @param string $issueId the issue for which to link the Zendesk ticket
-	 * @param ?string $id optional attachment ID that may be provided through the API
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
-	public function attachmentLinkZendeskMutation(string $ticketId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
-	{
-		return $this->linearObjectMutation('attachmentLinkZendesk', AttachmentPayload::class, compact('ticketId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+	public function attachmentLinkZendeskMutation(
+		string $ticketId,
+		string $issueId,
+		?string $createAsUser = null,
+		?string $displayIconUrl = null,
+		?string $title = null,
+		?string $id = null
+	): PendingAttachmentLinkZendeskRequest {
+		return new PendingAttachmentLinkZendeskRequest($this, [
+			'ticketId' => $ticketId,
+			'issueId' => $issueId,
+			'createAsUser' => $createAsUser,
+			'displayIconUrl' => $displayIconUrl,
+			'title' => $title,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $issueId the issue for which to link the Discord message
-	 * @param ?string $id optional attachment ID that may be provided through the API
-	 * @param string $channelId the Discord channel ID for the message to link
-	 * @param string $messageId the Discord message ID for the message to link
-	 * @param string $url the Discord message URL for the message to link
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
 	public function attachmentLinkDiscordMutation(
 		string $issueId,
 		string $channelId,
@@ -340,22 +463,19 @@ trait MutatesLinear
 		?string $displayIconUrl = null,
 		?string $title = null,
 		?string $id = null
-	) {
-		return $this->linearObjectMutation('attachmentLinkDiscord', AttachmentPayload::class, compact('issueId', 'channelId', 'messageId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+	): PendingAttachmentLinkDiscordRequest {
+		return new PendingAttachmentLinkDiscordRequest($this, [
+			'issueId' => $issueId,
+			'channelId' => $channelId,
+			'messageId' => $messageId,
+			'url' => $url,
+			'createAsUser' => $createAsUser,
+			'displayIconUrl' => $displayIconUrl,
+			'title' => $title,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $channel the Slack channel ID for the message to link
-	 * @param ?string $ts unique identifier of either a thread's parent message or a message in the thread
-	 * @param string $latest the latest timestamp for the Slack message
-	 * @param string $issueId the issue to which to link the Slack message
-	 * @param string $url the Slack message URL for the message to link
-	 * @param ?string $id optional attachment ID that may be provided through the API
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
 	public function attachmentLinkSlackMutation(
 		string $channel,
 		string $latest,
@@ -366,983 +486,551 @@ trait MutatesLinear
 		?string $title = null,
 		?string $ts = null,
 		?string $id = null
-	) {
-		return $this->linearObjectMutation('attachmentLinkSlack', AttachmentPayload::class, compact('channel', 'latest', 'issueId', 'url', 'createAsUser', 'displayIconUrl', 'title', 'ts', 'id'));
+	): PendingAttachmentLinkSlackRequest {
+		return new PendingAttachmentLinkSlackRequest($this, [
+			'channel' => $channel,
+			'latest' => $latest,
+			'issueId' => $issueId,
+			'url' => $url,
+			'createAsUser' => $createAsUser,
+			'displayIconUrl' => $displayIconUrl,
+			'title' => $title,
+			'ts' => $ts,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $conversationId the Front conversation ID to link
-	 * @param string $issueId the issue for which to link the Front conversation
-	 * @param ?string $id optional attachment ID that may be provided through the API
-	 * @returns PendingLinearObjectRequest<FrontAttachmentPayload>
-	 */
-	public function attachmentLinkFrontMutation(string $conversationId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
-	{
-		return $this->linearObjectMutation('attachmentLinkFront', FrontAttachmentPayload::class, compact('conversationId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+	public function attachmentLinkFrontMutation(
+		string $conversationId,
+		string $issueId,
+		?string $createAsUser = null,
+		?string $displayIconUrl = null,
+		?string $title = null,
+		?string $id = null
+	): PendingAttachmentLinkFrontRequest {
+		return new PendingAttachmentLinkFrontRequest($this, [
+			'conversationId' => $conversationId,
+			'issueId' => $issueId,
+			'createAsUser' => $createAsUser,
+			'displayIconUrl' => $displayIconUrl,
+			'title' => $title,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $createAsUser Create attachment as a user with the provided name. This option is only available to OAuth applications creating attachments in `actor=application` mode.
-	 * @param ?string $displayIconUrl Provide an external user avatar URL. Can only be used in conjunction with the `createAsUser` options. This option is only available to OAuth applications creating comments in `actor=application` mode.
-	 * @param ?string $title the title to use for the attachment
-	 * @param string $conversationId the Intercom conversation ID to link
-	 * @param ?string $id optional attachment ID that may be provided through the API
-	 * @param string $issueId the issue for which to link the Intercom conversation
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
-	public function attachmentLinkIntercomMutation(string $conversationId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null)
-	{
-		return $this->linearObjectMutation('attachmentLinkIntercom', AttachmentPayload::class, compact('conversationId', 'issueId', 'createAsUser', 'displayIconUrl', 'title', 'id'));
+	public function attachmentLinkIntercomMutation(
+		string $conversationId,
+		string $issueId,
+		?string $createAsUser = null,
+		?string $displayIconUrl = null,
+		?string $title = null,
+		?string $id = null
+	): PendingAttachmentLinkIntercomRequest {
+		return new PendingAttachmentLinkIntercomRequest($this, [
+			'conversationId' => $conversationId,
+			'issueId' => $issueId,
+			'createAsUser' => $createAsUser,
+			'displayIconUrl' => $displayIconUrl,
+			'title' => $title,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param string $issueId the issue for which to link the Jira issue
-	 * @param string $jiraIssueId the Jira issue key or ID to link
-	 * @returns PendingLinearObjectRequest<AttachmentPayload>
-	 */
-	public function attachmentLinkJiraIssueMutation(string $issueId, string $jiraIssueId)
+	public function attachmentLinkJiraIssueMutation(string $issueId, string $jiraIssueId): PendingAttachmentLinkJiraIssueRequest
 	{
-		return $this->linearObjectMutation('attachmentLinkJiraIssue', AttachmentPayload::class, compact('issueId', 'jiraIssueId'));
+		return new PendingAttachmentLinkJiraIssueRequest($this, ['issueId' => $issueId, 'jiraIssueId' => $jiraIssueId]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the attachment to archive
-	 * @returns PendingLinearObjectRequest<AttachmentArchivePayload>
-	 */
-	public function attachmentArchiveMutation(string $id)
+	public function attachmentArchiveMutation(string $id): PendingAttachmentArchiveRequest
 	{
-		return $this->linearObjectMutation('attachmentArchive', AttachmentArchivePayload::class, compact('id'));
+		return new PendingAttachmentArchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the attachment to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function attachmentDeleteMutation(string $id)
+	public function attachmentDeleteMutation(string $id): PendingAttachmentDeleteRequest
 	{
-		return $this->linearObjectMutation('attachmentDelete', DeletePayload::class, compact('id'));
+		return new PendingAttachmentDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param EmailUserAccountAuthChallengeInput $input the data used for email authentication
-	 * @returns PendingLinearObjectRequest<EmailUserAccountAuthChallengeResponse>
-	 */
-	public function emailUserAccountAuthChallengeMutation(EmailUserAccountAuthChallengeInput $input)
+	public function emailUserAccountAuthChallengeMutation(EmailUserAccountAuthChallengeInput $input): PendingEmailUserAccountAuthChallengeRequest
 	{
-		return $this->linearObjectMutation('emailUserAccountAuthChallenge', EmailUserAccountAuthChallengeResponse::class, compact('input'));
+		return new PendingEmailUserAccountAuthChallengeRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param TokenUserAccountAuthInput $input the data used for token authentication
-	 * @returns PendingLinearObjectRequest<AuthResolverResponse>
-	 */
-	public function emailTokenUserAccountAuthMutation(TokenUserAccountAuthInput $input)
+	public function emailTokenUserAccountAuthMutation(TokenUserAccountAuthInput $input): PendingEmailTokenUserAccountAuthRequest
 	{
-		return $this->linearObjectMutation('emailTokenUserAccountAuth', AuthResolverResponse::class, compact('input'));
+		return new PendingEmailTokenUserAccountAuthRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param TokenUserAccountAuthInput $input the data used for token authentication
-	 * @returns PendingLinearObjectRequest<AuthResolverResponse>
-	 */
-	public function samlTokenUserAccountAuthMutation(TokenUserAccountAuthInput $input)
+	public function samlTokenUserAccountAuthMutation(TokenUserAccountAuthInput $input): PendingSamlTokenUserAccountAuthRequest
 	{
-		return $this->linearObjectMutation('samlTokenUserAccountAuth', AuthResolverResponse::class, compact('input'));
+		return new PendingSamlTokenUserAccountAuthRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param GoogleUserAccountAuthInput $input the data used for Google authentication
-	 * @returns PendingLinearObjectRequest<AuthResolverResponse>
-	 */
-	public function googleUserAccountAuthMutation(GoogleUserAccountAuthInput $input)
+	public function googleUserAccountAuthMutation(GoogleUserAccountAuthInput $input): PendingGoogleUserAccountAuthRequest
 	{
-		return $this->linearObjectMutation('googleUserAccountAuth', AuthResolverResponse::class, compact('input'));
+		return new PendingGoogleUserAccountAuthRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ?OnboardingCustomerSurvey $survey onboarding survey
-	 * @param CreateOrganizationInput $input organization details for the new organization
-	 * @returns PendingLinearObjectRequest<CreateOrJoinOrganizationResponse>
-	 */
-	public function createOrganizationFromOnboardingMutation(CreateOrganizationInput $input, ?OnboardingCustomerSurvey $survey = null)
+	public function createOrganizationFromOnboardingMutation(CreateOrganizationInput $input, ?OnboardingCustomerSurvey $survey = null): PendingCreateOrganizationFromOnboardingRequest
 	{
-		return $this->linearObjectMutation('createOrganizationFromOnboarding', CreateOrJoinOrganizationResponse::class, compact('input', 'survey'));
+		return new PendingCreateOrganizationFromOnboardingRequest($this, ['input' => $input, 'survey' => $survey]);
 	}
 	
-	/**
-	 * @param JoinOrganizationInput $input organization details for the organization to join
-	 * @returns PendingLinearObjectRequest<CreateOrJoinOrganizationResponse>
-	 */
-	public function joinOrganizationFromOnboardingMutation(JoinOrganizationInput $input)
+	public function joinOrganizationFromOnboardingMutation(JoinOrganizationInput $input): PendingJoinOrganizationFromOnboardingRequest
 	{
-		return $this->linearObjectMutation('joinOrganizationFromOnboarding', CreateOrJoinOrganizationResponse::class, compact('input'));
+		return new PendingJoinOrganizationFromOnboardingRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $organizationId ID of the organization to leave
-	 * @returns PendingLinearObjectRequest<CreateOrJoinOrganizationResponse>
-	 */
-	public function leaveOrganizationMutation(string $organizationId)
+	public function leaveOrganizationMutation(string $organizationId): PendingLeaveOrganizationRequest
 	{
-		return $this->linearObjectMutation('leaveOrganization', CreateOrJoinOrganizationResponse::class, compact('organizationId'));
+		return new PendingLeaveOrganizationRequest($this, ['organizationId' => $organizationId]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<LogoutResponse>
-	 */
-	public function logoutMutation()
+	public function logoutMutation(): PendingLogoutRequest
 	{
-		return $this->linearObjectMutation('logout', LogoutResponse::class);
+		return new PendingLogoutRequest($this, []);
 	}
 	
-	/**
-	 * @param string $sessionId ID of the session to logout
-	 * @returns PendingLinearObjectRequest<LogoutResponse>
-	 */
-	public function logoutSessionMutation(string $sessionId)
+	public function logoutSessionMutation(string $sessionId): PendingLogoutSessionRequest
 	{
-		return $this->linearObjectMutation('logoutSession', LogoutResponse::class, compact('sessionId'));
+		return new PendingLogoutSessionRequest($this, ['sessionId' => $sessionId]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<LogoutResponse>
-	 */
-	public function logoutAllSessionsMutation()
+	public function logoutAllSessionsMutation(): PendingLogoutAllSessionsRequest
 	{
-		return $this->linearObjectMutation('logoutAllSessions', LogoutResponse::class);
+		return new PendingLogoutAllSessionsRequest($this, []);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<LogoutResponse>
-	 */
-	public function logoutOtherSessionsMutation()
+	public function logoutOtherSessionsMutation(): PendingLogoutOtherSessionsRequest
 	{
-		return $this->linearObjectMutation('logoutOtherSessions', LogoutResponse::class);
+		return new PendingLogoutOtherSessionsRequest($this, []);
 	}
 	
-	/**
-	 * @param CommentCreateInput $input the comment object to create
-	 * @returns PendingLinearObjectRequest<CommentPayload>
-	 */
-	public function commentCreateMutation(CommentCreateInput $input)
+	public function commentCreateMutation(CommentCreateInput $input): PendingCommentCreateRequest
 	{
-		return $this->linearObjectMutation('commentCreate', CommentPayload::class, compact('input'));
+		return new PendingCommentCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param CommentUpdateInput $input a partial comment object to update the comment with
-	 * @param string $id the identifier of the comment to update
-	 * @returns PendingLinearObjectRequest<CommentPayload>
-	 */
-	public function commentUpdateMutation(CommentUpdateInput $input, string $id)
+	public function commentUpdateMutation(CommentUpdateInput $input, string $id): PendingCommentUpdateRequest
 	{
-		return $this->linearObjectMutation('commentUpdate', CommentPayload::class, compact('input', 'id'));
+		return new PendingCommentUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the comment to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function commentDeleteMutation(string $id)
+	public function commentDeleteMutation(string $id): PendingCommentDeleteRequest
 	{
-		return $this->linearObjectMutation('commentDelete', DeletePayload::class, compact('id'));
+		return new PendingCommentDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?string $resolvingCommentId
-	 * @param string $id the identifier of the comment to update
-	 * @returns PendingLinearObjectRequest<CommentPayload>
-	 */
-	public function commentResolveMutation(string $id, ?string $resolvingCommentId = null)
+	public function commentResolveMutation(string $id, ?string $resolvingCommentId = null): PendingCommentResolveRequest
 	{
-		return $this->linearObjectMutation('commentResolve', CommentPayload::class, compact('id', 'resolvingCommentId'));
+		return new PendingCommentResolveRequest($this, ['id' => $id, 'resolvingCommentId' => $resolvingCommentId]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the comment to update
-	 * @returns PendingLinearObjectRequest<CommentPayload>
-	 */
-	public function commentUnresolveMutation(string $id)
+	public function commentUnresolveMutation(string $id): PendingCommentUnresolveRequest
 	{
-		return $this->linearObjectMutation('commentUnresolve', CommentPayload::class, compact('id'));
+		return new PendingCommentUnresolveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ContactCreateInput $input the contact entry to create
-	 * @returns PendingLinearObjectRequest<ContactPayload>
-	 */
-	public function contactCreateMutation(ContactCreateInput $input)
+	public function contactCreateMutation(ContactCreateInput $input): PendingContactCreateRequest
 	{
-		return $this->linearObjectMutation('contactCreate', ContactPayload::class, compact('input'));
+		return new PendingContactCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ContactSalesCreateInput $input the contact entry to create
-	 * @returns PendingLinearObjectRequest<ContactPayload>
-	 */
-	public function contactSalesCreateMutation(ContactSalesCreateInput $input)
+	public function contactSalesCreateMutation(ContactSalesCreateInput $input): PendingContactSalesCreateRequest
 	{
-		return $this->linearObjectMutation('contactSalesCreate', ContactPayload::class, compact('input'));
+		return new PendingContactSalesCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param CustomViewCreateInput $input the properties of the custom view to create
-	 * @returns PendingLinearObjectRequest<CustomViewPayload>
-	 */
-	public function customViewCreateMutation(CustomViewCreateInput $input)
+	public function customViewCreateMutation(CustomViewCreateInput $input): PendingCustomViewCreateRequest
 	{
-		return $this->linearObjectMutation('customViewCreate', CustomViewPayload::class, compact('input'));
+		return new PendingCustomViewCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param CustomViewUpdateInput $input the properties of the custom view to update
-	 * @param string $id the identifier of the custom view to update
-	 * @returns PendingLinearObjectRequest<CustomViewPayload>
-	 */
-	public function customViewUpdateMutation(CustomViewUpdateInput $input, string $id)
+	public function customViewUpdateMutation(CustomViewUpdateInput $input, string $id): PendingCustomViewUpdateRequest
 	{
-		return $this->linearObjectMutation('customViewUpdate', CustomViewPayload::class, compact('input', 'id'));
+		return new PendingCustomViewUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the custom view to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function customViewDeleteMutation(string $id)
+	public function customViewDeleteMutation(string $id): PendingCustomViewDeleteRequest
 	{
-		return $this->linearObjectMutation('customViewDelete', DeletePayload::class, compact('id'));
+		return new PendingCustomViewDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param CycleCreateInput $input the cycle object to create
-	 * @returns PendingLinearObjectRequest<CyclePayload>
-	 */
-	public function cycleCreateMutation(CycleCreateInput $input)
+	public function cycleCreateMutation(CycleCreateInput $input): PendingCycleCreateRequest
 	{
-		return $this->linearObjectMutation('cycleCreate', CyclePayload::class, compact('input'));
+		return new PendingCycleCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param CycleUpdateInput $input a partial cycle object to update the cycle with
-	 * @param string $id the identifier of the cycle to update
-	 * @returns PendingLinearObjectRequest<CyclePayload>
-	 */
-	public function cycleUpdateMutation(CycleUpdateInput $input, string $id)
+	public function cycleUpdateMutation(CycleUpdateInput $input, string $id): PendingCycleUpdateRequest
 	{
-		return $this->linearObjectMutation('cycleUpdate', CyclePayload::class, compact('input', 'id'));
+		return new PendingCycleUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the cycle to archive
-	 * @returns PendingLinearObjectRequest<CycleArchivePayload>
-	 */
-	public function cycleArchiveMutation(string $id)
+	public function cycleArchiveMutation(string $id): PendingCycleArchiveRequest
 	{
-		return $this->linearObjectMutation('cycleArchive', CycleArchivePayload::class, compact('id'));
+		return new PendingCycleArchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param CycleShiftAllInput $input a partial cycle object to update the cycle with
-	 * @returns PendingLinearObjectRequest<CyclePayload>
-	 */
-	public function cycleShiftAllMutation(CycleShiftAllInput $input)
+	public function cycleShiftAllMutation(CycleShiftAllInput $input): PendingCycleShiftAllRequest
 	{
-		return $this->linearObjectMutation('cycleShiftAll', CyclePayload::class, compact('input'));
+		return new PendingCycleShiftAllRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param DocumentCreateInput $input the document to create
-	 * @returns PendingLinearObjectRequest<DocumentPayload>
-	 */
-	public function documentCreateMutation(DocumentCreateInput $input)
+	public function documentCreateMutation(DocumentCreateInput $input): PendingDocumentCreateRequest
 	{
-		return $this->linearObjectMutation('documentCreate', DocumentPayload::class, compact('input'));
+		return new PendingDocumentCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param DocumentUpdateInput $input a partial document object to update the document with
-	 * @param string $id The identifier of the document to update. Also the identifier from the URL is accepted.
-	 * @returns PendingLinearObjectRequest<DocumentPayload>
-	 */
-	public function documentUpdateMutation(DocumentUpdateInput $input, string $id)
+	public function documentUpdateMutation(DocumentUpdateInput $input, string $id): PendingDocumentUpdateRequest
 	{
-		return $this->linearObjectMutation('documentUpdate', DocumentPayload::class, compact('input', 'id'));
+		return new PendingDocumentUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the document to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function documentDeleteMutation(string $id)
+	public function documentDeleteMutation(string $id): PendingDocumentDeleteRequest
 	{
-		return $this->linearObjectMutation('documentDelete', DeletePayload::class, compact('id'));
+		return new PendingDocumentDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param EmailIntakeAddressCreateInput $input the email intake address object to create
-	 * @returns PendingLinearObjectRequest<EmailIntakeAddressPayload>
-	 */
-	public function emailIntakeAddressCreateMutation(EmailIntakeAddressCreateInput $input)
+	public function emailIntakeAddressCreateMutation(EmailIntakeAddressCreateInput $input): PendingEmailIntakeAddressCreateRequest
 	{
-		return $this->linearObjectMutation('emailIntakeAddressCreate', EmailIntakeAddressPayload::class, compact('input'));
+		return new PendingEmailIntakeAddressCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the email intake address
-	 * @returns PendingLinearObjectRequest<EmailIntakeAddressPayload>
-	 */
-	public function emailIntakeAddressRotateMutation(string $id)
+	public function emailIntakeAddressRotateMutation(string $id): PendingEmailIntakeAddressRotateRequest
 	{
-		return $this->linearObjectMutation('emailIntakeAddressRotate', EmailIntakeAddressPayload::class, compact('id'));
+		return new PendingEmailIntakeAddressRotateRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param EmailIntakeAddressUpdateInput $input the properties of the email intake address to update
-	 * @param string $id the identifier of the email intake address
-	 * @returns PendingLinearObjectRequest<EmailIntakeAddressPayload>
-	 */
-	public function emailIntakeAddressUpdateMutation(EmailIntakeAddressUpdateInput $input, string $id)
+	public function emailIntakeAddressUpdateMutation(EmailIntakeAddressUpdateInput $input, string $id): PendingEmailIntakeAddressUpdateRequest
 	{
-		return $this->linearObjectMutation('emailIntakeAddressUpdate', EmailIntakeAddressPayload::class, compact('input', 'id'));
+		return new PendingEmailIntakeAddressUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the email intake address to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function emailIntakeAddressDeleteMutation(string $id)
+	public function emailIntakeAddressDeleteMutation(string $id): PendingEmailIntakeAddressDeleteRequest
 	{
-		return $this->linearObjectMutation('emailIntakeAddressDelete', DeletePayload::class, compact('id'));
+		return new PendingEmailIntakeAddressDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param EmailUnsubscribeInput $input unsubscription details
-	 * @returns PendingLinearObjectRequest<EmailUnsubscribePayload>
-	 */
-	public function emailUnsubscribeMutation(EmailUnsubscribeInput $input)
+	public function emailUnsubscribeMutation(EmailUnsubscribeInput $input): PendingEmailUnsubscribeRequest
 	{
-		return $this->linearObjectMutation('emailUnsubscribe', EmailUnsubscribePayload::class, compact('input'));
+		return new PendingEmailUnsubscribeRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param EmojiCreateInput $input the emoji object to create
-	 * @returns PendingLinearObjectRequest<EmojiPayload>
-	 */
-	public function emojiCreateMutation(EmojiCreateInput $input)
+	public function emojiCreateMutation(EmojiCreateInput $input): PendingEmojiCreateRequest
 	{
-		return $this->linearObjectMutation('emojiCreate', EmojiPayload::class, compact('input'));
+		return new PendingEmojiCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the emoji to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function emojiDeleteMutation(string $id)
+	public function emojiDeleteMutation(string $id): PendingEmojiDeleteRequest
 	{
-		return $this->linearObjectMutation('emojiDelete', DeletePayload::class, compact('id'));
+		return new PendingEmojiDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param InitiativeToProjectCreateInput $input the properties of the initiativeToProject to create
-	 * @returns PendingLinearObjectRequest<InitiativeToProjectPayload>
-	 */
-	public function initiativeToProjectCreateMutation(InitiativeToProjectCreateInput $input)
+	public function initiativeToProjectCreateMutation(InitiativeToProjectCreateInput $input): PendingInitiativeToProjectCreateRequest
 	{
-		return $this->linearObjectMutation('initiativeToProjectCreate', InitiativeToProjectPayload::class, compact('input'));
+		return new PendingInitiativeToProjectCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param InitiativeToProjectUpdateInput $input the properties of the initiativeToProject to update
-	 * @param string $id the identifier of the initiativeToProject to update
-	 * @returns PendingLinearObjectRequest<InitiativeToProjectPayload>
-	 */
-	public function initiativeToProjectUpdateMutation(InitiativeToProjectUpdateInput $input, string $id)
+	public function initiativeToProjectUpdateMutation(InitiativeToProjectUpdateInput $input, string $id): PendingInitiativeToProjectUpdateRequest
 	{
-		return $this->linearObjectMutation('initiativeToProjectUpdate', InitiativeToProjectPayload::class, compact('input', 'id'));
+		return new PendingInitiativeToProjectUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the initiativeToProject to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function initiativeToProjectDeleteMutation(string $id)
+	public function initiativeToProjectDeleteMutation(string $id): PendingInitiativeToProjectDeleteRequest
 	{
-		return $this->linearObjectMutation('initiativeToProjectDelete', DeletePayload::class, compact('id'));
+		return new PendingInitiativeToProjectDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param InitiativeCreateInput $input the properties of the initiative to create
-	 * @returns PendingLinearObjectRequest<InitiativePayload>
-	 */
-	public function initiativeCreateMutation(InitiativeCreateInput $input)
+	public function initiativeCreateMutation(InitiativeCreateInput $input): PendingInitiativeCreateRequest
 	{
-		return $this->linearObjectMutation('initiativeCreate', InitiativePayload::class, compact('input'));
+		return new PendingInitiativeCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param InitiativeUpdateInput $input the properties of the initiative to update
-	 * @param string $id the identifier of the initiative to update
-	 * @returns PendingLinearObjectRequest<InitiativePayload>
-	 */
-	public function initiativeUpdateMutation(InitiativeUpdateInput $input, string $id)
+	public function initiativeUpdateMutation(InitiativeUpdateInput $input, string $id): PendingInitiativeUpdateRequest
 	{
-		return $this->linearObjectMutation('initiativeUpdate', InitiativePayload::class, compact('input', 'id'));
+		return new PendingInitiativeUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the initiative to archive
-	 * @returns PendingLinearObjectRequest<InitiativeArchivePayload>
-	 */
-	public function initiativeArchiveMutation(string $id)
+	public function initiativeArchiveMutation(string $id): PendingInitiativeArchiveRequest
 	{
-		return $this->linearObjectMutation('initiativeArchive', InitiativeArchivePayload::class, compact('id'));
+		return new PendingInitiativeArchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the initiative to unarchive
-	 * @returns PendingLinearObjectRequest<InitiativeArchivePayload>
-	 */
-	public function initiativeUnarchiveMutation(string $id)
+	public function initiativeUnarchiveMutation(string $id): PendingInitiativeUnarchiveRequest
 	{
-		return $this->linearObjectMutation('initiativeUnarchive', InitiativeArchivePayload::class, compact('id'));
+		return new PendingInitiativeUnarchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the initiative to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function initiativeDeleteMutation(string $id)
+	public function initiativeDeleteMutation(string $id): PendingInitiativeDeleteRequest
 	{
-		return $this->linearObjectMutation('initiativeDelete', DeletePayload::class, compact('id'));
+		return new PendingInitiativeDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param FavoriteCreateInput $input the favorite object to create
-	 * @returns PendingLinearObjectRequest<FavoritePayload>
-	 */
-	public function favoriteCreateMutation(FavoriteCreateInput $input)
+	public function favoriteCreateMutation(FavoriteCreateInput $input): PendingFavoriteCreateRequest
 	{
-		return $this->linearObjectMutation('favoriteCreate', FavoritePayload::class, compact('input'));
+		return new PendingFavoriteCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param FavoriteUpdateInput $input a partial favorite object to update the favorite with
-	 * @param string $id the identifier of the favorite to update
-	 * @returns PendingLinearObjectRequest<FavoritePayload>
-	 */
-	public function favoriteUpdateMutation(FavoriteUpdateInput $input, string $id)
+	public function favoriteUpdateMutation(FavoriteUpdateInput $input, string $id): PendingFavoriteUpdateRequest
 	{
-		return $this->linearObjectMutation('favoriteUpdate', FavoritePayload::class, compact('input', 'id'));
+		return new PendingFavoriteUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the favorite reference to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function favoriteDeleteMutation(string $id)
+	public function favoriteDeleteMutation(string $id): PendingFavoriteDeleteRequest
 	{
-		return $this->linearObjectMutation('favoriteDelete', DeletePayload::class, compact('id'));
+		return new PendingFavoriteDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?string $metaData optional metadata
-	 * @param ?bool $makePublic should the file be made publicly accessible (default: false)
-	 * @param int $size file size of the uploaded file
-	 * @param string $contentType MIME type of the uploaded file
-	 * @param string $filename filename of the uploaded file
-	 * @returns PendingLinearObjectRequest<UploadPayload>
-	 */
-	public function fileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null, ?bool $makePublic = null)
+	public function fileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null, ?bool $makePublic = null): PendingFileUploadRequest
 	{
-		return $this->linearObjectMutation('fileUpload', UploadPayload::class, compact('size', 'contentType', 'filename', 'metaData', 'makePublic'));
+		return new PendingFileUploadRequest($this, ['size' => $size, 'contentType' => $contentType, 'filename' => $filename, 'metaData' => $metaData, 'makePublic' => $makePublic]);
 	}
 	
-	/**
-	 * @param ?string $metaData optional metadata
-	 * @param int $size file size of the uploaded file
-	 * @param string $contentType MIME type of the uploaded file
-	 * @param string $filename filename of the uploaded file
-	 * @returns PendingLinearObjectRequest<UploadPayload>
-	 */
-	public function importFileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null)
+	public function importFileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null): PendingImportFileUploadRequest
 	{
-		return $this->linearObjectMutation('importFileUpload', UploadPayload::class, compact('size', 'contentType', 'filename', 'metaData'));
+		return new PendingImportFileUploadRequest($this, ['size' => $size, 'contentType' => $contentType, 'filename' => $filename, 'metaData' => $metaData]);
 	}
 	
-	/**
-	 * @param string $url URL of the file to be uploaded to Linear
-	 * @returns PendingLinearObjectRequest<ImageUploadFromUrlPayload>
-	 */
-	public function imageUploadFromUrlMutation(string $url)
+	public function imageUploadFromUrlMutation(string $url): PendingImageUploadFromUrlRequest
 	{
-		return $this->linearObjectMutation('imageUploadFromUrl', ImageUploadFromUrlPayload::class, compact('url'));
+		return new PendingImageUploadFromUrlRequest($this, ['url' => $url]);
 	}
 	
-	/**
-	 * @param GitAutomationStateCreateInput $input the automation state to create
-	 * @returns PendingLinearObjectRequest<GitAutomationStatePayload>
-	 */
-	public function gitAutomationStateCreateMutation(GitAutomationStateCreateInput $input)
+	public function gitAutomationStateCreateMutation(GitAutomationStateCreateInput $input): PendingGitAutomationStateCreateRequest
 	{
-		return $this->linearObjectMutation('gitAutomationStateCreate', GitAutomationStatePayload::class, compact('input'));
+		return new PendingGitAutomationStateCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param GitAutomationStateUpdateInput $input the state to update
-	 * @param string $id the identifier of the state to update
-	 * @returns PendingLinearObjectRequest<GitAutomationStatePayload>
-	 */
-	public function gitAutomationStateUpdateMutation(GitAutomationStateUpdateInput $input, string $id)
+	public function gitAutomationStateUpdateMutation(GitAutomationStateUpdateInput $input, string $id): PendingGitAutomationStateUpdateRequest
 	{
-		return $this->linearObjectMutation('gitAutomationStateUpdate', GitAutomationStatePayload::class, compact('input', 'id'));
+		return new PendingGitAutomationStateUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the automation state to archive
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function gitAutomationStateDeleteMutation(string $id)
+	public function gitAutomationStateDeleteMutation(string $id): PendingGitAutomationStateDeleteRequest
 	{
-		return $this->linearObjectMutation('gitAutomationStateDelete', DeletePayload::class, compact('id'));
+		return new PendingGitAutomationStateDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param GitAutomationTargetBranchCreateInput $input the Git target branch automation to create
-	 * @returns PendingLinearObjectRequest<GitAutomationTargetBranchPayload>
-	 */
-	public function gitAutomationTargetBranchCreateMutation(GitAutomationTargetBranchCreateInput $input)
+	public function gitAutomationTargetBranchCreateMutation(GitAutomationTargetBranchCreateInput $input): PendingGitAutomationTargetBranchCreateRequest
 	{
-		return $this->linearObjectMutation('gitAutomationTargetBranchCreate', GitAutomationTargetBranchPayload::class, compact('input'));
+		return new PendingGitAutomationTargetBranchCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param GitAutomationTargetBranchUpdateInput $input the updates
-	 * @param string $id the identifier of the Git target branch automation to update
-	 * @returns PendingLinearObjectRequest<GitAutomationTargetBranchPayload>
-	 */
-	public function gitAutomationTargetBranchUpdateMutation(GitAutomationTargetBranchUpdateInput $input, string $id)
+	public function gitAutomationTargetBranchUpdateMutation(GitAutomationTargetBranchUpdateInput $input, string $id): PendingGitAutomationTargetBranchUpdateRequest
 	{
-		return $this->linearObjectMutation('gitAutomationTargetBranchUpdate', GitAutomationTargetBranchPayload::class, compact('input', 'id'));
+		return new PendingGitAutomationTargetBranchUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the Git target branch automation to archive
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function gitAutomationTargetBranchDeleteMutation(string $id)
+	public function gitAutomationTargetBranchDeleteMutation(string $id): PendingGitAutomationTargetBranchDeleteRequest
 	{
-		return $this->linearObjectMutation('gitAutomationTargetBranchDelete', DeletePayload::class, compact('id'));
+		return new PendingGitAutomationTargetBranchDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param IntegrationRequestInput $input integration request details
-	 * @returns PendingLinearObjectRequest<IntegrationRequestPayload>
-	 */
-	public function integrationRequestMutation(IntegrationRequestInput $input)
+	public function integrationRequestMutation(IntegrationRequestInput $input): PendingIntegrationRequestRequest
 	{
-		return $this->linearObjectMutation('integrationRequest', IntegrationRequestPayload::class, compact('input'));
+		return new PendingIntegrationRequestRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param IntegrationSettingsInput $input an integration settings object
-	 * @param string $id the identifier of the integration to update
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationSettingsUpdateMutation(IntegrationSettingsInput $input, string $id)
+	public function integrationSettingsUpdateMutation(IntegrationSettingsInput $input, string $id): PendingIntegrationSettingsUpdateRequest
 	{
-		return $this->linearObjectMutation('integrationSettingsUpdate', IntegrationPayload::class, compact('input', 'id'));
+		return new PendingIntegrationSettingsUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<GitHubCommitIntegrationPayload>
-	 */
-	public function integrationGithubCommitCreateMutation()
+	public function integrationGithubCommitCreateMutation(): PendingIntegrationGithubCommitCreateRequest
 	{
-		return $this->linearObjectMutation('integrationGithubCommitCreate', GitHubCommitIntegrationPayload::class);
+		return new PendingIntegrationGithubCommitCreateRequest($this, []);
 	}
 	
-	/**
-	 * @param string $installationId the GitHub data to connect with
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationGithubConnectMutation(string $installationId)
+	public function integrationGithubConnectMutation(string $installationId): PendingIntegrationGithubConnectRequest
 	{
-		return $this->linearObjectMutation('integrationGithubConnect', IntegrationPayload::class, compact('installationId'));
+		return new PendingIntegrationGithubConnectRequest($this, ['installationId' => $installationId]);
 	}
 	
-	/**
-	 * @param string $gitlabUrl the URL of the GitLab installation
-	 * @param string $accessToken the GitLab Access Token to connect with
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationGitlabConnectMutation(string $gitlabUrl, string $accessToken)
+	public function integrationGitlabConnectMutation(string $gitlabUrl, string $accessToken): PendingIntegrationGitlabConnectRequest
 	{
-		return $this->linearObjectMutation('integrationGitlabConnect', IntegrationPayload::class, compact('gitlabUrl', 'accessToken'));
+		return new PendingIntegrationGitlabConnectRequest($this, ['gitlabUrl' => $gitlabUrl, 'accessToken' => $accessToken]);
 	}
 	
-	/**
-	 * @param AirbyteConfigurationInput $input airbyte integration settings
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function airbyteIntegrationConnectMutation(AirbyteConfigurationInput $input)
+	public function airbyteIntegrationConnectMutation(AirbyteConfigurationInput $input): PendingAirbyteIntegrationConnectRequest
 	{
-		return $this->linearObjectMutation('airbyteIntegrationConnect', IntegrationPayload::class, compact('input'));
+		return new PendingAirbyteIntegrationConnectRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $code [Internal] The Google OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationGoogleCalendarPersonalConnectMutation(string $code)
+	public function integrationGoogleCalendarPersonalConnectMutation(string $code): PendingIntegrationGoogleCalendarPersonalConnectRequest
 	{
-		return $this->linearObjectMutation('integrationGoogleCalendarPersonalConnect', IntegrationPayload::class, compact('code'));
+		return new PendingIntegrationGoogleCalendarPersonalConnectRequest($this, ['code' => $code]);
 	}
 	
-	/**
-	 * @param JiraConfigurationInput $input jira integration settings
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function jiraIntegrationConnectMutation(JiraConfigurationInput $input)
+	public function jiraIntegrationConnectMutation(JiraConfigurationInput $input): PendingJiraIntegrationConnectRequest
 	{
-		return $this->linearObjectMutation('jiraIntegrationConnect', IntegrationPayload::class, compact('input'));
+		return new PendingJiraIntegrationConnectRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param JiraUpdateInput $input jira integration update input
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationJiraUpdateMutation(JiraUpdateInput $input)
+	public function integrationJiraUpdateMutation(JiraUpdateInput $input): PendingIntegrationJiraUpdateRequest
 	{
-		return $this->linearObjectMutation('integrationJiraUpdate', IntegrationPayload::class, compact('input'));
+		return new PendingIntegrationJiraUpdateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ?string $code the Jira OAuth code, when connecting using OAuth
-	 * @param ?string $accessToken the Jira personal access token, when connecting using a PAT
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationJiraPersonalMutation(?string $code = null, ?string $accessToken = null)
+	public function integrationJiraPersonalMutation(?string $code = null, ?string $accessToken = null): PendingIntegrationJiraPersonalRequest
 	{
-		return $this->linearObjectMutation('integrationJiraPersonal', IntegrationPayload::class, compact('code', 'accessToken'));
+		return new PendingIntegrationJiraPersonalRequest($this, ['code' => $code, 'accessToken' => $accessToken]);
 	}
 	
-	/**
-	 * @param string $code the GitHub OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationGitHubPersonalMutation(string $code)
+	public function integrationGitHubPersonalMutation(string $code): PendingIntegrationGitHubPersonalRequest
 	{
-		return $this->linearObjectMutation('integrationGitHubPersonal', IntegrationPayload::class, compact('code'));
+		return new PendingIntegrationGitHubPersonalRequest($this, ['code' => $code]);
 	}
 	
-	/**
-	 * @param ?string $domainUrl The Intercom domain URL to use for the integration. Defaults to app.intercom.com if not provided.
-	 * @param string $redirectUri the Intercom OAuth redirect URI
-	 * @param string $code the Intercom OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationIntercomMutation(string $redirectUri, string $code, ?string $domainUrl = null)
+	public function integrationIntercomMutation(string $redirectUri, string $code, ?string $domainUrl = null): PendingIntegrationIntercomRequest
 	{
-		return $this->linearObjectMutation('integrationIntercom', IntegrationPayload::class, compact('redirectUri', 'code', 'domainUrl'));
+		return new PendingIntegrationIntercomRequest($this, ['redirectUri' => $redirectUri, 'code' => $code, 'domainUrl' => $domainUrl]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationIntercomDeleteMutation()
+	public function integrationIntercomDeleteMutation(): PendingIntegrationIntercomDeleteRequest
 	{
-		return $this->linearObjectMutation('integrationIntercomDelete', IntegrationPayload::class);
+		return new PendingIntegrationIntercomDeleteRequest($this, []);
 	}
 	
-	/**
-	 * @param IntercomSettingsInput $input a partial Intercom integration settings object to update the integration settings with
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationIntercomSettingsUpdateMutation(IntercomSettingsInput $input)
+	public function integrationIntercomSettingsUpdateMutation(IntercomSettingsInput $input): PendingIntegrationIntercomSettingsUpdateRequest
 	{
-		return $this->linearObjectMutation('integrationIntercomSettingsUpdate', IntegrationPayload::class, compact('input'));
+		return new PendingIntegrationIntercomSettingsUpdateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Discord OAuth redirect URI
-	 * @param string $code the Discord OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationDiscordMutation(string $redirectUri, string $code)
+	public function integrationDiscordMutation(string $redirectUri, string $code): PendingIntegrationDiscordRequest
 	{
-		return $this->linearObjectMutation('integrationDiscord', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationDiscordRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $apiKey the Opsgenie API key
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationOpsgenieConnectMutation(string $apiKey)
+	public function integrationOpsgenieConnectMutation(string $apiKey): PendingIntegrationOpsgenieConnectRequest
 	{
-		return $this->linearObjectMutation('integrationOpsgenieConnect', IntegrationPayload::class, compact('apiKey'));
+		return new PendingIntegrationOpsgenieConnectRequest($this, ['apiKey' => $apiKey]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationOpsgenieRefreshScheduleMappingsMutation()
+	public function integrationOpsgenieRefreshScheduleMappingsMutation(): PendingIntegrationOpsgenieRefreshScheduleMappingsRequest
 	{
-		return $this->linearObjectMutation('integrationOpsgenieRefreshScheduleMappings', IntegrationPayload::class);
+		return new PendingIntegrationOpsgenieRefreshScheduleMappingsRequest($this, []);
 	}
 	
-	/**
-	 * @param string $code the PagerDuty OAuth code
-	 * @param string $redirectUri the PagerDuty OAuth redirect URI
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationPagerDutyConnectMutation(string $code, string $redirectUri)
+	public function integrationPagerDutyConnectMutation(string $code, string $redirectUri): PendingIntegrationPagerDutyConnectRequest
 	{
-		return $this->linearObjectMutation('integrationPagerDutyConnect', IntegrationPayload::class, compact('code', 'redirectUri'));
+		return new PendingIntegrationPagerDutyConnectRequest($this, ['code' => $code, 'redirectUri' => $redirectUri]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationPagerDutyRefreshScheduleMappingsMutation()
+	public function integrationPagerDutyRefreshScheduleMappingsMutation(): PendingIntegrationPagerDutyRefreshScheduleMappingsRequest
 	{
-		return $this->linearObjectMutation('integrationPagerDutyRefreshScheduleMappings', IntegrationPayload::class);
+		return new PendingIntegrationPagerDutyRefreshScheduleMappingsRequest($this, []);
 	}
 	
-	/**
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationUpdateSlackMutation(string $redirectUri, string $code)
+	public function integrationUpdateSlackMutation(string $redirectUri, string $code): PendingIntegrationUpdateSlackRequest
 	{
-		return $this->linearObjectMutation('integrationUpdateSlack', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationUpdateSlackRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param ?bool $shouldUseV2Auth [DEPRECATED] Whether or not v2 of Slack OAuth should be used. No longer used.
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationSlackMutation(string $redirectUri, string $code, ?bool $shouldUseV2Auth = null)
+	public function integrationSlackMutation(string $redirectUri, string $code, ?bool $shouldUseV2Auth = null): PendingIntegrationSlackRequest
 	{
-		return $this->linearObjectMutation('integrationSlack', IntegrationPayload::class, compact('redirectUri', 'code', 'shouldUseV2Auth'));
+		return new PendingIntegrationSlackRequest($this, ['redirectUri' => $redirectUri, 'code' => $code, 'shouldUseV2Auth' => $shouldUseV2Auth]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationSlackAsksMutation(string $redirectUri, string $code)
+	public function integrationSlackAsksMutation(string $redirectUri, string $code): PendingIntegrationSlackAsksRequest
 	{
-		return $this->linearObjectMutation('integrationSlackAsks', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationSlackAsksRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationSlackPersonalMutation(string $redirectUri, string $code)
+	public function integrationSlackPersonalMutation(string $redirectUri, string $code): PendingIntegrationSlackPersonalRequest
 	{
-		return $this->linearObjectMutation('integrationSlackPersonal', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationSlackPersonalRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<AsksChannelConnectPayload>
-	 */
-	public function integrationAsksConnectChannelMutation(string $redirectUri, string $code)
+	public function integrationAsksConnectChannelMutation(string $redirectUri, string $code): PendingIntegrationAsksConnectChannelRequest
 	{
-		return $this->linearObjectMutation('integrationAsksConnectChannel', AsksChannelConnectPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationAsksConnectChannelRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param ?bool $shouldUseV2Auth [DEPRECATED] Whether or not v2 of Slack OAuth should be used. No longer used.
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $teamId integration's associated team
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<SlackChannelConnectPayload>
-	 */
-	public function integrationSlackPostMutation(string $redirectUri, string $teamId, string $code, ?bool $shouldUseV2Auth = null)
+	public function integrationSlackPostMutation(string $redirectUri, string $teamId, string $code, ?bool $shouldUseV2Auth = null): PendingIntegrationSlackPostRequest
 	{
-		return $this->linearObjectMutation('integrationSlackPost', SlackChannelConnectPayload::class, compact('redirectUri', 'teamId', 'code', 'shouldUseV2Auth'));
+		return new PendingIntegrationSlackPostRequest($this, ['redirectUri' => $redirectUri, 'teamId' => $teamId, 'code' => $code, 'shouldUseV2Auth' => $shouldUseV2Auth]);
 	}
 	
-	/**
-	 * @param string $service the service to enable once connected, either 'notifications' or 'updates'
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $projectId integration's associated project
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<SlackChannelConnectPayload>
-	 */
-	public function integrationSlackProjectPostMutation(string $service, string $redirectUri, string $projectId, string $code)
+	public function integrationSlackProjectPostMutation(string $service, string $redirectUri, string $projectId, string $code): PendingIntegrationSlackProjectPostRequest
 	{
-		return $this->linearObjectMutation('integrationSlackProjectPost', SlackChannelConnectPayload::class, compact('service', 'redirectUri', 'projectId', 'code'));
+		return new PendingIntegrationSlackProjectPostRequest($this, ['service' => $service, 'redirectUri' => $redirectUri, 'projectId' => $projectId, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<SlackChannelConnectPayload>
-	 */
-	public function integrationSlackOrgProjectUpdatesPostMutation(string $redirectUri, string $code)
+	public function integrationSlackOrgProjectUpdatesPostMutation(string $redirectUri, string $code): PendingIntegrationSlackOrgProjectUpdatesPostRequest
 	{
-		return $this->linearObjectMutation('integrationSlackOrgProjectUpdatesPost', SlackChannelConnectPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationSlackOrgProjectUpdatesPostRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Slack OAuth redirect URI
-	 * @param string $code the Slack OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationSlackImportEmojisMutation(string $redirectUri, string $code)
+	public function integrationSlackImportEmojisMutation(string $redirectUri, string $code): PendingIntegrationSlackImportEmojisRequest
 	{
-		return $this->linearObjectMutation('integrationSlackImportEmojis', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationSlackImportEmojisRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Figma OAuth redirect URI
-	 * @param string $code the Figma OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationFigmaMutation(string $redirectUri, string $code)
+	public function integrationFigmaMutation(string $redirectUri, string $code): PendingIntegrationFigmaRequest
 	{
-		return $this->linearObjectMutation('integrationFigma', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationFigmaRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $code the Google OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationGoogleSheetsMutation(string $code)
+	public function integrationGoogleSheetsMutation(string $code): PendingIntegrationGoogleSheetsRequest
 	{
-		return $this->linearObjectMutation('integrationGoogleSheets', IntegrationPayload::class, compact('code'));
+		return new PendingIntegrationGoogleSheetsRequest($this, ['code' => $code]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the Google Sheets integration to update
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function refreshGoogleSheetsDataMutation(string $id)
+	public function refreshGoogleSheetsDataMutation(string $id): PendingRefreshGoogleSheetsDataRequest
 	{
-		return $this->linearObjectMutation('refreshGoogleSheetsData', IntegrationPayload::class, compact('id'));
+		return new PendingRefreshGoogleSheetsDataRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $organizationSlug the slug of the Sentry organization being connected
-	 * @param string $code the Sentry grant code that's exchanged for OAuth tokens
-	 * @param string $installationId the Sentry installationId to connect with
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationSentryConnectMutation(string $organizationSlug, string $code, string $installationId)
+	public function integrationSentryConnectMutation(string $organizationSlug, string $code, string $installationId): PendingIntegrationSentryConnectRequest
 	{
-		return $this->linearObjectMutation('integrationSentryConnect', IntegrationPayload::class, compact('organizationSlug', 'code', 'installationId'));
+		return new PendingIntegrationSentryConnectRequest($this, ['organizationSlug' => $organizationSlug, 'code' => $code, 'installationId' => $installationId]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Front OAuth redirect URI
-	 * @param string $code the Front OAuth code
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationFrontMutation(string $redirectUri, string $code)
+	public function integrationFrontMutation(string $redirectUri, string $code): PendingIntegrationFrontRequest
 	{
-		return $this->linearObjectMutation('integrationFront', IntegrationPayload::class, compact('redirectUri', 'code'));
+		return new PendingIntegrationFrontRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $subdomain the Zendesk installation subdomain
-	 * @param string $code the Zendesk OAuth code
-	 * @param string $scope the Zendesk OAuth scopes
-	 * @param string $redirectUri the Zendesk OAuth redirect URI
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationZendeskMutation(string $subdomain, string $code, string $scope, string $redirectUri)
+	public function integrationZendeskMutation(string $subdomain, string $code, string $scope, string $redirectUri): PendingIntegrationZendeskRequest
 	{
-		return $this->linearObjectMutation('integrationZendesk', IntegrationPayload::class, compact('subdomain', 'code', 'scope', 'redirectUri'));
+		return new PendingIntegrationZendeskRequest($this, ['subdomain' => $subdomain, 'code' => $code, 'scope' => $scope, 'redirectUri' => $redirectUri]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<IntegrationPayload>
-	 */
-	public function integrationLoomMutation()
+	public function integrationLoomMutation(): PendingIntegrationLoomRequest
 	{
-		return $this->linearObjectMutation('integrationLoom', IntegrationPayload::class);
+		return new PendingIntegrationLoomRequest($this, []);
 	}
 	
-	/**
-	 * @param string $id the identifier of the integration to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function integrationDeleteMutation(string $id)
+	public function integrationDeleteMutation(string $id): PendingIntegrationDeleteRequest
 	{
-		return $this->linearObjectMutation('integrationDelete', DeletePayload::class, compact('id'));
+		return new PendingIntegrationDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the integration to archive
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function integrationArchiveMutation(string $id)
+	public function integrationArchiveMutation(string $id): PendingIntegrationArchiveRequest
 	{
-		return $this->linearObjectMutation('integrationArchive', DeletePayload::class, compact('id'));
+		return new PendingIntegrationArchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param IntegrationsSettingsCreateInput $input the settings to create
-	 * @returns PendingLinearObjectRequest<IntegrationsSettingsPayload>
-	 */
-	public function integrationsSettingsCreateMutation(IntegrationsSettingsCreateInput $input)
+	public function integrationsSettingsCreateMutation(IntegrationsSettingsCreateInput $input): PendingIntegrationsSettingsCreateRequest
 	{
-		return $this->linearObjectMutation('integrationsSettingsCreate', IntegrationsSettingsPayload::class, compact('input'));
+		return new PendingIntegrationsSettingsCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param IntegrationsSettingsUpdateInput $input a settings object to update the settings with
-	 * @param string $id the identifier of the settings to update
-	 * @returns PendingLinearObjectRequest<IntegrationsSettingsPayload>
-	 */
-	public function integrationsSettingsUpdateMutation(IntegrationsSettingsUpdateInput $input, string $id)
+	public function integrationsSettingsUpdateMutation(IntegrationsSettingsUpdateInput $input, string $id): PendingIntegrationsSettingsUpdateRequest
 	{
-		return $this->linearObjectMutation('integrationsSettingsUpdate', IntegrationsSettingsPayload::class, compact('input', 'id'));
+		return new PendingIntegrationsSettingsUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param IntegrationTemplateCreateInput $input the properties of the integrationTemplate to create
-	 * @returns PendingLinearObjectRequest<IntegrationTemplatePayload>
-	 */
-	public function integrationTemplateCreateMutation(IntegrationTemplateCreateInput $input)
+	public function integrationTemplateCreateMutation(IntegrationTemplateCreateInput $input): PendingIntegrationTemplateCreateRequest
 	{
-		return $this->linearObjectMutation('integrationTemplateCreate', IntegrationTemplatePayload::class, compact('input'));
+		return new PendingIntegrationTemplateCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the integrationTemplate to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function integrationTemplateDeleteMutation(string $id)
+	public function integrationTemplateDeleteMutation(string $id): PendingIntegrationTemplateDeleteRequest
 	{
-		return $this->linearObjectMutation('integrationTemplateDelete', DeletePayload::class, compact('id'));
+		return new PendingIntegrationTemplateDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?string $organizationId ID of the organization into which to import data
-	 * @param ?string $teamId ID of the team into which to import data
-	 * @param ?string $teamName Name of new team. When teamId is not set.
-	 * @param string $githubToken gitHub token to fetch information from the GitHub API
-	 * @param string $githubRepoName gitHub repository name from which we will import data
-	 * @param string $githubRepoOwner gitHub owner (user or org) for the repository from which we will import data
-	 * @param ?bool $githubShouldImportOrgProjects whether or not we should import GitHub organization level projects
-	 * @param ?bool $instantProcess whether to instantly process the import with the default configuration mapping
-	 * @param ?bool $includeClosedIssues whether or not we should collect the data for closed issues
-	 * @param ?string $id ID of issue import. If not provided it will be generated.
-	 * @returns PendingLinearObjectRequest<IssueImportPayload>
-	 */
 	public function issueImportCreateGithubMutation(
 		string $githubToken,
 		string $githubRepoName,
@@ -1354,23 +1042,21 @@ trait MutatesLinear
 		?bool $instantProcess = null,
 		?bool $includeClosedIssues = null,
 		?string $id = null
-	) {
-		return $this->linearObjectMutation('issueImportCreateGithub', IssueImportPayload::class, compact('githubToken', 'githubRepoName', 'githubRepoOwner', 'organizationId', 'teamId', 'teamName', 'githubShouldImportOrgProjects', 'instantProcess', 'includeClosedIssues', 'id'));
+	): PendingIssueImportCreateGithubRequest {
+		return new PendingIssueImportCreateGithubRequest($this, [
+			'githubToken' => $githubToken,
+			'githubRepoName' => $githubRepoName,
+			'githubRepoOwner' => $githubRepoOwner,
+			'organizationId' => $organizationId,
+			'teamId' => $teamId,
+			'teamName' => $teamName,
+			'githubShouldImportOrgProjects' => $githubShouldImportOrgProjects,
+			'instantProcess' => $instantProcess,
+			'includeClosedIssues' => $includeClosedIssues,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $organizationId ID of the organization into which to import data
-	 * @param ?string $teamId ID of the team into which to import data. Empty to create new team.
-	 * @param ?string $teamName Name of new team. When teamId is not set.
-	 * @param string $jiraToken jira personal access token to access Jira REST API
-	 * @param string $jiraProject jira project key from which we will import data
-	 * @param string $jiraEmail jira user account email
-	 * @param string $jiraHostname jira installation or cloud hostname
-	 * @param ?bool $instantProcess whether to instantly process the import with the default configuration mapping
-	 * @param ?bool $includeClosedIssues whether or not we should collect the data for closed issues
-	 * @param ?string $id ID of issue import. If not provided it will be generated.
-	 * @returns PendingLinearObjectRequest<IssueImportPayload>
-	 */
 	public function issueImportCreateJiraMutation(
 		string $jiraToken,
 		string $jiraProject,
@@ -1382,20 +1068,21 @@ trait MutatesLinear
 		?bool $instantProcess = null,
 		?bool $includeClosedIssues = null,
 		?string $id = null
-	) {
-		return $this->linearObjectMutation('issueImportCreateJira', IssueImportPayload::class, compact('jiraToken', 'jiraProject', 'jiraEmail', 'jiraHostname', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
+	): PendingIssueImportCreateJiraRequest {
+		return new PendingIssueImportCreateJiraRequest($this, [
+			'jiraToken' => $jiraToken,
+			'jiraProject' => $jiraProject,
+			'jiraEmail' => $jiraEmail,
+			'jiraHostname' => $jiraHostname,
+			'organizationId' => $organizationId,
+			'teamId' => $teamId,
+			'teamName' => $teamName,
+			'instantProcess' => $instantProcess,
+			'includeClosedIssues' => $includeClosedIssues,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $organizationId ID of the organization into which to import data
-	 * @param ?string $teamId ID of the team into which to import data. Empty to create new team.
-	 * @param ?string $teamName Name of new team. When teamId is not set.
-	 * @param string $csvUrl URL for the CSV
-	 * @param ?string $jiraHostname jira installation or cloud hostname
-	 * @param ?string $jiraToken jira personal access token to access Jira REST API
-	 * @param ?string $jiraEmail jira user account email
-	 * @returns PendingLinearObjectRequest<IssueImportPayload>
-	 */
 	public function issueImportCreateCSVJiraMutation(
 		string $csvUrl,
 		?string $organizationId = null,
@@ -1404,21 +1091,18 @@ trait MutatesLinear
 		?string $jiraHostname = null,
 		?string $jiraToken = null,
 		?string $jiraEmail = null
-	) {
-		return $this->linearObjectMutation('issueImportCreateCSVJira', IssueImportPayload::class, compact('csvUrl', 'organizationId', 'teamId', 'teamName', 'jiraHostname', 'jiraToken', 'jiraEmail'));
+	): PendingIssueImportCreateCSVJiraRequest {
+		return new PendingIssueImportCreateCSVJiraRequest($this, [
+			'csvUrl' => $csvUrl,
+			'organizationId' => $organizationId,
+			'teamId' => $teamId,
+			'teamName' => $teamName,
+			'jiraHostname' => $jiraHostname,
+			'jiraToken' => $jiraToken,
+			'jiraEmail' => $jiraEmail,
+		]);
 	}
 	
-	/**
-	 * @param ?string $organizationId ID of the organization into which to import data
-	 * @param ?string $teamId ID of the team into which to import data
-	 * @param ?string $teamName Name of new team. When teamId is not set.
-	 * @param string $clubhouseToken shortcut (formerly Clubhouse) token to fetch information from the Clubhouse API
-	 * @param string $clubhouseGroupName shortcut (formerly Clubhouse) group name to choose which issues we should import
-	 * @param ?bool $instantProcess whether to instantly process the import with the default configuration mapping
-	 * @param ?bool $includeClosedIssues whether or not we should collect the data for closed issues
-	 * @param ?string $id ID of issue import. If not provided it will be generated.
-	 * @returns PendingLinearObjectRequest<IssueImportPayload>
-	 */
 	public function issueImportCreateClubhouseMutation(
 		string $clubhouseToken,
 		string $clubhouseGroupName,
@@ -1428,21 +1112,19 @@ trait MutatesLinear
 		?bool $instantProcess = null,
 		?bool $includeClosedIssues = null,
 		?string $id = null
-	) {
-		return $this->linearObjectMutation('issueImportCreateClubhouse', IssueImportPayload::class, compact('clubhouseToken', 'clubhouseGroupName', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
+	): PendingIssueImportCreateClubhouseRequest {
+		return new PendingIssueImportCreateClubhouseRequest($this, [
+			'clubhouseToken' => $clubhouseToken,
+			'clubhouseGroupName' => $clubhouseGroupName,
+			'organizationId' => $organizationId,
+			'teamId' => $teamId,
+			'teamName' => $teamName,
+			'instantProcess' => $instantProcess,
+			'includeClosedIssues' => $includeClosedIssues,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param ?string $organizationId ID of the organization into which to import data
-	 * @param ?string $teamId ID of the team into which to import data
-	 * @param ?string $teamName Name of new team. When teamId is not set.
-	 * @param string $asanaToken asana token to fetch information from the Asana API
-	 * @param string $asanaTeamName asana team name to choose which issues we should import
-	 * @param ?bool $instantProcess whether to instantly process the import with the default configuration mapping
-	 * @param ?bool $includeClosedIssues whether or not we should collect the data for closed issues
-	 * @param ?string $id ID of issue import. If not provided it will be generated.
-	 * @returns PendingLinearObjectRequest<IssueImportPayload>
-	 */
 	public function issueImportCreateAsanaMutation(
 		string $asanaToken,
 		string $asanaTeamName,
@@ -1452,1101 +1134,601 @@ trait MutatesLinear
 		?bool $instantProcess = null,
 		?bool $includeClosedIssues = null,
 		?string $id = null
-	) {
-		return $this->linearObjectMutation('issueImportCreateAsana', IssueImportPayload::class, compact('asanaToken', 'asanaTeamName', 'organizationId', 'teamId', 'teamName', 'instantProcess', 'includeClosedIssues', 'id'));
+	): PendingIssueImportCreateAsanaRequest {
+		return new PendingIssueImportCreateAsanaRequest($this, [
+			'asanaToken' => $asanaToken,
+			'asanaTeamName' => $asanaTeamName,
+			'organizationId' => $organizationId,
+			'teamId' => $teamId,
+			'teamName' => $teamName,
+			'instantProcess' => $instantProcess,
+			'includeClosedIssues' => $includeClosedIssues,
+			'id' => $id,
+		]);
 	}
 	
-	/**
-	 * @param string $issueImportId ID of the issue import to delete
-	 * @returns PendingLinearObjectRequest<IssueImportDeletePayload>
-	 */
-	public function issueImportDeleteMutation(string $issueImportId)
+	public function issueImportDeleteMutation(string $issueImportId): PendingIssueImportDeleteRequest
 	{
-		return $this->linearObjectMutation('issueImportDelete', IssueImportDeletePayload::class, compact('issueImportId'));
+		return new PendingIssueImportDeleteRequest($this, ['issueImportId' => $issueImportId]);
 	}
 	
-	/**
-	 * @param string $mapping the mapping configuration to use for processing the import
-	 * @param string $issueImportId ID of the issue import which we're going to process
-	 * @returns PendingLinearObjectRequest<IssueImportPayload>
-	 */
-	public function issueImportProcessMutation(string $mapping, string $issueImportId)
+	public function issueImportProcessMutation(string $mapping, string $issueImportId): PendingIssueImportProcessRequest
 	{
-		return $this->linearObjectMutation('issueImportProcess', IssueImportPayload::class, compact('mapping', 'issueImportId'));
+		return new PendingIssueImportProcessRequest($this, ['mapping' => $mapping, 'issueImportId' => $issueImportId]);
 	}
 	
-	/**
-	 * @param IssueImportUpdateInput $input the properties of the issue import to update
-	 * @param string $id the identifier of the issue import
-	 * @returns PendingLinearObjectRequest<IssueImportPayload>
-	 */
-	public function issueImportUpdateMutation(IssueImportUpdateInput $input, string $id)
+	public function issueImportUpdateMutation(IssueImportUpdateInput $input, string $id): PendingIssueImportUpdateRequest
 	{
-		return $this->linearObjectMutation('issueImportUpdate', IssueImportPayload::class, compact('input', 'id'));
+		return new PendingIssueImportUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param ?bool $replaceTeamLabels whether to replace all team-specific labels with the same name with this newly created workspace label
-	 * @param IssueLabelCreateInput $input the issue label to create
-	 * @returns PendingLinearObjectRequest<IssueLabelPayload>
-	 */
-	public function issueLabelCreateMutation(IssueLabelCreateInput $input, ?bool $replaceTeamLabels = null)
+	public function issueLabelCreateMutation(IssueLabelCreateInput $input, ?bool $replaceTeamLabels = null): PendingIssueLabelCreateRequest
 	{
-		return $this->linearObjectMutation('issueLabelCreate', IssueLabelPayload::class, compact('input', 'replaceTeamLabels'));
+		return new PendingIssueLabelCreateRequest($this, ['input' => $input, 'replaceTeamLabels' => $replaceTeamLabels]);
 	}
 	
-	/**
-	 * @param IssueLabelUpdateInput $input a partial label object to update
-	 * @param string $id the identifier of the label to update
-	 * @returns PendingLinearObjectRequest<IssueLabelPayload>
-	 */
-	public function issueLabelUpdateMutation(IssueLabelUpdateInput $input, string $id)
+	public function issueLabelUpdateMutation(IssueLabelUpdateInput $input, string $id): PendingIssueLabelUpdateRequest
 	{
-		return $this->linearObjectMutation('issueLabelUpdate', IssueLabelPayload::class, compact('input', 'id'));
+		return new PendingIssueLabelUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the label to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function issueLabelDeleteMutation(string $id)
+	public function issueLabelDeleteMutation(string $id): PendingIssueLabelDeleteRequest
 	{
-		return $this->linearObjectMutation('issueLabelDelete', DeletePayload::class, compact('id'));
+		return new PendingIssueLabelDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param IssueRelationCreateInput $input the issue relation to create
-	 * @returns PendingLinearObjectRequest<IssueRelationPayload>
-	 */
-	public function issueRelationCreateMutation(IssueRelationCreateInput $input)
+	public function issueRelationCreateMutation(IssueRelationCreateInput $input): PendingIssueRelationCreateRequest
 	{
-		return $this->linearObjectMutation('issueRelationCreate', IssueRelationPayload::class, compact('input'));
+		return new PendingIssueRelationCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param IssueRelationUpdateInput $input the properties of the issue relation to update
-	 * @param string $id the identifier of the issue relation to update
-	 * @returns PendingLinearObjectRequest<IssueRelationPayload>
-	 */
-	public function issueRelationUpdateMutation(IssueRelationUpdateInput $input, string $id)
+	public function issueRelationUpdateMutation(IssueRelationUpdateInput $input, string $id): PendingIssueRelationUpdateRequest
 	{
-		return $this->linearObjectMutation('issueRelationUpdate', IssueRelationPayload::class, compact('input', 'id'));
+		return new PendingIssueRelationUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the issue relation to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function issueRelationDeleteMutation(string $id)
+	public function issueRelationDeleteMutation(string $id): PendingIssueRelationDeleteRequest
 	{
-		return $this->linearObjectMutation('issueRelationDelete', DeletePayload::class, compact('id'));
+		return new PendingIssueRelationDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param IssueCreateInput $input the issue object to create
-	 * @returns PendingLinearObjectRequest<IssuePayload>
-	 */
-	public function issueCreateMutation(IssueCreateInput $input)
+	public function issueCreateMutation(IssueCreateInput $input): PendingIssueCreateRequest
 	{
-		return $this->linearObjectMutation('issueCreate', IssuePayload::class, compact('input'));
+		return new PendingIssueCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param IssueUpdateInput $input a partial issue object to update the issue with
-	 * @param string $id the identifier of the issue to update
-	 * @returns PendingLinearObjectRequest<IssuePayload>
-	 */
-	public function issueUpdateMutation(IssueUpdateInput $input, string $id)
+	public function issueUpdateMutation(IssueUpdateInput $input, string $id): PendingIssueUpdateRequest
 	{
-		return $this->linearObjectMutation('issueUpdate', IssuePayload::class, compact('input', 'id'));
+		return new PendingIssueUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param IssueUpdateInput $input a partial issue object to update the issues with
-	 * @param iterable $ids The id's of the issues to update. Can't be more than 50 at a time.
-	 * @returns PendingLinearObjectRequest<IssueBatchPayload>
-	 */
-	public function issueBatchUpdateMutation(IssueUpdateInput $input, iterable $ids)
+	public function issueBatchUpdateMutation(IssueUpdateInput $input, iterable $ids): PendingIssueBatchUpdateRequest
 	{
-		return $this->linearObjectMutation('issueBatchUpdate', IssueBatchPayload::class, compact('input', 'ids'));
+		return new PendingIssueBatchUpdateRequest($this, ['input' => $input, 'ids' => $ids]);
 	}
 	
-	/**
-	 * @param ?bool $trash whether to trash the issue
-	 * @param string $id the identifier of the issue to archive
-	 * @returns PendingLinearObjectRequest<IssueArchivePayload>
-	 */
-	public function issueArchiveMutation(string $id, ?bool $trash = null)
+	public function issueArchiveMutation(string $id, ?bool $trash = null): PendingIssueArchiveRequest
 	{
-		return $this->linearObjectMutation('issueArchive', IssueArchivePayload::class, compact('id', 'trash'));
+		return new PendingIssueArchiveRequest($this, ['id' => $id, 'trash' => $trash]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the issue to archive
-	 * @returns PendingLinearObjectRequest<IssueArchivePayload>
-	 */
-	public function issueUnarchiveMutation(string $id)
+	public function issueUnarchiveMutation(string $id): PendingIssueUnarchiveRequest
 	{
-		return $this->linearObjectMutation('issueUnarchive', IssueArchivePayload::class, compact('id'));
+		return new PendingIssueUnarchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the issue to delete
-	 * @returns PendingLinearObjectRequest<IssueArchivePayload>
-	 */
-	public function issueDeleteMutation(string $id)
+	public function issueDeleteMutation(string $id): PendingIssueDeleteRequest
 	{
-		return $this->linearObjectMutation('issueDelete', IssueArchivePayload::class, compact('id'));
+		return new PendingIssueDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $labelId the identifier of the label to add
-	 * @param string $id the identifier of the issue to add the label to
-	 * @returns PendingLinearObjectRequest<IssuePayload>
-	 */
-	public function issueAddLabelMutation(string $labelId, string $id)
+	public function issueAddLabelMutation(string $labelId, string $id): PendingIssueAddLabelRequest
 	{
-		return $this->linearObjectMutation('issueAddLabel', IssuePayload::class, compact('labelId', 'id'));
+		return new PendingIssueAddLabelRequest($this, ['labelId' => $labelId, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $labelId the identifier of the label to remove
-	 * @param string $id the identifier of the issue to remove the label from
-	 * @returns PendingLinearObjectRequest<IssuePayload>
-	 */
-	public function issueRemoveLabelMutation(string $labelId, string $id)
+	public function issueRemoveLabelMutation(string $labelId, string $id): PendingIssueRemoveLabelRequest
 	{
-		return $this->linearObjectMutation('issueRemoveLabel', IssuePayload::class, compact('labelId', 'id'));
+		return new PendingIssueRemoveLabelRequest($this, ['labelId' => $labelId, 'id' => $id]);
 	}
 	
-	/**
-	 * @param DateTimeInterface $reminderAt the time when a reminder notification will be sent
-	 * @param string $id the identifier of the issue to add a reminder for
-	 * @returns PendingLinearObjectRequest<IssuePayload>
-	 */
-	public function issueReminderMutation(DateTimeInterface $reminderAt, string $id)
+	public function issueReminderMutation(DateTimeInterface $reminderAt, string $id): PendingIssueReminderRequest
 	{
-		return $this->linearObjectMutation('issueReminder', IssuePayload::class, compact('reminderAt', 'id'));
+		return new PendingIssueReminderRequest($this, ['reminderAt' => $reminderAt, 'id' => $id]);
 	}
 	
-	/**
-	 * @param ?string $userId the identifier of the user to subscribe, default is the current user
-	 * @param string $id the identifier of the issue to subscribe to
-	 * @returns PendingLinearObjectRequest<IssuePayload>
-	 */
-	public function issueSubscribeMutation(string $id, ?string $userId = null)
+	public function issueSubscribeMutation(string $id, ?string $userId = null): PendingIssueSubscribeRequest
 	{
-		return $this->linearObjectMutation('issueSubscribe', IssuePayload::class, compact('id', 'userId'));
+		return new PendingIssueSubscribeRequest($this, ['id' => $id, 'userId' => $userId]);
 	}
 	
-	/**
-	 * @param ?string $userId the identifier of the user to unsubscribe, default is the current user
-	 * @param string $id the identifier of the issue to unsubscribe from
-	 * @returns PendingLinearObjectRequest<IssuePayload>
-	 */
-	public function issueUnsubscribeMutation(string $id, ?string $userId = null)
+	public function issueUnsubscribeMutation(string $id, ?string $userId = null): PendingIssueUnsubscribeRequest
 	{
-		return $this->linearObjectMutation('issueUnsubscribe', IssuePayload::class, compact('id', 'userId'));
+		return new PendingIssueUnsubscribeRequest($this, ['id' => $id, 'userId' => $userId]);
 	}
 	
-	/**
-	 * @param string $description description to update the issue with
-	 * @param string $id the identifier of the issue to update
-	 * @returns PendingLinearObjectRequest<IssuePayload>
-	 */
-	public function issueDescriptionUpdateFromFrontMutation(string $description, string $id)
+	public function issueDescriptionUpdateFromFrontMutation(string $description, string $id): PendingIssueDescriptionUpdateFromFrontRequest
 	{
-		return $this->linearObjectMutation('issueDescriptionUpdateFromFront', IssuePayload::class, compact('description', 'id'));
+		return new PendingIssueDescriptionUpdateFromFrontRequest($this, ['description' => $description, 'id' => $id]);
 	}
 	
-	/**
-	 * @param NotificationUpdateInput $input a partial notification object to update the notification with
-	 * @param string $id the identifier of the notification to update
-	 * @returns PendingLinearObjectRequest<NotificationPayload>
-	 */
-	public function notificationUpdateMutation(NotificationUpdateInput $input, string $id)
+	public function notificationUpdateMutation(NotificationUpdateInput $input, string $id): PendingNotificationUpdateRequest
 	{
-		return $this->linearObjectMutation('notificationUpdate', NotificationPayload::class, compact('input', 'id'));
+		return new PendingNotificationUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param DateTimeInterface $readAt the time when notification was marked as read
-	 * @param NotificationEntityInput $input the type and id of the entity to archive notifications for
-	 * @returns PendingLinearObjectRequest<NotificationBatchActionPayload>
-	 */
-	public function notificationMarkReadAllMutation(DateTimeInterface $readAt, NotificationEntityInput $input)
+	public function notificationMarkReadAllMutation(DateTimeInterface $readAt, NotificationEntityInput $input): PendingNotificationMarkReadAllRequest
 	{
-		return $this->linearObjectMutation('notificationMarkReadAll', NotificationBatchActionPayload::class, compact('readAt', 'input'));
+		return new PendingNotificationMarkReadAllRequest($this, ['readAt' => $readAt, 'input' => $input]);
 	}
 	
-	/**
-	 * @param NotificationEntityInput $input the type and id of the entity to archive notifications for
-	 * @returns PendingLinearObjectRequest<NotificationBatchActionPayload>
-	 */
-	public function notificationMarkUnreadAllMutation(NotificationEntityInput $input)
+	public function notificationMarkUnreadAllMutation(NotificationEntityInput $input): PendingNotificationMarkUnreadAllRequest
 	{
-		return $this->linearObjectMutation('notificationMarkUnreadAll', NotificationBatchActionPayload::class, compact('input'));
+		return new PendingNotificationMarkUnreadAllRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param DateTimeInterface $snoozedUntilAt The time until a notification will be snoozed. After that it will appear in the inbox again.
-	 * @param NotificationEntityInput $input the type and id of the entity to archive notifications for
-	 * @returns PendingLinearObjectRequest<NotificationBatchActionPayload>
-	 */
-	public function notificationSnoozeAllMutation(DateTimeInterface $snoozedUntilAt, NotificationEntityInput $input)
+	public function notificationSnoozeAllMutation(DateTimeInterface $snoozedUntilAt, NotificationEntityInput $input): PendingNotificationSnoozeAllRequest
 	{
-		return $this->linearObjectMutation('notificationSnoozeAll', NotificationBatchActionPayload::class, compact('snoozedUntilAt', 'input'));
+		return new PendingNotificationSnoozeAllRequest($this, ['snoozedUntilAt' => $snoozedUntilAt, 'input' => $input]);
 	}
 	
-	/**
-	 * @param DateTimeInterface $unsnoozedAt the time when the notification was unsnoozed
-	 * @param NotificationEntityInput $input the type and id of the entity to archive notifications for
-	 * @returns PendingLinearObjectRequest<NotificationBatchActionPayload>
-	 */
-	public function notificationUnsnoozeAllMutation(DateTimeInterface $unsnoozedAt, NotificationEntityInput $input)
+	public function notificationUnsnoozeAllMutation(DateTimeInterface $unsnoozedAt, NotificationEntityInput $input): PendingNotificationUnsnoozeAllRequest
 	{
-		return $this->linearObjectMutation('notificationUnsnoozeAll', NotificationBatchActionPayload::class, compact('unsnoozedAt', 'input'));
+		return new PendingNotificationUnsnoozeAllRequest($this, ['unsnoozedAt' => $unsnoozedAt, 'input' => $input]);
 	}
 	
-	/**
-	 * @param string $id the id of the notification to archive
-	 * @returns PendingLinearObjectRequest<NotificationArchivePayload>
-	 */
-	public function notificationArchiveMutation(string $id)
+	public function notificationArchiveMutation(string $id): PendingNotificationArchiveRequest
 	{
-		return $this->linearObjectMutation('notificationArchive', NotificationArchivePayload::class, compact('id'));
+		return new PendingNotificationArchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param NotificationEntityInput $input the type and id of the entity to archive notifications for
-	 * @returns PendingLinearObjectRequest<NotificationBatchActionPayload>
-	 */
-	public function notificationArchiveAllMutation(NotificationEntityInput $input)
+	public function notificationArchiveAllMutation(NotificationEntityInput $input): PendingNotificationArchiveAllRequest
 	{
-		return $this->linearObjectMutation('notificationArchiveAll', NotificationBatchActionPayload::class, compact('input'));
+		return new PendingNotificationArchiveAllRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $id the id of the notification to archive
-	 * @returns PendingLinearObjectRequest<NotificationArchivePayload>
-	 */
-	public function notificationUnarchiveMutation(string $id)
+	public function notificationUnarchiveMutation(string $id): PendingNotificationUnarchiveRequest
 	{
-		return $this->linearObjectMutation('notificationUnarchive', NotificationArchivePayload::class, compact('id'));
+		return new PendingNotificationUnarchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param NotificationSubscriptionCreateInput $input the subscription object to create
-	 * @returns PendingLinearObjectRequest<NotificationSubscriptionPayload>
-	 */
-	public function notificationSubscriptionCreateMutation(NotificationSubscriptionCreateInput $input)
+	public function notificationSubscriptionCreateMutation(NotificationSubscriptionCreateInput $input): PendingNotificationSubscriptionCreateRequest
 	{
-		return $this->linearObjectMutation('notificationSubscriptionCreate', NotificationSubscriptionPayload::class, compact('input'));
+		return new PendingNotificationSubscriptionCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param NotificationSubscriptionUpdateInput $input a partial notification subscription object to update the notification subscription with
-	 * @param string $id the identifier of the notification subscription to update
-	 * @returns PendingLinearObjectRequest<NotificationSubscriptionPayload>
-	 */
-	public function notificationSubscriptionUpdateMutation(NotificationSubscriptionUpdateInput $input, string $id)
+	public function notificationSubscriptionUpdateMutation(NotificationSubscriptionUpdateInput $input, string $id): PendingNotificationSubscriptionUpdateRequest
 	{
-		return $this->linearObjectMutation('notificationSubscriptionUpdate', NotificationSubscriptionPayload::class, compact('input', 'id'));
+		return new PendingNotificationSubscriptionUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the notification subscription reference to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function notificationSubscriptionDeleteMutation(string $id)
+	public function notificationSubscriptionDeleteMutation(string $id): PendingNotificationSubscriptionDeleteRequest
 	{
-		return $this->linearObjectMutation('notificationSubscriptionDelete', DeletePayload::class, compact('id'));
+		return new PendingNotificationSubscriptionDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the ID of the organization domain to claim
-	 * @returns PendingLinearObjectRequest<OrganizationDomainSimplePayload>
-	 */
-	public function organizationDomainClaimMutation(string $id)
+	public function organizationDomainClaimMutation(string $id): PendingOrganizationDomainClaimRequest
 	{
-		return $this->linearObjectMutation('organizationDomainClaim', OrganizationDomainSimplePayload::class, compact('id'));
+		return new PendingOrganizationDomainClaimRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param OrganizationDomainVerificationInput $input the organization domain to verify
-	 * @returns PendingLinearObjectRequest<OrganizationDomainPayload>
-	 */
-	public function organizationDomainVerifyMutation(OrganizationDomainVerificationInput $input)
+	public function organizationDomainVerifyMutation(OrganizationDomainVerificationInput $input): PendingOrganizationDomainVerifyRequest
 	{
-		return $this->linearObjectMutation('organizationDomainVerify', OrganizationDomainPayload::class, compact('input'));
+		return new PendingOrganizationDomainVerifyRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ?bool $triggerEmailVerification whether to trigger an email verification flow during domain creation
-	 * @param OrganizationDomainCreateInput $input the organization domain entry to create
-	 * @returns PendingLinearObjectRequest<OrganizationDomainPayload>
-	 */
-	public function organizationDomainCreateMutation(OrganizationDomainCreateInput $input, ?bool $triggerEmailVerification = null)
+	public function organizationDomainCreateMutation(OrganizationDomainCreateInput $input, ?bool $triggerEmailVerification = null): PendingOrganizationDomainCreateRequest
 	{
-		return $this->linearObjectMutation('organizationDomainCreate', OrganizationDomainPayload::class, compact('input', 'triggerEmailVerification'));
+		return new PendingOrganizationDomainCreateRequest($this, ['input' => $input, 'triggerEmailVerification' => $triggerEmailVerification]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the domain to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function organizationDomainDeleteMutation(string $id)
+	public function organizationDomainDeleteMutation(string $id): PendingOrganizationDomainDeleteRequest
 	{
-		return $this->linearObjectMutation('organizationDomainDelete', DeletePayload::class, compact('id'));
+		return new PendingOrganizationDomainDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param OrganizationInviteCreateInput $input the organization invite object to create
-	 * @returns PendingLinearObjectRequest<OrganizationInvitePayload>
-	 */
-	public function organizationInviteCreateMutation(OrganizationInviteCreateInput $input)
+	public function organizationInviteCreateMutation(OrganizationInviteCreateInput $input): PendingOrganizationInviteCreateRequest
 	{
-		return $this->linearObjectMutation('organizationInviteCreate', OrganizationInvitePayload::class, compact('input'));
+		return new PendingOrganizationInviteCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param OrganizationInviteUpdateInput $input the updates to make to the organization invite object
-	 * @param string $id the identifier of the organization invite to update
-	 * @returns PendingLinearObjectRequest<OrganizationInvitePayload>
-	 */
-	public function organizationInviteUpdateMutation(OrganizationInviteUpdateInput $input, string $id)
+	public function organizationInviteUpdateMutation(OrganizationInviteUpdateInput $input, string $id): PendingOrganizationInviteUpdateRequest
 	{
-		return $this->linearObjectMutation('organizationInviteUpdate', OrganizationInvitePayload::class, compact('input', 'id'));
+		return new PendingOrganizationInviteUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the organization invite to be re-send
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function resendOrganizationInviteMutation(string $id)
+	public function resendOrganizationInviteMutation(string $id): PendingResendOrganizationInviteRequest
 	{
-		return $this->linearObjectMutation('resendOrganizationInvite', DeletePayload::class, compact('id'));
+		return new PendingResendOrganizationInviteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the organization invite to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function organizationInviteDeleteMutation(string $id)
+	public function organizationInviteDeleteMutation(string $id): PendingOrganizationInviteDeleteRequest
 	{
-		return $this->linearObjectMutation('organizationInviteDelete', DeletePayload::class, compact('id'));
+		return new PendingOrganizationInviteDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param OrganizationUpdateInput $input a partial organization object to update the organization with
-	 * @returns PendingLinearObjectRequest<OrganizationPayload>
-	 */
-	public function organizationUpdateMutation(OrganizationUpdateInput $input)
+	public function organizationUpdateMutation(OrganizationUpdateInput $input): PendingOrganizationUpdateRequest
 	{
-		return $this->linearObjectMutation('organizationUpdate', OrganizationPayload::class, compact('input'));
+		return new PendingOrganizationUpdateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<OrganizationDeletePayload>
-	 */
-	public function organizationDeleteChallengeMutation()
+	public function organizationDeleteChallengeMutation(): PendingOrganizationDeleteChallengeRequest
 	{
-		return $this->linearObjectMutation('organizationDeleteChallenge', OrganizationDeletePayload::class);
+		return new PendingOrganizationDeleteChallengeRequest($this, []);
 	}
 	
-	/**
-	 * @param DeleteOrganizationInput $input information required to delete an organization
-	 * @returns PendingLinearObjectRequest<OrganizationDeletePayload>
-	 */
-	public function organizationDeleteMutation(DeleteOrganizationInput $input)
+	public function organizationDeleteMutation(DeleteOrganizationInput $input): PendingOrganizationDeleteRequest
 	{
-		return $this->linearObjectMutation('organizationDelete', OrganizationDeletePayload::class, compact('input'));
+		return new PendingOrganizationDeleteRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<OrganizationCancelDeletePayload>
-	 */
-	public function organizationCancelDeleteMutation()
+	public function organizationCancelDeleteMutation(): PendingOrganizationCancelDeleteRequest
 	{
-		return $this->linearObjectMutation('organizationCancelDelete', OrganizationCancelDeletePayload::class);
+		return new PendingOrganizationCancelDeleteRequest($this, []);
 	}
 	
-	/**
-	 * @returns PendingLinearObjectRequest<OrganizationStartPlusTrialPayload>
-	 */
-	public function organizationStartPlusTrialMutation()
+	public function organizationStartPlusTrialMutation(): PendingOrganizationStartPlusTrialRequest
 	{
-		return $this->linearObjectMutation('organizationStartPlusTrial', OrganizationStartPlusTrialPayload::class);
+		return new PendingOrganizationStartPlusTrialRequest($this, []);
 	}
 	
-	/**
-	 * @param ProjectLinkCreateInput $input the project link object to create
-	 * @returns PendingLinearObjectRequest<ProjectLinkPayload>
-	 */
-	public function projectLinkCreateMutation(ProjectLinkCreateInput $input)
+	public function projectLinkCreateMutation(ProjectLinkCreateInput $input): PendingProjectLinkCreateRequest
 	{
-		return $this->linearObjectMutation('projectLinkCreate', ProjectLinkPayload::class, compact('input'));
+		return new PendingProjectLinkCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ProjectLinkUpdateInput $input the project link object to update
-	 * @param string $id the identifier of the project link to update
-	 * @returns PendingLinearObjectRequest<ProjectLinkPayload>
-	 */
-	public function projectLinkUpdateMutation(ProjectLinkUpdateInput $input, string $id)
+	public function projectLinkUpdateMutation(ProjectLinkUpdateInput $input, string $id): PendingProjectLinkUpdateRequest
 	{
-		return $this->linearObjectMutation('projectLinkUpdate', ProjectLinkPayload::class, compact('input', 'id'));
+		return new PendingProjectLinkUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the project link to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function projectLinkDeleteMutation(string $id)
+	public function projectLinkDeleteMutation(string $id): PendingProjectLinkDeleteRequest
 	{
-		return $this->linearObjectMutation('projectLinkDelete', DeletePayload::class, compact('id'));
+		return new PendingProjectLinkDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ProjectMilestoneCreateInput $input the project milestone to create
-	 * @returns PendingLinearObjectRequest<ProjectMilestonePayload>
-	 */
-	public function projectMilestoneCreateMutation(ProjectMilestoneCreateInput $input)
+	public function projectMilestoneCreateMutation(ProjectMilestoneCreateInput $input): PendingProjectMilestoneCreateRequest
 	{
-		return $this->linearObjectMutation('projectMilestoneCreate', ProjectMilestonePayload::class, compact('input'));
+		return new PendingProjectMilestoneCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ProjectMilestoneUpdateInput $input a partial object to update the project milestone with
-	 * @param string $id The identifier of the project milestone to update. Also the identifier from the URL is accepted.
-	 * @returns PendingLinearObjectRequest<ProjectMilestonePayload>
-	 */
-	public function projectMilestoneUpdateMutation(ProjectMilestoneUpdateInput $input, string $id)
+	public function projectMilestoneUpdateMutation(ProjectMilestoneUpdateInput $input, string $id): PendingProjectMilestoneUpdateRequest
 	{
-		return $this->linearObjectMutation('projectMilestoneUpdate', ProjectMilestonePayload::class, compact('input', 'id'));
+		return new PendingProjectMilestoneUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the project milestone to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function projectMilestoneDeleteMutation(string $id)
+	public function projectMilestoneDeleteMutation(string $id): PendingProjectMilestoneDeleteRequest
 	{
-		return $this->linearObjectMutation('projectMilestoneDelete', DeletePayload::class, compact('id'));
+		return new PendingProjectMilestoneDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?bool $connectSlackChannel whether to connect a Slack channel to the project
-	 * @param ProjectCreateInput $input the issue object to create
-	 * @returns PendingLinearObjectRequest<ProjectPayload>
-	 */
-	public function projectCreateMutation(ProjectCreateInput $input, ?bool $connectSlackChannel = null)
+	public function projectCreateMutation(ProjectCreateInput $input, ?bool $connectSlackChannel = null): PendingProjectCreateRequest
 	{
-		return $this->linearObjectMutation('projectCreate', ProjectPayload::class, compact('input', 'connectSlackChannel'));
+		return new PendingProjectCreateRequest($this, ['input' => $input, 'connectSlackChannel' => $connectSlackChannel]);
 	}
 	
-	/**
-	 * @param ProjectUpdateInput $input a partial project object to update the project with
-	 * @param string $id The identifier of the project to update. Also the identifier from the URL is accepted.
-	 * @returns PendingLinearObjectRequest<ProjectPayload>
-	 */
-	public function projectUpdateMutation(ProjectUpdateInput $input, string $id)
+	public function projectUpdateMutation(ProjectUpdateInput $input, string $id): PendingProjectUpdateRequest
 	{
-		return $this->linearObjectMutation('projectUpdate', ProjectPayload::class, compact('input', 'id'));
+		return new PendingProjectUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the project to delete
-	 * @returns PendingLinearObjectRequest<ProjectArchivePayload>
-	 */
-	public function projectDeleteMutation(string $id)
+	public function projectDeleteMutation(string $id): PendingProjectDeleteRequest
 	{
-		return $this->linearObjectMutation('projectDelete', ProjectArchivePayload::class, compact('id'));
+		return new PendingProjectDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?bool $trash whether to trash the project
-	 * @param string $id The identifier of the project to archive. Also the identifier from the URL is accepted.
-	 * @returns PendingLinearObjectRequest<ProjectArchivePayload>
-	 */
-	public function projectArchiveMutation(string $id, ?bool $trash = null)
+	public function projectArchiveMutation(string $id, ?bool $trash = null): PendingProjectArchiveRequest
 	{
-		return $this->linearObjectMutation('projectArchive', ProjectArchivePayload::class, compact('id', 'trash'));
+		return new PendingProjectArchiveRequest($this, ['id' => $id, 'trash' => $trash]);
 	}
 	
-	/**
-	 * @param string $id The identifier of the project to restore. Also the identifier from the URL is accepted.
-	 * @returns PendingLinearObjectRequest<ProjectArchivePayload>
-	 */
-	public function projectUnarchiveMutation(string $id)
+	public function projectUnarchiveMutation(string $id): PendingProjectUnarchiveRequest
 	{
-		return $this->linearObjectMutation('projectUnarchive', ProjectArchivePayload::class, compact('id'));
+		return new PendingProjectUnarchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ProjectUpdateInteractionCreateInput $input data for the project update interaction to create
-	 * @returns PendingLinearObjectRequest<ProjectUpdateInteractionPayload>
-	 */
-	public function projectUpdateInteractionCreateMutation(ProjectUpdateInteractionCreateInput $input)
+	public function projectUpdateInteractionCreateMutation(ProjectUpdateInteractionCreateInput $input): PendingProjectUpdateInteractionCreateRequest
 	{
-		return $this->linearObjectMutation('projectUpdateInteractionCreate', ProjectUpdateInteractionPayload::class, compact('input'));
+		return new PendingProjectUpdateInteractionCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ProjectUpdateCreateInput $input data for the project update to create
-	 * @returns PendingLinearObjectRequest<ProjectUpdatePayload>
-	 */
-	public function projectUpdateCreateMutation(ProjectUpdateCreateInput $input)
+	public function projectUpdateCreateMutation(ProjectUpdateCreateInput $input): PendingProjectUpdateCreateRequest
 	{
-		return $this->linearObjectMutation('projectUpdateCreate', ProjectUpdatePayload::class, compact('input'));
+		return new PendingProjectUpdateCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ProjectUpdateUpdateInput $input a data to update the project update with
-	 * @param string $id the identifier of the project update to update
-	 * @returns PendingLinearObjectRequest<ProjectUpdatePayload>
-	 */
-	public function projectUpdateUpdateMutation(ProjectUpdateUpdateInput $input, string $id)
+	public function projectUpdateUpdateMutation(ProjectUpdateUpdateInput $input, string $id): PendingProjectUpdateUpdateRequest
 	{
-		return $this->linearObjectMutation('projectUpdateUpdate', ProjectUpdatePayload::class, compact('input', 'id'));
+		return new PendingProjectUpdateUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the project update to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function projectUpdateDeleteMutation(string $id)
+	public function projectUpdateDeleteMutation(string $id): PendingProjectUpdateDeleteRequest
 	{
-		return $this->linearObjectMutation('projectUpdateDelete', DeletePayload::class, compact('id'));
+		return new PendingProjectUpdateDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the project update
-	 * @returns PendingLinearObjectRequest<ProjectUpdateWithInteractionPayload>
-	 */
-	public function projectUpdateMarkAsReadMutation(string $id)
+	public function projectUpdateMarkAsReadMutation(string $id): PendingProjectUpdateMarkAsReadRequest
 	{
-		return $this->linearObjectMutation('projectUpdateMarkAsRead', ProjectUpdateWithInteractionPayload::class, compact('id'));
+		return new PendingProjectUpdateMarkAsReadRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?string $userId The user identifier to whom the notification will be sent. By default, it is set to the project lead.
-	 * @param string $projectId the identifier of the project to remind about
-	 * @returns PendingLinearObjectRequest<ProjectUpdateReminderPayload>
-	 */
-	public function createProjectUpdateReminderMutation(string $projectId, ?string $userId = null)
+	public function createProjectUpdateReminderMutation(string $projectId, ?string $userId = null): PendingCreateProjectUpdateReminderRequest
 	{
-		return $this->linearObjectMutation('createProjectUpdateReminder', ProjectUpdateReminderPayload::class, compact('projectId', 'userId'));
+		return new PendingCreateProjectUpdateReminderRequest($this, ['projectId' => $projectId, 'userId' => $userId]);
 	}
 	
-	/**
-	 * @param PushSubscriptionCreateInput $input the push subscription to create
-	 * @returns PendingLinearObjectRequest<PushSubscriptionPayload>
-	 */
-	public function pushSubscriptionCreateMutation(PushSubscriptionCreateInput $input)
+	public function pushSubscriptionCreateMutation(PushSubscriptionCreateInput $input): PendingPushSubscriptionCreateRequest
 	{
-		return $this->linearObjectMutation('pushSubscriptionCreate', PushSubscriptionPayload::class, compact('input'));
+		return new PendingPushSubscriptionCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the push subscription to delete
-	 * @returns PendingLinearObjectRequest<PushSubscriptionPayload>
-	 */
-	public function pushSubscriptionDeleteMutation(string $id)
+	public function pushSubscriptionDeleteMutation(string $id): PendingPushSubscriptionDeleteRequest
 	{
-		return $this->linearObjectMutation('pushSubscriptionDelete', PushSubscriptionPayload::class, compact('id'));
+		return new PendingPushSubscriptionDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ReactionCreateInput $input the reaction object to create
-	 * @returns PendingLinearObjectRequest<ReactionPayload>
-	 */
-	public function reactionCreateMutation(ReactionCreateInput $input)
+	public function reactionCreateMutation(ReactionCreateInput $input): PendingReactionCreateRequest
 	{
-		return $this->linearObjectMutation('reactionCreate', ReactionPayload::class, compact('input'));
+		return new PendingReactionCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the reaction to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function reactionDeleteMutation(string $id)
+	public function reactionDeleteMutation(string $id): PendingReactionDeleteRequest
 	{
-		return $this->linearObjectMutation('reactionDelete', DeletePayload::class, compact('id'));
+		return new PendingReactionDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?iterable $includePrivateTeamIds
-	 * @returns PendingLinearObjectRequest<CreateCsvExportReportPayload>
-	 */
-	public function createCsvExportReportMutation(?iterable $includePrivateTeamIds = null)
+	public function createCsvExportReportMutation(?iterable $includePrivateTeamIds = null): PendingCreateCsvExportReportRequest
 	{
-		return $this->linearObjectMutation('createCsvExportReport', CreateCsvExportReportPayload::class, compact('includePrivateTeamIds'));
+		return new PendingCreateCsvExportReportRequest($this, ['includePrivateTeamIds' => $includePrivateTeamIds]);
 	}
 	
-	/**
-	 * @param RoadmapCreateInput $input the properties of the roadmap to create
-	 * @returns PendingLinearObjectRequest<RoadmapPayload>
-	 */
-	public function roadmapCreateMutation(RoadmapCreateInput $input)
+	public function roadmapCreateMutation(RoadmapCreateInput $input): PendingRoadmapCreateRequest
 	{
-		return $this->linearObjectMutation('roadmapCreate', RoadmapPayload::class, compact('input'));
+		return new PendingRoadmapCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param RoadmapUpdateInput $input the properties of the roadmap to update
-	 * @param string $id the identifier of the roadmap to update
-	 * @returns PendingLinearObjectRequest<RoadmapPayload>
-	 */
-	public function roadmapUpdateMutation(RoadmapUpdateInput $input, string $id)
+	public function roadmapUpdateMutation(RoadmapUpdateInput $input, string $id): PendingRoadmapUpdateRequest
 	{
-		return $this->linearObjectMutation('roadmapUpdate', RoadmapPayload::class, compact('input', 'id'));
+		return new PendingRoadmapUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the roadmap to archive
-	 * @returns PendingLinearObjectRequest<RoadmapArchivePayload>
-	 */
-	public function roadmapArchiveMutation(string $id)
+	public function roadmapArchiveMutation(string $id): PendingRoadmapArchiveRequest
 	{
-		return $this->linearObjectMutation('roadmapArchive', RoadmapArchivePayload::class, compact('id'));
+		return new PendingRoadmapArchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the roadmap to unarchive
-	 * @returns PendingLinearObjectRequest<RoadmapArchivePayload>
-	 */
-	public function roadmapUnarchiveMutation(string $id)
+	public function roadmapUnarchiveMutation(string $id): PendingRoadmapUnarchiveRequest
 	{
-		return $this->linearObjectMutation('roadmapUnarchive', RoadmapArchivePayload::class, compact('id'));
+		return new PendingRoadmapUnarchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the roadmap to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function roadmapDeleteMutation(string $id)
+	public function roadmapDeleteMutation(string $id): PendingRoadmapDeleteRequest
 	{
-		return $this->linearObjectMutation('roadmapDelete', DeletePayload::class, compact('id'));
+		return new PendingRoadmapDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param RoadmapToProjectCreateInput $input the properties of the roadmapToProject to create
-	 * @returns PendingLinearObjectRequest<RoadmapToProjectPayload>
-	 */
-	public function roadmapToProjectCreateMutation(RoadmapToProjectCreateInput $input)
+	public function roadmapToProjectCreateMutation(RoadmapToProjectCreateInput $input): PendingRoadmapToProjectCreateRequest
 	{
-		return $this->linearObjectMutation('roadmapToProjectCreate', RoadmapToProjectPayload::class, compact('input'));
+		return new PendingRoadmapToProjectCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param RoadmapToProjectUpdateInput $input the properties of the roadmapToProject to update
-	 * @param string $id the identifier of the roadmapToProject to update
-	 * @returns PendingLinearObjectRequest<RoadmapToProjectPayload>
-	 */
-	public function roadmapToProjectUpdateMutation(RoadmapToProjectUpdateInput $input, string $id)
+	public function roadmapToProjectUpdateMutation(RoadmapToProjectUpdateInput $input, string $id): PendingRoadmapToProjectUpdateRequest
 	{
-		return $this->linearObjectMutation('roadmapToProjectUpdate', RoadmapToProjectPayload::class, compact('input', 'id'));
+		return new PendingRoadmapToProjectUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the roadmapToProject to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function roadmapToProjectDeleteMutation(string $id)
+	public function roadmapToProjectDeleteMutation(string $id): PendingRoadmapToProjectDeleteRequest
 	{
-		return $this->linearObjectMutation('roadmapToProjectDelete', DeletePayload::class, compact('id'));
+		return new PendingRoadmapToProjectDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the team key to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function teamKeyDeleteMutation(string $id)
+	public function teamKeyDeleteMutation(string $id): PendingTeamKeyDeleteRequest
 	{
-		return $this->linearObjectMutation('teamKeyDelete', DeletePayload::class, compact('id'));
+		return new PendingTeamKeyDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param TeamMembershipCreateInput $input the team membership object to create
-	 * @returns PendingLinearObjectRequest<TeamMembershipPayload>
-	 */
-	public function teamMembershipCreateMutation(TeamMembershipCreateInput $input)
+	public function teamMembershipCreateMutation(TeamMembershipCreateInput $input): PendingTeamMembershipCreateRequest
 	{
-		return $this->linearObjectMutation('teamMembershipCreate', TeamMembershipPayload::class, compact('input'));
+		return new PendingTeamMembershipCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param TeamMembershipUpdateInput $input a partial team membership object to update the team membership with
-	 * @param string $id the identifier of the team membership to update
-	 * @returns PendingLinearObjectRequest<TeamMembershipPayload>
-	 */
-	public function teamMembershipUpdateMutation(TeamMembershipUpdateInput $input, string $id)
+	public function teamMembershipUpdateMutation(TeamMembershipUpdateInput $input, string $id): PendingTeamMembershipUpdateRequest
 	{
-		return $this->linearObjectMutation('teamMembershipUpdate', TeamMembershipPayload::class, compact('input', 'id'));
+		return new PendingTeamMembershipUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the team membership to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function teamMembershipDeleteMutation(string $id)
+	public function teamMembershipDeleteMutation(string $id): PendingTeamMembershipDeleteRequest
 	{
-		return $this->linearObjectMutation('teamMembershipDelete', DeletePayload::class, compact('id'));
+		return new PendingTeamMembershipDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param ?string $copySettingsFromTeamId the team id to copy settings from
-	 * @param TeamCreateInput $input the team object to create
-	 * @returns PendingLinearObjectRequest<TeamPayload>
-	 */
-	public function teamCreateMutation(TeamCreateInput $input, ?string $copySettingsFromTeamId = null)
+	public function teamCreateMutation(TeamCreateInput $input, ?string $copySettingsFromTeamId = null): PendingTeamCreateRequest
 	{
-		return $this->linearObjectMutation('teamCreate', TeamPayload::class, compact('input', 'copySettingsFromTeamId'));
+		return new PendingTeamCreateRequest($this, ['input' => $input, 'copySettingsFromTeamId' => $copySettingsFromTeamId]);
 	}
 	
-	/**
-	 * @param TeamUpdateInput $input a partial team object to update the team with
-	 * @param string $id the identifier of the team to update
-	 * @returns PendingLinearObjectRequest<TeamPayload>
-	 */
-	public function teamUpdateMutation(TeamUpdateInput $input, string $id)
+	public function teamUpdateMutation(TeamUpdateInput $input, string $id): PendingTeamUpdateRequest
 	{
-		return $this->linearObjectMutation('teamUpdate', TeamPayload::class, compact('input', 'id'));
+		return new PendingTeamUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the team to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function teamDeleteMutation(string $id)
+	public function teamDeleteMutation(string $id): PendingTeamDeleteRequest
 	{
-		return $this->linearObjectMutation('teamDelete', DeletePayload::class, compact('id'));
+		return new PendingTeamDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the team to delete
-	 * @returns PendingLinearObjectRequest<TeamArchivePayload>
-	 */
-	public function teamUnarchiveMutation(string $id)
+	public function teamUnarchiveMutation(string $id): PendingTeamUnarchiveRequest
 	{
-		return $this->linearObjectMutation('teamUnarchive', TeamArchivePayload::class, compact('id'));
+		return new PendingTeamUnarchiveRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the team, which cycles will be deleted
-	 * @returns PendingLinearObjectRequest<TeamPayload>
-	 */
-	public function teamCyclesDeleteMutation(string $id)
+	public function teamCyclesDeleteMutation(string $id): PendingTeamCyclesDeleteRequest
 	{
-		return $this->linearObjectMutation('teamCyclesDelete', TeamPayload::class, compact('id'));
+		return new PendingTeamCyclesDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param TemplateCreateInput $input the template object to create
-	 * @returns PendingLinearObjectRequest<TemplatePayload>
-	 */
-	public function templateCreateMutation(TemplateCreateInput $input)
+	public function templateCreateMutation(TemplateCreateInput $input): PendingTemplateCreateRequest
 	{
-		return $this->linearObjectMutation('templateCreate', TemplatePayload::class, compact('input'));
+		return new PendingTemplateCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param TemplateUpdateInput $input the properties of the template to update
-	 * @param string $id the identifier of the template
-	 * @returns PendingLinearObjectRequest<TemplatePayload>
-	 */
-	public function templateUpdateMutation(TemplateUpdateInput $input, string $id)
+	public function templateUpdateMutation(TemplateUpdateInput $input, string $id): PendingTemplateUpdateRequest
 	{
-		return $this->linearObjectMutation('templateUpdate', TemplatePayload::class, compact('input', 'id'));
+		return new PendingTemplateUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the template to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function templateDeleteMutation(string $id)
+	public function templateDeleteMutation(string $id): PendingTemplateDeleteRequest
 	{
-		return $this->linearObjectMutation('templateDelete', DeletePayload::class, compact('id'));
+		return new PendingTemplateDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param TimeScheduleCreateInput $input the properties of the time schedule to create
-	 * @returns PendingLinearObjectRequest<TimeSchedulePayload>
-	 */
-	public function timeScheduleCreateMutation(TimeScheduleCreateInput $input)
+	public function timeScheduleCreateMutation(TimeScheduleCreateInput $input): PendingTimeScheduleCreateRequest
 	{
-		return $this->linearObjectMutation('timeScheduleCreate', TimeSchedulePayload::class, compact('input'));
+		return new PendingTimeScheduleCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param TimeScheduleUpdateInput $input the properties of the time schedule to update
-	 * @param string $id the identifier of the time schedule to update
-	 * @returns PendingLinearObjectRequest<TimeSchedulePayload>
-	 */
-	public function timeScheduleUpdateMutation(TimeScheduleUpdateInput $input, string $id)
+	public function timeScheduleUpdateMutation(TimeScheduleUpdateInput $input, string $id): PendingTimeScheduleUpdateRequest
 	{
-		return $this->linearObjectMutation('timeScheduleUpdate', TimeSchedulePayload::class, compact('input', 'id'));
+		return new PendingTimeScheduleUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param TimeScheduleUpdateInput $input the properties of the time schedule to insert or update
-	 * @param string $externalId the unique identifier of the external schedule
-	 * @returns PendingLinearObjectRequest<TimeSchedulePayload>
-	 */
-	public function timeScheduleUpsertExternalMutation(TimeScheduleUpdateInput $input, string $externalId)
+	public function timeScheduleUpsertExternalMutation(TimeScheduleUpdateInput $input, string $externalId): PendingTimeScheduleUpsertExternalRequest
 	{
-		return $this->linearObjectMutation('timeScheduleUpsertExternal', TimeSchedulePayload::class, compact('input', 'externalId'));
+		return new PendingTimeScheduleUpsertExternalRequest($this, ['input' => $input, 'externalId' => $externalId]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the time schedule to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function timeScheduleDeleteMutation(string $id)
+	public function timeScheduleDeleteMutation(string $id): PendingTimeScheduleDeleteRequest
 	{
-		return $this->linearObjectMutation('timeScheduleDelete', DeletePayload::class, compact('id'));
+		return new PendingTimeScheduleDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the time schedule to refresh
-	 * @returns PendingLinearObjectRequest<TimeSchedulePayload>
-	 */
-	public function timeScheduleRefreshIntegrationScheduleMutation(string $id)
+	public function timeScheduleRefreshIntegrationScheduleMutation(string $id): PendingTimeScheduleRefreshIntegrationScheduleRequest
 	{
-		return $this->linearObjectMutation('timeScheduleRefreshIntegrationSchedule', TimeSchedulePayload::class, compact('id'));
+		return new PendingTimeScheduleRefreshIntegrationScheduleRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param TriageResponsibilityCreateInput $input the properties of the triage responsibility to create
-	 * @returns PendingLinearObjectRequest<TriageResponsibilityPayload>
-	 */
-	public function triageResponsibilityCreateMutation(TriageResponsibilityCreateInput $input)
+	public function triageResponsibilityCreateMutation(TriageResponsibilityCreateInput $input): PendingTriageResponsibilityCreateRequest
 	{
-		return $this->linearObjectMutation('triageResponsibilityCreate', TriageResponsibilityPayload::class, compact('input'));
+		return new PendingTriageResponsibilityCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param TriageResponsibilityUpdateInput $input the properties of the triage responsibility to update
-	 * @param string $id the identifier of the triage responsibility to update
-	 * @returns PendingLinearObjectRequest<TriageResponsibilityPayload>
-	 */
-	public function triageResponsibilityUpdateMutation(TriageResponsibilityUpdateInput $input, string $id)
+	public function triageResponsibilityUpdateMutation(TriageResponsibilityUpdateInput $input, string $id): PendingTriageResponsibilityUpdateRequest
 	{
-		return $this->linearObjectMutation('triageResponsibilityUpdate', TriageResponsibilityPayload::class, compact('input', 'id'));
+		return new PendingTriageResponsibilityUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the triage responsibility to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function triageResponsibilityDeleteMutation(string $id)
+	public function triageResponsibilityDeleteMutation(string $id): PendingTriageResponsibilityDeleteRequest
 	{
-		return $this->linearObjectMutation('triageResponsibilityDelete', DeletePayload::class, compact('id'));
+		return new PendingTriageResponsibilityDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param UserUpdateInput $input a partial user object to update the user with
-	 * @param string $id The identifier of the user to update. Use `me` to reference currently authenticated user.
-	 * @returns PendingLinearObjectRequest<UserPayload>
-	 */
-	public function userUpdateMutation(UserUpdateInput $input, string $id)
+	public function userUpdateMutation(UserUpdateInput $input, string $id): PendingUserUpdateRequest
 	{
-		return $this->linearObjectMutation('userUpdate', UserPayload::class, compact('input', 'id'));
+		return new PendingUserUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $redirectUri the Discord OAuth redirect URI
-	 * @param string $code the Discord OAuth code
-	 * @returns PendingLinearObjectRequest<UserPayload>
-	 */
-	public function userDiscordConnectMutation(string $redirectUri, string $code)
+	public function userDiscordConnectMutation(string $redirectUri, string $code): PendingUserDiscordConnectRequest
 	{
-		return $this->linearObjectMutation('userDiscordConnect', UserPayload::class, compact('redirectUri', 'code'));
+		return new PendingUserDiscordConnectRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 	
-	/**
-	 * @param string $service the external service to disconnect
-	 * @returns PendingLinearObjectRequest<UserPayload>
-	 */
-	public function userExternalUserDisconnectMutation(string $service)
+	public function userExternalUserDisconnectMutation(string $service): PendingUserExternalUserDisconnectRequest
 	{
-		return $this->linearObjectMutation('userExternalUserDisconnect', UserPayload::class, compact('service'));
+		return new PendingUserExternalUserDisconnectRequest($this, ['service' => $service]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the user to make an admin
-	 * @returns PendingLinearObjectRequest<UserAdminPayload>
-	 */
-	public function userPromoteAdminMutation(string $id)
+	public function userPromoteAdminMutation(string $id): PendingUserPromoteAdminRequest
 	{
-		return $this->linearObjectMutation('userPromoteAdmin', UserAdminPayload::class, compact('id'));
+		return new PendingUserPromoteAdminRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the user to make a regular user
-	 * @returns PendingLinearObjectRequest<UserAdminPayload>
-	 */
-	public function userDemoteAdminMutation(string $id)
+	public function userDemoteAdminMutation(string $id): PendingUserDemoteAdminRequest
 	{
-		return $this->linearObjectMutation('userDemoteAdmin', UserAdminPayload::class, compact('id'));
+		return new PendingUserDemoteAdminRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the user to make a regular user
-	 * @returns PendingLinearObjectRequest<UserAdminPayload>
-	 */
-	public function userPromoteMemberMutation(string $id)
+	public function userPromoteMemberMutation(string $id): PendingUserPromoteMemberRequest
 	{
-		return $this->linearObjectMutation('userPromoteMember', UserAdminPayload::class, compact('id'));
+		return new PendingUserPromoteMemberRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the user to make a guest
-	 * @returns PendingLinearObjectRequest<UserAdminPayload>
-	 */
-	public function userDemoteMemberMutation(string $id)
+	public function userDemoteMemberMutation(string $id): PendingUserDemoteMemberRequest
 	{
-		return $this->linearObjectMutation('userDemoteMember', UserAdminPayload::class, compact('id'));
+		return new PendingUserDemoteMemberRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the user to suspend
-	 * @returns PendingLinearObjectRequest<UserAdminPayload>
-	 */
-	public function userSuspendMutation(string $id)
+	public function userSuspendMutation(string $id): PendingUserSuspendRequest
 	{
-		return $this->linearObjectMutation('userSuspend', UserAdminPayload::class, compact('id'));
+		return new PendingUserSuspendRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the user to unsuspend
-	 * @returns PendingLinearObjectRequest<UserAdminPayload>
-	 */
-	public function userUnsuspendMutation(string $id)
+	public function userUnsuspendMutation(string $id): PendingUserUnsuspendRequest
 	{
-		return $this->linearObjectMutation('userUnsuspend', UserAdminPayload::class, compact('id'));
+		return new PendingUserUnsuspendRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param UserSettingsUpdateInput $input a partial notification object to update the settings with
-	 * @param string $id the identifier of the userSettings to update
-	 * @returns PendingLinearObjectRequest<UserSettingsPayload>
-	 */
-	public function userSettingsUpdateMutation(UserSettingsUpdateInput $input, string $id)
+	public function userSettingsUpdateMutation(UserSettingsUpdateInput $input, string $id): PendingUserSettingsUpdateRequest
 	{
-		return $this->linearObjectMutation('userSettingsUpdate', UserSettingsPayload::class, compact('input', 'id'));
+		return new PendingUserSettingsUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $flag flag to increment
-	 * @returns PendingLinearObjectRequest<UserSettingsFlagPayload>
-	 */
-	public function userSettingsFlagIncrementMutation(string $flag)
+	public function userSettingsFlagIncrementMutation(string $flag): PendingUserSettingsFlagIncrementRequest
 	{
-		return $this->linearObjectMutation('userSettingsFlagIncrement', UserSettingsFlagPayload::class, compact('flag'));
+		return new PendingUserSettingsFlagIncrementRequest($this, ['flag' => $flag]);
 	}
 	
-	/**
-	 * @param ?iterable $flags The flags to reset. If not provided all flags will be reset.
-	 * @returns PendingLinearObjectRequest<UserSettingsFlagsResetPayload>
-	 */
-	public function userSettingsFlagsResetMutation(?iterable $flags = null)
+	public function userSettingsFlagsResetMutation(?iterable $flags = null): PendingUserSettingsFlagsResetRequest
 	{
-		return $this->linearObjectMutation('userSettingsFlagsReset', UserSettingsFlagsResetPayload::class, compact('flags'));
+		return new PendingUserSettingsFlagsResetRequest($this, ['flags' => $flags]);
 	}
 	
-	/**
-	 * @param UserFlagUpdateOperation $operation flag operation to perform
-	 * @param UserFlagType $flag settings flag to increment
-	 * @returns PendingLinearObjectRequest<UserSettingsFlagPayload>
-	 */
-	public function userFlagUpdateMutation(UserFlagUpdateOperation $operation, UserFlagType $flag)
+	public function userFlagUpdateMutation(UserFlagUpdateOperation $operation, UserFlagType $flag): PendingUserFlagUpdateRequest
 	{
-		return $this->linearObjectMutation('userFlagUpdate', UserSettingsFlagPayload::class, compact('operation', 'flag'));
+		return new PendingUserFlagUpdateRequest($this, ['operation' => $operation, 'flag' => $flag]);
 	}
 	
-	/**
-	 * @param ViewPreferencesCreateInput $input the ViewPreferences object to create
-	 * @returns PendingLinearObjectRequest<ViewPreferencesPayload>
-	 */
-	public function viewPreferencesCreateMutation(ViewPreferencesCreateInput $input)
+	public function viewPreferencesCreateMutation(ViewPreferencesCreateInput $input): PendingViewPreferencesCreateRequest
 	{
-		return $this->linearObjectMutation('viewPreferencesCreate', ViewPreferencesPayload::class, compact('input'));
+		return new PendingViewPreferencesCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param ViewPreferencesUpdateInput $input the properties of the view preferences
-	 * @param string $id the identifier of the ViewPreferences object
-	 * @returns PendingLinearObjectRequest<ViewPreferencesPayload>
-	 */
-	public function viewPreferencesUpdateMutation(ViewPreferencesUpdateInput $input, string $id)
+	public function viewPreferencesUpdateMutation(ViewPreferencesUpdateInput $input, string $id): PendingViewPreferencesUpdateRequest
 	{
-		return $this->linearObjectMutation('viewPreferencesUpdate', ViewPreferencesPayload::class, compact('input', 'id'));
+		return new PendingViewPreferencesUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the ViewPreferences to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function viewPreferencesDeleteMutation(string $id)
+	public function viewPreferencesDeleteMutation(string $id): PendingViewPreferencesDeleteRequest
 	{
-		return $this->linearObjectMutation('viewPreferencesDelete', DeletePayload::class, compact('id'));
+		return new PendingViewPreferencesDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param WebhookCreateInput $input the webhook object to create
-	 * @returns PendingLinearObjectRequest<WebhookPayload>
-	 */
-	public function webhookCreateMutation(WebhookCreateInput $input)
+	public function webhookCreateMutation(WebhookCreateInput $input): PendingWebhookCreateRequest
 	{
-		return $this->linearObjectMutation('webhookCreate', WebhookPayload::class, compact('input'));
+		return new PendingWebhookCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param WebhookUpdateInput $input the properties of the Webhook
-	 * @param string $id the identifier of the Webhook
-	 * @returns PendingLinearObjectRequest<WebhookPayload>
-	 */
-	public function webhookUpdateMutation(WebhookUpdateInput $input, string $id)
+	public function webhookUpdateMutation(WebhookUpdateInput $input, string $id): PendingWebhookUpdateRequest
 	{
-		return $this->linearObjectMutation('webhookUpdate', WebhookPayload::class, compact('input', 'id'));
+		return new PendingWebhookUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the Webhook to delete
-	 * @returns PendingLinearObjectRequest<DeletePayload>
-	 */
-	public function webhookDeleteMutation(string $id)
+	public function webhookDeleteMutation(string $id): PendingWebhookDeleteRequest
 	{
-		return $this->linearObjectMutation('webhookDelete', DeletePayload::class, compact('id'));
+		return new PendingWebhookDeleteRequest($this, ['id' => $id]);
 	}
 	
-	/**
-	 * @param WorkflowStateCreateInput $input the state to create
-	 * @returns PendingLinearObjectRequest<WorkflowStatePayload>
-	 */
-	public function workflowStateCreateMutation(WorkflowStateCreateInput $input)
+	public function workflowStateCreateMutation(WorkflowStateCreateInput $input): PendingWorkflowStateCreateRequest
 	{
-		return $this->linearObjectMutation('workflowStateCreate', WorkflowStatePayload::class, compact('input'));
+		return new PendingWorkflowStateCreateRequest($this, ['input' => $input]);
 	}
 	
-	/**
-	 * @param WorkflowStateUpdateInput $input a partial state object to update
-	 * @param string $id the identifier of the state to update
-	 * @returns PendingLinearObjectRequest<WorkflowStatePayload>
-	 */
-	public function workflowStateUpdateMutation(WorkflowStateUpdateInput $input, string $id)
+	public function workflowStateUpdateMutation(WorkflowStateUpdateInput $input, string $id): PendingWorkflowStateUpdateRequest
 	{
-		return $this->linearObjectMutation('workflowStateUpdate', WorkflowStatePayload::class, compact('input', 'id'));
+		return new PendingWorkflowStateUpdateRequest($this, ['input' => $input, 'id' => $id]);
 	}
 	
-	/**
-	 * @param string $id the identifier of the state to archive
-	 * @returns PendingLinearObjectRequest<WorkflowStateArchivePayload>
-	 */
-	public function workflowStateArchiveMutation(string $id)
+	public function workflowStateArchiveMutation(string $id): PendingWorkflowStateArchiveRequest
 	{
-		return $this->linearObjectMutation('workflowStateArchive', WorkflowStateArchivePayload::class, compact('id'));
+		return new PendingWorkflowStateArchiveRequest($this, ['id' => $id]);
 	}
 }

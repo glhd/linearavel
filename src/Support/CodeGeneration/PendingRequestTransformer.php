@@ -43,6 +43,8 @@ class PendingRequestTransformer extends ClassTransformer
 	
 	protected string $class_name;
 	
+	protected string $kind;
+	
 	protected array $uses = [];
 	
 	public function __construct(
@@ -53,6 +55,7 @@ class PendingRequestTransformer extends ClassTransformer
 		$this->namespace = $this->parent->namespace;
 		$this->name = str($this->node->name->value);
 		$this->class_name = (string) $this->name->studly()->prepend('Pending')->append('Request');
+		$this->kind = 'Mutations' === $this->sub_namespace ? 'mutation' : 'query';
 	}
 	
 	public function __invoke(PendingTransformationQueue $queue): void
@@ -106,7 +109,7 @@ class PendingRequestTransformer extends ClassTransformer
 						args: [
 							new Variable('connector'),
 							new StaticCall($this->fqcn(GraphQueryBuilder::class), 'make', [
-								new Arg(new String_('query')),
+								new Arg(new String_($this->kind)),
 								new Arg(new String_($this->node->name->value)),
 								new Arg(new Variable('args')),
 							]),
