@@ -36,7 +36,8 @@ class Transformer
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			assert($response instanceof ApiKeyConnectionResponse);
+			/** @returns string */
+			function foo() {}
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);

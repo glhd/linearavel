@@ -2,10 +2,12 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use Glhd\Linearavel\Responses\LinearListResponse;
-use Glhd\Linearavel\Responses\LinearObjectResponse;
+use Glhd\Linearavel\Responses\LinearResponse;
 use GraphQL\Language\AST\FieldDefinitionNode;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Stringable;
 use PhpParser\Builder\Property;
+use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -25,6 +27,10 @@ class ResponseTransformer extends ClassTransformer
 	
 	public string $namespace;
 	
+	protected Stringable $name;
+	
+	protected string $class_name;
+	
 	protected array $uses = [];
 	
 	public function __construct(
@@ -33,6 +39,8 @@ class ResponseTransformer extends ClassTransformer
 		protected ClassTransformer $parent,
 	) {
 		$this->namespace = $this->parent->namespace;
+		$this->name = str($this->node->name->value);
+		$this->class_name = (string) $this->name->studly()->append('Response');
 	}
 	
 	protected function fqcn(string $fqcn): Name
@@ -44,47 +52,64 @@ class ResponseTransformer extends ClassTransformer
 	
 	public function __invoke(PendingTransformationQueue $queue): void
 	{
-		$type = $this->getUnderlyingType($this->node->type);
-		
 		$queue->add(new PendingTransformation(
 			directory: "Responses/{$this->sub_namespace}",
-			name: "{$type->name}Response",
+			name: $this->class_name,
 			tree: [
 				new Namespace_(new Name($this->namespace."Responses\\{$this->sub_namespace}")),
 				fn() => $this->uses(),
-				new Class_("{$type->name}Response", [
+				new Class_($this->class_name, [
 					'stmts' => [
-						$this->classProperty(),
-						$this->nameProperty(),
 						$this->resolveStmt(),
 					],
-					'extends' => $this->isList($this->node->type)
-						? $this->fqcn(LinearListResponse::class)
-						: $this->fqcn(LinearObjectResponse::class),
+					'extends' => $this->fqcn(LinearResponse::class),
 				]),
 			],
 		));
 	}
 	
-	protected function classProperty()
-	{
-		return (new Property('class'))
-			->makePublic()
-			->setType('string')
-			->setDefault(new ClassConstFetch($this->getUnderlyingType($this->node->type), 'class'))
-			->getNode();
-	}
-	
-	protected function nameProperty()
-	{
-		return (new Property('name'))
-			->makePublic()
-			->setType('string')
-			->setDefault(new String_($this->node->name->value))
-			->getNode();
-	}
-	
 	protected function resolveStmt()
+	{
+		return $this->isList($this->node->type)
+			? $this->resolveListStmt()
+			: $this->resolveObjectStmt();
+	}
+	
+	protected function resolveListStmt()
+	{
+		return new ClassMethod('resolve', [
+			'returnType' => $this->fqcn(Collection::class),
+			'flags' => 1, // public
+			'stmts' => [
+				new Return_(
+					new StaticCall(
+						class: $this->getUnderlyingType($this->node->type),
+						name: new Identifier('collect'),
+						args: [
+							new Arg(
+								new MethodCall(
+									var: new Variable('this'),
+									name: new Identifier('json'),
+									args: [
+										new Arg(new String_("data.{$this->node->name->value}")),
+									],
+								),
+							),
+							new Arg(
+								new ClassConstFetch($this->fqcn(Collection::class), 'class'),
+							),
+						],
+					),
+				),
+			],
+		], [
+			'comments' => [
+				new Doc('/** @returns Collection<int, '.(new Name($this->getUnderlyingType($this->node->type)))->name.'> */'),
+			],
+		]);
+	}
+	
+	protected function resolveObjectStmt()
 	{
 		return new ClassMethod('resolve', [
 			'returnType' => new Name($this->getUnderlyingType($this->node->type)),

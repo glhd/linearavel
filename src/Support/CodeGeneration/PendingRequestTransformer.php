@@ -4,10 +4,12 @@ namespace Glhd\Linearavel\Support\CodeGeneration;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
 use Glhd\Linearavel\Requests\LinearRequest;
-use Glhd\Linearavel\Requests\PendingLinearListRequest;
-use Glhd\Linearavel\Requests\PendingLinearObjectRequest;
+use Glhd\Linearavel\Requests\PendingLinearRequest;
 use Glhd\Linearavel\Support\GraphQueryBuilder;
 use GraphQL\Language\AST\FieldDefinitionNode;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Stringable;
+use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Assign;
@@ -37,6 +39,10 @@ class PendingRequestTransformer extends ClassTransformer
 	
 	public string $namespace;
 	
+	protected Stringable $name;
+	
+	protected string $class_name;
+	
 	protected array $uses = [];
 	
 	public function __construct(
@@ -45,6 +51,8 @@ class PendingRequestTransformer extends ClassTransformer
 		protected ClassTransformer $parent,
 	) {
 		$this->namespace = $this->parent->namespace;
+		$this->name = str($this->node->name->value);
+		$this->class_name = (string) $this->name->studly()->prepend('Pending')->append('Request');
 	}
 	
 	protected function fqcn(string $fqcn): Name
@@ -56,23 +64,19 @@ class PendingRequestTransformer extends ClassTransformer
 	
 	public function __invoke(PendingTransformationQueue $queue): void
 	{
-		$type = $this->getUnderlyingType($this->node->type);
-		
 		$queue->add(new PendingTransformation(
 			directory: "Requests/Pending/{$this->sub_namespace}",
-			name: "Pending{$type->name}Request",
+			name: $this->class_name,
 			tree: [
 				new Namespace_(new Name($this->namespace."Requests\\Pending\\{$this->sub_namespace}")),
 				fn() => $this->uses(),
-				new Class_("Pending{$type->name}Request", [
+				new Class_($this->class_name, [
 					'stmts' => [
 						$this->constructorStmt(),
 						$this->getStmt(),
 						$this->responseStmt(),
 					],
-					'extends' => $this->isList($this->node->type)
-						? $this->fqcn(PendingLinearListRequest::class)
-						: $this->fqcn(PendingLinearObjectRequest::class),
+					'extends' => $this->fqcn(PendingLinearRequest::class),
 				]),
 			],
 		));
@@ -100,8 +104,6 @@ class PendingRequestTransformer extends ClassTransformer
 						class: new Name('parent'),
 						name: new Identifier('__construct'),
 						args: [
-							// new ClassConstFetch($this->getUnderlyingType($this->node->type), 'class'),
-							// new String_($this->node->name->value),
 							new Variable('connector'),
 							new StaticCall($this->fqcn(GraphQueryBuilder::class), 'make', [
 								new Arg(new String_('query')),
@@ -116,6 +118,46 @@ class PendingRequestTransformer extends ClassTransformer
 	}
 	
 	protected function getStmt()
+	{
+		return $this->isList($this->node->type)
+			? $this->getListStmt()
+			: $this->getObjectStmt();
+	}
+	
+	protected function getListStmt()
+	{
+		return new ClassMethod('get', [
+			'returnType' => $this->fqcn(Collection::class),
+			'params' => [
+				new Param(
+					var: new Variable('fields'),
+					type: new Name('string'),
+					variadic: true,
+				),
+			],
+			'flags' => 1, // public
+			'stmts' => [
+				new Return_(
+					new MethodCall(
+						var: new MethodCall(
+							var: new Variable('this'),
+							name: new Identifier('response'),
+							args: [
+								new Arg(new Variable('fields'), unpack: true),
+							],
+						),
+						name: new Identifier('resolve'),
+					),
+				),
+			],
+		], [
+			'comments' => [
+				new Doc('/** @returns Collection<int, '.(new Name($this->getUnderlyingType($this->node->type)))->name.'> */'),
+			],
+		]);
+	}
+	
+	protected function getObjectStmt()
 	{
 		return new ClassMethod('get', [
 			'returnType' => new Name($this->getUnderlyingType($this->node->type)),
@@ -146,8 +188,8 @@ class PendingRequestTransformer extends ClassTransformer
 	
 	protected function responseStmt()
 	{
-		$type = $this->getUnderlyingType($this->node->type);
-		$response_type = $this->fqcn("{$this->namespace}Responses\\{$this->sub_namespace}\\{$type->name}Response");
+		$response_class = $this->name->studly()->append('Response');
+		$response_type = $this->fqcn("{$this->namespace}Responses\\{$this->sub_namespace}\\{$response_class}");
 		
 		return new ClassMethod('response', [
 			'returnType' => $response_type,
