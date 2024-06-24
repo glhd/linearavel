@@ -14,7 +14,7 @@ use PhpParser\NodeAbstract;
 
 trait HasTypeNodes
 {
-	use HasParent;
+	abstract protected function fqcn(string $fqcn): Name;
 	
 	protected function getUnderlyingType(TypeNode $node): NodeAbstract
 	{

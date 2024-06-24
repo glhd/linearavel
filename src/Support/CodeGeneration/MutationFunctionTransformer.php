@@ -29,7 +29,7 @@ class MutationFunctionTransformer extends FunctionTransformer
 	) {
 	}
 	
-	public function __invoke(): ClassMethod
+	public function __invoke(PendingTransformationQueue $queue): ClassMethod
 	{
 		$this->method = new ClassMethod($this->node->name->value.'Mutation');
 		

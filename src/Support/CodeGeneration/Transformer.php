@@ -36,8 +36,12 @@ class Transformer
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			/** @extends Connection<Team> */
-			class Foo {}
+			class Foo {
+				public function get(string ...$fields)
+				{
+					return parent::get(...$fields);
+				}
+			}
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);

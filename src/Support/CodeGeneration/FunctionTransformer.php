@@ -14,7 +14,7 @@ abstract class FunctionTransformer extends InvokableTransformer
 	
 	protected array $docs = [];
 	
-	abstract public function __invoke(): ClassMethod;
+	abstract public function __invoke(PendingTransformationQueue $queue): ClassMethod;
 	
 	public function documentParam(string $name, string $type = '', string $description = ''): static
 	{

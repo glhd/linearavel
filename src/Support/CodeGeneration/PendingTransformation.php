@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use Closure;
 use GraphQL\Language\AST\DefinitionNode;
 use GraphQL\Language\AST\DirectiveDefinitionNode;
 use GraphQL\Language\AST\EnumTypeDefinitionNode;
@@ -42,6 +43,12 @@ class PendingTransformation
 		public string $name,
 		public array $tree,
 	) {
+		// Resolve any lazy element in the tree
+		array_walk_recursive($this->tree, function(&$value) {
+			if ($value instanceof Closure) {
+				$value = $value();
+			}
+		});
 	}
 	
 	public function withCommand(?Command $command): static

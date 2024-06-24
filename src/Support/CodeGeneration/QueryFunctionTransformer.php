@@ -29,7 +29,7 @@ class QueryFunctionTransformer extends FunctionTransformer
 	) {
 	}
 	
-	public function __invoke(): ClassMethod
+	public function __invoke(PendingTransformationQueue $queue): ClassMethod
 	{
 		$this->method = new ClassMethod($this->node->name->value);
 		
@@ -46,6 +46,8 @@ class QueryFunctionTransformer extends FunctionTransformer
 			: $this->fqcn(PendingLinearObjectRequest::class)->name;
 		
 		$this->documentReturn("{$returns}<{$type->name}>");
+		
+		PendingRequestTransformer::transform($this->node, $this->parent);
 		
 		$this->method->stmts = [
 			new Return_(

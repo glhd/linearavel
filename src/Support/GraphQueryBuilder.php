@@ -2,11 +2,16 @@
 
 namespace Glhd\Linearavel\Support;
 
+use Illuminate\Support\Traits\Conditionable;
+
 class GraphQueryBuilder
 {
-	public static function make(string $type, string $name): static
+	use Conditionable;
+	
+	public static function make(string $type, string $name, ?array $args = null): static
 	{
-		return new static($type, $name);
+		return (new static($type, $name))
+			->when($args, fn(self $builder) => $builder->withArguments($args));
 	}
 	
 	public function __construct(
@@ -29,6 +34,8 @@ class GraphQueryBuilder
 	
 	public function withArguments(array $arguments, bool $overwrite = false): static
 	{
+		$arguments = array_filter($arguments, fn($arg) => null !== $arg);
+		
 		$this->arguments = $overwrite
 			? $arguments
 			: array_replace_recursive($this->arguments, $arguments);
