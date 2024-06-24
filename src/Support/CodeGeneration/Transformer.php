@@ -88,12 +88,15 @@ class Transformer
 	
 	protected function class(ObjectTypeDefinitionNode $node): bool
 	{
-		if ('Mutation' !== $node->name->value) {
-			return true; // FIXME
+		if ('Query' === $node->name->value) {
+			QueryTransformer::transform($node, $this);
+			
+			return app(PendingTransformationQueue::class)->save();
 		}
 		
+		return true; // FIXME
 		$tree = match ($node->name->value) {
-			'Query' => QueryTransformer::transform($node, $this),
+			// 'Query' => QueryTransformer::transform($node, $this),
 			'Mutation' => MutationTransformer::transform($node, $this),
 			default => TypeTransformer::transform($node, $this),
 		};
