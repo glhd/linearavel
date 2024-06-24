@@ -11,6 +11,8 @@ use Spatie\LaravelData\Data;
  */
 abstract class PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [];
+	
 	/**
 	 * @param \Glhd\Linearavel\Connectors\LinearConnector $connector
 	 * @param \Glhd\Linearavel\Support\GraphQueryBuilder $query
@@ -26,5 +28,14 @@ abstract class PendingLinearRequest
 		$this->query->withFields(array_map(fn($field) => "{$related}.{$field}", $fields));
 		
 		return $this;
+	}
+	
+	protected function normalizeFields(array $fields): array
+	{
+		if (['*'] === $fields) {
+			return static::AVAILABLE_ATTRIBUTES;
+		}
+		
+		return collect($fields)->dot()->unique()->values()->all();
 	}
 }

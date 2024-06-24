@@ -13,6 +13,7 @@ use GraphQL\Language\AST\UnionTypeDefinitionNode;
 use Illuminate\Console\Command;
 use PhpParser\PrettyPrinter;
 use RuntimeException;
+use Throwable;
 use UnexpectedValueException;
 
 class PendingTransformation
@@ -67,16 +68,21 @@ class PendingTransformation
 	
 	public function save(): bool
 	{
-		$this->printer ??= new PrettyPrinter\Standard();
-		
-		$filename = sprintf('%s/%s/%s.php', realpath(__DIR__.'/../../../src/'), $this->directory, $this->name);
-		$php = $this->printer->prettyPrint($this->tree);
-		
-		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
-			throw new RuntimeException("Unable to write to '{$filename}'");
+		try {
+			$this->printer ??= new PrettyPrinter\Standard();
+			
+			$filename = sprintf('%s/%s/%s.php', realpath(__DIR__.'/../../../src/'), $this->directory, $this->name);
+			$php = $this->printer->prettyPrint($this->tree);
+			
+			if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
+				throw new RuntimeException("Unable to write to '{$filename}'");
+			}
+			
+			$this->command?->line("Wrote <info>{$filename}</info>");
+		} catch (Throwable $exception) {
+			$this->command?->error("Exception thrown while trying to write <{$filename}>");
+			throw $exception;
 		}
-		
-		$this->command?->line("Wrote <info>{$filename}</info>");
 		
 		return true;
 	}

@@ -96,14 +96,13 @@ class PendingRequestTransformer extends ClassTransformer
 				->get($this->namespace.'Data\\'.$this->getUnderlyingType($this->node->type))
 				->filter(function($key) {
 					$dots = substr_count($key, '.');
-					return $dots < 2 || (str_starts_with($key, 'nodes.') && $dots < 3);
+					return $dots === 0 || (str_starts_with($key, 'nodes.') && $dots < 2);
 				})
+				->values()
 				->all();
 		} catch (Throwable) {
 			$keys = [];
 		}
-		
-		dump($keys);
 		
 		return (new ClassConst('AVAILABLE_ATTRIBUTES', $keys))
 			->makeProtected()
