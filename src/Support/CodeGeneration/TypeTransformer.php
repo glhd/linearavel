@@ -46,7 +46,11 @@ class TypeTransformer extends ClassTransformer
 				$type = $type->type;
 			}
 			
-			$this->use($this->namespace.'Data\\'.$type->name->value);
+			if ('Notification' === $type->name->value) {
+				dump($type); // FIXME
+			} else {
+				$this->use($this->namespace.'Data\\'.$type->name->value);
+			}
 			
 			$attributes['comments'] = [new Doc("/** @extends Connection<{$type->name->value}> */")];
 		}
