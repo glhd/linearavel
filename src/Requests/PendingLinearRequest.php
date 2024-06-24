@@ -12,14 +12,10 @@ use Spatie\LaravelData\Data;
 abstract class PendingLinearRequest
 {
 	/**
-	 * @param string $name
-	 * @param class-string<TAbstractPendingData> $class
 	 * @param \Glhd\Linearavel\Connectors\LinearConnector $connector
 	 * @param \Glhd\Linearavel\Support\GraphQueryBuilder $query
 	 */
 	public function __construct(
-		protected string $name,
-		protected string $class,
 		protected LinearConnector $connector,
 		protected GraphQueryBuilder $query,
 	) {
