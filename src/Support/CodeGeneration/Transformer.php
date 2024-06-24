@@ -36,8 +36,10 @@ class Transformer
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			/** @returns string */
-			function foo() {}
+			class Foo
+			{
+				protected const ATTRIBUTES = ['a'];
+			}
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);

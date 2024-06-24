@@ -9,6 +9,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
+use PhpParser\Builder\ClassConst;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
@@ -68,6 +69,7 @@ class PendingRequestTransformer extends ClassTransformer
 				fn() => $this->uses(),
 				new Class_($this->class_name, [
 					'stmts' => [
+						$this->attributesConstStmt(),
 						$this->constructorStmt(),
 						$this->getStmt(),
 						$this->responseStmt(),
@@ -83,6 +85,12 @@ class PendingRequestTransformer extends ClassTransformer
 		$this->use($fqcn);
 		
 		return new Name(class_basename($fqcn));
+	}
+	
+	public function attributesConstStmt()
+	{
+		return (new ClassConst('AVAILABLE_ATTRIBUTES', ['a', 'b']))
+			->getNode();
 	}
 	
 	protected function constructorStmt()
