@@ -59,11 +59,11 @@ class MutationFunctionTransformer extends FunctionTransformer
 						new Arg(new ClassConstFetch($type, 'class')),
 						count($this->method->params)
 							? new Arg(new FuncCall(
-								name: new Name('compact'),
-								args: collect($this->method->params)
-									->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
-									->all(),
-							))
+							name: new Name('compact'),
+							args: collect($this->method->params)
+								->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
+								->all(),
+						))
 							: null,
 					]),
 				),

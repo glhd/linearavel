@@ -55,13 +55,6 @@ class PendingRequestTransformer extends ClassTransformer
 		$this->class_name = (string) $this->name->studly()->prepend('Pending')->append('Request');
 	}
 	
-	protected function fqcn(string $fqcn): Name
-	{
-		$this->use($fqcn);
-		
-		return new Name(class_basename($fqcn));
-	}
-	
 	public function __invoke(PendingTransformationQueue $queue): void
 	{
 		$queue->add(new PendingTransformation(
@@ -80,6 +73,13 @@ class PendingRequestTransformer extends ClassTransformer
 				]),
 			],
 		));
+	}
+	
+	protected function fqcn(string $fqcn): Name
+	{
+		$this->use($fqcn);
+		
+		return new Name(class_basename($fqcn));
 	}
 	
 	protected function constructorStmt()

@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use Glhd\Linearavel\Requests\LinearRequest;
 use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use PhpParser\Node\Name;

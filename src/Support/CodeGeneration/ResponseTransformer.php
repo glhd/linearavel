@@ -6,7 +6,6 @@ use Glhd\Linearavel\Responses\LinearResponse;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
-use PhpParser\Builder\Property;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -43,13 +42,6 @@ class ResponseTransformer extends ClassTransformer
 		$this->class_name = (string) $this->name->studly()->append('Response');
 	}
 	
-	protected function fqcn(string $fqcn): Name
-	{
-		$this->use($fqcn);
-		
-		return new Name(class_basename($fqcn));
-	}
-	
 	public function __invoke(PendingTransformationQueue $queue): void
 	{
 		$queue->add(new PendingTransformation(
@@ -66,6 +58,13 @@ class ResponseTransformer extends ClassTransformer
 				]),
 			],
 		));
+	}
+	
+	protected function fqcn(string $fqcn): Name
+	{
+		$this->use($fqcn);
+		
+		return new Name(class_basename($fqcn));
 	}
 	
 	protected function resolveStmt()

@@ -8,7 +8,6 @@ use GraphQL\Language\AST\ListTypeNode;
 use PhpParser\Node\Arg;
 use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
@@ -49,7 +48,7 @@ class QueryFunctionTransformer extends FunctionTransformer
 		
 		$args = collect($this->method->params)
 			->map(fn(Param $param) => new ArrayItem(
-				value: new Variable((string) $param->var->name), 
+				value: new Variable((string) $param->var->name),
 				key: new String_((string) $param->var->name),
 			))
 			->all();

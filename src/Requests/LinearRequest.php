@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Requests;
 
-use Glhd\Linearavel\Responses\LinearResponse;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
