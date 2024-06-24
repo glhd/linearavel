@@ -6,6 +6,7 @@ use Glhd\Linearavel\Connectors\LinearConnector;
 use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Requests\PendingLinearRequest;
 use Glhd\Linearavel\Support\GraphQueryBuilder;
+use Glhd\Linearavel\Support\KeyHelper;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
@@ -33,6 +34,7 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Return_;
+use Throwable;
 
 class PendingRequestTransformer extends ClassTransformer
 {
@@ -89,7 +91,22 @@ class PendingRequestTransformer extends ClassTransformer
 	
 	public function attributesConstStmt()
 	{
-		return (new ClassConst('AVAILABLE_ATTRIBUTES', ['a', 'b']))
+		try {
+			$keys = app(KeyHelper::class)
+				->get($this->namespace.'Data\\'.$this->getUnderlyingType($this->node->type))
+				->filter(function($key) {
+					$dots = substr_count($key, '.');
+					return $dots < 2 || (str_starts_with($key, 'nodes.') && $dots < 3);
+				})
+				->all();
+		} catch (Throwable) {
+			$keys = [];
+		}
+		
+		dump($keys);
+		
+		return (new ClassConst('AVAILABLE_ATTRIBUTES', $keys))
+			->makeProtected()
 			->getNode();
 	}
 	
