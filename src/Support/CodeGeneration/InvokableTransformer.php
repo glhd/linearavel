@@ -2,13 +2,13 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-/** @method __invoke() */
+/** @method __invoke(PendingTransformationQueue $queue): void */
 abstract class InvokableTransformer
 {
 	public static function transform(...$args)
 	{
 		$transformer = new static(...$args);
 		
-		return $transformer();
+		return $transformer(app(PendingTransformationQueue::class));
 	}
 }

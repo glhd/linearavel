@@ -19,9 +19,9 @@ class EnumTransformer extends InvokableTransformer
 	) {
 	}
 	
-	public function __invoke()
+	public function __invoke(PendingTransformationQueue $queue): void
 	{
-		return [
+		$queue->addFromNode($this->node, [
 			new Namespace_(new Name($this->namespace.'Data\\Enums')),
 			new Enum_($this->node->name->value, [
 				'scalarType' => new Identifier('string'),
@@ -31,6 +31,6 @@ class EnumTransformer extends InvokableTransformer
 					})
 					->all(),
 			]),
-		];
+		]);
 	}
 }

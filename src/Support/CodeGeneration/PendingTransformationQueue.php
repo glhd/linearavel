@@ -12,9 +12,21 @@ class PendingTransformationQueue
 	public function __construct(
 		/** @var Collection<int, \Glhd\Linearavel\Support\CodeGeneration\PendingTransformation> $queue */
 		protected Collection $queue = new Collection(),
-		protected PrettyPrinter $printer = new PrettyPrinter\Standard(),
-		protected ?Command $command = null,
 	) {
+	}
+	
+	public function withCommand(?Command $command): static
+	{
+		$this->command = $command;
+		
+		return $this;
+	}
+	
+	public function withPrinter(PrettyPrinter $printer): static
+	{
+		$this->printer = $printer;
+		
+		return $this;
 	}
 	
 	public function addFromNode(DefinitionNode $node, array $tree): static
@@ -31,6 +43,8 @@ class PendingTransformationQueue
 	
 	public function save(): bool
 	{
+		$this->printer ??= new PrettyPrinter\Standard();
+		
 		foreach ($this->queue as $transformation) {
 			if (! $transformation->withCommand($this->command)->withPrinter($this->printer)->save()) {
 				return false;

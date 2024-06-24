@@ -15,11 +15,11 @@ class InterfaceTransformer extends InvokableTransformer
 	) {
 	}
 	
-	public function __invoke()
+	public function __invoke(PendingTransformationQueue $queue)
 	{
-		return [
+		$queue->addFromNode($this->node, [
 			new Namespace_(new Name($this->namespace.'Data\\Contracts')),
 			new Interface_($this->node->name->value),
-		];
+		]);
 	}
 }

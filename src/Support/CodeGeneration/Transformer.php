@@ -14,9 +14,6 @@ use GraphQL\Language\Parser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use PhpParser\ParserFactory;
-use PhpParser\PrettyPrinter;
-use RuntimeException;
-use UnexpectedValueException;
 
 class Transformer
 {
@@ -28,10 +25,11 @@ class Transformer
 		protected string $filename,
 		public string $namespace = 'Glhd\\Linearavel\\',
 		protected ?Command $command = null,
-		protected PrettyPrinter $printer = new PrettyPrinter\Standard(),
 	) {
 		$this->registry = new Collection();
 		$this->scalars = new Collection();
+		
+		app(PendingTransformationQueue::class)->withCommand($this->command);
 		
 		// $debugging = true;
 		
@@ -81,77 +79,33 @@ class Transformer
 	
 	protected function interface(InterfaceTypeDefinitionNode $node): bool
 	{
-		$tree = InterfaceTransformer::transform($node, $this->namespace);
+		InterfaceTransformer::transform($node, $this->namespace);
 		
-		return $this->save($node, $tree);
+		return app(PendingTransformationQueue::class)->save();
 	}
 	
 	protected function class(ObjectTypeDefinitionNode $node): bool
 	{
-		if ('Query' === $node->name->value) {
-			QueryTransformer::transform($node, $this);
-			
-			return app(PendingTransformationQueue::class)->save();
-		}
-		
-		$tree = match ($node->name->value) {
-			// 'Query' => QueryTransformer::transform($node, $this),
+		match ($node->name->value) {
+			'Query' => QueryTransformer::transform($node, $this),
 			'Mutation' => MutationTransformer::transform($node, $this),
 			default => TypeTransformer::transform($node, $this),
 		};
 		
-		return $this->save($node, $tree);
+		return app(PendingTransformationQueue::class)->save();
 	}
 	
 	protected function input(InputObjectTypeDefinitionNode $node): bool
 	{
-		$tree = InputTransformer::transform($node, $this);
+		InputTransformer::transform($node, $this);
 		
-		return $this->save($node, $tree);
+		return app(PendingTransformationQueue::class)->save();
 	}
 	
 	protected function enum(EnumTypeDefinitionNode $node): bool
 	{
-		$tree = EnumTransformer::transform($node, $this->namespace);
+		EnumTransformer::transform($node, $this->namespace);
 		
-		return $this->save($node, $tree);
-	}
-	
-	protected function save(DefinitionNode $node, array $tree): bool
-	{
-		$name = $node->name->value;
-		
-		[$label, $directory] = match ($node::class) {
-			InterfaceTypeDefinitionNode::class => ['interface', 'Data/Contracts'],
-			ObjectTypeDefinitionNode::class => ['type', 'Data'],
-			EnumTypeDefinitionNode::class => ['enum', 'Data/Enums'],
-			InputObjectTypeDefinitionNode::class => ['input', 'Requests/Inputs'],
-			UnionTypeDefinitionNode::class => ['union', 'Data/Contracts'],
-			DirectiveDefinitionNode::class => ['directive', 'Data/Directives'],
-			default => throw new UnexpectedValueException('Did not expect: '.class_basename($node)),
-		};
-		
-		if ('Query' === $name) {
-			$name = 'QueriesLinear';
-			$label = 'queries';
-			$directory = 'Connectors';
-		}
-		
-		if ('Mutation' === $name) {
-			$name = 'MutatesLinear';
-			$label = 'mutations';
-			$directory = 'Connectors';
-		}
-		
-		$filename = sprintf('%s/%s/%s.php', realpath(__DIR__.'/../../../src/'), $directory, $name);
-		$php = $this->printer->prettyPrint($tree);
-		
-		if (! file_put_contents($filename, "<?php\n\n{$php}\n")) {
-			throw new RuntimeException("Unable to write to '{$filename}'");
-		}
-		
-		$this->command?->line("Wrote <info>{$label}</info> to <info>{$filename}</info>");
-		
-		return true;
+		return app(PendingTransformationQueue::class)->save();
 	}
 }
