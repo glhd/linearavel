@@ -47,7 +47,10 @@ class QueryFunctionTransformer extends FunctionTransformer
 		
 		$this->documentReturn("{$returns}<{$type->name}>");
 		
-		PendingRequestTransformer::transform($this->node, $this->parent);
+		// Create the typed request and response objects (this had been done using generics,
+		// but implementing concrete classes allows for better IDE support in a few ways)
+		PendingRequestTransformer::transform('Queries', $this->node, $this->parent);
+		ResponseTransformer::transform('Queries', $this->node, $this->parent);
 		
 		$this->method->stmts = [
 			new Return_(

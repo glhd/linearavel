@@ -32,16 +32,11 @@ class Transformer
 		app(PendingTransformationQueue::class)->withCommand($this->command);
 		
 		// $debugging = true;
-		
+		//
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			class Foo {
-				public function get(string ...$fields)
-				{
-					return parent::get(...$fields);
-				}
-			}
+			return $this->connector->send(new LinearObjectRequest((string) $query))->throw();
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);
