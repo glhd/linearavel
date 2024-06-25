@@ -36,9 +36,12 @@ class Transformer
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			class Foo
-			{
-				protected const ATTRIBUTES = ['a'];
+			namespace PHPSTORM_META {
+				expectedArguments(
+					\Glhd\Linearavel\Requests\Pending\Queries\PendingIssuesRequest::get(),
+					0,
+					'edges.node.id', 'edges.node.createdAt'
+				);
 			}
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
@@ -64,7 +67,7 @@ class Transformer
 				default => null,
 			});
 		
-		dump(app(PhpStormMetaWriter::class)->meta);
+		app(PhpStormMetaWriter::class)->write();
 	}
 	
 	public function register(DefinitionNode $node): DefinitionNode
