@@ -105,7 +105,10 @@ class PendingRequestTransformer extends ClassTransformer
 		}
 		
 		if ($keys) {
-			app(PhpStormMetaWriter::class)->register($this->class_name, $keys);
+			app(PhpStormMetaWriter::class)->register(
+				class: $this->namespace."Requests\\Pending\\{$this->sub_namespace}\\{$this->class_name}", 
+				arguments: $keys,
+			);
 		}
 		
 		return (new ClassConst('AVAILABLE_ATTRIBUTES', $keys))

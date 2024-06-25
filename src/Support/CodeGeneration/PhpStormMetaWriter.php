@@ -21,6 +21,8 @@ class PhpStormMetaWriter
 	
 	public function register(string $class, array $arguments = []) : self
 	{
+		$this->meta[$class] = $arguments;
+		
 		return $this;
 	}
 }
