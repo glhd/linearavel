@@ -63,6 +63,8 @@ class Transformer
 				DirectiveDefinitionNode::class => null,
 				default => null,
 			});
+		
+		dump(app(PhpStormMetaWriter::class)->meta);
 	}
 	
 	public function register(DefinitionNode $node): DefinitionNode

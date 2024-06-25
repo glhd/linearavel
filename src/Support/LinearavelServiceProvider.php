@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Support;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
 use Glhd\Linearavel\Support\CodeGeneration\PendingTransformationQueue;
+use Glhd\Linearavel\Support\CodeGeneration\PhpStormMetaWriter;
 use Illuminate\Support\ServiceProvider;
 
 class LinearavelServiceProvider extends ServiceProvider
@@ -27,6 +28,7 @@ class LinearavelServiceProvider extends ServiceProvider
 		
 		$this->app->singleton(KeyHelper::class);
 		$this->app->singleton(PendingTransformationQueue::class);
+		$this->app->singleton(PhpStormMetaWriter::class);
 		
 		require_once __DIR__.'/helpers.php';
 	}

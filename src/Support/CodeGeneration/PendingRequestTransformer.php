@@ -104,6 +104,10 @@ class PendingRequestTransformer extends ClassTransformer
 			$keys = [];
 		}
 		
+		if ($keys) {
+			app(PhpStormMetaWriter::class)->register($this->class_name, $keys);
+		}
+		
 		return (new ClassConst('AVAILABLE_ATTRIBUTES', $keys))
 			->makeProtected()
 			->getNode();
