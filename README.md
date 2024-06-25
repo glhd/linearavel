@@ -7,7 +7,7 @@
 	</a>
 	<a href="https://codeclimate.com/github/glhd/linearavel/test_coverage" target="_blank">
 		<img 
-			src="https://api.codeclimate.com/v1/badges/change-me/test_coverage" 
+			src="https://api.codeclimate.com/v1/badges/9ecee60fb0ba51af4fe4/test_coverage" 
 			alt="Coverage Status" 
 		/>
 	</a>
