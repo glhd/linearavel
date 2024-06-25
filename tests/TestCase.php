@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Tests;
 
-use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Support\LinearavelServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Saloon\Http\Faking\MockClient;
