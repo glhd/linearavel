@@ -236,7 +236,15 @@ class PendingRequestTransformer extends ClassTransformer
 							var: new PropertyFetch(new Variable('this'), new Identifier('query')),
 							name: new Identifier('withFields'),
 							args: [
-								new Arg(new Variable('fields')),
+								new Arg(
+									new MethodCall(
+										var: new Variable('this'),
+										name: new Identifier('normalizeFields'),
+										args: [
+											new Arg(new Variable('fields')),
+										],
+									)
+								),
 							],
 						),
 					),
