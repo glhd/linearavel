@@ -1,0 +1,22 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Tue, 25 Jun 2024 21:40:11 GMT",
+        "Content-Type": "application\/json; charset=utf-8",
+        "Connection": "keep-alive",
+        "CF-Cache-Status": "DYNAMIC",
+        "Cache-Control": "private, no-cache, no-store, must-revalidate",
+        "ETag": "W\/\"81-jWosTGznpURXzOqANR7VOJSrT8M\"",
+        "Via": "1.1 google",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-complexity": "3",
+        "x-ratelimit-complexity-limit": "3000000",
+        "x-ratelimit-complexity-remaining": "2999997",
+        "x-ratelimit-complexity-reset": "1719355210916",
+        "x-ratelimit-requests-limit": "1500",
+        "x-ratelimit-requests-remaining": "1499",
+        "x-ratelimit-requests-reset": "1719355210916",
+        "Server": "cloudflare"
+    },
+    "data": "{\"data\":{\"issueCreate\":{\"success\":true,\"issue\":{\"id\":\"00000000-0000-0000-0000-000000000000\",\"number\":15,\"title\":\"Test issue\"}}}}\n"
+}

@@ -6,6 +6,8 @@ use Glhd\Linearavel\Connectors\LinearConnector;
 use Glhd\Linearavel\Requests\Inputs\IssueCreateInput;
 use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Tests\Fixtures\IssuesFixture;
+use Glhd\Linearavel\Tests\Fixtures\IssureCreateFixture;
+use Glhd\Linearavel\Tests\Fixtures\TeamsFixture;
 use Glhd\Linearavel\Tests\TestCase;
 use Saloon\Http\Faking\MockClient;
 
@@ -20,9 +22,7 @@ class LinearConnectorTest extends TestCase
 	
 	public function test_it_can_fetch_issues(): void
 	{
-		MockClient::global([
-			LinearRequest::class => new IssuesFixture(),
-		]);
+		MockClient::global([new IssuesFixture()]);
 		
 		$issues = app(LinearConnector::class)
 			->issues()
@@ -30,7 +30,7 @@ class LinearConnectorTest extends TestCase
 		
 		$this->assertEquals('00000000-0000-0000-0000-000000000000', $issues->first()->id);
 		
-		MockClient::getGlobal()->assertSent(function(LinearRequest $request) {
+		$this->assertSaloonSent(function(LinearRequest $request) {
 			$json = $request->body()->all();
 			return isset($json['query'])
 				&& str_contains($json['query'], 'query {')
@@ -48,8 +48,23 @@ class LinearConnectorTest extends TestCase
 		});
 	}
 	
+	public function test_it_can_fetch_teams(): void
+	{
+		MockClient::global([new TeamsFixture()]);
+		
+		$team = linear()->teams(first: 1)->get('*')->first();
+		
+		$this->assertEquals('00000000-0000-0000-0000-000000000000', $team->id);
+		$this->assertEquals('Linearavel', $team->name);
+		$this->assertEquals('LIN', $team->key);
+		$this->assertEquals('America/New_York', $team->timezone);
+		$this->assertEquals('redacted', $team->inviteHash);
+	}
+	
 	public function test_it_can_create_an_issue(): void
 	{
+		MockClient::global([new TeamsFixture(), new IssureCreateFixture()]);
+		
 		$team = linear()
 			->teams()
 			->get('nodes.id', 'nodes.name')
@@ -58,10 +73,12 @@ class LinearConnectorTest extends TestCase
 		$result = app(LinearConnector::class)
 			->issueCreateMutation(new IssueCreateInput(
 				teamId: $team->id,
-				title: 'Issue created via new SDK at '.now()->toFormattedDayDateString(),
+				title: 'Test issue',
 			))
 			->get('success', 'issue.id', 'issue.number', 'issue.title');
 		
-		dd($result);
+		$this->assertEquals(true, $result->success);
+		$this->assertEquals('00000000-0000-0000-0000-000000000000', $result->issue->id);
+		$this->assertEquals('Test issue', $result->issue->title);
 	}
 }

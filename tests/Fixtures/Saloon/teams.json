@@ -1,0 +1,22 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Tue, 25 Jun 2024 21:36:11 GMT",
+        "Content-Type": "application\/json; charset=utf-8",
+        "Connection": "keep-alive",
+        "CF-Cache-Status": "DYNAMIC",
+        "Cache-Control": "private, no-cache, no-store, must-revalidate",
+        "ETag": "W\/\"4ff-fbWYAT6z5dD\/g5P6ZDyz38Foa+o\"",
+        "Via": "1.1 google",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-complexity": "6",
+        "x-ratelimit-complexity-limit": "3000000",
+        "x-ratelimit-complexity-remaining": "2999994",
+        "x-ratelimit-complexity-reset": "1719354971327",
+        "x-ratelimit-requests-limit": "1500",
+        "x-ratelimit-requests-remaining": "1499",
+        "x-ratelimit-requests-reset": "1719354971327",
+        "Server": "cloudflare"
+    },
+    "data": "{\"data\":{\"teams\":{\"nodes\":[{\"id\":\"00000000-0000-0000-0000-000000000000\",\"createdAt\":\"2024-03-19T13:31:08.524Z\",\"updatedAt\":\"2024-03-19T13:31:09.845Z\",\"name\":\"Linearavel\",\"key\":\"LIN\",\"cyclesEnabled\":false,\"cycleStartDay\":1,\"cycleDuration\":2,\"cycleCooldownTime\":0,\"cycleIssueAutoAssignStarted\":true,\"cycleIssueAutoAssignCompleted\":true,\"cycleLockToActive\":false,\"upcomingCycleCount\":2,\"timezone\":\"America\\\/New_York\",\"inviteHash\":\"redacted\",\"issueEstimationType\":\"notUsed\",\"issueOrderingNoPriorityFirst\":false,\"issueEstimationAllowZero\":false,\"setIssueSortOrderOnStateChange\":\"first\",\"issueEstimationExtended\":false,\"defaultIssueEstimate\":1,\"triageEnabled\":false,\"requirePriorityToLeaveTriage\":false,\"private\":false,\"groupIssueHistory\":true,\"slackNewIssue\":true,\"slackIssueComments\":true,\"slackIssueStatuses\":true,\"autoArchivePeriod\":6,\"cycleCalenderUrl\":\"https:\\\/\\\/client-api.linear.app\\\/ical\\\/00000000-0000-0000-0000-000000000000\\\/00000000-0000-0000-0000-000000000000\\\/cycles.ics\",\"issueCount\":13,\"issueSortOrderDefaultToBottom\":false,\"archivedAt\":null,\"description\":null,\"icon\":null,\"color\":\"#00aa00\",\"defaultTemplateForMembersId\":null,\"defaultTemplateForNonMembersId\":null,\"autoClosePeriod\":6,\"autoCloseStateId\":\"00000000-0000-0000-0000-000000000000\",\"joinByDefault\":null}]}}}"
+}
