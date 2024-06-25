@@ -4,15 +4,29 @@ namespace Glhd\Linearavel\Tests\Feature;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
 use Glhd\Linearavel\Requests\Inputs\IssueCreateInput;
+use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Tests\TestCase;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
 
 class LinearConnectorTest extends TestCase
 {
+	protected function setUp(): void
+	{
+		parent::setUp();
+		
+		MockClient::destroyGlobal();
+	}
+	
 	public function test_it_can_fetch_issues(): void
 	{
+		MockClient::global([
+			LinearRequest::class => MockResponse::fixture(__FUNCTION__),
+		]);
+		
 		$issues = app(LinearConnector::class)
 			->issues()
-			->get('*', 'nodes.team.id');
+			->get('*');
 		
 		dd($issues);
 	}
