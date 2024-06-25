@@ -36,13 +36,13 @@ class Transformer
 		if (isset($debugging)) {
 			$debug = <<<'PHP'
 			<?php
-			namespace PHPSTORM_META {
+			namespace PHPSTORM_META;
 				expectedArguments(
 					\Glhd\Linearavel\Requests\Pending\Queries\PendingIssuesRequest::get(),
 					0,
 					'edges.node.id', 'edges.node.createdAt'
 				);
-			}
+			
 			PHP;
 			$tree = (new ParserFactory())->createForNewestSupportedVersion()->parse($debug);
 			dd($tree);

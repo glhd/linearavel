@@ -82,13 +82,6 @@ class PendingRequestTransformer extends ClassTransformer
 		));
 	}
 	
-	protected function fqcn(string $fqcn): Name
-	{
-		$this->use($fqcn);
-		
-		return new Name(class_basename($fqcn));
-	}
-	
 	public function attributesConstStmt()
 	{
 		try {
@@ -106,7 +99,7 @@ class PendingRequestTransformer extends ClassTransformer
 		
 		if ($keys) {
 			app(PhpStormMetaWriter::class)->register(
-				class: $this->namespace."Requests\\Pending\\{$this->sub_namespace}\\{$this->class_name}", 
+				class: $this->namespace."Requests\\Pending\\{$this->sub_namespace}\\{$this->class_name}",
 				arguments: $keys,
 			);
 		}
@@ -114,6 +107,13 @@ class PendingRequestTransformer extends ClassTransformer
 		return (new ClassConst('AVAILABLE_ATTRIBUTES', $keys))
 			->makeProtected()
 			->getNode();
+	}
+	
+	protected function fqcn(string $fqcn): Name
+	{
+		$this->use($fqcn);
+		
+		return new Name(class_basename($fqcn));
 	}
 	
 	protected function constructorStmt()
