@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingArchivedTeamsRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = [
+	protected const DEFAULT_ATTRIBUTES = [
 		'id',
 		'createdAt',
 		'updatedAt',

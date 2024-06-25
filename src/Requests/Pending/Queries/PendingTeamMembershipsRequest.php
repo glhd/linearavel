@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingTeamMembershipsRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.sortOrder', 'nodes.archivedAt', 'nodes.owner'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.sortOrder', 'nodes.archivedAt', 'nodes.owner'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

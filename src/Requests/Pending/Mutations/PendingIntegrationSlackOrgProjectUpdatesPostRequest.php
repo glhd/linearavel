@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationSlackOrgProjectUpdatesPostRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'addBot', 'nudgeToConnectMainSlackIntegration', 'nudgeToUpdateMainSlackIntegration'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'addBot', 'nudgeToConnectMainSlackIntegration', 'nudgeToUpdateMainSlackIntegration'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

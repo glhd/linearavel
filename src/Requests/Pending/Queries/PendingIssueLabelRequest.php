@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueLabelRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'color', 'isGroup', 'archivedAt', 'description'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'color', 'isGroup', 'archivedAt', 'description'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomViewDetailsSuggestionRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['name', 'description', 'icon'];
+	protected const DEFAULT_ATTRIBUTES = ['name', 'description', 'icon'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

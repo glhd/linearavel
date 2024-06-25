@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueLabelDeleteRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

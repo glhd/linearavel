@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomViewHasSubscribersRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['hasSubscribers'];
+	protected const DEFAULT_ATTRIBUTES = ['hasSubscribers'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

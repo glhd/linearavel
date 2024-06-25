@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAttachmentSourcesRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['sources'];
+	protected const DEFAULT_ATTRIBUTES = ['sources'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

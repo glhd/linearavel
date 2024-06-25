@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCreateOrganizationFromOnboardingRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = [];
+	protected const DEFAULT_ATTRIBUTES = [];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

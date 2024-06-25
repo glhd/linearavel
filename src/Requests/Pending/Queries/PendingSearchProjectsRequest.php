@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingSearchProjectsRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = [
+	protected const DEFAULT_ATTRIBUTES = [
 		'nodes.id',
 		'nodes.createdAt',
 		'nodes.updatedAt',

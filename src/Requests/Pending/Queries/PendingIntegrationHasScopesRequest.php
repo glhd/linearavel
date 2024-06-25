@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationHasScopesRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['hasAllScopes', 'missingScopes'];
+	protected const DEFAULT_ATTRIBUTES = ['hasAllScopes', 'missingScopes'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

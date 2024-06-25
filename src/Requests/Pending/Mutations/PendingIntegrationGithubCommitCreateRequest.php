@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationGithubCommitCreateRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'webhookSecret'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'webhookSecret'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

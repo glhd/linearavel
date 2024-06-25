@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingImageUploadFromUrlRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'url'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'url'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

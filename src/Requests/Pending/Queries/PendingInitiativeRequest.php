@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingInitiativeRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'slugId', 'sortOrder', 'archivedAt', 'description', 'color', 'targetDate', 'targetDateResolution'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'slugId', 'sortOrder', 'archivedAt', 'description', 'color', 'targetDate', 'targetDateResolution'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

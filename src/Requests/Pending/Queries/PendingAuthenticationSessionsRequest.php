@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingAuthenticationSessionsRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = [
+	protected const DEFAULT_ATTRIBUTES = [
 		'id',
 		'type',
 		'countryCodes',

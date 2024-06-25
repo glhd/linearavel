@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingWorkspaceAuthorizedApplicationsRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['name', 'scope', 'appId', 'clientId', 'webhooksEnabled', 'totalMembers', 'imageUrl'];
+	protected const DEFAULT_ATTRIBUTES = ['name', 'scope', 'appId', 'clientId', 'webhooksEnabled', 'totalMembers', 'imageUrl'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

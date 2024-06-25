@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingWorkflowStatesRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.color', 'nodes.position', 'nodes.type', 'nodes.archivedAt', 'nodes.description'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.color', 'nodes.position', 'nodes.type', 'nodes.archivedAt', 'nodes.description'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

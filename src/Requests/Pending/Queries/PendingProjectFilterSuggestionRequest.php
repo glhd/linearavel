@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingProjectFilterSuggestionRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['filter'];
+	protected const DEFAULT_ATTRIBUTES = ['filter'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

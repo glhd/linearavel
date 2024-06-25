@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomViewRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'filters', 'filterData', 'shared', 'modelName', 'archivedAt', 'description', 'icon', 'color', 'projectFilterData'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'filters', 'filterData', 'shared', 'modelName', 'archivedAt', 'description', 'icon', 'color', 'projectFilterData'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

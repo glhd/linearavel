@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingTriageResponsibilityRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'action', 'archivedAt'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'action', 'archivedAt'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

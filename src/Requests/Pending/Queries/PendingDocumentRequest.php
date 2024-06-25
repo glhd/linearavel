@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingDocumentRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'title', 'slugId', 'sortOrder', 'archivedAt', 'icon', 'color', 'content', 'contentState', 'contentData'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'title', 'slugId', 'sortOrder', 'archivedAt', 'icon', 'color', 'content', 'contentState', 'contentData'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingProjectMilestoneRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'sortOrder', 'archivedAt', 'targetDate', 'description', 'descriptionData', 'descriptionState'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'sortOrder', 'archivedAt', 'targetDate', 'description', 'descriptionData', 'descriptionState'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

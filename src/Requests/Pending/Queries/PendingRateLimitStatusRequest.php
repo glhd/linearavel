@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingRateLimitStatusRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['kind', 'identifier'];
+	protected const DEFAULT_ATTRIBUTES = ['kind', 'identifier'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

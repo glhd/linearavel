@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserSettingsFlagIncrementRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'flag', 'value', 'success'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'flag', 'value', 'success'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

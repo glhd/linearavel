@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationDomainClaimRequestRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['verificationString'];
+	protected const DEFAULT_ATTRIBUTES = ['verificationString'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

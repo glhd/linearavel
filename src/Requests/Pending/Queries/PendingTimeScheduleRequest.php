@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingTimeScheduleRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'archivedAt', 'externalId', 'externalUrl'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'archivedAt', 'externalId', 'externalUrl'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

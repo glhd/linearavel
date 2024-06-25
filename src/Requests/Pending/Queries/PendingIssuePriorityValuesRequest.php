@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingIssuePriorityValuesRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['priority', 'label'];
+	protected const DEFAULT_ATTRIBUTES = ['priority', 'label'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

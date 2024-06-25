@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingNotificationSubscriptionsRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['nodes'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

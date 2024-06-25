@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationAsksConnectChannelRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'addBot'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'addBot'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

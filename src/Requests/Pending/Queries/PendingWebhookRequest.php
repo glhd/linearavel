@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingWebhookRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'enabled', 'allPublicTeams', 'resourceTypes', 'archivedAt', 'label', 'url', 'secret'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'enabled', 'allPublicTeams', 'resourceTypes', 'archivedAt', 'label', 'url', 'secret'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

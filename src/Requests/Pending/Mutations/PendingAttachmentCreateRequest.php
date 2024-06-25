@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAttachmentCreateRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

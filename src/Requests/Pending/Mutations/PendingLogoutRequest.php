@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingLogoutRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	protected const DEFAULT_ATTRIBUTES = ['success'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

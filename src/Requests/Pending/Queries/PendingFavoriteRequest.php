@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingFavoriteRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'sortOrder', 'archivedAt', 'folderName', 'projectTab', 'predefinedViewType'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'sortOrder', 'archivedAt', 'folderName', 'projectTab', 'predefinedViewType'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

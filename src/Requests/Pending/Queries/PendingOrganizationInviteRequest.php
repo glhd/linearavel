@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationInviteRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'email', 'role', 'external', 'metadata', 'archivedAt', 'acceptedAt', 'expiresAt'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'email', 'role', 'external', 'metadata', 'archivedAt', 'acceptedAt', 'expiresAt'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

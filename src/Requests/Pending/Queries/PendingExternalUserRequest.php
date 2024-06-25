@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingExternalUserRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'displayName', 'archivedAt', 'email', 'avatarUrl', 'lastSeen'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'displayName', 'archivedAt', 'email', 'avatarUrl', 'lastSeen'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

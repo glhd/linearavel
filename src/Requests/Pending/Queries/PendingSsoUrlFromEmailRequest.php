@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingSsoUrlFromEmailRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['success', 'samlSsoUrl'];
+	protected const DEFAULT_ATTRIBUTES = ['success', 'samlSsoUrl'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

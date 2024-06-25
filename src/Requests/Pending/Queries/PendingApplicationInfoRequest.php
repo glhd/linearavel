@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingApplicationInfoRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'clientId', 'name', 'developer', 'developerUrl', 'description', 'imageUrl'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'clientId', 'name', 'developer', 'developerUrl', 'description', 'imageUrl'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

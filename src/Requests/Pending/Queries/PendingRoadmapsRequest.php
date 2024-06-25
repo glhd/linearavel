@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingRoadmapsRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.slugId', 'nodes.sortOrder', 'nodes.archivedAt', 'nodes.description', 'nodes.color'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.slugId', 'nodes.sortOrder', 'nodes.archivedAt', 'nodes.description', 'nodes.color'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

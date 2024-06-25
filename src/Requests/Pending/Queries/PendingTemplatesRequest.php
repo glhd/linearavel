@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingTemplatesRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'name', 'templateData', 'archivedAt', 'description'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'name', 'templateData', 'archivedAt', 'description'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

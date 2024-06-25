@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingEmailUserAccountAuthChallengeRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['success', 'authType'];
+	protected const DEFAULT_ATTRIBUTES = ['success', 'authType'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -11,7 +11,7 @@ use Spatie\LaravelData\Data;
  */
 abstract class PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = [];
+	protected const DEFAULT_ATTRIBUTES = [];
 	
 	/**
 	 * @param \Glhd\Linearavel\Connectors\LinearConnector $connector
@@ -33,7 +33,7 @@ abstract class PendingLinearRequest
 	protected function normalizeFields(array $fields): array
 	{
 		if (['*'] === $fields) {
-			return static::AVAILABLE_ATTRIBUTES;
+			return static::DEFAULT_ATTRIBUTES;
 		}
 		
 		return collect($fields)->dot()->unique()->values()->all();

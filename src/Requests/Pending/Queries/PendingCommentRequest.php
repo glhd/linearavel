@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCommentRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'body', 'bodyData', 'reactionData', 'url', 'archivedAt', 'resolvedAt', 'editedAt', 'quotedText', 'summaryText'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'body', 'bodyData', 'reactionData', 'url', 'archivedAt', 'resolvedAt', 'editedAt', 'quotedText', 'summaryText'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

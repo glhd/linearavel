@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueImportFinishGithubOAuthRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['token'];
+	protected const DEFAULT_ATTRIBUTES = ['token'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

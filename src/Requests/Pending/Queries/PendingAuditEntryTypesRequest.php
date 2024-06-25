@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingAuditEntryTypesRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['type', 'description'];
+	protected const DEFAULT_ATTRIBUTES = ['type', 'description'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationsSettingsRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = [
+	protected const DEFAULT_ATTRIBUTES = [
 		'id',
 		'createdAt',
 		'updatedAt',

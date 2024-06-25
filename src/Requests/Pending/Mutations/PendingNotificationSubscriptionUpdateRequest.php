@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingNotificationSubscriptionUpdateRequest extends PendingLinearRequest
 {
-	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'notificationSubscription', 'success'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'notificationSubscription', 'success'];
 	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
