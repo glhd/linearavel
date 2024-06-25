@@ -16,6 +16,8 @@ use Spatie\LaravelData\Data;
 
 class TypeTransformer extends ClassTransformer
 {
+	use HasTypeNodes;
+	
 	public string $namespace;
 	
 	public function __construct(
@@ -40,19 +42,9 @@ class TypeTransformer extends ClassTransformer
 				->filter(fn(FieldDefinitionNode $node) => $node->name->value === 'nodes')
 				->first();
 			
-			$type = $node->type;
+			$type = $this->getUnderlyingType($node->type);
 			
-			while (! ($type instanceof NamedTypeNode)) {
-				$type = $type->type;
-			}
-			
-			if ('Notification' === $type->name->value) {
-				dump($type); // FIXME
-			} else {
-				$this->use($this->namespace.'Data\\'.$type->name->value);
-			}
-			
-			$attributes['comments'] = [new Doc("/** @extends Connection<{$type->name->value}> */")];
+			$attributes['comments'] = [new Doc("/** @extends Connection<{$type->name}> */")];
 		}
 		
 		$queue->addFromNode($this->node, array_filter([
@@ -64,6 +56,13 @@ class TypeTransformer extends ClassTransformer
 				'implements' => $implements,
 			], $attributes),
 		]));
+	}
+	
+	protected function fqcn(string $fqcn): Name
+	{
+		$this->use($fqcn);
+		
+		return new Name(class_basename($fqcn));
 	}
 	
 	protected function params(): array

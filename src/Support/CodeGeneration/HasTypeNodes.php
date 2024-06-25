@@ -11,6 +11,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\NodeAbstract;
+use UnexpectedValueException;
 
 trait HasTypeNodes
 {
@@ -70,13 +71,23 @@ trait HasTypeNodes
 			'String', 'ID' => new Identifier('string'),
 			'DateTime' => $this->dateTimeType(),
 			default => value(function() use ($node) {
+				$parent = $this->parent;
+				
+				while (! $parent instanceof Transformer && isset($parent->parent)) {
+					$parent = $parent->parent;
+				}
+				
+				if (! $parent instanceof Transformer) {
+					throw new UnexpectedValueException('Unable to find Transformer in parent chain.');
+				}
+				
 				// Treat all scalars as strings for now
-				if ($this->parent->parent->scalars->has($node->name->value)) {
+				if ($parent->scalars->has($node->name->value)) {
 					return new Identifier('string');
 				}
 				
 				return $this->fqcn(
-					$this->parent->parent->registry->get($node->name->value) ?? $this->parent->namespace.'Data\\'.$node->name->value
+					$parent->registry->get($node->name->value) ?? $parent->namespace.'Data\\'.$node->name->value
 				);
 			}),
 		};
