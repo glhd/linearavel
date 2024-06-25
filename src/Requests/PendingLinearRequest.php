@@ -32,10 +32,19 @@ abstract class PendingLinearRequest
 	
 	protected function normalizeFields(array $fields): array
 	{
+		// If they just asked for all default fields, we can skip
+		// iterating over everything
 		if (['*'] === $fields) {
 			return static::DEFAULT_ATTRIBUTES;
 		}
 		
-		return collect($fields)->dot()->unique()->values()->all();
+		// Otherwise, we'll turn a '*' into the default fields and
+		// then deduplicate everything
+		return collect($fields)
+			->dot()
+			->flatMap(fn($field) => $field === '*' ? static::DEFAULT_ATTRIBUTES : $field)
+			->unique()
+			->values()
+			->all();
 	}
 }

@@ -38,6 +38,7 @@ class PhpStormMetaWriter
 				args: [
 					new Arg(new StaticCall(new Name\FullyQualified($class), 'get')),
 					new Arg(new Int_(0)),
+					new Arg(new String_('*')),
 					...array_map(fn($arg) => new String_($arg), $arguments),
 				],
 			));
