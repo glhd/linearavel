@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 
 class PendingWorkspaceAuthorizedApplicationsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['name', 'scope', 'appId', 'clientId', 'webhooksEnabled', 'totalMembers', 'imageUrl'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'workspaceAuthorizedApplications', $args));
@@ -25,7 +27,7 @@ class PendingWorkspaceAuthorizedApplicationsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): WorkspaceAuthorizedApplicationsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(WorkspaceAuthorizedApplicationsResponse::class, (string) $query))->throw();
 		

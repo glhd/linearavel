@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingSamlTokenUserAccountAuthRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'email', 'allowDomainAccess', 'lastUsedOrganizationId', 'token'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'samlTokenUserAccountAuth', $args));
@@ -23,7 +25,7 @@ class PendingSamlTokenUserAccountAuthRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): SamlTokenUserAccountAuthResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(SamlTokenUserAccountAuthResponse::class, (string) $query))->throw();
 		

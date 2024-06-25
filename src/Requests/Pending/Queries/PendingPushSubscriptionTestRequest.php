@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingPushSubscriptionTestRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'pushSubscriptionTest', $args));
@@ -23,7 +25,7 @@ class PendingPushSubscriptionTestRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): PushSubscriptionTestResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(PushSubscriptionTestResponse::class, (string) $query))->throw();
 		

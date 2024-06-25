@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingNotificationSnoozeAllRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'notifications', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'notificationSnoozeAll', $args));
@@ -23,7 +25,7 @@ class PendingNotificationSnoozeAllRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): NotificationSnoozeAllResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(NotificationSnoozeAllResponse::class, (string) $query))->throw();
 		

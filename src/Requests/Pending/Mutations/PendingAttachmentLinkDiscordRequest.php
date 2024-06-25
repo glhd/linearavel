@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAttachmentLinkDiscordRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'attachmentLinkDiscord', $args));
@@ -23,7 +25,7 @@ class PendingAttachmentLinkDiscordRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): AttachmentLinkDiscordResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(AttachmentLinkDiscordResponse::class, (string) $query))->throw();
 		

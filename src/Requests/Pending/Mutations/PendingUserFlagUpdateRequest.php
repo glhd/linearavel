@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserFlagUpdateRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'flag', 'value', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'userFlagUpdate', $args));
@@ -23,7 +25,7 @@ class PendingUserFlagUpdateRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): UserFlagUpdateResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(UserFlagUpdateResponse::class, (string) $query))->throw();
 		

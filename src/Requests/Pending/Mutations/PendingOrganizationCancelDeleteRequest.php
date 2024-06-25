@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationCancelDeleteRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'organizationCancelDelete', $args));
@@ -23,7 +25,7 @@ class PendingOrganizationCancelDeleteRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): OrganizationCancelDeleteResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(OrganizationCancelDeleteResponse::class, (string) $query))->throw();
 		

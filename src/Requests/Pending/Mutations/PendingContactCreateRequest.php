@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingContactCreateRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'contactCreate', $args));
@@ -23,7 +25,7 @@ class PendingContactCreateRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): ContactCreateResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ContactCreateResponse::class, (string) $query))->throw();
 		

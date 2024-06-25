@@ -11,6 +11,19 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAuditEntriesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'nodes.id',
+		'nodes.createdAt',
+		'nodes.updatedAt',
+		'nodes.type',
+		'nodes.archivedAt',
+		'nodes.actorId',
+		'nodes.ip',
+		'nodes.countryCode',
+		'nodes.metadata',
+		'nodes.requestInformation',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'auditEntries', $args));
@@ -23,7 +36,7 @@ class PendingAuditEntriesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): AuditEntriesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(AuditEntriesResponse::class, (string) $query))->throw();
 		

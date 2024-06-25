@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingRoadmapToProjectDeleteRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'roadmapToProjectDelete', $args));
@@ -23,7 +25,7 @@ class PendingRoadmapToProjectDeleteRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): RoadmapToProjectDeleteResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(RoadmapToProjectDeleteResponse::class, (string) $query))->throw();
 		

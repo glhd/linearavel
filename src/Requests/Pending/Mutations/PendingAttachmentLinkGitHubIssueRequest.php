@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAttachmentLinkGitHubIssueRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'attachmentLinkGitHubIssue', $args));
@@ -23,7 +25,7 @@ class PendingAttachmentLinkGitHubIssueRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): AttachmentLinkGitHubIssueResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(AttachmentLinkGitHubIssueResponse::class, (string) $query))->throw();
 		

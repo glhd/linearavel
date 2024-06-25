@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationTemplatesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.archivedAt', 'nodes.foreignEntityId'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'integrationTemplates', $args));
@@ -23,7 +25,7 @@ class PendingIntegrationTemplatesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): IntegrationTemplatesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IntegrationTemplatesResponse::class, (string) $query))->throw();
 		

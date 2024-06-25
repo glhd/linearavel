@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingTimeScheduleDeleteRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'timeScheduleDelete', $args));
@@ -23,7 +25,7 @@ class PendingTimeScheduleDeleteRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): TimeScheduleDeleteResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(TimeScheduleDeleteResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserPromoteMemberRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'userPromoteMember', $args));
@@ -23,7 +25,7 @@ class PendingUserPromoteMemberRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): UserPromoteMemberResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(UserPromoteMemberResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,26 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCyclesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'nodes.id',
+		'nodes.createdAt',
+		'nodes.updatedAt',
+		'nodes.number',
+		'nodes.startsAt',
+		'nodes.endsAt',
+		'nodes.issueCountHistory',
+		'nodes.completedIssueCountHistory',
+		'nodes.scopeHistory',
+		'nodes.completedScopeHistory',
+		'nodes.inProgressScopeHistory',
+		'nodes.progress',
+		'nodes.archivedAt',
+		'nodes.name',
+		'nodes.description',
+		'nodes.completedAt',
+		'nodes.autoArchivedAt',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'cycles', $args));
@@ -23,7 +43,7 @@ class PendingCyclesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): CyclesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(CyclesResponse::class, (string) $query))->throw();
 		

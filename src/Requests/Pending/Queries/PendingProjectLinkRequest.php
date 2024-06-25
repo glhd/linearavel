@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingProjectLinkRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'url', 'label', 'sortOrder', 'archivedAt'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'projectLink', $args));
@@ -23,7 +25,7 @@ class PendingProjectLinkRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): ProjectLinkResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ProjectLinkResponse::class, (string) $query))->throw();
 		

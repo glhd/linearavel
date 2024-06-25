@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingInitiativeRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'slugId', 'sortOrder', 'archivedAt', 'description', 'color', 'targetDate', 'targetDateResolution'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'initiative', $args));
@@ -23,7 +25,7 @@ class PendingInitiativeRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): InitiativeResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(InitiativeResponse::class, (string) $query))->throw();
 		

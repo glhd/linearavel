@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingFavoriteRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'sortOrder', 'archivedAt', 'folderName', 'projectTab', 'predefinedViewType'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'favorite', $args));
@@ -23,7 +25,7 @@ class PendingFavoriteRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): FavoriteResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(FavoriteResponse::class, (string) $query))->throw();
 		

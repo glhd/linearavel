@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationExistsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success', 'exists'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'organizationExists', $args));
@@ -23,7 +25,7 @@ class PendingOrganizationExistsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): OrganizationExistsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(OrganizationExistsResponse::class, (string) $query))->throw();
 		

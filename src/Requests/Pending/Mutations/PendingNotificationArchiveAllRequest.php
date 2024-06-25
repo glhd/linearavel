@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingNotificationArchiveAllRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'notifications', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'notificationArchiveAll', $args));
@@ -23,7 +25,7 @@ class PendingNotificationArchiveAllRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): NotificationArchiveAllResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(NotificationArchiveAllResponse::class, (string) $query))->throw();
 		

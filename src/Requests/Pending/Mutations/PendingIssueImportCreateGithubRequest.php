@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueImportCreateGithubRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'issueImportCreateGithub', $args));
@@ -23,7 +25,7 @@ class PendingIssueImportCreateGithubRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): IssueImportCreateGithubResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IssueImportCreateGithubResponse::class, (string) $query))->throw();
 		

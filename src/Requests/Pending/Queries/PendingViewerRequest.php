@@ -11,6 +11,32 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingViewerRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'id',
+		'createdAt',
+		'updatedAt',
+		'name',
+		'displayName',
+		'email',
+		'inviteHash',
+		'guest',
+		'active',
+		'url',
+		'createdIssueCount',
+		'isMe',
+		'admin',
+		'archivedAt',
+		'avatarUrl',
+		'disableReason',
+		'calendarHash',
+		'description',
+		'statusEmoji',
+		'statusLabel',
+		'statusUntilAt',
+		'timezone',
+		'lastSeen',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'viewer', $args));
@@ -23,7 +49,7 @@ class PendingViewerRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): ViewerResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ViewerResponse::class, (string) $query))->throw();
 		

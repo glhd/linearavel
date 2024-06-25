@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingNotificationsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['nodes'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'notifications', $args));
@@ -23,7 +25,7 @@ class PendingNotificationsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): NotificationsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(NotificationsResponse::class, (string) $query))->throw();
 		

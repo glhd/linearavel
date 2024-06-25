@@ -11,6 +11,20 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingApplicationWithAuthorizationRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'id',
+		'clientId',
+		'name',
+		'developer',
+		'developerUrl',
+		'isAuthorized',
+		'createdByLinear',
+		'webhooksEnabled',
+		'description',
+		'imageUrl',
+		'approvalErrorCode',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'applicationWithAuthorization', $args));
@@ -23,7 +37,7 @@ class PendingApplicationWithAuthorizationRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): ApplicationWithAuthorizationResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ApplicationWithAuthorizationResponse::class, (string) $query))->throw();
 		

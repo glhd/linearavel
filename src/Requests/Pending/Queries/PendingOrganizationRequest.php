@@ -11,6 +11,37 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'id',
+		'createdAt',
+		'updatedAt',
+		'name',
+		'urlKey',
+		'periodUploadVolume',
+		'gitLinkbackMessagesEnabled',
+		'gitPublicLinkbackMessagesEnabled',
+		'roadmapEnabled',
+		'projectUpdatesReminderFrequency',
+		'projectUpdateRemindersDay',
+		'projectUpdateRemindersHour',
+		'fiscalYearStartMonth',
+		'samlEnabled',
+		'scimEnabled',
+		'allowedAuthServices',
+		'previousUrlKeys',
+		'releaseChannel',
+		'slaDayCount',
+		'userCount',
+		'createdIssueCount',
+		'archivedAt',
+		'logoUrl',
+		'gitBranchFormat',
+		'samlSettings',
+		'deletionRequestedAt',
+		'trialEndsAt',
+		'allowMembersToInvite',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'organization', $args));
@@ -23,7 +54,7 @@ class PendingOrganizationRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): OrganizationResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(OrganizationResponse::class, (string) $query))->throw();
 		

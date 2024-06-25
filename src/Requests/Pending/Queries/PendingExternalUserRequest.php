@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingExternalUserRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'displayName', 'archivedAt', 'email', 'avatarUrl', 'lastSeen'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'externalUser', $args));
@@ -23,7 +25,7 @@ class PendingExternalUserRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): ExternalUserResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ExternalUserResponse::class, (string) $query))->throw();
 		

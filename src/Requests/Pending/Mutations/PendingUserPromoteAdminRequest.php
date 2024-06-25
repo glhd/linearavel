@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserPromoteAdminRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'userPromoteAdmin', $args));
@@ -23,7 +25,7 @@ class PendingUserPromoteAdminRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): UserPromoteAdminResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(UserPromoteAdminResponse::class, (string) $query))->throw();
 		

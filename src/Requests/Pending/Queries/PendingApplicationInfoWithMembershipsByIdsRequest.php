@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 
 class PendingApplicationInfoWithMembershipsByIdsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['name', 'scope', 'appId', 'clientId', 'webhooksEnabled', 'totalMembers', 'imageUrl'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'applicationInfoWithMembershipsByIds', $args));
@@ -25,7 +27,7 @@ class PendingApplicationInfoWithMembershipsByIdsRequest extends PendingLinearReq
 	
 	public function response(string ...$fields): ApplicationInfoWithMembershipsByIdsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ApplicationInfoWithMembershipsByIdsResponse::class, (string) $query))->throw();
 		

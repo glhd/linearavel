@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingLogoutAllSessionsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'logoutAllSessions', $args));
@@ -23,7 +25,7 @@ class PendingLogoutAllSessionsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): LogoutAllSessionsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(LogoutAllSessionsResponse::class, (string) $query))->throw();
 		

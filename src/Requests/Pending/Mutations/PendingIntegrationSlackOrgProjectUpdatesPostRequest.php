@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationSlackOrgProjectUpdatesPostRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'addBot', 'nudgeToConnectMainSlackIntegration', 'nudgeToUpdateMainSlackIntegration'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'integrationSlackOrgProjectUpdatesPost', $args));
@@ -23,7 +25,7 @@ class PendingIntegrationSlackOrgProjectUpdatesPostRequest extends PendingLinearR
 	
 	public function response(string ...$fields): IntegrationSlackOrgProjectUpdatesPostResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IntegrationSlackOrgProjectUpdatesPostResponse::class, (string) $query))->throw();
 		

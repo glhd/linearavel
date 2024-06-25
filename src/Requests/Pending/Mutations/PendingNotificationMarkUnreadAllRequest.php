@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingNotificationMarkUnreadAllRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'notifications', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'notificationMarkUnreadAll', $args));
@@ -23,7 +25,7 @@ class PendingNotificationMarkUnreadAllRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): NotificationMarkUnreadAllResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(NotificationMarkUnreadAllResponse::class, (string) $query))->throw();
 		

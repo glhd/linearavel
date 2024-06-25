@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueArchiveRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'issueArchive', $args));
@@ -23,7 +25,7 @@ class PendingIssueArchiveRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): IssueArchiveResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IssueArchiveResponse::class, (string) $query))->throw();
 		

@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 
 class PendingTemplatesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'name', 'templateData', 'archivedAt', 'description'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'templates', $args));
@@ -25,7 +27,7 @@ class PendingTemplatesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): TemplatesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(TemplatesResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingRateLimitStatusRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['kind', 'identifier'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'rateLimitStatus', $args));
@@ -23,7 +25,7 @@ class PendingRateLimitStatusRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): RateLimitStatusResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(RateLimitStatusResponse::class, (string) $query))->throw();
 		

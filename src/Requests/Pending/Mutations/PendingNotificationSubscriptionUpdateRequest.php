@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingNotificationSubscriptionUpdateRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'notificationSubscription', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'notificationSubscriptionUpdate', $args));
@@ -23,7 +25,7 @@ class PendingNotificationSubscriptionUpdateRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): NotificationSubscriptionUpdateResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(NotificationSubscriptionUpdateResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingWorkflowStatesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.color', 'nodes.position', 'nodes.type', 'nodes.archivedAt', 'nodes.description'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'workflowStates', $args));
@@ -23,7 +25,7 @@ class PendingWorkflowStatesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): WorkflowStatesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(WorkflowStatesResponse::class, (string) $query))->throw();
 		

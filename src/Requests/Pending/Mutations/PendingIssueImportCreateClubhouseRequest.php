@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueImportCreateClubhouseRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'issueImportCreateClubhouse', $args));
@@ -23,7 +25,7 @@ class PendingIssueImportCreateClubhouseRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): IssueImportCreateClubhouseResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IssueImportCreateClubhouseResponse::class, (string) $query))->throw();
 		

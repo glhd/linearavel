@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationInviteUpdateRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'organizationInviteUpdate', $args));
@@ -23,7 +25,7 @@ class PendingOrganizationInviteUpdateRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): OrganizationInviteUpdateResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(OrganizationInviteUpdateResponse::class, (string) $query))->throw();
 		

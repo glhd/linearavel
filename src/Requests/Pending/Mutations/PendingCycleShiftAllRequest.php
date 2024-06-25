@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCycleShiftAllRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'cycleShiftAll', $args));
@@ -23,7 +25,7 @@ class PendingCycleShiftAllRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): CycleShiftAllResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(CycleShiftAllResponse::class, (string) $query))->throw();
 		

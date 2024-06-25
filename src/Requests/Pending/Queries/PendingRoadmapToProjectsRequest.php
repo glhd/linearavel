@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingRoadmapToProjectsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.sortOrder', 'nodes.archivedAt'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'roadmapToProjects', $args));
@@ -23,7 +25,7 @@ class PendingRoadmapToProjectsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): RoadmapToProjectsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(RoadmapToProjectsResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCreateOrganizationFromOnboardingRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'createOrganizationFromOnboarding', $args));
@@ -23,7 +25,7 @@ class PendingCreateOrganizationFromOnboardingRequest extends PendingLinearReques
 	
 	public function response(string ...$fields): CreateOrganizationFromOnboardingResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(CreateOrganizationFromOnboardingResponse::class, (string) $query))->throw();
 		

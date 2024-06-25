@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingRefreshGoogleSheetsDataRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'refreshGoogleSheetsData', $args));
@@ -23,7 +25,7 @@ class PendingRefreshGoogleSheetsDataRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): RefreshGoogleSheetsDataResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(RefreshGoogleSheetsDataResponse::class, (string) $query))->throw();
 		

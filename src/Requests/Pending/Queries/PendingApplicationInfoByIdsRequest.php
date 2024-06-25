@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 
 class PendingApplicationInfoByIdsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'clientId', 'name', 'developer', 'developerUrl', 'description', 'imageUrl'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'applicationInfoByIds', $args));
@@ -25,7 +27,7 @@ class PendingApplicationInfoByIdsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): ApplicationInfoByIdsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ApplicationInfoByIdsResponse::class, (string) $query))->throw();
 		

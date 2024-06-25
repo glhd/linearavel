@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAttachmentSourcesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['sources'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'attachmentSources', $args));
@@ -23,7 +25,7 @@ class PendingAttachmentSourcesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): AttachmentSourcesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(AttachmentSourcesResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCreateCsvExportReportRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'createCsvExportReport', $args));
@@ -23,7 +25,7 @@ class PendingCreateCsvExportReportRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): CreateCsvExportReportResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(CreateCsvExportReportResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,22 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomViewsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'nodes.id',
+		'nodes.createdAt',
+		'nodes.updatedAt',
+		'nodes.name',
+		'nodes.filters',
+		'nodes.filterData',
+		'nodes.shared',
+		'nodes.modelName',
+		'nodes.archivedAt',
+		'nodes.description',
+		'nodes.icon',
+		'nodes.color',
+		'nodes.projectFilterData',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'customViews', $args));
@@ -23,7 +39,7 @@ class PendingCustomViewsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): CustomViewsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(CustomViewsResponse::class, (string) $query))->throw();
 		

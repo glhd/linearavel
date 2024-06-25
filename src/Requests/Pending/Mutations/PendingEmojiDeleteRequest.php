@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingEmojiDeleteRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'emojiDelete', $args));
@@ -23,7 +25,7 @@ class PendingEmojiDeleteRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): EmojiDeleteResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(EmojiDeleteResponse::class, (string) $query))->throw();
 		

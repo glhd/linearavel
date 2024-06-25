@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingViewPreferencesUpdateRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'viewPreferencesUpdate', $args));
@@ -23,7 +25,7 @@ class PendingViewPreferencesUpdateRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): ViewPreferencesUpdateResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ViewPreferencesUpdateResponse::class, (string) $query))->throw();
 		

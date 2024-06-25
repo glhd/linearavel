@@ -11,6 +11,21 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingDocumentsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'nodes.id',
+		'nodes.createdAt',
+		'nodes.updatedAt',
+		'nodes.title',
+		'nodes.slugId',
+		'nodes.sortOrder',
+		'nodes.archivedAt',
+		'nodes.icon',
+		'nodes.color',
+		'nodes.content',
+		'nodes.contentState',
+		'nodes.contentData',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'documents', $args));
@@ -23,7 +38,7 @@ class PendingDocumentsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): DocumentsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(DocumentsResponse::class, (string) $query))->throw();
 		

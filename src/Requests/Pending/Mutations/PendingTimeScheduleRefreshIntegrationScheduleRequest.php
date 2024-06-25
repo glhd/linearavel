@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingTimeScheduleRefreshIntegrationScheduleRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'timeScheduleRefreshIntegrationSchedule', $args));
@@ -23,7 +25,7 @@ class PendingTimeScheduleRefreshIntegrationScheduleRequest extends PendingLinear
 	
 	public function response(string ...$fields): TimeScheduleRefreshIntegrationScheduleResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(TimeScheduleRefreshIntegrationScheduleResponse::class, (string) $query))->throw();
 		

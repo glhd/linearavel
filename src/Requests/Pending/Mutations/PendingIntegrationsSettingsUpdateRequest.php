@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationsSettingsUpdateRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'integrationsSettingsUpdate', $args));
@@ -23,7 +25,7 @@ class PendingIntegrationsSettingsUpdateRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): IntegrationsSettingsUpdateResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IntegrationsSettingsUpdateResponse::class, (string) $query))->throw();
 		

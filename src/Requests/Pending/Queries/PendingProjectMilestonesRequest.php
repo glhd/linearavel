@@ -11,6 +11,19 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingProjectMilestonesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'nodes.id',
+		'nodes.createdAt',
+		'nodes.updatedAt',
+		'nodes.name',
+		'nodes.sortOrder',
+		'nodes.archivedAt',
+		'nodes.targetDate',
+		'nodes.description',
+		'nodes.descriptionData',
+		'nodes.descriptionState',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'projectMilestones', $args));
@@ -23,7 +36,7 @@ class PendingProjectMilestonesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): ProjectMilestonesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(ProjectMilestonesResponse::class, (string) $query))->throw();
 		

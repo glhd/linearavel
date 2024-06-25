@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationPagerDutyRefreshScheduleMappingsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'integrationPagerDutyRefreshScheduleMappings', $args));
@@ -23,7 +25,7 @@ class PendingIntegrationPagerDutyRefreshScheduleMappingsRequest extends PendingL
 	
 	public function response(string ...$fields): IntegrationPagerDutyRefreshScheduleMappingsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IntegrationPagerDutyRefreshScheduleMappingsResponse::class, (string) $query))->throw();
 		

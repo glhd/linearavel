@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingEmailUserAccountAuthChallengeRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success', 'authType'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'emailUserAccountAuthChallenge', $args));
@@ -23,7 +25,7 @@ class PendingEmailUserAccountAuthChallengeRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): EmailUserAccountAuthChallengeResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(EmailUserAccountAuthChallengeResponse::class, (string) $query))->throw();
 		

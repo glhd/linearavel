@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingGoogleUserAccountAuthRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'email', 'allowDomainAccess', 'lastUsedOrganizationId', 'token'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'googleUserAccountAuth', $args));
@@ -23,7 +25,7 @@ class PendingGoogleUserAccountAuthRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): GoogleUserAccountAuthResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(GoogleUserAccountAuthResponse::class, (string) $query))->throw();
 		

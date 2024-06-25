@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomViewDetailsSuggestionRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['name', 'description', 'icon'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'customViewDetailsSuggestion', $args));
@@ -23,7 +25,7 @@ class PendingCustomViewDetailsSuggestionRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): CustomViewDetailsSuggestionResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(CustomViewDetailsSuggestionResponse::class, (string) $query))->throw();
 		

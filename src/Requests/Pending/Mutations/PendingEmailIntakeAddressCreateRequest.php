@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingEmailIntakeAddressCreateRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'emailIntakeAddressCreate', $args));
@@ -23,7 +25,7 @@ class PendingEmailIntakeAddressCreateRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): EmailIntakeAddressCreateResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(EmailIntakeAddressCreateResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserSettingsFlagIncrementRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'flag', 'value', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'userSettingsFlagIncrement', $args));
@@ -23,7 +25,7 @@ class PendingUserSettingsFlagIncrementRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): UserSettingsFlagIncrementResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(UserSettingsFlagIncrementResponse::class, (string) $query))->throw();
 		

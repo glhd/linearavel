@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserDiscordConnectRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'userDiscordConnect', $args));
@@ -23,7 +25,7 @@ class PendingUserDiscordConnectRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): UserDiscordConnectResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(UserDiscordConnectResponse::class, (string) $query))->throw();
 		

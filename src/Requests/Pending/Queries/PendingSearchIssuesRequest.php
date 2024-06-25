@@ -11,6 +11,45 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingSearchIssuesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'nodes.id',
+		'nodes.createdAt',
+		'nodes.updatedAt',
+		'nodes.number',
+		'nodes.title',
+		'nodes.priority',
+		'nodes.boardOrder',
+		'nodes.sortOrder',
+		'nodes.labelIds',
+		'nodes.previousIdentifiers',
+		'nodes.priorityLabel',
+		'nodes.identifier',
+		'nodes.url',
+		'nodes.branchName',
+		'nodes.customerTicketCount',
+		'nodes.metadata',
+		'nodes.archivedAt',
+		'nodes.estimate',
+		'nodes.startedAt',
+		'nodes.completedAt',
+		'nodes.startedTriageAt',
+		'nodes.triagedAt',
+		'nodes.canceledAt',
+		'nodes.autoClosedAt',
+		'nodes.autoArchivedAt',
+		'nodes.dueDate',
+		'nodes.slaStartedAt',
+		'nodes.slaBreachesAt',
+		'nodes.trashed',
+		'nodes.snoozedUntilAt',
+		'nodes.subIssueSortOrder',
+		'nodes.integrationSourceType',
+		'nodes.description',
+		'nodes.descriptionData',
+		'nodes.descriptionState',
+		'totalCount',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'searchIssues', $args));
@@ -23,7 +62,7 @@ class PendingSearchIssuesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): SearchIssuesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(SearchIssuesResponse::class, (string) $query))->throw();
 		

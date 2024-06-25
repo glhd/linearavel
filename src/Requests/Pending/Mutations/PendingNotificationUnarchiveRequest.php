@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingNotificationUnarchiveRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'entity'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'notificationUnarchive', $args));
@@ -23,7 +25,7 @@ class PendingNotificationUnarchiveRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): NotificationUnarchiveResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(NotificationUnarchiveResponse::class, (string) $query))->throw();
 		

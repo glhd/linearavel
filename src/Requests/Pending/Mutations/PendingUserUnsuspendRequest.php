@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserUnsuspendRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'userUnsuspend', $args));
@@ -23,7 +25,7 @@ class PendingUserUnsuspendRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): UserUnsuspendResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(UserUnsuspendResponse::class, (string) $query))->throw();
 		

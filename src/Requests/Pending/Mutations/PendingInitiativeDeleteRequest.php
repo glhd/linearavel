@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingInitiativeDeleteRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'initiativeDelete', $args));
@@ -23,7 +25,7 @@ class PendingInitiativeDeleteRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): InitiativeDeleteResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(InitiativeDeleteResponse::class, (string) $query))->throw();
 		

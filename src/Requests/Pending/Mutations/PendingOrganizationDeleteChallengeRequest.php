@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationDeleteChallengeRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'organizationDeleteChallenge', $args));
@@ -23,7 +25,7 @@ class PendingOrganizationDeleteChallengeRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): OrganizationDeleteChallengeResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(OrganizationDeleteChallengeResponse::class, (string) $query))->throw();
 		

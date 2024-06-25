@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationInviteDetailsRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'organizationInviteDetails', $args));
@@ -23,7 +25,7 @@ class PendingOrganizationInviteDetailsRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): OrganizationInviteDetailsResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(OrganizationInviteDetailsResponse::class, (string) $query))->throw();
 		

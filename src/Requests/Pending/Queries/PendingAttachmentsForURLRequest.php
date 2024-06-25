@@ -11,6 +11,20 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAttachmentsForURLRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'nodes.id',
+		'nodes.createdAt',
+		'nodes.updatedAt',
+		'nodes.title',
+		'nodes.url',
+		'nodes.metadata',
+		'nodes.groupBySource',
+		'nodes.archivedAt',
+		'nodes.subtitle',
+		'nodes.source',
+		'nodes.sourceType',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'attachmentsForURL', $args));
@@ -23,7 +37,7 @@ class PendingAttachmentsForURLRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): AttachmentsForURLResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(AttachmentsForURLResponse::class, (string) $query))->throw();
 		

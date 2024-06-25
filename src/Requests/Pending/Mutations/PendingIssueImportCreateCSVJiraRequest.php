@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueImportCreateCSVJiraRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'issueImportCreateCSVJira', $args));
@@ -23,7 +25,7 @@ class PendingIssueImportCreateCSVJiraRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): IssueImportCreateCSVJiraResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IssueImportCreateCSVJiraResponse::class, (string) $query))->throw();
 		

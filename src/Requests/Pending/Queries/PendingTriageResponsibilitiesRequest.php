@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingTriageResponsibilitiesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.action', 'nodes.archivedAt'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'triageResponsibilities', $args));
@@ -23,7 +25,7 @@ class PendingTriageResponsibilitiesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): TriageResponsibilitiesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(TriageResponsibilitiesResponse::class, (string) $query))->throw();
 		

@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingTimeSchedulesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.archivedAt', 'nodes.externalId', 'nodes.externalUrl'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'timeSchedules', $args));
@@ -23,7 +25,7 @@ class PendingTimeSchedulesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): TimeSchedulesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(TimeSchedulesResponse::class, (string) $query))->throw();
 		

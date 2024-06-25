@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationGitlabConnectRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'integrationGitlabConnect', $args));
@@ -23,7 +25,7 @@ class PendingIntegrationGitlabConnectRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): IntegrationGitlabConnectResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IntegrationGitlabConnectResponse::class, (string) $query))->throw();
 		

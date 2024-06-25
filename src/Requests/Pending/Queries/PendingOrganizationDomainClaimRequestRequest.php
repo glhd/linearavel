@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationDomainClaimRequestRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['verificationString'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'organizationDomainClaimRequest', $args));
@@ -23,7 +25,7 @@ class PendingOrganizationDomainClaimRequestRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): OrganizationDomainClaimRequestResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(OrganizationDomainClaimRequestResponse::class, (string) $query))->throw();
 		

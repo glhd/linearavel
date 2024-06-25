@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 
 class PendingAuditEntryTypesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['type', 'description'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'auditEntryTypes', $args));
@@ -25,7 +27,7 @@ class PendingAuditEntryTypesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): AuditEntryTypesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(AuditEntryTypesResponse::class, (string) $query))->throw();
 		

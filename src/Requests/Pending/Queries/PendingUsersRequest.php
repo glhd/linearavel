@@ -11,6 +11,32 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUsersRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [
+		'nodes.id',
+		'nodes.createdAt',
+		'nodes.updatedAt',
+		'nodes.name',
+		'nodes.displayName',
+		'nodes.email',
+		'nodes.inviteHash',
+		'nodes.guest',
+		'nodes.active',
+		'nodes.url',
+		'nodes.createdIssueCount',
+		'nodes.isMe',
+		'nodes.admin',
+		'nodes.archivedAt',
+		'nodes.avatarUrl',
+		'nodes.disableReason',
+		'nodes.calendarHash',
+		'nodes.description',
+		'nodes.statusEmoji',
+		'nodes.statusLabel',
+		'nodes.statusUntilAt',
+		'nodes.timezone',
+		'nodes.lastSeen',
+	];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'users', $args));
@@ -23,7 +49,7 @@ class PendingUsersRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): UsersResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(UsersResponse::class, (string) $query))->throw();
 		

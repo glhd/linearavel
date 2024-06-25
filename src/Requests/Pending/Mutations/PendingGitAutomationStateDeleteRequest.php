@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingGitAutomationStateDeleteRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'gitAutomationStateDelete', $args));
@@ -23,7 +25,7 @@ class PendingGitAutomationStateDeleteRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): GitAutomationStateDeleteResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(GitAutomationStateDeleteResponse::class, (string) $query))->throw();
 		

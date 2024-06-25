@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomViewHasSubscribersRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['hasSubscribers'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'customViewHasSubscribers', $args));
@@ -23,7 +25,7 @@ class PendingCustomViewHasSubscribersRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): CustomViewHasSubscribersResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(CustomViewHasSubscribersResponse::class, (string) $query))->throw();
 		

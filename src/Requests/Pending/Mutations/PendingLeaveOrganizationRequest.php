@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingLeaveOrganizationRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = [];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'leaveOrganization', $args));
@@ -23,7 +25,7 @@ class PendingLeaveOrganizationRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): LeaveOrganizationResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(LeaveOrganizationResponse::class, (string) $query))->throw();
 		

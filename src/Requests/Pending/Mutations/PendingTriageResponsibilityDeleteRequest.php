@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingTriageResponsibilityDeleteRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'triageResponsibilityDelete', $args));
@@ -23,7 +25,7 @@ class PendingTriageResponsibilityDeleteRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): TriageResponsibilityDeleteResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(TriageResponsibilityDeleteResponse::class, (string) $query))->throw();
 		

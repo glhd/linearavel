@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 
 class PendingIssuePriorityValuesRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['priority', 'label'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'issuePriorityValues', $args));
@@ -25,7 +27,7 @@ class PendingIssuePriorityValuesRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): IssuePriorityValuesResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(IssuePriorityValuesResponse::class, (string) $query))->throw();
 		

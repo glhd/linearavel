@@ -11,6 +11,8 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCommentRequest extends PendingLinearRequest
 {
+	protected const AVAILABLE_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'body', 'bodyData', 'reactionData', 'url', 'archivedAt', 'resolvedAt', 'editedAt', 'quotedText', 'summaryText'];
+	
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'comment', $args));
@@ -23,7 +25,7 @@ class PendingCommentRequest extends PendingLinearRequest
 	
 	public function response(string ...$fields): CommentResponse
 	{
-		$query = $this->query->withFields($fields);
+		$query = $this->query->withFields($this->normalizeFields($fields));
 		
 		$response = $this->connector->send(new LinearRequest(CommentResponse::class, (string) $query))->throw();
 		
