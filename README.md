@@ -55,14 +55,13 @@ $viewer = Linear::viewer() // "viewer" is the name of the GraphQL query
     ->get('id', 'name', 'active', 'avatarUrl', 'timezone'); // `get` defines the fields to retrieve
 ```
 
-Each call returns a `LinearResponse`—a custom [Saloon](https://docs.saloon.dev/) object that exposes
-things like `status()` and `headers()` as well as letting you `resolve()` the response into a
-fully-typed Linear data object.
+Calling `get()` will give you the query results directly. You can also call `response()` to get
+a `LinearResponse`—a custom [Saloon](https://docs.saloon.dev/) object that exposes things like `status()` and `headers()` 
+as well as letting you `resolve()` the response into a fully-typed Linear data object.
 
 ```php
-$user = $viewer->resolve();
-assert($user instanceof Glhd\Linearavel\Data\User);
-assert($user->name === 'Chris Morrell');
-assert($user->organization instanceof Glhd\Linearavel\Data\Organization);
-assert($user->organization->name === 'InterNACHI');
+assert($viewer instanceof Glhd\Linearavel\Data\User);
+assert($viewer->name === 'Chris Morrell');
+assert($viewer->organization instanceof Glhd\Linearavel\Data\Organization);
+assert($viewer->organization->name === 'InterNACHI');
 ```
