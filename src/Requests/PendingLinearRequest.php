@@ -42,7 +42,7 @@ abstract class PendingLinearRequest
 		// then deduplicate everything
 		return collect($fields)
 			->dot()
-			->flatMap(fn($field) => $field === '*' ? static::DEFAULT_ATTRIBUTES : $field)
+			->flatMap(fn($field) => '*' === $field ? static::DEFAULT_ATTRIBUTES : [$field])
 			->unique()
 			->values()
 			->all();

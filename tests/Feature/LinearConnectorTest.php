@@ -12,7 +12,7 @@ class LinearConnectorTest extends TestCase
 	{
 		$issues = app(LinearConnector::class)
 			->issues()
-			->get('nodes.id', 'nodes.title');
+			->get('*', 'nodes.team.id');
 		
 		dd($issues);
 	}
