@@ -85,8 +85,10 @@ class PendingRequestTransformer extends ClassTransformer
 	public function attributesConstStmt()
 	{
 		try {
-			$keys = app(KeyHelper::class)
-				->get($this->namespace.'Data\\'.$this->getUnderlyingType($this->node->type))
+			$all_keys = app(KeyHelper::class)
+				->get($this->namespace.'Data\\'.$this->getUnderlyingType($this->node->type));
+			
+			$keys = $all_keys
 				->filter(function($key) {
 					$dots = substr_count($key, '.');
 					return $dots === 0 || (str_starts_with($key, 'nodes.') && $dots < 2);
@@ -97,14 +99,27 @@ class PendingRequestTransformer extends ClassTransformer
 			$keys = [];
 		}
 		
-		if ($keys) {
+		if (isset($all_keys) && $all_keys->isNotEmpty()) {
+			// First we'll try to load a larger list for auto-complete
+			$meta_keys = $all_keys
+				->filter(function($key) {
+					$dots = substr_count($key, '.');
+					return $dots < 2 || (str_starts_with($key, 'nodes.') && $dots < 3);
+				})
+				->values()
+				->all();
+			
+			if (count($meta_keys) > 50) {
+				$meta_keys = $keys;
+			}
+			
 			app(PhpStormMetaWriter::class)->register(
 				class: $this->namespace."Requests\\Pending\\{$this->sub_namespace}\\{$this->class_name}",
-				arguments: $keys,
+				arguments: $meta_keys,
 			);
 		}
 		
-		return (new ClassConst('AVAILABLE_ATTRIBUTES', $keys))
+		return (new ClassConst('DEFAULT_ATTRIBUTES', $keys))
 			->makeProtected()
 			->getNode();
 	}
