@@ -9,7 +9,6 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 use Glhd\Linearavel\Support\KeyHelper;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Stringable;
 use PhpParser\Builder\ClassConst;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
@@ -40,36 +39,25 @@ class PendingRequestTransformer extends ClassTransformer
 {
 	use HasTypeNodes;
 	
-	public string $namespace;
-	
-	protected Stringable $name;
-	
-	protected string $class_name;
-	
-	protected string $kind;
-	
 	protected array $uses = [];
 	
 	public function __construct(
-		protected string $sub_namespace,
+		protected string $kind,
 		protected FieldDefinitionNode $node,
 		protected ClassTransformer $parent,
 	) {
-		$this->namespace = $this->parent->namespace;
-		$this->name = str($this->node->name->value);
-		$this->class_name = (string) $this->name->studly()->prepend('Pending')->append('Request');
-		$this->kind = 'Mutations' === $this->sub_namespace ? 'mutation' : 'query';
 	}
 	
-	public function __invoke(PendingTransformationQueue $queue): void
+	public function __invoke(WriteQueue $queue): void
 	{
-		$queue->add(new PendingTransformation(
-			directory: "Requests/Pending/{$this->sub_namespace}",
-			name: $this->class_name,
+		$class_name = Taxonomy::make($this->node, $this->kind)->pendingRequest();
+		
+		$queue->add(new PendingFile(
+			filename: Finder::make($class_name)->absolutePath(),
 			tree: [
-				new Namespace_(new Name($this->namespace."Requests\\Pending\\{$this->sub_namespace}")),
+				new Namespace_(new Name((string) $class_name->beforeLast('\\'))),
 				fn() => $this->uses(),
-				new Class_($this->class_name, [
+				new Class_((string) $class_name->classBasename(), [
 					'stmts' => [
 						$this->attributesConstStmt(),
 						$this->constructorStmt(),
@@ -86,7 +74,7 @@ class PendingRequestTransformer extends ClassTransformer
 	{
 		try {
 			$all_keys = app(KeyHelper::class)
-				->get($this->namespace.'Data\\'.$this->getUnderlyingType($this->node->type));
+				->get(Taxonomy::make((string) $this->getUnderlyingType($this->node->type))->data());
 			
 			$keys = $all_keys
 				->filter(function($key) {
@@ -114,7 +102,7 @@ class PendingRequestTransformer extends ClassTransformer
 			}
 			
 			app(PhpStormMetaWriter::class)->register(
-				class: $this->namespace."Requests\\Pending\\{$this->sub_namespace}\\{$this->class_name}",
+				class: Taxonomy::make($this->node, $this->kind)->pendingRequest(),
 				arguments: $meta_keys,
 			);
 		}
@@ -237,8 +225,7 @@ class PendingRequestTransformer extends ClassTransformer
 	
 	protected function responseStmt()
 	{
-		$response_class = $this->name->studly()->append('Response');
-		$response_type = $this->fqcn("{$this->namespace}Responses\\{$this->sub_namespace}\\{$response_class}");
+		$response_type = $this->fqcn(Taxonomy::make($this->node, $this->kind)->response());
 		
 		return new ClassMethod('response', [
 			'returnType' => $response_type,

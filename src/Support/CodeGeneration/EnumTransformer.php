@@ -15,14 +15,13 @@ class EnumTransformer extends InvokableTransformer
 {
 	public function __construct(
 		protected EnumTypeDefinitionNode $node,
-		public string $namespace,
 	) {
 	}
 	
-	public function __invoke(PendingTransformationQueue $queue): void
+	public function __invoke(WriteQueue $queue): void
 	{
 		$queue->addFromNode($this->node, [
-			new Namespace_(new Name($this->namespace.'Data\\Enums')),
+			new Namespace_(new Name(Taxonomy::ns('Data\\Enums'))),
 			new Enum_($this->node->name->value, [
 				'scalarType' => new Identifier('string'),
 				'stmts' => collect($this->node->values)

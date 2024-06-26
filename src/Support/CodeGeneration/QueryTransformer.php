@@ -10,22 +10,19 @@ use PhpParser\Node\Stmt\Trait_;
 
 class QueryTransformer extends ClassTransformer
 {
-	public string $namespace;
-	
 	public function __construct(
 		protected ObjectTypeDefinitionNode $node,
 		public Transformer $parent,
 	) {
-		$this->namespace = $this->parent->namespace;
 	}
 	
-	public function __invoke(PendingTransformationQueue $queue): void
+	public function __invoke(WriteQueue $queue): void
 	{
 		// Generate the data first, since they may push items into `$uses`
 		$queries = $this->queries();
 		
 		$queue->addFromNode($this->node, array_filter([
-			new Namespace_(new Name($this->namespace.'Connectors')),
+			new Namespace_(new Name(Taxonomy::ns('Connectors'))),
 			$this->uses(),
 			new Trait_('QueriesLinear', [
 				'stmts' => $queries,

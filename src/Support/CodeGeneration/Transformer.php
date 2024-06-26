@@ -23,13 +23,12 @@ class Transformer
 	
 	public function __construct(
 		protected string $filename,
-		public string $namespace = 'Glhd\\Linearavel\\',
 		protected ?Command $command = null,
 	) {
 		$this->registry = new Collection();
 		$this->scalars = new Collection();
 		
-		app(PendingTransformationQueue::class)->withCommand($this->command);
+		app(WriteQueue::class)->withCommand($this->command);
 		
 		// $debugging = true;
 		
@@ -73,10 +72,10 @@ class Transformer
 	public function register(DefinitionNode $node): DefinitionNode
 	{
 		match ($node::class) {
-			InterfaceTypeDefinitionNode::class => $this->registry->put($node->name->value, $this->namespace.'Data\\Contracts\\'.$node->name->value),
-			ObjectTypeDefinitionNode::class => $this->registry->put($node->name->value, $this->namespace.'Data\\'.$node->name->value),
-			EnumTypeDefinitionNode::class => $this->registry->put($node->name->value, $this->namespace.'Data\\Enums\\'.$node->name->value),
-			InputObjectTypeDefinitionNode::class => $this->registry->put($node->name->value, $this->namespace.'Requests\\Inputs\\'.$node->name->value),
+			InterfaceTypeDefinitionNode::class => $this->registry->put($node->name->value, (string) Taxonomy::make($node)->contract()),
+			ObjectTypeDefinitionNode::class => $this->registry->put($node->name->value, (string) Taxonomy::make($node)->data()),
+			EnumTypeDefinitionNode::class => $this->registry->put($node->name->value, (string) Taxonomy::make($node)->enum()),
+			InputObjectTypeDefinitionNode::class => $this->registry->put($node->name->value, (string) Taxonomy::make($node)->requestInput()),
 			ScalarTypeDefinitionNode::class => $this->scalars->put($node->name->value, 'string'),
 			default => null,
 		};
@@ -86,9 +85,9 @@ class Transformer
 	
 	protected function interface(InterfaceTypeDefinitionNode $node): bool
 	{
-		InterfaceTransformer::transform($node, $this->namespace);
+		InterfaceTransformer::transform($node);
 		
-		return app(PendingTransformationQueue::class)->save();
+		return app(WriteQueue::class)->save();
 	}
 	
 	protected function class(ObjectTypeDefinitionNode $node): bool
@@ -99,20 +98,20 @@ class Transformer
 			default => TypeTransformer::transform($node, $this),
 		};
 		
-		return app(PendingTransformationQueue::class)->save();
+		return app(WriteQueue::class)->save();
 	}
 	
 	protected function input(InputObjectTypeDefinitionNode $node): bool
 	{
 		InputTransformer::transform($node, $this);
 		
-		return app(PendingTransformationQueue::class)->save();
+		return app(WriteQueue::class)->save();
 	}
 	
 	protected function enum(EnumTypeDefinitionNode $node): bool
 	{
-		EnumTransformer::transform($node, $this->namespace);
+		EnumTransformer::transform($node);
 		
-		return app(PendingTransformationQueue::class)->save();
+		return app(WriteQueue::class)->save();
 	}
 }

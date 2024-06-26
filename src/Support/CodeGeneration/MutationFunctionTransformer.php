@@ -26,7 +26,7 @@ class MutationFunctionTransformer extends FunctionTransformer
 	) {
 	}
 	
-	public function __invoke(PendingTransformationQueue $queue): ClassMethod
+	public function __invoke(WriteQueue $queue): ClassMethod
 	{
 		$this->method = new ClassMethod($this->node->name->value.'Mutation');
 		
@@ -38,10 +38,10 @@ class MutationFunctionTransformer extends FunctionTransformer
 		
 		// Create the typed request and response objects (this had been done using generics,
 		// but implementing concrete classes allows for better IDE support in a few ways)
-		PendingRequestTransformer::transform('Mutations', $this->node, $this->parent);
-		ResponseTransformer::transform('Mutations', $this->node, $this->parent);
+		PendingRequestTransformer::transform('mutation', $this->node, $this->parent);
+		ResponseTransformer::transform('mutation', $this->node, $this->parent);
 		
-		$request_class = $this->fqcn("{$this->parent->namespace}Requests\\Pending\\Mutations\\".str($this->node->name->value)->studly()->prepend('Pending')->append('Request'));
+		$request_class = $this->fqcn(Taxonomy::make($this->node, 'mutation')->pendingRequest());
 		
 		$this->method->returnType = $request_class;
 		$this->documentReturn($request_class);

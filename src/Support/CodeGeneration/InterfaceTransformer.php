@@ -11,14 +11,13 @@ class InterfaceTransformer extends InvokableTransformer
 {
 	public function __construct(
 		protected InterfaceTypeDefinitionNode $node,
-		public string $namespace,
 	) {
 	}
 	
-	public function __invoke(PendingTransformationQueue $queue)
+	public function __invoke(WriteQueue $queue)
 	{
 		$queue->addFromNode($this->node, [
-			new Namespace_(new Name($this->namespace.'Data\\Contracts')),
+			new Namespace_(new Name(Taxonomy::ns('Data\\Contracts'))),
 			new Interface_($this->node->name->value),
 		]);
 	}

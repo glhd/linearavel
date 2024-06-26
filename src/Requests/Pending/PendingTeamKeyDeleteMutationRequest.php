@@ -1,0 +1,36 @@
+<?php
+
+namespace Glhd\Linearavel\Requests\Pending;
+
+use Glhd\Linearavel\Connectors\LinearConnector;
+use Glhd\Linearavel\Data\DeletePayload;
+use Glhd\Linearavel\Requests\LinearRequest;
+use Glhd\Linearavel\Requests\PendingLinearRequest;
+use Glhd\Linearavel\Responses\Mutations\TeamKeyDeleteMutationResponse;
+use Glhd\Linearavel\Support\GraphQueryBuilder;
+
+class PendingTeamKeyDeleteMutationRequest extends PendingLinearRequest
+{
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	
+	public function __construct(LinearConnector $connector, public array $args = [])
+	{
+		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'teamKeyDelete', $args));
+	}
+	
+	public function get(string ...$fields): DeletePayload
+	{
+		return $this->response(...$fields)->resolve();
+	}
+	
+	public function response(string ...$fields): TeamKeyDeleteMutationResponse
+	{
+		$query = $this->query->withFields($this->normalizeFields($fields));
+		
+		$response = $this->connector->send(new LinearRequest(TeamKeyDeleteMutationResponse::class, (string) $query))->throw();
+		
+		assert($response instanceof TeamKeyDeleteMutationResponse);
+		
+		return $response;
+	}
+}

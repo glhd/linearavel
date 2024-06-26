@@ -47,8 +47,8 @@ class PhpStormMetaWriter
 		$ns = $ns->getNode();
 		$ns->setAttribute('kind', 2); // Namespace block
 		
-		return app(PendingTransformationQueue::class)
-			->add(new PendingTransformation($directory, $name, [$ns]))
+		return app(WriteQueue::class)
+			->add(new PendingFile(Finder::basePath('../.phpstorm.meta'), [$ns]))
 			->save();
 	}
 }

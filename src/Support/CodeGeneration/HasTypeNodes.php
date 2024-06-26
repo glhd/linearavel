@@ -87,7 +87,7 @@ trait HasTypeNodes
 				}
 				
 				return $this->fqcn(
-					$parent->registry->get($node->name->value) ?? $parent->namespace.'Data\\'.$node->name->value
+					$parent->registry->get($node->name->value) ?? (string) Taxonomy::make($node)->data()
 				);
 			}),
 		};

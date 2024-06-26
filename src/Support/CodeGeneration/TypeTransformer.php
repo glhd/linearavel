@@ -18,17 +18,14 @@ class TypeTransformer extends ClassTransformer
 {
 	use HasTypeNodes;
 	
-	public string $namespace;
-	
 	public function __construct(
 		protected ObjectTypeDefinitionNode $node,
 		public Transformer $parent,
 	) {
-		$this->namespace = $this->parent->namespace;
 		$this->use(Data::class);
 	}
 	
-	public function __invoke(PendingTransformationQueue $queue): void
+	public function __invoke(WriteQueue $queue): void
 	{
 		// Generate the data first, since they may push items into `$uses`
 		$params = $this->params();
@@ -48,7 +45,7 @@ class TypeTransformer extends ClassTransformer
 		}
 		
 		$queue->addFromNode($this->node, array_filter([
-			new Namespace_(new Name($this->namespace.'Data')),
+			new Namespace_(new Name(Taxonomy::ns('Data'))),
 			$this->uses(),
 			new Class_($this->node->name->value, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params, 'flags' => 1])],
@@ -89,8 +86,7 @@ class TypeTransformer extends ClassTransformer
 	{
 		return collect($this->node->interfaces)
 			->map(function(NamedTypeNode $node) {
-				$fqcn = $this->namespace.'Data\\Contracts\\'.$node->name->value;
-				$this->use($fqcn);
+				$this->use((string) Taxonomy::make($node)->contract());
 				
 				return new Name($node->name->value);
 			})

@@ -13,6 +13,11 @@ abstract class PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = [];
 	
+	public static function make(array $args): static
+	{
+		return new static(app(LinearConnector::class), $args);
+	}
+	
 	/**
 	 * @param \Glhd\Linearavel\Connectors\LinearConnector $connector
 	 * @param \Glhd\Linearavel\Support\GraphQueryBuilder $query

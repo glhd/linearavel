@@ -5,7 +5,6 @@ namespace Glhd\Linearavel\Support\CodeGeneration;
 use Glhd\Linearavel\Responses\LinearResponse;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Stringable;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -24,33 +23,25 @@ class ResponseTransformer extends ClassTransformer
 {
 	use HasTypeNodes;
 	
-	public string $namespace;
-	
-	protected Stringable $name;
-	
-	protected string $class_name;
-	
 	protected array $uses = [];
 	
 	public function __construct(
-		public string $sub_namespace,
+		public string $kind,
 		protected FieldDefinitionNode $node,
 		protected ClassTransformer $parent,
 	) {
-		$this->namespace = $this->parent->namespace;
-		$this->name = str($this->node->name->value);
-		$this->class_name = (string) $this->name->studly()->append('Response');
 	}
 	
-	public function __invoke(PendingTransformationQueue $queue): void
+	public function __invoke(WriteQueue $queue): void
 	{
-		$queue->add(new PendingTransformation(
-			directory: "Responses/{$this->sub_namespace}",
-			name: $this->class_name,
+		$class_name = Taxonomy::make($this->node, $this->kind)->response();
+		
+		$queue->add(new PendingFile(
+			filename: Finder::make($class_name)->absolutePath(),
 			tree: [
-				new Namespace_(new Name($this->namespace."Responses\\{$this->sub_namespace}")),
+				new Namespace_(new Name((string) $class_name->beforeLast('\\'))),
 				fn() => $this->uses(),
-				new Class_($this->class_name, [
+				new Class_((string) $class_name->classBasename(), [
 					'stmts' => [
 						$this->resolveStmt(),
 					],

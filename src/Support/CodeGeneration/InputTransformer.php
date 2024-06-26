@@ -12,25 +12,21 @@ use PhpParser\Node\Stmt\Namespace_;
 
 class InputTransformer extends ClassTransformer
 {
-	public string $namespace;
-	
 	protected array $uses = [];
 	
 	public function __construct(
 		protected InputObjectTypeDefinitionNode $node,
 		public Transformer $parent,
 	) {
-		$this->namespace = $this->parent->namespace;
-		// $this->use(LinearRequest::class);
 	}
 	
-	public function __invoke(PendingTransformationQueue $queue): void
+	public function __invoke(WriteQueue $queue): void
 	{
 		// Generate the data first, since they may push items into `$uses`
 		$params = $this->params();
 		
 		$queue->addFromNode($this->node, array_filter([
-			new Namespace_(new Name($this->namespace.'Requests\\Inputs')),
+			new Namespace_(new Name(Taxonomy::ns('Requests\\Inputs'))),
 			$this->uses(),
 			new Class_($this->node->name->value, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
