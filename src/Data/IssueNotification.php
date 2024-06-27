@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/IssueNotification */
 class IssueNotification extends Data implements Notification, Entity, Node
 {
 	public function __construct(

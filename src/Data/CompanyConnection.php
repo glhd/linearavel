@@ -6,7 +6,10 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Optional;
 
-/** @extends Connection<Company> */
+/**
+ * @extends Connection<Company>
+ * @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/CompanyConnection
+ */
 class CompanyConnection extends Connection
 {
 	public function __construct(

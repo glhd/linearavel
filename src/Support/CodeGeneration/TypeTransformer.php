@@ -6,7 +6,6 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\NamedTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use PhpParser\Comment\Doc;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;

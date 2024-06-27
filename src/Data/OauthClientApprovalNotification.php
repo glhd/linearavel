@@ -10,6 +10,7 @@ use Glhd\Linearavel\Data\Contracts\Notification;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/OauthClientApprovalNotification */
 class OauthClientApprovalNotification extends Data implements Notification, Entity, Node
 {
 	public function __construct(

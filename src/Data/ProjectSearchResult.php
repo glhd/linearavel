@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/ProjectSearchResult */
 class ProjectSearchResult extends Data implements Node
 {
 	public function __construct(

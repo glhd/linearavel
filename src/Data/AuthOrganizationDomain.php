@@ -6,6 +6,7 @@ use Glhd\Linearavel\Data\Enums\OrganizationDomainAuthType;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/AuthOrganizationDomain */
 class AuthOrganizationDomain extends Data
 {
 	public function __construct(

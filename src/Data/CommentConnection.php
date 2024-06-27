@@ -6,7 +6,10 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Optional;
 
-/** @extends Connection<Comment> */
+/**
+ * @extends Connection<Comment>
+ * @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/CommentConnection
+ */
 class CommentConnection extends Connection
 {
 	public function __construct(

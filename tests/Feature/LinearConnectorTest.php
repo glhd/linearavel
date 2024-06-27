@@ -3,7 +3,6 @@
 namespace Glhd\Linearavel\Tests\Feature;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
-use Glhd\Linearavel\Facades\Linear;
 use Glhd\Linearavel\Requests\Inputs\IssueCreateInput;
 use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Tests\Fixtures\IssuesFixture;

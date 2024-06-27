@@ -9,6 +9,7 @@ use Glhd\Linearavel\Data\Enums\UserRoleType;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/OrganizationInviteFullDetailsPayload */
 class OrganizationInviteFullDetailsPayload extends Data
 {
 	public function __construct(

@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/AuthOauthClient */
 class AuthOauthClient extends Data
 {
 	public function __construct(

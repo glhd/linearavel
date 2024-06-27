@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
-use Glhd\Linearavel\Contracts\SkipsCodeGeneration;
 use Glhd\Linearavel\Responses\LinearResponse;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;

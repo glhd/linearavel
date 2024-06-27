@@ -3,7 +3,6 @@
 namespace Glhd\Linearavel\Responses\Queries;
 
 use Glhd\Linearavel\Contracts\SkipsCodeGeneration;
-use Glhd\Linearavel\Data\Contracts\Notification;
 use Glhd\Linearavel\Data\IssueNotification;
 use Glhd\Linearavel\Data\OauthClientApprovalNotification;
 use Glhd\Linearavel\Data\ProjectNotification;

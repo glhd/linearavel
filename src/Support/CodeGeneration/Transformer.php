@@ -28,6 +28,8 @@ class Transformer
 		$this->registry = new Collection();
 		$this->scalars = new Collection();
 		
+		require_once __DIR__.'/helpers.php';
+		
 		app(WriteQueue::class)->withCommand($this->command);
 		
 		// $debugging = true;

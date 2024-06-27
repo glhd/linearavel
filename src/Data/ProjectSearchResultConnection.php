@@ -6,7 +6,10 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Optional;
 
-/** @extends Connection<ProjectSearchResult> */
+/**
+ * @extends Connection<ProjectSearchResult>
+ * @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/ProjectSearchResultConnection
+ */
 class ProjectSearchResultConnection extends Connection
 {
 	public function __construct(

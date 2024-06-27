@@ -8,6 +8,7 @@ use Glhd\Linearavel\Data\Contracts\Node;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/PaidSubscription */
 class PaidSubscription extends Data implements Node
 {
 	public function __construct(

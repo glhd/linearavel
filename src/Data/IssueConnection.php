@@ -6,7 +6,10 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Optional;
 
-/** @extends Connection<Issue> */
+/**
+ * @extends Connection<Issue>
+ * @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/IssueConnection
+ */
 class IssueConnection extends Connection
 {
 	public function __construct(

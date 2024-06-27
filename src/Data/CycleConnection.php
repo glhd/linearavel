@@ -6,7 +6,10 @@ use Glhd\Linearavel\Data\Wrappers\Connection;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Optional;
 
-/** @extends Connection<Cycle> */
+/**
+ * @extends Connection<Cycle>
+ * @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/CycleConnection
+ */
 class CycleConnection extends Connection
 {
 	public function __construct(
