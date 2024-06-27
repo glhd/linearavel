@@ -29,6 +29,8 @@ class EnumTransformer extends InvokableTransformer
 						return (new EnumCase($node->name->value, new String_($node->name->value)));
 					})
 					->all(),
+			], [
+				'comments' => DocBlock::make()->seeDocs("enums/{$this->node->name->value}")->asAttribute(),
 			]),
 		]);
 	}

@@ -62,31 +62,6 @@ class MutationFunctionTransformer extends FunctionTransformer
 			),
 		];
 		
-		// $this->method->stmts = [
-		// 	new Return_(
-		// 		new MethodCall(
-		// 			var: new Variable('this'),
-		// 			name: $this->isList($this->node->type)
-		// 				? new Identifier('linearListMutation')
-		// 				: new Identifier('linearObjectMutation'),
-		// 			args: array_filter([
-		// 				new Arg(new String_($this->node->name->value)),
-		// 				new Arg(new ClassConstFetch($type, 'class')),
-		// 				count($this->method->params)
-		// 					? new Arg(new FuncCall(
-		// 					name: new Name('compact'),
-		// 					args: collect($this->method->params)
-		// 						->map(fn(Param $param) => new Arg(new String_((string) $param->var->name)))
-		// 						->all(),
-		// 				))
-		// 					: null,
-		// 			]),
-		// 		),
-		// 	),
-		// ];
-		//
-		// $this->method->setDocComment($this->doc());
-		
 		return $this->method;
 	}
 	

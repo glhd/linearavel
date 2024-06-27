@@ -18,7 +18,9 @@ class InterfaceTransformer extends InvokableTransformer
 	{
 		$queue->addFromNode($this->node, [
 			new Namespace_(new Name(Taxonomy::ns('Data\\Contracts'))),
-			new Interface_($this->node->name->value),
+			new Interface_($this->node->name->value, attributes: [
+				'comments' => DocBlock::make()->seeDocs("interfaces/{$this->node->name->value}")->asAttribute(),
+			]),
 		]);
 	}
 }

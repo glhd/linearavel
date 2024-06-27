@@ -30,7 +30,8 @@ class InputTransformer extends ClassTransformer
 			$this->uses(),
 			new Class_($this->node->name->value, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
-				// 'extends' => new Name(class_basename(LinearRequest::class)),
+			], [
+				'comments' => DocBlock::make()->seeDocs("inputs/{$this->node->name->value}")->asAttribute(),
 			]),
 		]));
 	}

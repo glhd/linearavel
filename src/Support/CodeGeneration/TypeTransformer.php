@@ -43,8 +43,6 @@ class TypeTransformer extends ClassTransformer
 			$docblock->extends('Connection', $type->name);
 		}
 		
-		$docblock->see("https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/{$this->node->name->value}");
-		
 		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name(Taxonomy::ns('Data'))),
 			$this->uses(),
@@ -52,7 +50,7 @@ class TypeTransformer extends ClassTransformer
 				'stmts' => [new ClassMethod('__construct', ['params' => $params, 'flags' => 1])],
 				'extends' => $extends,
 				'implements' => $implements,
-			], ['comments' => $docblock->asAttribute()]),
+			], ['comments' => $docblock->seeDocs("objects/{$this->node->name->value}")->asAttribute()]),
 		]));
 	}
 	

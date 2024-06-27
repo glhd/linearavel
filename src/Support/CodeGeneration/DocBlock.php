@@ -20,6 +20,13 @@ class DocBlock
 		return $this;
 	}
 	
+	public function seeDocs(string $path): static
+	{
+		$base = 'https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference';
+		
+		return $this->see((string) str($path)->start('/')->prepend($base));
+	}
+	
 	public function extends(string $extends, ?string $generic_type = null): static
 	{
 		$annotation = "@extends {$extends}";
