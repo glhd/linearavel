@@ -37,7 +37,7 @@ class ResponseTransformer extends ClassTransformer
 	{
 		$class_name = Taxonomy::make($this->node, $this->kind)->response();
 		
-		if (class_exists((string) $class_name) && is_a((string) $class_name, SkipsCodeGeneration::class, true)) {
+		if (should_skip($class_name)) {
 			return;
 		}
 		
