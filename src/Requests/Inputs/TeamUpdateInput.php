@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 use DateTimeInterface;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/TeamUpdateInput */
 class TeamUpdateInput
 {
 	public function __construct(

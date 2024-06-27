@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/AttachmentCreateInput */
 class AttachmentCreateInput
 {
 	public function __construct(

@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 use Glhd\Linearavel\Data\Enums\SlaStatus;
 use Illuminate\Support\Collection;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/SlaStatusComparator */
 class SlaStatusComparatorInput
 {
 	public function __construct(

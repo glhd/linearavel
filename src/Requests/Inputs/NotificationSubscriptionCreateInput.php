@@ -6,6 +6,7 @@ use Glhd\Linearavel\Data\Enums\ContextViewType;
 use Glhd\Linearavel\Data\Enums\UserContextViewType;
 use Illuminate\Support\Collection;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/NotificationSubscriptionCreateInput */
 class NotificationSubscriptionCreateInput
 {
 	public function __construct(

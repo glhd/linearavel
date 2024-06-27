@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Data\Enums;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/enums/ViewType */
 enum ViewType: string
 {
 	case inbox = 'inbox';

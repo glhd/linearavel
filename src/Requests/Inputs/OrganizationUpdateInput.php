@@ -7,6 +7,7 @@ use Glhd\Linearavel\Data\Enums\ProjectUpdateReminderFrequency;
 use Glhd\Linearavel\Data\Enums\SLADayCountType;
 use Illuminate\Support\Collection;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/OrganizationUpdateInput */
 class OrganizationUpdateInput
 {
 	public function __construct(

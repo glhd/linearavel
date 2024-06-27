@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 use Illuminate\Support\Collection;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/AttachmentCollectionFilter */
 class AttachmentCollectionFilterInput
 {
 	public function __construct(

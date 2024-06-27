@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 use Illuminate\Support\Collection;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/NullableCycleFilter */
 class NullableCycleFilterInput
 {
 	public function __construct(

@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 use Glhd\Linearavel\Data\Enums\UserRoleType;
 use Illuminate\Support\Collection;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/SlackAsksSettingsInput */
 class SlackAsksSettingsInput
 {
 	public function __construct(

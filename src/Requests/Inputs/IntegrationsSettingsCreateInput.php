@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/IntegrationsSettingsCreateInput */
 class IntegrationsSettingsCreateInput
 {
 	public function __construct(

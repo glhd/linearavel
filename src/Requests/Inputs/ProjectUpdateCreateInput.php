@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Requests\Inputs;
 
 use Glhd\Linearavel\Data\Enums\ProjectUpdateHealthType;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/ProjectUpdateCreateInput */
 class ProjectUpdateCreateInput
 {
 	public function __construct(

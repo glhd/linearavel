@@ -6,6 +6,7 @@ use DateTimeInterface;
 use Glhd\Linearavel\Data\Enums\DateResolutionType;
 use Illuminate\Support\Collection;
 
+/** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/ProjectUpdateInput */
 class ProjectUpdateInput
 {
 	public function __construct(
