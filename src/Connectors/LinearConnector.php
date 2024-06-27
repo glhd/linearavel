@@ -2,7 +2,6 @@
 
 namespace Glhd\Linearavel\Connectors;
 
-use Glhd\Linearavel\Support\KeyHelper;
 use Saloon\Contracts\Authenticator;
 use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Connector;
@@ -14,8 +13,7 @@ class LinearConnector extends Connector
 	
 	public function __construct(
 		protected string $api_key,
-		protected KeyHelper $key_helper,
-		protected string $base_url,
+		protected string $base_url = 'https://api.linear.app/graphql',
 	) {
 	}
 	

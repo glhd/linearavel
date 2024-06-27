@@ -21,7 +21,6 @@ class LinearavelServiceProvider extends ServiceProvider
 		$this->app->singleton(LinearConnector::class, function() {
 			return new LinearConnector(
 				api_key: config('linearavel.api_key'),
-				key_helper: app(KeyHelper::class),
 				base_url: config('linearavel.base_url', 'https://api.linear.app/graphql'),
 			);
 		});
