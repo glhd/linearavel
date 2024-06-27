@@ -53,7 +53,7 @@ class TypeTransformer extends ClassTransformer
 				'stmts' => [new ClassMethod('__construct', ['params' => $params, 'flags' => 1])],
 				'extends' => $extends,
 				'implements' => $implements,
-			], ['comments' => (string) $docblock]),
+			], ['comments' => $docblock->asAttribute()]),
 		]));
 	}
 	

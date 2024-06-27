@@ -7,6 +7,7 @@ use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\AST\TypeNode;
 use GraphQL\Language\AST\TypeSystemDefinitionNode;
 use Illuminate\Support\Stringable;
+use PhpParser\Comment\Doc;
 use UnexpectedValueException;
 
 class DocBlock
@@ -36,6 +37,11 @@ class DocBlock
 		$this->annotations[] = $annotation;
 		
 		return $this;
+	}
+	
+	public function asAttribute(): array
+	{
+		return [new Doc((string) $this)];
 	}
 	
 	public function __toString(): string
