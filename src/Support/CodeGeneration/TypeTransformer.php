@@ -31,7 +31,7 @@ class TypeTransformer extends ClassTransformer
 		$params = $this->params();
 		$extends = $this->extends();
 		$implements = $this->implements();
-		$attributes = [];
+		$docblock = new DocBlock();
 		
 		if (str_ends_with($this->node->name->value, 'Connection')) {
 			/** @var FieldDefinitionNode $node */
@@ -41,10 +41,11 @@ class TypeTransformer extends ClassTransformer
 			
 			$type = $this->getUnderlyingType($node->type);
 			
-			$attributes['comments'] = [new Doc("/**\n\t * @extends Connection<{$type->name}>\n\t * @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/\n\t */")];
+			$docblock->extends('Connection', $type->name);
 		}
 		
-		// https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/User
+		$docblock->see("https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/{$this->node->name->value}");
+		
 		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name(Taxonomy::ns('Data'))),
 			$this->uses(),
@@ -52,7 +53,7 @@ class TypeTransformer extends ClassTransformer
 				'stmts' => [new ClassMethod('__construct', ['params' => $params, 'flags' => 1])],
 				'extends' => $extends,
 				'implements' => $implements,
-			], $attributes),
+			], ['comments' => (string) $docblock]),
 		]));
 	}
 	

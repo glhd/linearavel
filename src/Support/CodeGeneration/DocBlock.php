@@ -11,9 +11,11 @@ use UnexpectedValueException;
 
 class DocBlock
 {
-	public function __construct(
-		public array $annotations = [],
-	) {
+	protected array $annotations = [];
+	
+	public static function make(): static
+	{
+		return new static();
 	}
 	
 	public function see(string $see): static
@@ -23,8 +25,27 @@ class DocBlock
 		return $this;
 	}
 	
+	public function extends(string $extends, ?string $generic_type = null): static
+	{
+		$annotation = "@extends {$extends}";
+		
+		if ($generic_type) {
+			$annotation .= "<{$generic_type}>";
+		}
+		
+		$this->annotations[] = $annotation;
+		
+		return $this;
+	}
+	
 	public function __toString(): string
 	{
-		return '/** */';
+		if (1 === count($this->annotations)) {
+			return "/** {$this->annotations[0]} */";
+		}
+		
+		$annotations = implode("\n", array_map(fn($annotation) => " * {$annotation}", $this->annotations));
+		
+		return "/**\n{$annotations}\n */";
 	}
 }
