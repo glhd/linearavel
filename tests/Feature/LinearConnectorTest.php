@@ -3,6 +3,7 @@
 namespace Glhd\Linearavel\Tests\Feature;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
+use Glhd\Linearavel\Facades\Linear;
 use Glhd\Linearavel\Requests\Inputs\IssueCreateInput;
 use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Tests\Fixtures\IssuesFixture;
@@ -26,7 +27,7 @@ class LinearConnectorTest extends TestCase
 		
 		$issues = app(LinearConnector::class)
 			->issues()
-			->get('*');
+			->get();
 		
 		$this->assertEquals('00000000-0000-0000-0000-000000000000', $issues->first()->id);
 		
@@ -52,7 +53,7 @@ class LinearConnectorTest extends TestCase
 	{
 		MockClient::global([new TeamsFixture()]);
 		
-		$team = linear()->teams(first: 1)->get('*')->first();
+		$team = linear()->teams(first: 1)->get()->first();
 		
 		$this->assertEquals('00000000-0000-0000-0000-000000000000', $team->id);
 		$this->assertEquals('Linearavel', $team->name);

@@ -41,9 +41,10 @@ class TypeTransformer extends ClassTransformer
 			
 			$type = $this->getUnderlyingType($node->type);
 			
-			$attributes['comments'] = [new Doc("/** @extends Connection<{$type->name}> */")];
+			$attributes['comments'] = [new Doc("/**\n\t * @extends Connection<{$type->name}>\n\t * @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/\n\t */")];
 		}
 		
+		// https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/User
 		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name(Taxonomy::ns('Data'))),
 			$this->uses(),

@@ -4,6 +4,7 @@ namespace Glhd\Linearavel\Requests;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
 use Glhd\Linearavel\Support\GraphQueryBuilder;
+use InvalidArgumentException;
 use Spatie\LaravelData\Data;
 
 /**
@@ -39,7 +40,7 @@ abstract class PendingLinearRequest
 	{
 		// If they just asked for all default fields, we can skip
 		// iterating over everything
-		if (['*'] === $fields) {
+		if (['*'] === $fields || [] === $fields) {
 			return static::DEFAULT_ATTRIBUTES;
 		}
 		
@@ -47,7 +48,13 @@ abstract class PendingLinearRequest
 		// then deduplicate everything
 		return collect($fields)
 			->dot()
-			->map(fn($field) => '*' === $field ? static::DEFAULT_ATTRIBUTES : $field)
+			->map(function($field) {
+				if (str_contains($field, '.*')) {
+					throw new InvalidArgumentException('You cannot use "*" for nested fields.');
+				}
+				
+				return '*' === $field ? static::DEFAULT_ATTRIBUTES : $field;
+			})
 			->flatten()
 			->unique()
 			->values()

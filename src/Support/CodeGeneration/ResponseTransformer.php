@@ -2,6 +2,7 @@
 
 namespace Glhd\Linearavel\Support\CodeGeneration;
 
+use Glhd\Linearavel\Contracts\SkipsCodeGeneration;
 use Glhd\Linearavel\Responses\LinearResponse;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;
@@ -35,6 +36,10 @@ class ResponseTransformer extends ClassTransformer
 	public function __invoke(WriteQueue $queue): void
 	{
 		$class_name = Taxonomy::make($this->node, $this->kind)->response();
+		
+		if (class_exists((string) $class_name) && is_a((string) $class_name, SkipsCodeGeneration::class, true)) {
+			return;
+		}
 		
 		$queue->add(new PendingFile(
 			filename: Finder::make($class_name)->absolutePath(),

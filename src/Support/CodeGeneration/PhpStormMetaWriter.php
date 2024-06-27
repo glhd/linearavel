@@ -27,9 +27,6 @@ class PhpStormMetaWriter
 	
 	public function write(): bool
 	{
-		$directory = '..'; // Relative to 'src/'
-		$name = '.phpstorm.meta'; // .php is automatically added
-		
 		$ns = (new Namespace_('PHPSTORM_META'));
 		
 		foreach ($this->meta as $class => $arguments) {
@@ -48,7 +45,7 @@ class PhpStormMetaWriter
 		$ns->setAttribute('kind', 2); // Namespace block
 		
 		return app(WriteQueue::class)
-			->add(new PendingFile(Finder::basePath('../.phpstorm.meta'), [$ns]))
+			->add(new PendingFile(Finder::basePath('../.phpstorm.meta.php'), [$ns]))
 			->save();
 	}
 }

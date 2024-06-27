@@ -53,6 +53,7 @@ class QueryFunctionTransformer extends FunctionTransformer
 			))
 			->all();
 		
+		// https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/Query#viewer
 		$this->method->stmts = [
 			new Return_(
 				new New_($request_class, [
