@@ -7,6 +7,7 @@ use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Cast\Int_;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
@@ -105,13 +106,33 @@ class ResponseTransformer extends ClassTransformer
 	
 	protected function resolveObjectStmt()
 	{
+		$underlying_type = $this->getUnderlyingType($this->node->type);
+		
+		if ($underlying_type instanceof Identifier) {
+			return new ClassMethod('resolve', [
+				'returnType' => new Name((string) $underlying_type),
+				'flags' => 1, // public
+				'stmts' => [
+					new Return_(
+						new MethodCall(
+							var: new Variable('this'),
+							name: new Identifier('json'),
+							args: [
+								new Arg(new String_("data.{$this->node->name->value}")),
+							],
+						),
+					),
+				],
+			]);
+		}
+		
 		return new ClassMethod('resolve', [
-			'returnType' => new Name($this->getUnderlyingType($this->node->type)),
+			'returnType' => new Name((string) $underlying_type),
 			'flags' => 1, // public
 			'stmts' => [
 				new Return_(
 					new StaticCall(
-						class: $this->getUnderlyingType($this->node->type),
+						class: $underlying_type,
 						name: new Identifier('from'),
 						args: [
 							new Arg(

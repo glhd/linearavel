@@ -196,8 +196,10 @@ class PendingRequestTransformer extends ClassTransformer
 	
 	protected function getObjectStmt()
 	{
+		$underlying_type = $this->getUnderlyingType($this->node->type);
+		
 		return new ClassMethod('get', [
-			'returnType' => new Name($this->getUnderlyingType($this->node->type)),
+			'returnType' => new Name((string) $underlying_type),
 			'params' => [
 				new Param(
 					var: new Variable('fields'),
