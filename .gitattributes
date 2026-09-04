@@ -1,0 +1,18 @@
+# Keep the distributed package small: none of this is needed at runtime.
+/.github                export-ignore
+/.idea                  export-ignore
+/tests                  export-ignore
+/workbench              export-ignore
+/.codeclimate.yml       export-ignore
+/.gitattributes         export-ignore
+/.gitignore             export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/.phpstorm.meta.php     export-ignore
+/CHANGELOG.md           export-ignore
+/graphql.config.yml     export-ignore
+/ide.json               export-ignore
+/local.graphql          export-ignore
+/phpunit.xml.dist       export-ignore
+/testbench.yaml         export-ignore
+
+*.php diff=php

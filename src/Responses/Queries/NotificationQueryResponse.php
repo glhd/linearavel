@@ -2,18 +2,13 @@
 
 namespace Glhd\Linearavel\Responses\Queries;
 
-use Glhd\Linearavel\Contracts\SkipsCodeGeneration;
-use Glhd\Linearavel\Data\IssueNotification;
-use Glhd\Linearavel\Data\OauthClientApprovalNotification;
-use Glhd\Linearavel\Data\ProjectNotification;
+use Glhd\Linearavel\Data\Contracts\Notification;
 use Glhd\Linearavel\Responses\LinearResponse;
-use RuntimeException;
 
-class NotificationQueryResponse extends LinearResponse implements SkipsCodeGeneration
+class NotificationQueryResponse extends LinearResponse
 {
-	public function resolve(): IssueNotification|ProjectNotification|OauthClientApprovalNotification
+	public function resolve(): Notification
 	{
-		// return Notification::from($this->json('data.notification'));
-		throw new RuntimeException('Not yet implemented.');
+		return Notification::from($this->json('data.notification'));
 	}
 }

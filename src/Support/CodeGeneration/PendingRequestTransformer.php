@@ -8,13 +8,14 @@ use Glhd\Linearavel\Requests\PendingLinearRequest;
 use Glhd\Linearavel\Support\GraphQueryBuilder;
 use Glhd\Linearavel\Support\KeyHelper;
 use GraphQL\Language\AST\FieldDefinitionNode;
+use GraphQL\Language\AST\InputValueDefinitionNode;
+use GraphQL\Language\Printer;
 use Illuminate\Support\Collection;
 use PhpParser\Builder\ClassConst;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Cast\String_ as StringCast;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
@@ -33,6 +34,7 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Return_;
+use Spatie\LaravelData\Data;
 use Throwable;
 
 class PendingRequestTransformer extends ClassTransformer
@@ -60,6 +62,7 @@ class PendingRequestTransformer extends ClassTransformer
 				new Class_((string) $class_name->classBasename(), [
 					'stmts' => [
 						$this->attributesConstStmt(),
+						$this->argumentTypesConstStmt(),
 						$this->constructorStmt(),
 						$this->getStmt(),
 						$this->responseStmt(),
@@ -72,22 +75,85 @@ class PendingRequestTransformer extends ClassTransformer
 	
 	public function attributesConstStmt()
 	{
-		try {
-			$all_keys = app(KeyHelper::class)
-				->get(Taxonomy::make((string) $this->getUnderlyingType($this->node->type))->data());
+		$keys = $this->defaultAttributes();
+		
+		return (new ClassConst('DEFAULT_ATTRIBUTES', $keys))
+			->makeProtected()
+			->getNode();
+	}
+	
+	/**
+	 * The GraphQL type of each argument, so that the query builder can send them
+	 * as variables rather than inlining them into the query.
+	 */
+	public function argumentTypesConstStmt()
+	{
+		$types = [];
+		
+		foreach ($this->node->arguments as $argument) {
+			assert($argument instanceof InputValueDefinitionNode);
 			
-			$keys = $all_keys
-				->filter(function($key) {
-					$dots = substr_count($key, '.');
-					return $dots === 0 || (str_starts_with($key, 'nodes.') && $dots < 2);
-				})
-				->values()
-				->all();
-		} catch (Throwable) {
-			$keys = [];
+			$types[$argument->name->value] = Printer::doPrint($argument->type);
 		}
 		
-		if (isset($all_keys) && $all_keys->isNotEmpty()) {
+		return (new ClassConst('ARGUMENT_TYPES', $types))
+			->makeProtected()
+			->getNode();
+	}
+	
+	protected function fqcn(string $fqcn): Name
+	{
+		$this->use($fqcn);
+		
+		return new Name(class_basename($fqcn));
+	}
+	
+	/** @return array<int, string> */
+	protected function defaultAttributes(): array
+	{
+		$graphql_type = $this->underlyingTypeNode($this->node->type)->name->value;
+		
+		$members = $this->transformer()->unionMembers($graphql_type);
+		
+		return null === $members
+			? $this->defaultAttributesForType($graphql_type)
+			: $this->defaultAttributesForUnion($members);
+	}
+	
+	/**
+	 * Unions are queried with an inline fragment per member type, plus `__typename`
+	 * so that the response knows which member it got back.
+	 *
+	 * @param array<int, string> $members
+	 * @return array<int, string>
+	 */
+	protected function defaultAttributesForUnion(array $members): array
+	{
+		$keys = ['__typename'];
+		
+		foreach ($members as $member) {
+			foreach ($this->keysFor($member) as $key) {
+				$keys[] = GraphQueryBuilder::fragment($member).".{$key}";
+			}
+		}
+		
+		return $keys;
+	}
+	
+	/** @return array<int, string> */
+	protected function defaultAttributesForType(string $graphql_type): array
+	{
+		$all_keys = $this->keysFor($graphql_type);
+		
+		$keys = $all_keys
+			->filter(function($key) {
+				$dots = substr_count($key, '.');
+				return $dots === 0 || (str_starts_with($key, 'nodes.') && $dots < 2);
+			})
+			->values()
+			->all();
+		
+		if ($all_keys->isNotEmpty()) {
 			// First we'll try to load a larger list for auto-complete
 			$meta_keys = $all_keys
 				->filter(function($key) {
@@ -107,16 +173,28 @@ class PendingRequestTransformer extends ClassTransformer
 			);
 		}
 		
-		return (new ClassConst('DEFAULT_ATTRIBUTES', $keys))
-			->makeProtected()
-			->getNode();
+		return $keys;
 	}
 	
-	protected function fqcn(string $fqcn): Name
+	/**
+	 * The field names of a GraphQL type, as far as we can tell from the data class
+	 * we generated for it. Types we haven't written yet come back empty.
+	 *
+	 * @return Collection<int, string>
+	 */
+	protected function keysFor(string $graphql_type): Collection
 	{
-		$this->use($fqcn);
+		$fqcn = $this->transformer()->registry->get($graphql_type);
 		
-		return new Name(class_basename($fqcn));
+		if (! $fqcn || ! is_a($fqcn, Data::class, true)) {
+			return new Collection();
+		}
+		
+		try {
+			return collect(app(KeyHelper::class)->get($fqcn));
+		} catch (Throwable) {
+			return new Collection();
+		}
 	}
 	
 	protected function constructorStmt()
@@ -146,6 +224,7 @@ class PendingRequestTransformer extends ClassTransformer
 								new Arg(new String_($this->kind)),
 								new Arg(new String_($this->node->name->value)),
 								new Arg(new Variable('args')),
+								new Arg(new ClassConstFetch(new Name('static'), 'ARGUMENT_TYPES')),
 							]),
 						],
 					),
@@ -272,7 +351,7 @@ class PendingRequestTransformer extends ClassTransformer
 											class: $this->fqcn(LinearRequest::class),
 											args: [
 												new Arg(new ClassConstFetch($response_type, 'class')),
-												new Arg(new StringCast(new Variable('query'))),
+												new Arg(new Variable('query')),
 											],
 										),
 									),

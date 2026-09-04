@@ -22,16 +22,18 @@ class InputTransformer extends ClassTransformer
 	
 	public function __invoke(WriteQueue $queue): void
 	{
+		$taxonomy = Taxonomy::make($this->node);
+		
 		// Generate the data first, since they may push items into `$uses`
 		$params = $this->params();
 		
 		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name(Taxonomy::ns('Requests\\Inputs'))),
 			$this->uses(),
-			new Class_($this->node->name->value, [
+			new Class_((string) $taxonomy->requestInput()->classBasename(), [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params])],
 			], [
-				'comments' => DocBlock::make()->seeDocs("inputs/{$this->node->name->value}")->asAttribute(),
+				'comments' => DocBlock::make()->seeDocs("inputs/{$taxonomy->graphql_name}")->asAttribute(),
 			]),
 		]));
 	}

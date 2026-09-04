@@ -8,12 +8,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/FrontSettings */
 class FrontSettings extends Data
 {
-	public function __construct(
-		public Optional|bool|null $sendNoteOnStatusChange,
-		public Optional|bool|null $sendNoteOnComment,
-		public Optional|bool|null $automateTicketReopeningOnCompletion,
-		public Optional|bool|null $automateTicketReopeningOnCancellation,
-		public Optional|bool|null $automateTicketReopeningOnComment
-	) {
+	public function __construct(public Optional|bool|null $sendNoteOnStatusChange, public Optional|bool|null $sendNoteOnComment, public Optional|bool|null $automateTicketReopeningOnCompletion, public Optional|bool|null $automateTicketReopeningOnCancellation, public Optional|bool|null $automateTicketReopeningOnComment)
+	{
 	}
 }

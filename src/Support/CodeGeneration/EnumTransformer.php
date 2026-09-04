@@ -20,9 +20,11 @@ class EnumTransformer extends InvokableTransformer
 	
 	public function __invoke(WriteQueue $queue): void
 	{
+		$taxonomy = Taxonomy::make($this->node);
+		
 		$queue->addFromNode($this->node, [
 			new Namespace_(new Name(Taxonomy::ns('Data\\Enums'))),
-			new Enum_($this->node->name->value, [
+			new Enum_((string) $taxonomy->name, [
 				'scalarType' => new Identifier('string'),
 				'stmts' => collect($this->node->values)
 					->map(function(EnumValueDefinitionNode $node) {
@@ -30,7 +32,7 @@ class EnumTransformer extends InvokableTransformer
 					})
 					->all(),
 			], [
-				'comments' => DocBlock::make()->seeDocs("enums/{$this->node->name->value}")->asAttribute(),
+				'comments' => DocBlock::make()->seeDocs("enums/{$taxonomy->graphql_name}")->asAttribute(),
 			]),
 		]);
 	}
