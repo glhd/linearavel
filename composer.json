@@ -22,14 +22,14 @@
         "illuminate/support": "^11.0|^12.0|^13.0",
         "guzzlehttp/guzzle": "^7.8",
         "nikic/php-parser": "^5.0",
-        "saloonphp/saloon": "^3.0",
+        "saloonphp/saloon": "^3.5",
         "spatie/laravel-data": "^4.11",
         "webonyx/graphql-php": "^15.10"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.34",
         "mockery/mockery": "^1.6",
-        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "orchestra/testbench": "^9.2|^10.0|^11.0",
         "phpunit/phpunit": "^10.3|^11.0|^12.0"
     },
     "autoload": {

@@ -30,6 +30,7 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 -   Scalar list properties failed to hydrate under `spatie/laravel-data` 4.3 and newer.
 -   Input classes were generated with a name that did not match their file, and relied on PHP CS Fixer to rename them.
 -   `organizationInviteDetails` referred to a class that did not exist.
+-   The lowest supported `saloonphp/saloon` did not have `MockClient::destroyGlobal()`, so the floor is now 3.5.
 
 ### Removed
 

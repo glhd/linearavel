@@ -20,12 +20,14 @@ jobs:
         laravel: [ 11.*, 12.*, 13.* ]
         dependency-version: [ stable, lowest ]
         include:
+          # orchestra/testbench below 9.2 sets a static property it never declares,
+          # which fails every test, so the Laravel 11 floor starts there
           - laravel: 11.*
-            testbench: 9.*
+            testbench: ^9.2
           - laravel: 12.*
-            testbench: 10.*
+            testbench: ^10.0
           - laravel: 13.*
-            testbench: 11.*
+            testbench: ^11.0
         exclude:
           # Laravel 13 needs PHP 8.3 or newer
           - laravel: 13.*
@@ -61,7 +63,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require --no-interaction --prefer-dist --no-update "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
+          composer require --no-interaction --prefer-dist --no-update "laravel/framework:${{ matrix.laravel }}"
+          composer require --dev --no-interaction --prefer-dist --no-update "orchestra/testbench:${{ matrix.testbench }}"
           composer update --no-interaction --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }}
 
       - name: Execute tests
