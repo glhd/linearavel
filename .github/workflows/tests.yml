@@ -1,3 +1,6 @@
+# Kept at this path rather than phpunit.yml: GitHub disables scheduled workflows
+# in repositories that go quiet, and the old file had been disabled for inactivity.
+# The workflow name is unchanged, so the README badge still resolves.
 name: PHPUnit
 
 on:
