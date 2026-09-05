@@ -27,6 +27,14 @@ class DocBlock
 		return $this->see((string) str($path)->start('/')->prepend($base));
 	}
 	
+	/** Add a free-form line to the docblock. */
+	public function note(string $note): static
+	{
+		$this->annotations[] = $note;
+		
+		return $this;
+	}
+	
 	public function extends(string $extends, ?string $generic_type = null): static
 	{
 		$annotation = "@extends {$extends}";

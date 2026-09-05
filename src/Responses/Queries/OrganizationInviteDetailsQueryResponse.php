@@ -2,14 +2,15 @@
 
 namespace Glhd\Linearavel\Responses\Queries;
 
-use Glhd\Linearavel\Contracts\SkipsCodeGeneration;
+use Glhd\Linearavel\Data\Contracts\OrganizationInviteDetailsPayload;
+use Glhd\Linearavel\Data\OrganizationAcceptedOrExpiredInviteDetailsPayload;
 use Glhd\Linearavel\Data\OrganizationInviteFullDetailsPayload;
 use Glhd\Linearavel\Responses\LinearResponse;
 
-class OrganizationInviteDetailsQueryResponse extends LinearResponse implements SkipsCodeGeneration
+class OrganizationInviteDetailsQueryResponse extends LinearResponse
 {
-	public function resolve(): OrganizationInviteFullDetailsPayload
+	public function resolve(): OrganizationInviteDetailsPayload
 	{
-		return OrganizationInviteFullDetailsPayload::from($this->json('data.organizationInviteDetails'));
+		return $this->resolveUnion($this->json('data.organizationInviteDetails'), ['OrganizationInviteFullDetailsPayload' => OrganizationInviteFullDetailsPayload::class, 'OrganizationAcceptedOrExpiredInviteDetailsPayload' => OrganizationAcceptedOrExpiredInviteDetailsPayload::class]);
 	}
 }

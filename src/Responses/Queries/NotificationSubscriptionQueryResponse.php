@@ -2,16 +2,13 @@
 
 namespace Glhd\Linearavel\Responses\Queries;
 
-use Glhd\Linearavel\Contracts\SkipsCodeGeneration;
+use Glhd\Linearavel\Data\Contracts\NotificationSubscription;
 use Glhd\Linearavel\Responses\LinearResponse;
-use RuntimeException;
-use Spatie\LaravelData\Data;
 
-class NotificationSubscriptionQueryResponse extends LinearResponse implements SkipsCodeGeneration
+class NotificationSubscriptionQueryResponse extends LinearResponse
 {
-	public function resolve(): Data
+	public function resolve(): NotificationSubscription
 	{
-		// return NotificationSubscription::from($this->json('data.notificationSubscription'));
-		throw new RuntimeException('Not yet implemented.');
+		return NotificationSubscription::from($this->json('data.notificationSubscription'));
 	}
 }

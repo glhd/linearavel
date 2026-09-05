@@ -9,13 +9,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/AuthOrganizationDomain */
 class AuthOrganizationDomain extends Data
 {
-	public function __construct(
-		public Optional|string $id,
-		public Optional|string $organizationId,
-		public Optional|string $name,
-		public Optional|bool $verified,
-		public Optional|OrganizationDomainAuthType $authType,
-		public Optional|bool|null $claimed
-	) {
+	public function __construct(public Optional|string $id, public Optional|string $organizationId, public Optional|string $name, public Optional|bool $verified, public Optional|OrganizationDomainAuthType $authType, public Optional|bool|null $claimed)
+	{
 	}
 }

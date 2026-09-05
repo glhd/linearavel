@@ -9,6 +9,8 @@ use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Contracts\Notification;
 use Glhd\Linearavel\Data\Contracts\NotificationSubscription;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -41,6 +43,7 @@ class IssueNotification extends Data implements Notification, Entity, Node
 		public Optional|string|null $reactionEmoji,
 		public Optional|Comment|null $comment,
 		/** @var Collection<int, NotificationSubscription> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection|null $subscriptions
 	) {
 	}

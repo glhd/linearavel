@@ -26,6 +26,8 @@ class TypeTransformer extends ClassTransformer
 	
 	public function __invoke(WriteQueue $queue): void
 	{
+		$taxonomy = Taxonomy::make($this->node);
+		
 		// Generate the data first, since they may push items into `$uses`
 		$params = $this->params();
 		$extends = $this->extends();
@@ -43,14 +45,20 @@ class TypeTransformer extends ClassTransformer
 			$docblock->extends('Connection', $type->name);
 		}
 		
+		$docblock->seeDocs("objects/{$taxonomy->graphql_name}");
+		
+		if ($taxonomy->renamed()) {
+			$docblock->note("Named for the GraphQL type `{$taxonomy->graphql_name}`.");
+		}
+		
 		$queue->addFromNode($this->node, array_filter([
 			new Namespace_(new Name(Taxonomy::ns('Data'))),
 			$this->uses(),
-			new Class_($this->node->name->value, [
+			new Class_((string) $taxonomy->name, [
 				'stmts' => [new ClassMethod('__construct', ['params' => $params, 'flags' => 1])],
 				'extends' => $extends,
 				'implements' => $implements,
-			], ['comments' => $docblock->seeDocs("objects/{$this->node->name->value}")->asAttribute()]),
+			], ['comments' => $docblock->asAttribute()]),
 		]));
 	}
 	
@@ -83,12 +91,23 @@ class TypeTransformer extends ClassTransformer
 	
 	protected function implements(): array
 	{
-		return collect($this->node->interfaces)
-			->map(function(NamedTypeNode $node) {
-				$this->use((string) Taxonomy::make($node)->contract());
+		$contracts = collect($this->node->interfaces)
+			->map(fn(NamedTypeNode $node) => (string) Taxonomy::make($node)->contract());
+		
+		// Union members implement a marker interface for each union they belong to
+		$contracts = $contracts->merge(
+			collect($this->parent->unionsFor($this->node->name->value))
+				->map(fn(string $union) => (string) Taxonomy::make($union)->contract())
+		);
+		
+		return $contracts
+			->unique()
+			->map(function(string $contract) {
+				$this->use($contract);
 				
-				return new Name($node->name->value);
+				return new Name(class_basename($contract));
 			})
+			->values()
 			->all();
 	}
 }

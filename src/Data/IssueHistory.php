@@ -6,6 +6,8 @@ use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -62,8 +64,10 @@ class IssueHistory extends Data implements Node
 		public Optional|Attachment|null $attachment,
 		public Optional|string|null $attachmentId,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection|null $addedLabelIds,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection|null $removedLabelIds,
 		/** @var Collection<int, IssueRelationHistoryPayload> */
 		public Optional|Collection|null $relationChanges,

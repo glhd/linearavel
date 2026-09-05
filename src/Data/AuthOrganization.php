@@ -6,6 +6,8 @@ use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Enums\ReleaseChannel;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -17,10 +19,12 @@ class AuthOrganization extends Data
 		public Optional|string $name,
 		public Optional|string $urlKey,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $previousUrlKeys,
 		public Optional|ReleaseChannel $releaseChannel,
 		public Optional|bool $samlEnabled,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $allowedAuthServices,
 		public Optional|bool $scimEnabled,
 		public Optional|string $serviceId,

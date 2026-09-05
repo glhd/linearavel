@@ -16,10 +16,12 @@ class InterfaceTransformer extends InvokableTransformer
 	
 	public function __invoke(WriteQueue $queue)
 	{
+		$taxonomy = Taxonomy::make($this->node);
+		
 		$queue->addFromNode($this->node, [
 			new Namespace_(new Name(Taxonomy::ns('Data\\Contracts'))),
-			new Interface_($this->node->name->value, attributes: [
-				'comments' => DocBlock::make()->seeDocs("interfaces/{$this->node->name->value}")->asAttribute(),
+			new Interface_((string) $taxonomy->name, attributes: [
+				'comments' => DocBlock::make()->seeDocs("interfaces/{$taxonomy->graphql_name}")->asAttribute(),
 			]),
 		]);
 	}

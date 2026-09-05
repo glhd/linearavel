@@ -19,13 +19,33 @@ trait HasTypeNodes
 	
 	protected function getUnderlyingType(TypeNode $node): NodeAbstract
 	{
-		$type = $node;
-		
-		while (! ($type instanceof NamedTypeNode)) {
-			$type = $type->type;
+		return $this->namedType($this->underlyingTypeNode($node));
+	}
+	
+	/** Unwrap list and non-null wrappers to get at the type itself. */
+	protected function underlyingTypeNode(TypeNode $node): NamedTypeNode
+	{
+		while (! ($node instanceof NamedTypeNode)) {
+			$node = $node->type;
 		}
 		
-		return $this->namedType($type);
+		return $node;
+	}
+	
+	/** Walk up the parent chain to the root transformer, which holds the type registry. */
+	protected function transformer(): Transformer
+	{
+		$parent = $this->parent;
+		
+		while (! $parent instanceof Transformer && isset($parent->parent)) {
+			$parent = $parent->parent;
+		}
+		
+		if (! $parent instanceof Transformer) {
+			throw new UnexpectedValueException('Unable to find Transformer in parent chain.');
+		}
+		
+		return $parent;
 	}
 	
 	protected function isList(TypeNode $node): bool
@@ -71,23 +91,15 @@ trait HasTypeNodes
 			'String', 'ID' => new Identifier('string'),
 			'DateTime' => $this->dateTimeType(),
 			default => value(function() use ($node) {
-				$parent = $this->parent;
-				
-				while (! $parent instanceof Transformer && isset($parent->parent)) {
-					$parent = $parent->parent;
-				}
-				
-				if (! $parent instanceof Transformer) {
-					throw new UnexpectedValueException('Unable to find Transformer in parent chain.');
-				}
+				$transformer = $this->transformer();
 				
 				// Treat all scalars as strings for now
-				if ($parent->scalars->has($node->name->value)) {
+				if ($transformer->scalars->has($node->name->value)) {
 					return new Identifier('string');
 				}
 				
 				return $this->fqcn(
-					$parent->registry->get($node->name->value) ?? (string) Taxonomy::make($node)->data()
+					$transformer->registry->get($node->name->value) ?? (string) Taxonomy::make($node)->data()
 				);
 			}),
 		};

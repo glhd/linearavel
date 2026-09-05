@@ -17,114 +17,114 @@ use Glhd\Linearavel\Requests\Inputs\ProjectUpdateFilterInput;
 use Glhd\Linearavel\Requests\Inputs\TeamFilterInput;
 use Glhd\Linearavel\Requests\Inputs\UserFilterInput;
 use Glhd\Linearavel\Requests\Inputs\WorkflowStateFilterInput;
-use Glhd\Linearavel\Requests\Pending\PendingAdministrableTeamsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingApiKeysQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingApplicationInfoByIdsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingApplicationInfoQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingApplicationInfoWithMembershipsByIdsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingApplicationWithAuthorizationQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingArchivedTeamsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAttachmentIssueQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAttachmentQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAttachmentsForURLQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAttachmentSourcesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAttachmentsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAuditEntriesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAuditEntryTypesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAuthenticationSessionsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAuthorizedApplicationsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingAvailableUsersQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingCommentQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingCommentsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingCustomViewDetailsSuggestionQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingCustomViewHasSubscribersQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingCustomViewQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingCustomViewsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingCycleQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingCyclesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingDocumentContentHistoryQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingDocumentQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingDocumentsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingEmojiQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingEmojisQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingExternalUserQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingExternalUsersQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingFavoriteQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingFavoritesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingInitiativeQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingInitiativesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingInitiativeToProjectQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingInitiativeToProjectsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIntegrationHasScopesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIntegrationQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIntegrationsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIntegrationsSettingsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIntegrationTemplateQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIntegrationTemplatesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueFigmaFileKeySearchQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueFilterSuggestionQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueImportCheckCSVQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueImportFinishGithubOAuthQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueLabelQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueLabelsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssuePriorityValuesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueRelationQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueRelationsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueSearchQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssuesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingIssueVcsBranchSearchQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingNotificationQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingNotificationsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingNotificationSubscriptionQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingNotificationSubscriptionsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingOrganizationDomainClaimRequestQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingOrganizationExistsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingOrganizationInviteDetailsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingOrganizationInviteQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingOrganizationInvitesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingOrganizationQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectFilterSuggestionQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectLinkQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectLinksQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectMilestoneQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectMilestonesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectUpdateInteractionQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectUpdateInteractionsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectUpdateQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingProjectUpdatesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingPushSubscriptionTestQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingRateLimitStatusQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingRoadmapQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingRoadmapsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingRoadmapToProjectQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingRoadmapToProjectsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingSearchDocumentsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingSearchIssuesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingSearchProjectsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingSsoUrlFromEmailQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTeamMembershipQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTeamMembershipsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTeamQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTeamsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTemplateQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTemplatesForIntegrationQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTemplatesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTimeScheduleQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTimeSchedulesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTriageResponsibilitiesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingTriageResponsibilityQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingUserQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingUserSettingsQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingUsersQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingViewerQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingWebhookQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingWebhooksQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingWorkflowStateQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingWorkflowStatesQueryRequest;
-use Glhd\Linearavel\Requests\Pending\PendingWorkspaceAuthorizedApplicationsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAdministrableTeamsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingApiKeysQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingApplicationInfoByIdsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingApplicationInfoQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingApplicationInfoWithMembershipsByIdsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingApplicationWithAuthorizationQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingArchivedTeamsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentIssueQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentsForURLQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentSourcesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAuditEntriesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAuditEntryTypesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAuthenticationSessionsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAuthorizedApplicationsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAvailableUsersQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingCommentQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingCommentsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingCustomViewDetailsSuggestionQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingCustomViewHasSubscribersQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingCustomViewQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingCustomViewsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingCycleQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingCyclesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingDocumentContentHistoryQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingDocumentQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingDocumentsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingEmojiQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingEmojisQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingExternalUserQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingExternalUsersQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingFavoriteQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingFavoritesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingInitiativeQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingInitiativesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingInitiativeToProjectQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingInitiativeToProjectsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIntegrationHasScopesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIntegrationQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIntegrationsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIntegrationsSettingsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIntegrationTemplateQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIntegrationTemplatesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueFigmaFileKeySearchQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueFilterSuggestionQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueImportCheckCSVQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueImportFinishGithubOAuthQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueLabelQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueLabelsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssuePriorityValuesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueRelationQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueRelationsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueSearchQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssuesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingIssueVcsBranchSearchQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingNotificationQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingNotificationsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingNotificationSubscriptionQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingNotificationSubscriptionsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationDomainClaimRequestQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationExistsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationInviteDetailsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationInviteQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationInvitesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectFilterSuggestionQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectLinkQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectLinksQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectMilestoneQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectMilestonesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectUpdateInteractionQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectUpdateInteractionsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectUpdateQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectUpdatesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingPushSubscriptionTestQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingRateLimitStatusQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingRoadmapQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingRoadmapsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingRoadmapToProjectQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingRoadmapToProjectsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingSearchDocumentsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingSearchIssuesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingSearchProjectsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingSsoUrlFromEmailQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTeamMembershipQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTeamMembershipsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTeamQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTeamsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTemplateQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTemplatesForIntegrationQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTemplatesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTimeScheduleQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTimeSchedulesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTriageResponsibilitiesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingTriageResponsibilityQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingUserQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingUserSettingsQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingUsersQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingViewerQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingWebhookQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingWebhooksQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingWorkflowStateQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingWorkflowStatesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingWorkspaceAuthorizedApplicationsQueryRequest;
 
 trait QueriesLinear
 {
@@ -137,17 +137,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingApiKeysQueryRequest
 	 */
-	public function apiKeys(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingApiKeysQueryRequest {
+	public function apiKeys(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingApiKeysQueryRequest
+	{
 		return new PendingApiKeysQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $clientId the client ID of the application
 	 * @returns PendingApplicationInfoQueryRequest
@@ -156,7 +150,7 @@ trait QueriesLinear
 	{
 		return new PendingApplicationInfoQueryRequest($this, ['clientId' => $clientId]);
 	}
-	
+
 	/**
 	 * @param iterable $ids the IDs of the applications
 	 * @returns PendingApplicationInfoByIdsQueryRequest
@@ -165,7 +159,7 @@ trait QueriesLinear
 	{
 		return new PendingApplicationInfoByIdsQueryRequest($this, ['ids' => $ids]);
 	}
-	
+
 	/**
 	 * @param iterable $clientIds the client IDs to look up
 	 * @returns PendingApplicationInfoWithMembershipsByIdsQueryRequest
@@ -174,7 +168,7 @@ trait QueriesLinear
 	{
 		return new PendingApplicationInfoWithMembershipsByIdsQueryRequest($this, ['clientIds' => $clientIds]);
 	}
-	
+
 	/**
 	 * @param ?string $actor actor mode used for the authorization
 	 * @param ?string $redirectUri redirect URI for the application
@@ -186,7 +180,7 @@ trait QueriesLinear
 	{
 		return new PendingApplicationWithAuthorizationQueryRequest($this, ['scope' => $scope, 'clientId' => $clientId, 'actor' => $actor, 'redirectUri' => $redirectUri]);
 	}
-	
+
 	/**
 	 * @returns PendingAuthorizedApplicationsQueryRequest
 	 */
@@ -194,7 +188,7 @@ trait QueriesLinear
 	{
 		return new PendingAuthorizedApplicationsQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @returns PendingWorkspaceAuthorizedApplicationsQueryRequest
 	 */
@@ -202,7 +196,7 @@ trait QueriesLinear
 	{
 		return new PendingWorkspaceAuthorizedApplicationsQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param ?AttachmentFilterInput $filter filter returned attachments
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -213,26 +207,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingAttachmentsQueryRequest
 	 */
-	public function attachments(
-		?AttachmentFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingAttachmentsQueryRequest {
-		return new PendingAttachmentsQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function attachments(?AttachmentFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingAttachmentsQueryRequest
+	{
+		return new PendingAttachmentsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingAttachmentQueryRequest
@@ -241,7 +220,7 @@ trait QueriesLinear
 	{
 		return new PendingAttachmentQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -252,26 +231,11 @@ trait QueriesLinear
 	 * @param string $url the attachment URL
 	 * @returns PendingAttachmentsForURLQueryRequest
 	 */
-	public function attachmentsForURL(
-		string $url,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingAttachmentsForURLQueryRequest {
-		return new PendingAttachmentsForURLQueryRequest($this, [
-			'url' => $url,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function attachmentsForURL(string $url, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingAttachmentsForURLQueryRequest
+	{
+		return new PendingAttachmentsForURLQueryRequest($this, ['url' => $url, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id `id` of the attachment for which you'll want to get the issue for. [Deprecated] `url` as the `id` parameter.
 	 * @returns PendingAttachmentIssueQueryRequest
@@ -280,7 +244,7 @@ trait QueriesLinear
 	{
 		return new PendingAttachmentIssueQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $teamId (optional) if provided will only return attachment sources for the given team
 	 * @returns PendingAttachmentSourcesQueryRequest
@@ -289,7 +253,7 @@ trait QueriesLinear
 	{
 		return new PendingAttachmentSourcesQueryRequest($this, ['teamId' => $teamId]);
 	}
-	
+
 	/**
 	 * @returns PendingAuditEntryTypesQueryRequest
 	 */
@@ -297,7 +261,7 @@ trait QueriesLinear
 	{
 		return new PendingAuditEntryTypesQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param ?AuditEntryFilterInput $filter filter returned audit entries
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -308,26 +272,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingAuditEntriesQueryRequest
 	 */
-	public function auditEntries(
-		?AuditEntryFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingAuditEntriesQueryRequest {
-		return new PendingAuditEntriesQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function auditEntries(?AuditEntryFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingAuditEntriesQueryRequest
+	{
+		return new PendingAuditEntriesQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @returns PendingAvailableUsersQueryRequest
 	 */
@@ -335,7 +284,7 @@ trait QueriesLinear
 	{
 		return new PendingAvailableUsersQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @returns PendingAuthenticationSessionsQueryRequest
 	 */
@@ -343,7 +292,7 @@ trait QueriesLinear
 	{
 		return new PendingAuthenticationSessionsQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param ?bool $isDesktop whether the client is the desktop app
 	 * @param string $email email to query the SSO login URL by
@@ -353,7 +302,7 @@ trait QueriesLinear
 	{
 		return new PendingSsoUrlFromEmailQueryRequest($this, ['email' => $email, 'isDesktop' => $isDesktop]);
 	}
-	
+
 	/**
 	 * @param ?CommentFilterInput $filter filter returned comments
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -364,26 +313,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingCommentsQueryRequest
 	 */
-	public function comments(
-		?CommentFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingCommentsQueryRequest {
-		return new PendingCommentsQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function comments(?CommentFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingCommentsQueryRequest
+	{
+		return new PendingCommentsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param ?string $id the identifier of the comment to retrieve
 	 * @param ?string $issueId [Deprecated] The issue for which to find the comment
@@ -394,7 +328,7 @@ trait QueriesLinear
 	{
 		return new PendingCommentQueryRequest($this, ['id' => $id, 'issueId' => $issueId, 'hash' => $hash]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -404,17 +338,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingCustomViewsQueryRequest
 	 */
-	public function customViews(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingCustomViewsQueryRequest {
+	public function customViews(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingCustomViewsQueryRequest
+	{
 		return new PendingCustomViewsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingCustomViewQueryRequest
@@ -423,7 +351,7 @@ trait QueriesLinear
 	{
 		return new PendingCustomViewQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $modelName
 	 * @param string $filter
@@ -433,7 +361,7 @@ trait QueriesLinear
 	{
 		return new PendingCustomViewDetailsSuggestionQueryRequest($this, ['filter' => $filter, 'modelName' => $modelName]);
 	}
-	
+
 	/**
 	 * @param string $id the identifier of the custom view
 	 * @returns PendingCustomViewHasSubscribersQueryRequest
@@ -442,7 +370,7 @@ trait QueriesLinear
 	{
 		return new PendingCustomViewHasSubscribersQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?CycleFilterInput $filter filter returned users
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -453,26 +381,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingCyclesQueryRequest
 	 */
-	public function cycles(
-		?CycleFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingCyclesQueryRequest {
-		return new PendingCyclesQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function cycles(?CycleFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingCyclesQueryRequest
+	{
+		return new PendingCyclesQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingCycleQueryRequest
@@ -481,7 +394,7 @@ trait QueriesLinear
 	{
 		return new PendingCycleQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingDocumentContentHistoryQueryRequest
@@ -490,7 +403,7 @@ trait QueriesLinear
 	{
 		return new PendingDocumentContentHistoryQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?DocumentFilterInput $filter filter returned documents
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -501,26 +414,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingDocumentsQueryRequest
 	 */
-	public function documents(
-		?DocumentFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingDocumentsQueryRequest {
-		return new PendingDocumentsQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function documents(?DocumentFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingDocumentsQueryRequest
+	{
+		return new PendingDocumentsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingDocumentQueryRequest
@@ -529,7 +427,7 @@ trait QueriesLinear
 	{
 		return new PendingDocumentQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -539,17 +437,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingEmojisQueryRequest
 	 */
-	public function emojis(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingEmojisQueryRequest {
+	public function emojis(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingEmojisQueryRequest
+	{
 		return new PendingEmojisQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id the identifier or the name of the emoji to retrieve
 	 * @returns PendingEmojiQueryRequest
@@ -558,7 +450,7 @@ trait QueriesLinear
 	{
 		return new PendingEmojiQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -568,17 +460,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingExternalUsersQueryRequest
 	 */
-	public function externalUsers(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingExternalUsersQueryRequest {
+	public function externalUsers(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingExternalUsersQueryRequest
+	{
 		return new PendingExternalUsersQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id the identifier of the external user to retrieve
 	 * @returns PendingExternalUserQueryRequest
@@ -587,7 +473,7 @@ trait QueriesLinear
 	{
 		return new PendingExternalUserQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -597,24 +483,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingInitiativeToProjectsQueryRequest
 	 */
-	public function initiativeToProjects(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingInitiativeToProjectsQueryRequest {
-		return new PendingInitiativeToProjectsQueryRequest($this, [
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function initiativeToProjects(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingInitiativeToProjectsQueryRequest
+	{
+		return new PendingInitiativeToProjectsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingInitiativeToProjectQueryRequest
@@ -623,7 +496,7 @@ trait QueriesLinear
 	{
 		return new PendingInitiativeToProjectQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -633,17 +506,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingInitiativesQueryRequest
 	 */
-	public function initiatives(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingInitiativesQueryRequest {
+	public function initiatives(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingInitiativesQueryRequest
+	{
 		return new PendingInitiativesQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingInitiativeQueryRequest
@@ -652,7 +519,7 @@ trait QueriesLinear
 	{
 		return new PendingInitiativeQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -662,17 +529,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingFavoritesQueryRequest
 	 */
-	public function favorites(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingFavoritesQueryRequest {
+	public function favorites(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingFavoritesQueryRequest
+	{
 		return new PendingFavoritesQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingFavoriteQueryRequest
@@ -681,7 +542,7 @@ trait QueriesLinear
 	{
 		return new PendingFavoriteQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -691,17 +552,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingIntegrationsQueryRequest
 	 */
-	public function integrations(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingIntegrationsQueryRequest {
+	public function integrations(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingIntegrationsQueryRequest
+	{
 		return new PendingIntegrationsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingIntegrationQueryRequest
@@ -710,7 +565,7 @@ trait QueriesLinear
 	{
 		return new PendingIntegrationQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param iterable $scopes required scopes
 	 * @param string $integrationId the integration ID
@@ -720,7 +575,7 @@ trait QueriesLinear
 	{
 		return new PendingIntegrationHasScopesQueryRequest($this, ['scopes' => $scopes, 'integrationId' => $integrationId]);
 	}
-	
+
 	/**
 	 * @param ?ProjectUpdateFilterInput $filter filter returned project updates
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -731,26 +586,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingProjectUpdatesQueryRequest
 	 */
-	public function projectUpdates(
-		?ProjectUpdateFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingProjectUpdatesQueryRequest {
-		return new PendingProjectUpdatesQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function projectUpdates(?ProjectUpdateFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingProjectUpdatesQueryRequest
+	{
+		return new PendingProjectUpdatesQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingIntegrationsSettingsQueryRequest
@@ -759,7 +599,7 @@ trait QueriesLinear
 	{
 		return new PendingIntegrationsSettingsQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -769,24 +609,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingIntegrationTemplatesQueryRequest
 	 */
-	public function integrationTemplates(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingIntegrationTemplatesQueryRequest {
-		return new PendingIntegrationTemplatesQueryRequest($this, [
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function integrationTemplates(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingIntegrationTemplatesQueryRequest
+	{
+		return new PendingIntegrationTemplatesQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingIntegrationTemplateQueryRequest
@@ -795,7 +622,7 @@ trait QueriesLinear
 	{
 		return new PendingIntegrationTemplateQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param string $code OAuth code
 	 * @returns PendingIssueImportFinishGithubOAuthQueryRequest
@@ -804,7 +631,7 @@ trait QueriesLinear
 	{
 		return new PendingIssueImportFinishGithubOAuthQueryRequest($this, ['code' => $code]);
 	}
-	
+
 	/**
 	 * @param string $csvUrl CSV storage url
 	 * @param string $service the service the CSV containing data from
@@ -814,7 +641,7 @@ trait QueriesLinear
 	{
 		return new PendingIssueImportCheckCSVQueryRequest($this, ['csvUrl' => $csvUrl, 'service' => $service]);
 	}
-	
+
 	/**
 	 * @param ?IssueLabelFilterInput $filter filter returned issue labels
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -825,26 +652,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingIssueLabelsQueryRequest
 	 */
-	public function issueLabels(
-		?IssueLabelFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingIssueLabelsQueryRequest {
-		return new PendingIssueLabelsQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function issueLabels(?IssueLabelFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingIssueLabelsQueryRequest
+	{
+		return new PendingIssueLabelsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingIssueLabelQueryRequest
@@ -853,7 +665,7 @@ trait QueriesLinear
 	{
 		return new PendingIssueLabelQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -863,17 +675,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingIssueRelationsQueryRequest
 	 */
-	public function issueRelations(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingIssueRelationsQueryRequest {
+	public function issueRelations(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingIssueRelationsQueryRequest
+	{
 		return new PendingIssueRelationsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingIssueRelationQueryRequest
@@ -882,7 +688,7 @@ trait QueriesLinear
 	{
 		return new PendingIssueRelationQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?IssueFilterInput $filter filter returned issues
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -894,28 +700,11 @@ trait QueriesLinear
 	 * @param ?iterable $sort [INTERNAL] Sort returned issues
 	 * @returns PendingIssuesQueryRequest
 	 */
-	public function issues(
-		?IssueFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null,
-		?iterable $sort = null
-	): PendingIssuesQueryRequest {
-		return new PendingIssuesQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-			'sort' => $sort,
-		]);
+	public function issues(?IssueFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null, ?iterable $sort = null): PendingIssuesQueryRequest
+	{
+		return new PendingIssuesQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy, 'sort' => $sort]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingIssueQueryRequest
@@ -924,7 +713,7 @@ trait QueriesLinear
 	{
 		return new PendingIssueQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?IssueFilterInput $filter filter returned issues
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -936,28 +725,11 @@ trait QueriesLinear
 	 * @param ?string $query [Deprecated] Search string to look for
 	 * @returns PendingIssueSearchQueryRequest
 	 */
-	public function issueSearch(
-		?IssueFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null,
-		?string $query = null
-	): PendingIssueSearchQueryRequest {
-		return new PendingIssueSearchQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-			'query' => $query,
-		]);
+	public function issueSearch(?IssueFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null, ?string $query = null): PendingIssueSearchQueryRequest
+	{
+		return new PendingIssueSearchQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy, 'query' => $query]);
 	}
-	
+
 	/**
 	 * @param string $branchName the VCS branch name to search for
 	 * @returns PendingIssueVcsBranchSearchQueryRequest
@@ -966,7 +738,7 @@ trait QueriesLinear
 	{
 		return new PendingIssueVcsBranchSearchQueryRequest($this, ['branchName' => $branchName]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -977,26 +749,11 @@ trait QueriesLinear
 	 * @param string $fileKey the Figma file key
 	 * @returns PendingIssueFigmaFileKeySearchQueryRequest
 	 */
-	public function issueFigmaFileKeySearch(
-		string $fileKey,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingIssueFigmaFileKeySearchQueryRequest {
-		return new PendingIssueFigmaFileKeySearchQueryRequest($this, [
-			'fileKey' => $fileKey,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function issueFigmaFileKeySearch(string $fileKey, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingIssueFigmaFileKeySearchQueryRequest
+	{
+		return new PendingIssueFigmaFileKeySearchQueryRequest($this, ['fileKey' => $fileKey, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @returns PendingIssuePriorityValuesQueryRequest
 	 */
@@ -1004,7 +761,7 @@ trait QueriesLinear
 	{
 		return new PendingIssuePriorityValuesQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param ?string $projectId The ID of the project if filtering a project view
 	 * @param string $prompt
@@ -1014,7 +771,7 @@ trait QueriesLinear
 	{
 		return new PendingIssueFilterSuggestionQueryRequest($this, ['prompt' => $prompt, 'projectId' => $projectId]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1024,17 +781,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingNotificationsQueryRequest
 	 */
-	public function notifications(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingNotificationsQueryRequest {
+	public function notifications(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingNotificationsQueryRequest
+	{
 		return new PendingNotificationsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingNotificationQueryRequest
@@ -1043,7 +794,7 @@ trait QueriesLinear
 	{
 		return new PendingNotificationQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1053,24 +804,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingNotificationSubscriptionsQueryRequest
 	 */
-	public function notificationSubscriptions(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingNotificationSubscriptionsQueryRequest {
-		return new PendingNotificationSubscriptionsQueryRequest($this, [
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function notificationSubscriptions(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingNotificationSubscriptionsQueryRequest
+	{
+		return new PendingNotificationSubscriptionsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingNotificationSubscriptionQueryRequest
@@ -1079,7 +817,7 @@ trait QueriesLinear
 	{
 		return new PendingNotificationSubscriptionQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param string $id the ID of the organization domain to claim
 	 * @returns PendingOrganizationDomainClaimRequestQueryRequest
@@ -1088,7 +826,7 @@ trait QueriesLinear
 	{
 		return new PendingOrganizationDomainClaimRequestQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1098,24 +836,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingOrganizationInvitesQueryRequest
 	 */
-	public function organizationInvites(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingOrganizationInvitesQueryRequest {
-		return new PendingOrganizationInvitesQueryRequest($this, [
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function organizationInvites(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingOrganizationInvitesQueryRequest
+	{
+		return new PendingOrganizationInvitesQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingOrganizationInviteQueryRequest
@@ -1124,7 +849,7 @@ trait QueriesLinear
 	{
 		return new PendingOrganizationInviteQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingOrganizationInviteDetailsQueryRequest
@@ -1133,7 +858,7 @@ trait QueriesLinear
 	{
 		return new PendingOrganizationInviteDetailsQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @returns PendingOrganizationQueryRequest
 	 */
@@ -1141,7 +866,7 @@ trait QueriesLinear
 	{
 		return new PendingOrganizationQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param string $urlKey
 	 * @returns PendingOrganizationExistsQueryRequest
@@ -1150,7 +875,7 @@ trait QueriesLinear
 	{
 		return new PendingOrganizationExistsQueryRequest($this, ['urlKey' => $urlKey]);
 	}
-	
+
 	/**
 	 * @returns PendingArchivedTeamsQueryRequest
 	 */
@@ -1158,7 +883,7 @@ trait QueriesLinear
 	{
 		return new PendingArchivedTeamsQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1168,17 +893,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingProjectLinksQueryRequest
 	 */
-	public function projectLinks(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingProjectLinksQueryRequest {
+	public function projectLinks(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingProjectLinksQueryRequest
+	{
 		return new PendingProjectLinksQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingProjectLinkQueryRequest
@@ -1187,7 +906,7 @@ trait QueriesLinear
 	{
 		return new PendingProjectLinkQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?ProjectMilestoneFilterInput $filter filter returned project milestones
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -1198,26 +917,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingProjectMilestonesQueryRequest
 	 */
-	public function projectMilestones(
-		?ProjectMilestoneFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingProjectMilestonesQueryRequest {
-		return new PendingProjectMilestonesQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function projectMilestones(?ProjectMilestoneFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingProjectMilestonesQueryRequest
+	{
+		return new PendingProjectMilestonesQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingProjectMilestoneQueryRequest
@@ -1226,7 +930,7 @@ trait QueriesLinear
 	{
 		return new PendingProjectMilestoneQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?ProjectFilterInput $filter filter returned projects
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -1237,26 +941,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingProjectsQueryRequest
 	 */
-	public function projects(
-		?ProjectFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingProjectsQueryRequest {
-		return new PendingProjectsQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function projects(?ProjectFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingProjectsQueryRequest
+	{
+		return new PendingProjectsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingProjectQueryRequest
@@ -1265,7 +954,7 @@ trait QueriesLinear
 	{
 		return new PendingProjectQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param string $prompt
 	 * @returns PendingProjectFilterSuggestionQueryRequest
@@ -1274,7 +963,7 @@ trait QueriesLinear
 	{
 		return new PendingProjectFilterSuggestionQueryRequest($this, ['prompt' => $prompt]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1284,24 +973,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingProjectUpdateInteractionsQueryRequest
 	 */
-	public function projectUpdateInteractions(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingProjectUpdateInteractionsQueryRequest {
-		return new PendingProjectUpdateInteractionsQueryRequest($this, [
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function projectUpdateInteractions(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingProjectUpdateInteractionsQueryRequest
+	{
+		return new PendingProjectUpdateInteractionsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id the identifier of the project update interaction to retrieve
 	 * @returns PendingProjectUpdateInteractionQueryRequest
@@ -1310,7 +986,7 @@ trait QueriesLinear
 	{
 		return new PendingProjectUpdateInteractionQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param string $id the identifier of the project update to retrieve
 	 * @returns PendingProjectUpdateQueryRequest
@@ -1319,7 +995,7 @@ trait QueriesLinear
 	{
 		return new PendingProjectUpdateQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?bool $targetMobile whether to send to mobile devices
 	 * @param ?SendStrategy $sendStrategy the send strategy to use
@@ -1329,7 +1005,7 @@ trait QueriesLinear
 	{
 		return new PendingPushSubscriptionTestQueryRequest($this, ['targetMobile' => $targetMobile, 'sendStrategy' => $sendStrategy]);
 	}
-	
+
 	/**
 	 * @returns PendingRateLimitStatusQueryRequest
 	 */
@@ -1337,7 +1013,7 @@ trait QueriesLinear
 	{
 		return new PendingRateLimitStatusQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1347,17 +1023,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingRoadmapsQueryRequest
 	 */
-	public function roadmaps(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingRoadmapsQueryRequest {
+	public function roadmaps(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingRoadmapsQueryRequest
+	{
 		return new PendingRoadmapsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingRoadmapQueryRequest
@@ -1366,7 +1036,7 @@ trait QueriesLinear
 	{
 		return new PendingRoadmapQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1376,24 +1046,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingRoadmapToProjectsQueryRequest
 	 */
-	public function roadmapToProjects(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingRoadmapToProjectsQueryRequest {
-		return new PendingRoadmapToProjectsQueryRequest($this, [
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function roadmapToProjects(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingRoadmapToProjectsQueryRequest
+	{
+		return new PendingRoadmapToProjectsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingRoadmapToProjectQueryRequest
@@ -1402,7 +1059,7 @@ trait QueriesLinear
 	{
 		return new PendingRoadmapToProjectQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1416,32 +1073,11 @@ trait QueriesLinear
 	 * @param ?string $teamId UUID of a team to use as a boost
 	 * @returns PendingSearchDocumentsQueryRequest
 	 */
-	public function searchDocuments(
-		string $term,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null,
-		?float $snippetSize = null,
-		?bool $includeComments = null,
-		?string $teamId = null
-	): PendingSearchDocumentsQueryRequest {
-		return new PendingSearchDocumentsQueryRequest($this, [
-			'term' => $term,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-			'snippetSize' => $snippetSize,
-			'includeComments' => $includeComments,
-			'teamId' => $teamId,
-		]);
+	public function searchDocuments(string $term, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null, ?float $snippetSize = null, ?bool $includeComments = null, ?string $teamId = null): PendingSearchDocumentsQueryRequest
+	{
+		return new PendingSearchDocumentsQueryRequest($this, ['term' => $term, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy, 'snippetSize' => $snippetSize, 'includeComments' => $includeComments, 'teamId' => $teamId]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1455,32 +1091,11 @@ trait QueriesLinear
 	 * @param ?string $teamId UUID of a team to use as a boost
 	 * @returns PendingSearchProjectsQueryRequest
 	 */
-	public function searchProjects(
-		string $term,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null,
-		?float $snippetSize = null,
-		?bool $includeComments = null,
-		?string $teamId = null
-	): PendingSearchProjectsQueryRequest {
-		return new PendingSearchProjectsQueryRequest($this, [
-			'term' => $term,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-			'snippetSize' => $snippetSize,
-			'includeComments' => $includeComments,
-			'teamId' => $teamId,
-		]);
+	public function searchProjects(string $term, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null, ?float $snippetSize = null, ?bool $includeComments = null, ?string $teamId = null): PendingSearchProjectsQueryRequest
+	{
+		return new PendingSearchProjectsQueryRequest($this, ['term' => $term, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy, 'snippetSize' => $snippetSize, 'includeComments' => $includeComments, 'teamId' => $teamId]);
 	}
-	
+
 	/**
 	 * @param ?IssueFilterInput $filter filter returned issues
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -1495,34 +1110,11 @@ trait QueriesLinear
 	 * @param ?string $teamId UUID of a team to use as a boost
 	 * @returns PendingSearchIssuesQueryRequest
 	 */
-	public function searchIssues(
-		string $term,
-		?IssueFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null,
-		?float $snippetSize = null,
-		?bool $includeComments = null,
-		?string $teamId = null
-	): PendingSearchIssuesQueryRequest {
-		return new PendingSearchIssuesQueryRequest($this, [
-			'term' => $term,
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-			'snippetSize' => $snippetSize,
-			'includeComments' => $includeComments,
-			'teamId' => $teamId,
-		]);
+	public function searchIssues(string $term, ?IssueFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null, ?float $snippetSize = null, ?bool $includeComments = null, ?string $teamId = null): PendingSearchIssuesQueryRequest
+	{
+		return new PendingSearchIssuesQueryRequest($this, ['term' => $term, 'filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy, 'snippetSize' => $snippetSize, 'includeComments' => $includeComments, 'teamId' => $teamId]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1532,24 +1124,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingTeamMembershipsQueryRequest
 	 */
-	public function teamMemberships(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingTeamMembershipsQueryRequest {
-		return new PendingTeamMembershipsQueryRequest($this, [
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function teamMemberships(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingTeamMembershipsQueryRequest
+	{
+		return new PendingTeamMembershipsQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingTeamMembershipQueryRequest
@@ -1558,7 +1137,7 @@ trait QueriesLinear
 	{
 		return new PendingTeamMembershipQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?TeamFilterInput $filter filter returned teams
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -1569,26 +1148,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingTeamsQueryRequest
 	 */
-	public function teams(
-		?TeamFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingTeamsQueryRequest {
-		return new PendingTeamsQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function teams(?TeamFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingTeamsQueryRequest
+	{
+		return new PendingTeamsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param ?TeamFilterInput $filter filter returned teams
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -1599,26 +1163,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingAdministrableTeamsQueryRequest
 	 */
-	public function administrableTeams(
-		?TeamFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingAdministrableTeamsQueryRequest {
-		return new PendingAdministrableTeamsQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function administrableTeams(?TeamFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingAdministrableTeamsQueryRequest
+	{
+		return new PendingAdministrableTeamsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingTeamQueryRequest
@@ -1627,7 +1176,7 @@ trait QueriesLinear
 	{
 		return new PendingTeamQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @returns PendingTemplatesQueryRequest
 	 */
@@ -1635,7 +1184,7 @@ trait QueriesLinear
 	{
 		return new PendingTemplatesQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param string $id the identifier of the template to retrieve
 	 * @returns PendingTemplateQueryRequest
@@ -1644,7 +1193,7 @@ trait QueriesLinear
 	{
 		return new PendingTemplateQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param string $integrationType the type of integration for which to return associated templates
 	 * @returns PendingTemplatesForIntegrationQueryRequest
@@ -1653,7 +1202,7 @@ trait QueriesLinear
 	{
 		return new PendingTemplatesForIntegrationQueryRequest($this, ['integrationType' => $integrationType]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1663,17 +1212,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingTimeSchedulesQueryRequest
 	 */
-	public function timeSchedules(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingTimeSchedulesQueryRequest {
+	public function timeSchedules(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingTimeSchedulesQueryRequest
+	{
 		return new PendingTimeSchedulesQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id the identifier of the time schedule to retrieve
 	 * @returns PendingTimeScheduleQueryRequest
@@ -1682,7 +1225,7 @@ trait QueriesLinear
 	{
 		return new PendingTimeScheduleQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1692,24 +1235,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingTriageResponsibilitiesQueryRequest
 	 */
-	public function triageResponsibilities(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingTriageResponsibilitiesQueryRequest {
-		return new PendingTriageResponsibilitiesQueryRequest($this, [
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function triageResponsibilities(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingTriageResponsibilitiesQueryRequest
+	{
+		return new PendingTriageResponsibilitiesQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id the identifier of the triage responsibility to retrieve
 	 * @returns PendingTriageResponsibilityQueryRequest
@@ -1718,7 +1248,7 @@ trait QueriesLinear
 	{
 		return new PendingTriageResponsibilityQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?UserFilterInput $filter filter returned users
 	 * @param ?bool $includeDisabled should query return disabled/suspended users (default: false)
@@ -1730,28 +1260,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingUsersQueryRequest
 	 */
-	public function users(
-		?UserFilterInput $filter = null,
-		?bool $includeDisabled = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingUsersQueryRequest {
-		return new PendingUsersQueryRequest($this, [
-			'filter' => $filter,
-			'includeDisabled' => $includeDisabled,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function users(?UserFilterInput $filter = null, ?bool $includeDisabled = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingUsersQueryRequest
+	{
+		return new PendingUsersQueryRequest($this, ['filter' => $filter, 'includeDisabled' => $includeDisabled, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id The identifier of the user to retrieve. To retrieve the authenticated user, use `viewer` query.
 	 * @returns PendingUserQueryRequest
@@ -1760,7 +1273,7 @@ trait QueriesLinear
 	{
 		return new PendingUserQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @returns PendingViewerQueryRequest
 	 */
@@ -1768,7 +1281,7 @@ trait QueriesLinear
 	{
 		return new PendingViewerQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @returns PendingUserSettingsQueryRequest
 	 */
@@ -1776,7 +1289,7 @@ trait QueriesLinear
 	{
 		return new PendingUserSettingsQueryRequest($this, []);
 	}
-	
+
 	/**
 	 * @param ?string $before a cursor to be used with last for backward pagination
 	 * @param ?string $after A cursor to be used with first for forward pagination
@@ -1786,17 +1299,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingWebhooksQueryRequest
 	 */
-	public function webhooks(
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingWebhooksQueryRequest {
+	public function webhooks(?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingWebhooksQueryRequest
+	{
 		return new PendingWebhooksQueryRequest($this, ['before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id the identifier of the webhook to retrieve
 	 * @returns PendingWebhookQueryRequest
@@ -1805,7 +1312,7 @@ trait QueriesLinear
 	{
 		return new PendingWebhookQueryRequest($this, ['id' => $id]);
 	}
-	
+
 	/**
 	 * @param ?WorkflowStateFilterInput $filter filter returned workflow states
 	 * @param ?string $before a cursor to be used with last for backward pagination
@@ -1816,26 +1323,11 @@ trait QueriesLinear
 	 * @param ?PaginationOrderBy $orderBy By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
 	 * @returns PendingWorkflowStatesQueryRequest
 	 */
-	public function workflowStates(
-		?WorkflowStateFilterInput $filter = null,
-		?string $before = null,
-		?string $after = null,
-		?int $first = null,
-		?int $last = null,
-		?bool $includeArchived = null,
-		?PaginationOrderBy $orderBy = null
-	): PendingWorkflowStatesQueryRequest {
-		return new PendingWorkflowStatesQueryRequest($this, [
-			'filter' => $filter,
-			'before' => $before,
-			'after' => $after,
-			'first' => $first,
-			'last' => $last,
-			'includeArchived' => $includeArchived,
-			'orderBy' => $orderBy,
-		]);
+	public function workflowStates(?WorkflowStateFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingWorkflowStatesQueryRequest
+	{
+		return new PendingWorkflowStatesQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
 	}
-	
+
 	/**
 	 * @param string $id
 	 * @returns PendingWorkflowStateQueryRequest

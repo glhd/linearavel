@@ -6,6 +6,8 @@ use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -24,14 +26,19 @@ class Cycle extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable $endsAt,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $issueCountHistory,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $completedIssueCountHistory,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $scopeHistory,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $completedScopeHistory,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $inProgressScopeHistory,
 		public Optional|Team $team,
 		public Optional|IssueConnection $issues,

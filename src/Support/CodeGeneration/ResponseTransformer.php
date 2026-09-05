@@ -7,6 +7,8 @@ use GraphQL\Language\AST\FieldDefinitionNode;
 use Illuminate\Support\Collection;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
+use PhpParser\Node\ArrayItem;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
@@ -64,9 +66,91 @@ class ResponseTransformer extends ClassTransformer
 	
 	protected function resolveStmt()
 	{
+		if (null !== $this->unionMembers()) {
+			return $this->isList($this->node->type)
+				? $this->resolveUnionListStmt()
+				: $this->resolveUnionStmt();
+		}
+		
 		return $this->isList($this->node->type)
 			? $this->resolveListStmt()
 			: $this->resolveObjectStmt();
+	}
+	
+	/** @return array<int, string>|null The union member type names, if this response returns a union */
+	protected function unionMembers(): ?array
+	{
+		return $this->transformer()->unionMembers($this->underlyingTypeNode($this->node->type)->name->value);
+	}
+	
+	/** A map of GraphQL type name to the data class that represents it. */
+	protected function membersMap(): Array_
+	{
+		$items = [];
+		
+		foreach ($this->unionMembers() as $member) {
+			$items[] = new ArrayItem(
+				value: new ClassConstFetch($this->fqcn((string) Taxonomy::make($member)->data()), 'class'),
+				key: new String_($member),
+			);
+		}
+		
+		return new Array_($items);
+	}
+	
+	protected function resolveUnionStmt()
+	{
+		return new ClassMethod('resolve', [
+			'returnType' => $this->getUnderlyingType($this->node->type),
+			'flags' => 1, // public
+			'stmts' => [
+				new Return_(
+					new MethodCall(
+						var: new Variable('this'),
+						name: new Identifier('resolveUnion'),
+						args: [
+							new Arg($this->jsonCall()),
+							new Arg($this->membersMap()),
+						],
+					),
+				),
+			],
+		]);
+	}
+	
+	protected function resolveUnionListStmt()
+	{
+		return new ClassMethod('resolve', [
+			'returnType' => $this->fqcn(Collection::class),
+			'flags' => 1, // public
+			'stmts' => [
+				new Return_(
+					new MethodCall(
+						var: new Variable('this'),
+						name: new Identifier('resolveUnionCollection'),
+						args: [
+							new Arg($this->jsonCall()),
+							new Arg($this->membersMap()),
+						],
+					),
+				),
+			],
+		], [
+			'comments' => [
+				new Doc('/** @returns Collection<int, '.(new Name($this->getUnderlyingType($this->node->type)))->name.'> */'),
+			],
+		]);
+	}
+	
+	protected function jsonCall(): MethodCall
+	{
+		return new MethodCall(
+			var: new Variable('this'),
+			name: new Identifier('json'),
+			args: [
+				new Arg(new String_("data.{$this->node->name->value}")),
+			],
+		);
 	}
 	
 	protected function resolveListStmt()

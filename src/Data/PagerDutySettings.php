@@ -10,7 +10,9 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/PagerDutySettings */
 class PagerDutySettings extends Data
 {
-	public function __construct(#[LinearDate] public Optional|CarbonImmutable $apiFailedWithUnauthorizedErrorAt)
-	{
+	public function __construct(
+		#[LinearDate]
+		public Optional|CarbonImmutable $apiFailedWithUnauthorizedErrorAt
+	) {
 	}
 }

@@ -1,8 +1,12 @@
 {
     "name": "glhd/linearavel",
-    "description": "",
+    "description": "A fully-typed Linear API SDK for PHP and Laravel, generated from Linear's GraphQL schema.",
     "keywords": [
-        "laravel"
+        "laravel",
+        "linear",
+        "graphql",
+        "sdk",
+        "api"
     ],
     "authors": [
         {
@@ -13,19 +17,20 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "illuminate/support": "^9|^10|11.x-dev|dev-master",
+        "php": "^8.2",
         "ext-json": "*",
+        "illuminate/support": "^11.0|^12.0|^13.0",
         "guzzlehttp/guzzle": "^7.8",
-        "spatie/laravel-data": ">=4.0.0, <4.3.0",
-        "webonyx/graphql-php": "^15.10",
         "nikic/php-parser": "^5.0",
-        "saloonphp/saloon": "^3.0"
+        "saloonphp/saloon": "^3.5",
+        "spatie/laravel-data": "^4.11",
+        "webonyx/graphql-php": "^15.10"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.24|^7.10|^8|9.x-dev|10.x-dev|dev-master",
         "friendsofphp/php-cs-fixer": "^3.34",
         "mockery/mockery": "^1.6",
-        "phpunit/phpunit": "^10.3"
+        "orchestra/testbench": "^9.2|^10.0|^11.0",
+        "phpunit/phpunit": "^10.3|^11.0|^12.0"
     },
     "autoload": {
         "psr-4": {
@@ -60,11 +65,12 @@
             "@php vendor/bin/testbench serve"
         ],
         "lint": [
-            "@php vendor/bin/phpstan analyse"
+            "@check-style"
         ],
         "test": [
             "@php vendor/bin/phpunit"
-        ]
+        ],
+        "fetch-schema": "@php vendor/bin/testbench linear:schema --ansi"
     },
     "extra": {
         "laravel": {

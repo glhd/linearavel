@@ -3,35 +3,37 @@ name: Code Style
 on: [ pull_request, push ]
 
 jobs:
-  coverage:
+  code-style:
     runs-on: ubuntu-latest
 
     name: Run code style checks
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Check out the repository
+        uses: actions/checkout@v4
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
+          tools: composer:v2
+
+      - name: Register the Composer cache directory
+        id: composer-cache-files-dir
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             vendor
             ${{ steps.composer-cache-files-dir.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        env:
-          COMPOSER_DISCARD_CHANGES: true
-        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:9.*" "orchestra/testbench:7.*"
+        run: composer install --no-interaction --prefer-dist
 
       - name: Run PHP CS Fixer
-        run: ./vendor/bin/php-cs-fixer fix --diff --dry-run
+        run: vendor/bin/php-cs-fixer fix --diff --dry-run
