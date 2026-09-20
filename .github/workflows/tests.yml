@@ -29,8 +29,9 @@ jobs:
           - laravel: 13.*
             testbench: ^11.0
 
-    # The `lowest` jobs spend upwards of 15 minutes in dependency resolution,
-    # because `minimum-stability: dev` leaves Composer a very large search space
+    # A SchemaFetcherTest failure diffs two copies of the whole Linear schema,
+    # which PHPUnit takes about 15 minutes to render. Leave room for that, so a
+    # real failure is reported rather than cancelled at the timeout.
     timeout-minutes: 30
 
     name: "PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
