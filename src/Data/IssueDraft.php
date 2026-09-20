@@ -5,6 +5,9 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -19,11 +22,17 @@ class IssueDraft extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $title,
 		public Optional|float $priority,
+		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
+		public Optional|Collection $labelIds,
 		public Optional|string $teamId,
 		public Optional|User $creator,
 		public Optional|string $stateId,
 		public Optional|string $priorityLabel,
-		public Optional|string $attachments,
+		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
+		public Optional|Collection $releaseIds,
+		public Optional|string $relations,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,
@@ -33,10 +42,17 @@ class IssueDraft extends Data implements Node
 		public Optional|string|null $projectId,
 		public Optional|string|null $projectMilestoneId,
 		public Optional|string|null $assigneeId,
+		public Optional|string|null $delegateId,
 		public Optional|IssueDraft|null $parent,
+		public Optional|string|null $parentId,
+		public Optional|string|null $sourceCommentId,
 		public Optional|Issue|null $parentIssue,
+		public Optional|string|null $parentIssueId,
 		public Optional|float|null $subIssueSortOrder,
-		public Optional|string|null $descriptionData
+		public Optional|string|null $descriptionData,
+		public Optional|string|null $attachments,
+		public Optional|string|null $needs,
+		public Optional|string|null $schedule
 	) {
 	}
 }

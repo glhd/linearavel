@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/FrontAttachmentPayload */
 class FrontAttachmentPayload extends Data
 {
-	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|Attachment $attachment, public Optional|bool $success)
 	{
 	}
 }

@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingSamlTokenUserAccountAuthMutationRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'email', 'allowDomainAccess', 'lastUsedOrganizationId', 'token'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'email', 'allowDomainAccess', 'lastUsedOrganizationId', 'service', 'token'];
 
 	protected const ARGUMENT_TYPES = ['input' => 'TokenUserAccountAuthInput!'];
 

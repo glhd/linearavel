@@ -11,9 +11,9 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingProjectUpdateQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'body', 'health', 'isDiffHidden', 'bodyData', 'url', 'archivedAt', 'editedAt', 'infoSnapshot', 'diff', 'diffMarkdown'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'body', 'reactionData', 'bodyData', 'slugId', 'health', 'isDiffHidden', 'url', 'isStale', 'commentCount', 'archivedAt', 'editedAt', 'shortSummary', 'infoSnapshot', 'diff', 'diffMarkdown'];
 
-	protected const ARGUMENT_TYPES = ['id' => 'String!'];
+	protected const ARGUMENT_TYPES = ['projectId' => 'String', 'id' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

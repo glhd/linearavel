@@ -20,13 +20,22 @@ class Template extends Data implements Node
 		public Optional|string $type,
 		public Optional|string $name,
 		public Optional|string $templateData,
+		public Optional|float $sortOrder,
+		public Optional|Organization $organization,
+		public Optional|bool $hasFormFields,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,
-		public Optional|Organization|null $organization,
+		public Optional|string|null $icon,
+		public Optional|string|null $color,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $lastAppliedAt,
 		public Optional|Team|null $team,
+		public Optional|ReleasePipeline|null $pipeline,
 		public Optional|User|null $creator,
-		public Optional|User|null $lastUpdatedBy
+		public Optional|User|null $lastUpdatedBy,
+		public Optional|Template|null $inheritedFrom,
+		public Optional|string|null $content
 	) {
 	}
 }

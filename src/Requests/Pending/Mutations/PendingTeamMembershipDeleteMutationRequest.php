@@ -13,7 +13,7 @@ class PendingTeamMembershipDeleteMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
 
-	protected const ARGUMENT_TYPES = ['id' => 'String!'];
+	protected const ARGUMENT_TYPES = ['alsoLeaveParentTeams' => 'Boolean', 'id' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -17,6 +17,10 @@ class UserFilterInput
 		public ?BooleanComparatorInput $active = null,
 		public ?IssueCollectionFilterInput $assignedIssues = null,
 		public ?BooleanComparatorInput $admin = null,
+		public ?BooleanComparatorInput $owner = null,
+		public ?BooleanComparatorInput $invited = null,
+		public ?BooleanComparatorInput $isInvited = null,
+		public ?BooleanComparatorInput $app = null,
 		public ?BooleanComparatorInput $isMe = null,
 		/** @var iterable<UserFilterInput>|Collection<int, UserFilterInput> */
 		public ?iterable $and = null,

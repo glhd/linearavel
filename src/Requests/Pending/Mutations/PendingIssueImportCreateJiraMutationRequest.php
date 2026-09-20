@@ -13,7 +13,7 @@ class PendingIssueImportCreateJiraMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['organizationId' => 'String', 'teamId' => 'String', 'teamName' => 'String', 'jiraToken' => 'String!', 'jiraProject' => 'String!', 'jiraEmail' => 'String!', 'jiraHostname' => 'String!', 'instantProcess' => 'Boolean', 'includeClosedIssues' => 'Boolean', 'id' => 'String'];
+	protected const ARGUMENT_TYPES = ['organizationId' => 'String', 'teamId' => 'String', 'teamName' => 'String', 'jiraToken' => 'String!', 'jiraProject' => 'String!', 'jiraEmail' => 'String!', 'jiraHostname' => 'String!', 'jql' => 'String', 'instantProcess' => 'Boolean', 'includeClosedIssues' => 'Boolean', 'id' => 'String'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

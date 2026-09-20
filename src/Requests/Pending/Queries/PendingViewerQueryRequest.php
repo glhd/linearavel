@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingViewerQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'displayName', 'email', 'inviteHash', 'guest', 'active', 'url', 'createdIssueCount', 'isMe', 'admin', 'archivedAt', 'avatarUrl', 'disableReason', 'calendarHash', 'description', 'statusEmoji', 'statusLabel', 'statusUntilAt', 'timezone', 'lastSeen'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'displayName', 'email', 'initials', 'avatarBackgroundColor', 'guest', 'app', 'active', 'url', 'createdIssueCount', 'canAccessAnyPublicTeam', 'isMe', 'admin', 'owner', 'isAssignable', 'isMentionable', 'supportsAgentSessions', 'inviteHash', 'hasGitHubCodeAccess', 'archivedAt', 'avatarUrl', 'disableReason', 'calendarHash', 'description', 'title', 'statusEmoji', 'statusLabel', 'statusUntilAt', 'timezone', 'lastSeen', 'gitHubUserId'];
 
 	protected const ARGUMENT_TYPES = [];
 

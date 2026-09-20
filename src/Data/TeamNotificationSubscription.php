@@ -32,10 +32,12 @@ class TeamNotificationSubscription extends Data implements NotificationSubscript
 		public Optional|Collection $notificationSubscriptionTypes,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Customer|null $customer,
 		public Optional|CustomView|null $customView,
 		public Optional|Cycle|null $cycle,
 		public Optional|IssueLabel|null $label,
 		public Optional|Project|null $project,
+		public Optional|Initiative|null $initiative,
 		public Optional|User|null $user,
 		public Optional|ContextViewType|null $contextViewType,
 		public Optional|UserContextViewType|null $userContextViewType

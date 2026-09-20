@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCycleQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'number', 'startsAt', 'endsAt', 'issueCountHistory', 'completedIssueCountHistory', 'scopeHistory', 'completedScopeHistory', 'inProgressScopeHistory', 'progress', 'archivedAt', 'name', 'description', 'completedAt', 'autoArchivedAt'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'number', 'startsAt', 'endsAt', 'issueCountHistory', 'completedIssueCountHistory', 'scopeHistory', 'completedScopeHistory', 'inProgressScopeHistory', 'progressHistory', 'currentProgress', 'isActive', 'isFuture', 'isPast', 'progress', 'isNext', 'isPrevious', 'archivedAt', 'name', 'description', 'completedAt', 'autoArchivedAt'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

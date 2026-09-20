@@ -24,6 +24,7 @@ class CycleFilterInput
 		public ?BooleanComparatorInput $isPast = null,
 		public ?TeamFilterInput $team = null,
 		public ?IssueCollectionFilterInput $issues = null,
+		public ?IDComparatorInput $inheritedFromId = null,
 		/** @var iterable<CycleFilterInput>|Collection<int, CycleFilterInput> */
 		public ?iterable $and = null,
 		/** @var iterable<CycleFilterInput>|Collection<int, CycleFilterInput> */

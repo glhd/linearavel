@@ -7,4 +7,11 @@ enum WorkflowTriggerType: string
 {
 	case issue = 'issue';
 	case project = 'project';
+	case document = 'document';
+	case initiative = 'initiative';
+	case team = 'team';
+	case release = 'release';
+	case cycle = 'cycle';
+	case schedule = 'schedule';
+	case chat = 'chat';
 }

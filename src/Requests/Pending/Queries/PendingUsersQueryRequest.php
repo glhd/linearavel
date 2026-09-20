@@ -11,9 +11,9 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUsersQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.displayName', 'nodes.email', 'nodes.inviteHash', 'nodes.guest', 'nodes.active', 'nodes.url', 'nodes.createdIssueCount', 'nodes.isMe', 'nodes.admin', 'nodes.archivedAt', 'nodes.avatarUrl', 'nodes.disableReason', 'nodes.calendarHash', 'nodes.description', 'nodes.statusEmoji', 'nodes.statusLabel', 'nodes.statusUntilAt', 'nodes.timezone', 'nodes.lastSeen'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.displayName', 'nodes.email', 'nodes.initials', 'nodes.avatarBackgroundColor', 'nodes.guest', 'nodes.app', 'nodes.active', 'nodes.url', 'nodes.createdIssueCount', 'nodes.canAccessAnyPublicTeam', 'nodes.isMe', 'nodes.admin', 'nodes.owner', 'nodes.isAssignable', 'nodes.isMentionable', 'nodes.supportsAgentSessions', 'nodes.inviteHash', 'nodes.hasGitHubCodeAccess', 'nodes.archivedAt', 'nodes.avatarUrl', 'nodes.disableReason', 'nodes.calendarHash', 'nodes.description', 'nodes.title', 'nodes.statusEmoji', 'nodes.statusLabel', 'nodes.statusUntilAt', 'nodes.timezone', 'nodes.lastSeen', 'nodes.gitHubUserId'];
 
-	protected const ARGUMENT_TYPES = ['filter' => 'UserFilter', 'includeDisabled' => 'Boolean', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
+	protected const ARGUMENT_TYPES = ['filter' => 'UserFilter', 'includeDisabled' => 'Boolean', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy', 'sort' => '[UserSortInput!]'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

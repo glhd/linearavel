@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingProjectQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'description', 'slugId', 'color', 'sortOrder', 'issueCountHistory', 'completedIssueCountHistory', 'scopeHistory', 'completedScopeHistory', 'inProgressScopeHistory', 'slackNewIssue', 'slackIssueComments', 'slackIssueStatuses', 'url', 'progress', 'scope', 'state', 'archivedAt', 'icon', 'projectUpdateRemindersPausedUntilAt', 'startDate', 'startDateResolution', 'targetDate', 'targetDateResolution', 'startedAt', 'pausedAt', 'completedAt', 'canceledAt', 'autoArchivedAt', 'trashed', 'content', 'contentState'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'frequencyResolution', 'name', 'description', 'slugId', 'color', 'leadTeamId', 'sortOrder', 'prioritySortOrder', 'priority', 'issueCountHistory', 'completedIssueCountHistory', 'scopeHistory', 'completedScopeHistory', 'inProgressScopeHistory', 'progressHistory', 'currentProgress', 'slackNewIssue', 'slackIssueComments', 'slackIssueStatuses', 'labelIds', 'url', 'previousIdentifiers', 'resourceCount', 'progress', 'scope', 'state', 'priorityLabel', 'archivedAt', 'updateReminderFrequencyInWeeks', 'updateReminderFrequency', 'updateRemindersDay', 'updateRemindersHour', 'icon', 'projectUpdateRemindersPausedUntilAt', 'startDate', 'startDateResolution', 'targetDate', 'targetDateResolution', 'startedAt', 'completedAt', 'canceledAt', 'autoArchivedAt', 'trashed', 'health', 'healthUpdatedAt', 'identifier', 'slackChannelId', 'microsoftTeamsChannelId', 'content', 'contentState'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

@@ -12,6 +12,9 @@ class NullableTemplateFilterInput
 		public ?DateComparatorInput $createdAt = null,
 		public ?DateComparatorInput $updatedAt = null,
 		public ?StringComparatorInput $name = null,
+		public ?StringComparatorInput $type = null,
+		public ?IDComparatorInput $inheritedFromId = null,
+		public ?NullableTeamFilterInput $team = null,
 		public ?bool $null = null,
 		/** @var iterable<NullableTemplateFilterInput>|Collection<int, NullableTemplateFilterInput> */
 		public ?iterable $and = null,

@@ -41,9 +41,18 @@ class Cycle extends Data implements Node
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $inProgressScopeHistory,
 		public Optional|Team $team,
+		public Optional|string $progressHistory,
+		public Optional|string $currentProgress,
+		public Optional|bool $isActive,
+		public Optional|bool $isFuture,
+		public Optional|bool $isPast,
 		public Optional|IssueConnection $issues,
 		public Optional|IssueConnection $uncompletedIssuesUponClose,
 		public Optional|float $progress,
+		public Optional|bool $isNext,
+		public Optional|bool $isPrevious,
+		public Optional|DocumentConnection $documents,
+		public Optional|EntityExternalLinkConnection $links,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $name,
@@ -51,7 +60,8 @@ class Cycle extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $completedAt,
 		#[LinearDate]
-		public Optional|CarbonImmutable|null $autoArchivedAt
+		public Optional|CarbonImmutable|null $autoArchivedAt,
+		public Optional|Cycle|null $inheritedFrom
 	) {
 	}
 }

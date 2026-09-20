@@ -13,7 +13,7 @@ class PendingUserUnsuspendMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['success'];
 
-	protected const ARGUMENT_TYPES = ['id' => 'String!'];
+	protected const ARGUMENT_TYPES = ['forceBypassScimRestrictions' => 'Boolean', 'id' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

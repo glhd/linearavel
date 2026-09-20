@@ -20,14 +20,16 @@ class PaidSubscription extends Data implements Node
 		public Optional|string $type,
 		public Optional|float $seats,
 		public Optional|Organization $organization,
+		public Optional|string $collectionMethod,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|float|null $seatsMinimum,
 		public Optional|float|null $seatsMaximum,
 		public Optional|User|null $creator,
-		public Optional|string|null $collectionMethod,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $canceledAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $cancelAt,
 		public Optional|string|null $pendingChangeType,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $nextBillingAt

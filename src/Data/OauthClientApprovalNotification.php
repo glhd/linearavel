@@ -7,6 +7,7 @@ use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Entity;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Contracts\Notification;
+use Glhd\Linearavel\Data\Enums\NotificationCategory;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -21,6 +22,17 @@ class OauthClientApprovalNotification extends Data implements Notification, Enti
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $type,
 		public Optional|User $user,
+		public Optional|NotificationCategory $category,
+		public Optional|string $url,
+		public Optional|string $inboxUrl,
+		public Optional|string $title,
+		public Optional|string $subtitle,
+		public Optional|bool $isLinearActor,
+		public Optional|string $actorAvatarColor,
+		public Optional|bool $actorInactive,
+		public Optional|string $groupingKey,
+		public Optional|float $groupingPriority,
+		public Optional|string $oauthClientApprovalId,
 		public Optional|OauthClientApproval $oauthClientApproval,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
@@ -34,6 +46,11 @@ class OauthClientApprovalNotification extends Data implements Notification, Enti
 		public Optional|CarbonImmutable|null $snoozedUntilAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $unsnoozedAt,
+		public Optional|string|null $actorAvatarUrl,
+		public Optional|string|null $actorInitials,
+		public Optional|string|null $issueStatusType,
+		public Optional|string|null $projectUpdateHealth,
+		public Optional|string|null $initiativeUpdateHealth,
 		public Optional|ActorBot|null $botActor
 	) {
 	}

@@ -13,6 +13,7 @@ class ProjectUpdateFilterInput
 		public ?DateComparatorInput $updatedAt = null,
 		public ?UserFilterInput $user = null,
 		public ?ProjectFilterInput $project = null,
+		public ?ReactionCollectionFilterInput $reactions = null,
 		/** @var iterable<ProjectUpdateFilterInput>|Collection<int, ProjectUpdateFilterInput> */
 		public ?iterable $and = null,
 		/** @var iterable<ProjectUpdateFilterInput>|Collection<int, ProjectUpdateFilterInput> */

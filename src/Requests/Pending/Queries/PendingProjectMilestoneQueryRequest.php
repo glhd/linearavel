@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingProjectMilestoneQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'sortOrder', 'archivedAt', 'targetDate', 'description', 'descriptionData', 'descriptionState'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'progressHistory', 'currentProgress', 'sortOrder', 'status', 'progress', 'archivedAt', 'targetDate', 'description', 'descriptionState'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

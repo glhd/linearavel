@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCyclesQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.number', 'nodes.startsAt', 'nodes.endsAt', 'nodes.issueCountHistory', 'nodes.completedIssueCountHistory', 'nodes.scopeHistory', 'nodes.completedScopeHistory', 'nodes.inProgressScopeHistory', 'nodes.progress', 'nodes.archivedAt', 'nodes.name', 'nodes.description', 'nodes.completedAt', 'nodes.autoArchivedAt'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.number', 'nodes.startsAt', 'nodes.endsAt', 'nodes.issueCountHistory', 'nodes.completedIssueCountHistory', 'nodes.scopeHistory', 'nodes.completedScopeHistory', 'nodes.inProgressScopeHistory', 'nodes.progressHistory', 'nodes.currentProgress', 'nodes.isActive', 'nodes.isFuture', 'nodes.isPast', 'nodes.progress', 'nodes.isNext', 'nodes.isPrevious', 'nodes.archivedAt', 'nodes.name', 'nodes.description', 'nodes.completedAt', 'nodes.autoArchivedAt'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'CycleFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
 

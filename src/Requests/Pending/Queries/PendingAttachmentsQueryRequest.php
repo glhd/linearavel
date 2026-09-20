@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAttachmentsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.title', 'nodes.url', 'nodes.metadata', 'nodes.groupBySource', 'nodes.archivedAt', 'nodes.subtitle', 'nodes.source', 'nodes.sourceType'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.title', 'nodes.url', 'nodes.metadata', 'nodes.groupBySource', 'nodes.archivedAt', 'nodes.subtitle', 'nodes.source', 'nodes.sourceType', 'nodes.bodyData'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'AttachmentFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
 

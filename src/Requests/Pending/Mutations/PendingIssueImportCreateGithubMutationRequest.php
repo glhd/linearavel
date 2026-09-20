@@ -13,7 +13,7 @@ class PendingIssueImportCreateGithubMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['organizationId' => 'String', 'teamId' => 'String', 'teamName' => 'String', 'githubToken' => 'String!', 'githubRepoName' => 'String!', 'githubRepoOwner' => 'String!', 'githubShouldImportOrgProjects' => 'Boolean', 'instantProcess' => 'Boolean', 'includeClosedIssues' => 'Boolean', 'id' => 'String'];
+	protected const ARGUMENT_TYPES = ['organizationId' => 'String', 'teamId' => 'String', 'teamName' => 'String', 'githubRepoIds' => '[Int!]', 'githubLabels' => '[String!]', 'integrationId' => 'String', 'githubShouldImportOrgProjects' => 'Boolean', 'instantProcess' => 'Boolean', 'includeClosedIssues' => 'Boolean'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

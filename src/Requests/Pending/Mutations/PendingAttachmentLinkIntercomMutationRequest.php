@@ -13,7 +13,7 @@ class PendingAttachmentLinkIntercomMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'conversationId' => 'String!', 'id' => 'String', 'issueId' => 'String!'];
+	protected const ARGUMENT_TYPES = ['createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'conversationId' => 'String!', 'partId' => 'String', 'id' => 'String', 'issueId' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

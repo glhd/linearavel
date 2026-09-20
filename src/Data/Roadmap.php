@@ -20,13 +20,14 @@ class Roadmap extends Data implements Node
 		public Optional|string $name,
 		public Optional|Organization $organization,
 		public Optional|User $creator,
-		public Optional|User $owner,
 		public Optional|string $slugId,
 		public Optional|float $sortOrder,
 		public Optional|ProjectConnection $projects,
+		public Optional|string $url,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,
+		public Optional|User|null $owner,
 		public Optional|string|null $color
 	) {
 	}

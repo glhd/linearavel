@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingWebhooksQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.enabled', 'nodes.allPublicTeams', 'nodes.resourceTypes', 'nodes.archivedAt', 'nodes.label', 'nodes.url', 'nodes.secret'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.enabled', 'nodes.allPublicTeams', 'nodes.resourceTypes', 'nodes.archivedAt', 'nodes.label', 'nodes.url', 'nodes.teamIds', 'nodes.secret'];
 
 	protected const ARGUMENT_TYPES = ['before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
 

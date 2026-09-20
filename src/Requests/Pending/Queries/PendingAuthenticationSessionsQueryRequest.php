@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingAuthenticationSessionsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'type', 'countryCodes', 'createdAt', 'updatedAt', 'name', 'isCurrentSession', 'ip', 'locationCountry', 'locationCountryCode', 'locationCity', 'userAgent', 'browserType', 'lastActiveAt', 'location', 'operatingSystem', 'client'];
+	protected const DEFAULT_ATTRIBUTES = ['createdAt', 'id', 'type', 'countryCodes', 'updatedAt', 'name', 'detailedName', 'isCurrentSession', 'ip', 'locationCountry', 'locationCountryCode', 'locationRegionCode', 'locationCity', 'userAgent', 'browserType', 'service', 'lastActiveAt', 'location', 'operatingSystem', 'client'];
 
 	protected const ARGUMENT_TYPES = [];
 

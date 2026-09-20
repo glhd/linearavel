@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingInitiativeQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'name', 'slugId', 'sortOrder', 'archivedAt', 'description', 'color', 'targetDate', 'targetDateResolution'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'frequencyResolution', 'name', 'slugId', 'sortOrder', 'status', 'labelIds', 'priority', 'prioritySortOrder', 'url', 'visibility', 'previousIdentifiers', 'archivedAt', 'updateReminderFrequencyInWeeks', 'updateReminderFrequency', 'updateRemindersDay', 'updateRemindersHour', 'description', 'color', 'icon', 'trashed', 'targetDate', 'targetDateResolution', 'health', 'healthUpdatedAt', 'startedAt', 'completedAt', 'canceledAt', 'identifier', 'content'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

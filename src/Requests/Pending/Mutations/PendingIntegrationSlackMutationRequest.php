@@ -13,7 +13,7 @@ class PendingIntegrationSlackMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['shouldUseV2Auth' => 'Boolean', 'redirectUri' => 'String!', 'code' => 'String!'];
+	protected const ARGUMENT_TYPES = ['requestedScopes' => '[String!]', 'shouldUseV2Auth' => 'Boolean', 'redirectUri' => 'String!', 'code' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

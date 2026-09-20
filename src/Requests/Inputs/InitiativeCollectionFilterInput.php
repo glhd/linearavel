@@ -8,12 +8,29 @@ use Illuminate\Support\Collection;
 class InitiativeCollectionFilterInput
 {
 	public function __construct(
-		public ?IDComparatorInput $id = null,
+		public ?EntityIdentifierIDComparatorInput $id = null,
 		public ?DateComparatorInput $createdAt = null,
 		public ?DateComparatorInput $updatedAt = null,
 		public ?StringComparatorInput $name = null,
 		public ?StringComparatorInput $slugId = null,
-		public ?UserFilterInput $creator = null,
+		public ?NullableStringComparatorInput $customIdentifier = null,
+		public ?NullableUserFilterInput $creator = null,
+		public ?StringComparatorInput $status = null,
+		public ?NullableNumberComparatorInput $priority = null,
+		public ?TeamCollectionFilterInput $teams = null,
+		public ?NullableTeamFilterInput $leadTeam = null,
+		public ?NullableUserFilterInput $owner = null,
+		public ?NullableDateComparatorInput $targetDate = null,
+		public ?NullableDateComparatorInput $startedAt = null,
+		public ?NullableDateComparatorInput $completedAt = null,
+		public ?NullableDateComparatorInput $canceledAt = null,
+		public ?StringComparatorInput $health = null,
+		public ?StringComparatorInput $healthWithAge = null,
+		public ?StringComparatorInput $activityType = null,
+		public ?InitiativeCollectionFilterInput $ancestors = null,
+		public ?InitiativeLabelCollectionFilterInput $labels = null,
+		public ?ProjectCollectionFilterInput $projects = null,
+		public ?InitiativeUpdatesCollectionFilterInput $initiativeUpdates = null,
 		/** @var iterable<InitiativeCollectionFilterInput>|Collection<int, InitiativeCollectionFilterInput> */
 		public ?iterable $and = null,
 		/** @var iterable<InitiativeCollectionFilterInput>|Collection<int, InitiativeCollectionFilterInput> */

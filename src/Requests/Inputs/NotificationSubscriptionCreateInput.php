@@ -11,8 +11,10 @@ class NotificationSubscriptionCreateInput
 {
 	public function __construct(
 		public ?string $id = null,
+		public ?string $customerId = null,
 		public ?string $customViewId = null,
 		public ?string $cycleId = null,
+		public ?string $initiativeId = null,
 		public ?string $labelId = null,
 		public ?string $projectId = null,
 		public ?string $teamId = null,

@@ -13,7 +13,7 @@ class PendingProjectCreateMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['connectSlackChannel' => 'Boolean', 'input' => 'ProjectCreateInput!'];
+	protected const ARGUMENT_TYPES = ['aiConversationId' => 'String', 'projectDraftId' => 'String', 'slackChannelName' => 'String', 'connectSlackChannel' => 'Boolean', 'input' => 'ProjectCreateInput!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

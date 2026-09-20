@@ -12,7 +12,8 @@ class TimeScheduleUpdateInput
 		/** @var iterable<TimeScheduleEntryInput>|Collection<int, TimeScheduleEntryInput> */
 		public ?iterable $entries = null,
 		public ?string $externalId = null,
-		public ?string $externalUrl = null
+		public ?string $externalUrl = null,
+		public ?TimeScheduleConfigInput $config = null
 	) {
 	}
 }

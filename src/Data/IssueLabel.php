@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\LabelGroupType;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -19,16 +20,23 @@ class IssueLabel extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|string $color,
-		public Optional|Organization $organization,
 		public Optional|bool $isGroup,
+		public Optional|Organization $organization,
 		public Optional|IssueConnection $issues,
 		public Optional|IssueLabelConnection $children,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $lastAppliedAt,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $retiredAt,
+		public Optional|LabelGroupType|null $groupType,
 		public Optional|Team|null $team,
 		public Optional|User|null $creator,
-		public Optional|IssueLabel|null $parent
+		public Optional|User|null $retiredBy,
+		public Optional|IssueLabel|null $parent,
+		public Optional|IssueLabel|null $inheritedFrom
 	) {
 	}
 }

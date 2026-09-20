@@ -13,7 +13,8 @@ class TokenUserAccountAuthInput
 		public string $timezone,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $teamIdsToJoin = null,
-		public ?string $inviteLink = null
+		public ?string $inviteLink = null,
+		public ?string $clientAuthCode = null
 	) {
 	}
 }

@@ -11,8 +11,9 @@ class ProjectMilestoneFilterInput
 		public ?IDComparatorInput $id = null,
 		public ?DateComparatorInput $createdAt = null,
 		public ?DateComparatorInput $updatedAt = null,
-		public ?StringComparatorInput $name = null,
+		public ?NullableStringComparatorInput $name = null,
 		public ?NullableDateComparatorInput $targetDate = null,
+		public ?NullableProjectFilterInput $project = null,
 		/** @var iterable<ProjectMilestoneFilterInput>|Collection<int, ProjectMilestoneFilterInput> */
 		public ?iterable $and = null,
 		/** @var iterable<ProjectMilestoneFilterInput>|Collection<int, ProjectMilestoneFilterInput> */

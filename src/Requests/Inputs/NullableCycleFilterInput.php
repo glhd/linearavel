@@ -24,6 +24,7 @@ class NullableCycleFilterInput
 		public ?BooleanComparatorInput $isPast = null,
 		public ?TeamFilterInput $team = null,
 		public ?IssueCollectionFilterInput $issues = null,
+		public ?IDComparatorInput $inheritedFromId = null,
 		public ?bool $null = null,
 		/** @var iterable<NullableCycleFilterInput>|Collection<int, NullableCycleFilterInput> */
 		public ?iterable $and = null,

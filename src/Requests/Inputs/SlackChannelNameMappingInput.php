@@ -18,7 +18,13 @@ class SlackChannelNameMappingInput
 		public ?bool $autoCreateOnMessage = null,
 		public ?bool $autoCreateOnEmoji = null,
 		public ?bool $autoCreateOnBotMention = null,
-		public ?string $autoCreateTemplateId = null
+		public ?string $autoCreateTemplateId = null,
+		public ?bool $postCancellationUpdates = null,
+		public ?bool $postCompletionUpdates = null,
+		public ?bool $postAcceptedFromTriageUpdates = null,
+		public ?bool $aiTitles = null,
+		public ?bool $postAssignmentUpdates = null,
+		public ?bool $postSlaUpdates = null
 	) {
 	}
 }

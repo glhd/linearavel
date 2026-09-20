@@ -13,7 +13,7 @@ class PendingIssueUnsubscribeMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['userId' => 'String', 'id' => 'String!'];
+	protected const ARGUMENT_TYPES = ['userEmail' => 'String', 'userId' => 'String', 'id' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

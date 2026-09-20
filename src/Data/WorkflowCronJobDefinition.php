@@ -19,14 +19,14 @@ class WorkflowCronJobDefinition extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|bool $enabled,
-		public Optional|Team $team,
 		public Optional|User $creator,
 		public Optional|string $schedule,
 		public Optional|string $activities,
 		public Optional|string $sortOrder,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|string|null $description
+		public Optional|string|null $description,
+		public Optional|Team|null $team
 	) {
 	}
 }

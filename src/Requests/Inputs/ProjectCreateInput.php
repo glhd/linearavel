@@ -18,16 +18,24 @@ class ProjectCreateInput
 		public ?string $state = null,
 		public ?string $statusId = null,
 		public ?string $description = null,
+		public ?string $content = null,
 		public ?string $convertedFromIssueId = null,
 		public ?string $lastAppliedTemplateId = null,
+		public ?string $templateId = null,
+		public ?bool $useDefaultTemplate = null,
 		public ?string $leadId = null,
+		public ?string $leadTeamId = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $memberIds = null,
 		public ?string $startDate = null,
 		public ?DateResolutionType $startDateResolution = null,
 		public ?string $targetDate = null,
 		public ?DateResolutionType $targetDateResolution = null,
-		public ?float $sortOrder = null
+		public ?float $sortOrder = null,
+		public ?float $prioritySortOrder = null,
+		public ?int $priority = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $labelIds = null
 	) {
 	}
 }

@@ -14,12 +14,15 @@ class AuthResolverResponse extends Data
 		public Optional|string $email,
 		/** @var Collection<int, AuthUser> */
 		public Optional|Collection $users,
+		/** @var Collection<int, AuthUser> */
+		public Optional|Collection $lockedUsers,
 		public Optional|bool|null $allowDomainAccess,
 		/** @var Collection<int, AuthOrganization> */
 		public Optional|Collection|null $availableOrganizations,
 		/** @var Collection<int, AuthOrganization> */
 		public Optional|Collection|null $lockedOrganizations,
 		public Optional|string|null $lastUsedOrganizationId,
+		public Optional|string|null $service,
 		public Optional|string|null $token
 	) {
 	}

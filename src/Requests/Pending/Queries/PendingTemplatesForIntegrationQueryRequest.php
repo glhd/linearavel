@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingTemplatesForIntegrationQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'name', 'templateData', 'archivedAt', 'description'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'name', 'templateData', 'sortOrder', 'hasFormFields', 'archivedAt', 'description', 'icon', 'color', 'lastAppliedAt', 'content'];
 
 	protected const ARGUMENT_TYPES = ['integrationType' => 'String!'];
 

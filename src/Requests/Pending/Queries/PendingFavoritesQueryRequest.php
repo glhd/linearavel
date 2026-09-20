@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingFavoritesQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.type', 'nodes.sortOrder', 'nodes.archivedAt', 'nodes.folderName', 'nodes.projectTab', 'nodes.predefinedViewType'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.type', 'nodes.sortOrder', 'nodes.title', 'nodes.archivedAt', 'nodes.folderName', 'nodes.liveFolderPreset', 'nodes.liveFolderDefinition', 'nodes.projectTab', 'nodes.predefinedViewType', 'nodes.initiativeTab', 'nodes.pipelineTab', 'nodes.url', 'nodes.detail', 'nodes.color', 'nodes.icon'];
 
 	protected const ARGUMENT_TYPES = ['before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
 

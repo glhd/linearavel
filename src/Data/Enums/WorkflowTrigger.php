@@ -10,4 +10,11 @@ enum WorkflowTrigger: string
 	case entityCreatedOrUpdated = 'entityCreatedOrUpdated';
 	case entityRemoved = 'entityRemoved';
 	case entityUnarchived = 'entityUnarchived';
+	case cycleStarted = 'cycleStarted';
+	case cycleEnded = 'cycleEnded';
+	case commentAdded = 'commentAdded';
+	case updatePosted = 'updatePosted';
+	case chatMessagePosted = 'chatMessagePosted';
+	case chatReactionAdded = 'chatReactionAdded';
+	case customerRequestAdded = 'customerRequestAdded';
 }

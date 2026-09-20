@@ -15,14 +15,16 @@ class DocumentContentHistoryType extends Data
 {
 	public function __construct(
 		public Optional|string $id,
+		public Optional|string $documentContentId,
 		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable $contentDataSnapshotAt,
-		public Optional|string $contentData,
+		public Optional|string|null $contentData,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
-		public Optional|Collection|null $actorIds
+		public Optional|Collection|null $actorIds,
+		public Optional|string|null $metadata
 	) {
 	}
 }

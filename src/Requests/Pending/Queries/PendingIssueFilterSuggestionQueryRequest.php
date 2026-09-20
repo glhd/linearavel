@@ -11,9 +11,9 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueFilterSuggestionQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['filter'];
+	protected const DEFAULT_ATTRIBUTES = ['filter', 'logId'];
 
-	protected const ARGUMENT_TYPES = ['projectId' => 'String', 'prompt' => 'String!'];
+	protected const ARGUMENT_TYPES = ['teamId' => 'String', 'projectId' => 'String', 'prompt' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

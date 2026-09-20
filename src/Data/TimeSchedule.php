@@ -19,13 +19,14 @@ class TimeSchedule extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
-		/** @var Collection<int, TimeScheduleEntry> */
-		public Optional|Collection $entries,
 		public Optional|Organization $organization,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
+		/** @var Collection<int, TimeScheduleEntry> */
+		public Optional|Collection|null $entries,
 		public Optional|string|null $externalId,
 		public Optional|string|null $externalUrl,
+		public Optional|TimeScheduleConfig|null $config,
 		public Optional|Integration|null $integration
 	) {
 	}

@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\FacetPageSource;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -19,7 +20,14 @@ class Facet extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|float $sortOrder,
 		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Organization|null $sourceOrganization,
+		public Optional|Team|null $sourceTeam,
+		public Optional|Project|null $sourceProject,
+		public Optional|Initiative|null $sourceInitiative,
+		public Optional|User|null $sourceFeedUser,
+		public Optional|FacetPageSource|null $sourcePage,
+		public Optional|CustomView|null $targetCustomView
 	) {
 	}
 }

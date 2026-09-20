@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserFlagUpdateMutationRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'flag', 'value', 'success'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'flag', 'value'];
 
 	protected const ARGUMENT_TYPES = ['operation' => 'UserFlagUpdateOperation!', 'flag' => 'UserFlagType!'];
 

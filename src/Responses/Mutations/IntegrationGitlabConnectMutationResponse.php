@@ -2,13 +2,13 @@
 
 namespace Glhd\Linearavel\Responses\Mutations;
 
-use Glhd\Linearavel\Data\IntegrationPayload;
+use Glhd\Linearavel\Data\GitLabIntegrationCreatePayload;
 use Glhd\Linearavel\Responses\LinearResponse;
 
 class IntegrationGitlabConnectMutationResponse extends LinearResponse
 {
-	public function resolve(): IntegrationPayload
+	public function resolve(): GitLabIntegrationCreatePayload
 	{
-		return IntegrationPayload::from($this->json('data.integrationGitlabConnect'));
+		return GitLabIntegrationCreatePayload::from($this->json('data.integrationGitlabConnect'));
 	}
 }

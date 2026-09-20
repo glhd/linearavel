@@ -13,7 +13,7 @@ class PendingAttachmentLinkJiraIssueMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['issueId' => 'String!', 'jiraIssueId' => 'String!'];
+	protected const ARGUMENT_TYPES = ['createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'issueId' => 'String!', 'jiraIssueId' => 'String!', 'id' => 'String', 'url' => 'String'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

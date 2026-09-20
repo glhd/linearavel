@@ -32,9 +32,11 @@ class CycleNotificationSubscription extends Data implements NotificationSubscrip
 		public Optional|Collection $notificationSubscriptionTypes,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Customer|null $customer,
 		public Optional|CustomView|null $customView,
 		public Optional|IssueLabel|null $label,
 		public Optional|Project|null $project,
+		public Optional|Initiative|null $initiative,
 		public Optional|Team|null $team,
 		public Optional|User|null $user,
 		public Optional|ContextViewType|null $contextViewType,

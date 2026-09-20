@@ -19,10 +19,10 @@ class TeamMembership extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|User $user,
 		public Optional|Team $team,
+		public Optional|bool $owner,
 		public Optional|float $sortOrder,
 		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|bool|null $owner
+		public Optional|CarbonImmutable|null $archivedAt
 	) {
 	}
 }
