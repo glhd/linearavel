@@ -24,7 +24,7 @@
         "nikic/php-parser": "^5.0",
         "saloonphp/saloon": "^4.0",
         "spatie/laravel-data": "^4.11",
-        "webonyx/graphql-php": "^15.10"
+        "webonyx/graphql-php": "^15.34.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.34",

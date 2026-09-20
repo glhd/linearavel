@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ 8.2, 8.3, 8.4 ]
+        php: [ 8.3, 8.4, 8.5 ]
         laravel: [ 11.*, 12.*, 13.* ]
         dependency-version: [ stable, lowest ]
         include:
@@ -28,12 +28,10 @@ jobs:
             testbench: ^10.0
           - laravel: 13.*
             testbench: ^11.0
-        exclude:
-          # Laravel 13 needs PHP 8.3 or newer
-          - laravel: 13.*
-            php: 8.2
 
-    timeout-minutes: 15
+    # The `lowest` jobs spend upwards of 15 minutes in dependency resolution,
+    # because `minimum-stability: dev` leaves Composer a very large search space
+    timeout-minutes: 30
 
     name: "PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 

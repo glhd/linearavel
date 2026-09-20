@@ -31,6 +31,7 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 -   Scalar list properties failed to hydrate under `spatie/laravel-data` 4.3 and newer.
 -   Input classes were generated with a name that did not match their file, and relied on PHP CS Fixer to rename them.
 -   `organizationInviteDetails` referred to a class that did not exist.
+-   The lowest supported `webonyx/graphql-php` dropped the reasons from `@deprecated` input fields when it round-tripped the schema, so a sync rewrote `local.graphql` even when nothing had changed. The floor is now 15.34.1.
 
 ### Removed
 
