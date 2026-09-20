@@ -12,7 +12,7 @@ class GithubOrg extends Data
 	public function __construct(
 		public Optional|string $id,
 		public Optional|string $login,
-		/** @var Collection<int, GithubRepo> */
+		/** @var Collection<int, GithubRepo2> */
 		public Optional|Collection $repositories,
 		public Optional|bool|null $isPersonal
 	) {

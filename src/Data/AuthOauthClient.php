@@ -5,6 +5,8 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -19,6 +21,7 @@ class AuthOauthClient extends Data
 		public Optional|string $developerUrl,
 		public Optional|string $clientSecret,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $redirectUris,
 		public Optional|bool $publicEnabled,
 		public Optional|string $creatorId,

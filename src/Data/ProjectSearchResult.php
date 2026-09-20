@@ -7,6 +7,8 @@ use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Enums\DateResolutionType;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -26,14 +28,19 @@ class ProjectSearchResult extends Data implements Node
 		public Optional|ProjectStatus $status,
 		public Optional|float $sortOrder,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $issueCountHistory,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $completedIssueCountHistory,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $scopeHistory,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $completedScopeHistory,
 		/** @var Collection<int, float> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $inProgressScopeHistory,
 		public Optional|bool $slackNewIssue,
 		public Optional|bool $slackIssueComments,

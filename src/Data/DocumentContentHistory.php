@@ -6,6 +6,8 @@ use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -20,6 +22,7 @@ class DocumentContentHistory extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|DocumentContent $documentContent,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $actorIds,
 		#[LinearDate]
 		public Optional|CarbonImmutable $contentDataSnapshotAt,

@@ -10,7 +10,10 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/AuthOrganizationInvite */
 class AuthOrganizationInvite extends Data
 {
-	public function __construct(public Optional|string $id, #[LinearDate] public Optional|CarbonImmutable|null $expiresAt)
-	{
+	public function __construct(
+		public Optional|string $id,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $expiresAt
+	) {
 	}
 }

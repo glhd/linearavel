@@ -3,6 +3,8 @@
 namespace Glhd\Linearavel\Data;
 
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -12,6 +14,7 @@ class AuthorizedApplicationBase extends Data
 	public function __construct(
 		public Optional|string $name,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $scope,
 		public Optional|string $appId,
 		public Optional|string $clientId,

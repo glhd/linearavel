@@ -1,0 +1,135 @@
+name: Sync Linear Schema
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # Daily at 9am UTC
+  workflow_dispatch:
+    inputs:
+      force_release:
+        description: 'Tag a release even if the schema has not changed'
+        type: boolean
+        default: false
+
+concurrency:
+  group: sync-schema
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    name: Rebuild from the live schema
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
+          tools: composer:v2
+
+      - name: Register the Composer cache directory
+        id: composer-cache-files-dir
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor
+            ${{ steps.composer-cache-files-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Fetch the schema
+        id: schema
+        env:
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          LINEAR_SCHEMA_SUMMARY: ${{ github.workspace }}/schema-changes.md
+        run: php vendor/bin/testbench linear:schema
+
+      - name: Stop here if nothing changed
+        id: proceed
+        run: |
+          if [ "${{ steps.schema.outputs.changed }}" = "true" ] || [ "${{ inputs.force_release }}" = "true" ]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          else
+            echo "run=false" >> $GITHUB_OUTPUT
+            echo "The schema is unchanged. Nothing to do."
+          fi
+
+      # New types are only visible to the default-field resolver once their classes exist
+      # on disk, so we generate twice: the first pass writes them, the second fills in
+      # the default fields for anything that was missing.
+      - name: Rebuild the generated code
+        if: steps.proceed.outputs.run == 'true'
+        run: |
+          php vendor/bin/testbench reset:data
+          php vendor/bin/testbench generate:data
+          composer dump-autoload
+          php vendor/bin/testbench generate:data
+          vendor/bin/php-cs-fixer fix --quiet
+          composer dump-autoload
+
+      - name: Run the test suite
+        if: steps.proceed.outputs.run == 'true'
+        run: vendor/bin/phpunit
+
+      - name: Check code style
+        if: steps.proceed.outputs.run == 'true'
+        run: vendor/bin/php-cs-fixer fix --diff --dry-run
+
+      - name: Work out the next version
+        if: steps.proceed.outputs.run == 'true'
+        id: version
+        env:
+          LINEAR_VERSION_BUMP: ${{ steps.schema.outputs.bump }}
+        run: |
+          CURRENT=$(git tag --list --sort=-v:refname | head -n 1)
+          CURRENT=${CURRENT:-0.0.0}
+          NEXT=$(php vendor/bin/testbench linear:next-version "$CURRENT" | tail -n 1 | tr -d '[:space:]')
+          echo "current=$CURRENT" >> $GITHUB_OUTPUT
+          echo "next=$NEXT" >> $GITHUB_OUTPUT
+          echo "Releasing $CURRENT -> $NEXT (${{ steps.schema.outputs.bump }})"
+
+      - name: Commit the rebuilt code
+        if: steps.proceed.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+          else
+            git commit -m "Rebuild from the Linear schema for ${{ steps.version.outputs.next }}"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+
+      - name: Write the release notes
+        if: steps.proceed.outputs.run == 'true'
+        run: |
+          {
+            echo "Rebuilt from the Linear GraphQL schema as of $(date -u '+%Y-%m-%d')."
+            echo
+            cat "${{ github.workspace }}/schema-changes.md" 2>/dev/null || echo "No schema changes recorded."
+          } > "${{ github.workspace }}/release-notes.md"
+
+      - name: Tag the release
+        if: steps.proceed.outputs.run == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.version.outputs.next }}" \
+            --title "${{ steps.version.outputs.next }}" \
+            --notes-file "${{ github.workspace }}/release-notes.md" \
+            --target "$(git rev-parse HEAD)"

@@ -10,6 +10,8 @@ use Glhd\Linearavel\Data\Contracts\NotificationSubscription;
 use Glhd\Linearavel\Data\Enums\ContextViewType;
 use Glhd\Linearavel\Data\Enums\UserContextViewType;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -26,6 +28,7 @@ class TeamNotificationSubscription extends Data implements NotificationSubscript
 		public Optional|Team $team,
 		public Optional|bool $active,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,

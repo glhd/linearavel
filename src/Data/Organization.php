@@ -10,6 +10,8 @@ use Glhd\Linearavel\Data\Enums\ProjectUpdateReminderFrequency;
 use Glhd\Linearavel\Data\Enums\ReleaseChannel;
 use Glhd\Linearavel\Data\Enums\SLADayCountType;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -35,8 +37,10 @@ class Organization extends Data implements Node
 		public Optional|bool $samlEnabled,
 		public Optional|bool $scimEnabled,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $allowedAuthServices,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $previousUrlKeys,
 		public Optional|ReleaseChannel $releaseChannel,
 		public Optional|SLADayCountType $slaDayCount,

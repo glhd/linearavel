@@ -14,6 +14,9 @@ abstract class PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = [];
 	
+	/** @var array<string, string> Argument name to GraphQL type, e.g. `['id' => 'String!']` */
+	protected const ARGUMENT_TYPES = [];
+	
 	public static function make(array $args): static
 	{
 		return new static(app(LinearConnector::class), $args);

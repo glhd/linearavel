@@ -8,25 +8,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/IntegrationSettings */
 class IntegrationSettings extends Data
 {
-	public function __construct(
-		public Optional|SlackSettings|null $slack,
-		public Optional|SlackAsksSettings|null $slackAsks,
-		public Optional|SlackPostSettings|null $slackPost,
-		public Optional|SlackPostSettings|null $slackProjectPost,
-		public Optional|SlackPostSettings|null $slackOrgProjectUpdatesPost,
-		public Optional|GoogleSheetsSettings|null $googleSheets,
-		public Optional|GitHubSettings|null $gitHub,
-		public Optional|GitHubPersonalSettings|null $gitHubPersonal,
-		public Optional|GitLabSettings|null $gitLab,
-		public Optional|SentrySettings|null $sentry,
-		public Optional|ZendeskSettings|null $zendesk,
-		public Optional|IntercomSettings|null $intercom,
-		public Optional|FrontSettings|null $front,
-		public Optional|JiraSettings|null $jira,
-		public Optional|NotionSettings|null $notion,
-		public Optional|OpsgenieSettings|null $opsgenie,
-		public Optional|PagerDutySettings|null $pagerDuty,
-		public Optional|JiraPersonalSettings|null $jiraPersonal
-	) {
+	public function __construct(public Optional|SlackSettings|null $slack, public Optional|SlackAsksSettings|null $slackAsks, public Optional|SlackPostSettings|null $slackPost, public Optional|SlackPostSettings|null $slackProjectPost, public Optional|SlackPostSettings|null $slackOrgProjectUpdatesPost, public Optional|GoogleSheetsSettings|null $googleSheets, public Optional|GitHubSettings|null $gitHub, public Optional|GitHubPersonalSettings|null $gitHubPersonal, public Optional|GitLabSettings|null $gitLab, public Optional|SentrySettings|null $sentry, public Optional|ZendeskSettings|null $zendesk, public Optional|IntercomSettings|null $intercom, public Optional|FrontSettings|null $front, public Optional|JiraSettings|null $jira, public Optional|NotionSettings|null $notion, public Optional|OpsgenieSettings|null $opsgenie, public Optional|PagerDutySettings|null $pagerDuty, public Optional|JiraPersonalSettings|null $jiraPersonal)
+	{
 	}
 }

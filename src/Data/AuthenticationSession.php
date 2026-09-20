@@ -6,6 +6,8 @@ use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Enums\AuthenticationSessionType;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -16,6 +18,7 @@ class AuthenticationSession extends Data
 		public Optional|string $id,
 		public Optional|AuthenticationSessionType $type,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $countryCodes,
 		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,

@@ -6,6 +6,8 @@ use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -24,11 +26,13 @@ class OauthClient extends Data implements Node
 		public Optional|string $developerUrl,
 		public Optional|string $clientSecret,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $redirectUris,
 		public Optional|bool $publicEnabled,
 		public Optional|User $creator,
 		public Optional|Organization $organization,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $webhookResourceTypes,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,

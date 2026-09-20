@@ -8,18 +8,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/UserAuthorizedApplication */
 class UserAuthorizedApplication extends Data
 {
-	public function __construct(
-		public Optional|string $id,
-		public Optional|string $clientId,
-		public Optional|string $name,
-		public Optional|string $developer,
-		public Optional|string $developerUrl,
-		public Optional|bool $isAuthorized,
-		public Optional|bool $createdByLinear,
-		public Optional|bool $webhooksEnabled,
-		public Optional|string|null $description,
-		public Optional|string|null $imageUrl,
-		public Optional|string|null $approvalErrorCode
-	) {
+	public function __construct(public Optional|string $id, public Optional|string $clientId, public Optional|string $name, public Optional|string $developer, public Optional|string $developerUrl, public Optional|bool $isAuthorized, public Optional|bool $createdByLinear, public Optional|bool $webhooksEnabled, public Optional|string|null $description, public Optional|string|null $imageUrl, public Optional|string|null $approvalErrorCode)
+	{
 	}
 }

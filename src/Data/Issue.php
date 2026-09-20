@@ -7,6 +7,8 @@ use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Enums\IntegrationService;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -25,9 +27,11 @@ class Issue extends Data implements Node
 		public Optional|float $boardOrder,
 		public Optional|float $sortOrder,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $labelIds,
 		public Optional|Team $team,
 		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $previousIdentifiers,
 		public Optional|WorkflowState $state,
 		public Optional|string $priorityLabel,
