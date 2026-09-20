@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/GitHubCommitIntegrationPayload */
 class GitHubCommitIntegrationPayload extends Data
 {
-	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|string $webhookSecret, public Optional|Integration|null $integration)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|string $webhookSecret, public Optional|Integration|null $integration, public Optional|GitHubIntegrationConnectDetails|null $gitHub)
 	{
 	}
 }

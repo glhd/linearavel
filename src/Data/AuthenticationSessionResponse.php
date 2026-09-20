@@ -15,23 +15,26 @@ use Spatie\LaravelData\Optional;
 class AuthenticationSessionResponse extends Data
 {
 	public function __construct(
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
 		public Optional|string $id,
 		public Optional|AuthenticationSessionType $type,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $countryCodes,
 		#[LinearDate]
-		public Optional|CarbonImmutable $createdAt,
-		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
+		public Optional|string $detailedName,
 		public Optional|bool $isCurrentSession,
 		public Optional|string|null $ip,
 		public Optional|string|null $locationCountry,
 		public Optional|string|null $locationCountryCode,
+		public Optional|string|null $locationRegionCode,
 		public Optional|string|null $locationCity,
 		public Optional|string|null $userAgent,
 		public Optional|string|null $browserType,
+		public Optional|string|null $service,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $lastActiveAt,
 		public Optional|string|null $location,

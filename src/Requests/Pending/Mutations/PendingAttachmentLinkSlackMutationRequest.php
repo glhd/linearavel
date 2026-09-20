@@ -13,7 +13,7 @@ class PendingAttachmentLinkSlackMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'channel' => 'String!', 'ts' => 'String', 'latest' => 'String!', 'issueId' => 'String!', 'url' => 'String!', 'id' => 'String'];
+	protected const ARGUMENT_TYPES = ['createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'channel' => 'String', 'ts' => 'String', 'latest' => 'String', 'issueId' => 'String!', 'url' => 'String!', 'id' => 'String', 'syncToCommentThread' => 'Boolean'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

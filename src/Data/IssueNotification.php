@@ -8,6 +8,7 @@ use Glhd\Linearavel\Data\Contracts\Entity;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Contracts\Notification;
 use Glhd\Linearavel\Data\Contracts\NotificationSubscription;
+use Glhd\Linearavel\Data\Enums\NotificationCategory;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\EnumerableCast;
@@ -25,8 +26,22 @@ class IssueNotification extends Data implements Notification, Entity, Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $type,
 		public Optional|User $user,
+		public Optional|NotificationCategory $category,
+		public Optional|string $url,
+		public Optional|string $inboxUrl,
+		public Optional|string $title,
+		public Optional|string $subtitle,
+		public Optional|bool $isLinearActor,
+		public Optional|string $actorAvatarColor,
+		public Optional|bool $actorInactive,
+		public Optional|string $groupingKey,
+		public Optional|float $groupingPriority,
+		public Optional|string $issueId,
 		public Optional|Issue $issue,
 		public Optional|Team $team,
+		public Optional|string|null $commentId,
+		public Optional|string|null $parentCommentId,
+		public Optional|string|null $reactionEmoji,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|User|null $actor,
@@ -39,9 +54,14 @@ class IssueNotification extends Data implements Notification, Entity, Node
 		public Optional|CarbonImmutable|null $snoozedUntilAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $unsnoozedAt,
+		public Optional|string|null $actorAvatarUrl,
+		public Optional|string|null $actorInitials,
+		public Optional|string|null $issueStatusType,
+		public Optional|string|null $projectUpdateHealth,
+		public Optional|string|null $initiativeUpdateHealth,
 		public Optional|ActorBot|null $botActor,
-		public Optional|string|null $reactionEmoji,
 		public Optional|Comment|null $comment,
+		public Optional|Comment|null $parentComment,
 		/** @var Collection<int, NotificationSubscription> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection|null $subscriptions

@@ -7,6 +7,9 @@ use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\OrganizationInviteDetailsPayload;
 use Glhd\Linearavel\Data\Enums\OrganizationInviteStatus;
 use Glhd\Linearavel\Data\Enums\UserRoleType;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -24,6 +27,9 @@ class OrganizationInviteFullDetailsPayload extends Data implements OrganizationI
 		public Optional|string $organizationId,
 		public Optional|bool $accepted,
 		public Optional|bool $expired,
+		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
+		public Optional|Collection $allowedAuthServices,
 		public Optional|string|null $organizationLogoUrl
 	) {
 	}

@@ -8,7 +8,7 @@ use Glhd\Linearavel\Data\Enums\PaginationSortOrder;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/WorkflowStateSort */
 class WorkflowStateSortInput
 {
-	public function __construct(public ?PaginationNulls $nulls = null, public ?PaginationSortOrder $order = null)
+	public function __construct(public ?PaginationNulls $nulls = null, public ?PaginationSortOrder $order = null, public ?bool $closedIssuesOrderedByRecency = null)
 	{
 	}
 }

@@ -13,7 +13,7 @@ class PendingSsoUrlFromEmailQueryRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['success', 'samlSsoUrl'];
 
-	protected const ARGUMENT_TYPES = ['isDesktop' => 'Boolean', 'email' => 'String!'];
+	protected const ARGUMENT_TYPES = ['isDesktop' => 'Boolean', 'type' => 'IdentityProviderType!', 'email' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

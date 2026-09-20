@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/UserSettingsFlagPayload */
 class UserSettingsFlagPayload extends Data
 {
-	public function __construct(public Optional|float $lastSyncId, public Optional|string $flag, public Optional|int $value, public Optional|bool $success)
+	public function __construct(public Optional|float $lastSyncId, public Optional|bool $success, public Optional|string|null $flag, public Optional|int|null $value)
 	{
 	}
 }

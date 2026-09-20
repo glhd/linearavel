@@ -3,6 +3,7 @@
 namespace Glhd\Linearavel\Requests\Inputs;
 
 use DateTimeInterface;
+use Glhd\Linearavel\Data\Enums\SLADayCountType;
 use Illuminate\Support\Collection;
 
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/IssueCreateInput */
@@ -15,6 +16,7 @@ class IssueCreateInput
 		public ?string $description = null,
 		public ?string $descriptionData = null,
 		public ?string $assigneeId = null,
+		public ?string $delegateId = null,
 		public ?string $parentId = null,
 		public ?int $priority = null,
 		public ?int $estimate = null,
@@ -29,8 +31,10 @@ class IssueCreateInput
 		public ?string $stateId = null,
 		public ?string $referenceCommentId = null,
 		public ?string $sourceCommentId = null,
+		public ?string $sourcePullRequestCommentId = null,
 		public ?float $boardOrder = null,
 		public ?float $sortOrder = null,
+		public ?float $prioritySortOrder = null,
 		public ?float $subIssueSortOrder = null,
 		public ?string $dueDate = null,
 		public ?string $createAsUser = null,
@@ -38,7 +42,14 @@ class IssueCreateInput
 		public ?bool $preserveSortOrderOnCreate = null,
 		public ?DateTimeInterface $createdAt = null,
 		public ?DateTimeInterface $slaBreachesAt = null,
-		public ?string $templateId = null
+		public ?DateTimeInterface $slaStartedAt = null,
+		public ?string $templateId = null,
+		public ?DateTimeInterface $completedAt = null,
+		public ?SLADayCountType $slaType = null,
+		public ?bool $useDefaultTemplate = null,
+		/** @var iterable<string>|Collection<int, string> */
+		public ?iterable $releaseIds = null,
+		public ?bool $inheritsSharedAccess = null
 	) {
 	}
 }

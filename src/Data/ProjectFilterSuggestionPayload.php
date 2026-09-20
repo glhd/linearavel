@@ -8,7 +8,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/ProjectFilterSuggestionPayload */
 class ProjectFilterSuggestionPayload extends Data
 {
-	public function __construct(public Optional|string|null $filter)
+	public function __construct(public Optional|string|null $filter, public Optional|string|null $logId)
 	{
 	}
 }

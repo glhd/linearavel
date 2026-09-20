@@ -14,7 +14,9 @@ class GoogleUserAccountAuthInput
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $teamIdsToJoin = null,
 		public ?string $signupCode = null,
-		public ?string $inviteLink = null
+		public ?string $inviteLink = null,
+		public ?bool $disallowSignup = null,
+		public ?string $sessionId = null
 	) {
 	}
 }

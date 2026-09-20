@@ -13,7 +13,7 @@ class PendingRefreshGoogleSheetsDataMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['id' => 'String!'];
+	protected const ARGUMENT_TYPES = ['type' => 'String', 'id' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

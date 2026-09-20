@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCommentsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.body', 'nodes.bodyData', 'nodes.reactionData', 'nodes.url', 'nodes.archivedAt', 'nodes.resolvedAt', 'nodes.editedAt', 'nodes.quotedText', 'nodes.summaryText'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.body', 'nodes.bodyData', 'nodes.reactionData', 'nodes.isArtificialAgentSessionRoot', 'nodes.url', 'nodes.hideInLinear', 'nodes.archivedAt', 'nodes.issueId', 'nodes.documentContentId', 'nodes.projectUpdateId', 'nodes.initiativeUpdateId', 'nodes.projectId', 'nodes.initiativeId', 'nodes.parentId', 'nodes.resolvedAt', 'nodes.resolvingCommentId', 'nodes.editedAt', 'nodes.quotedText', 'nodes.threadSummary'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'CommentFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
 

@@ -13,7 +13,7 @@ class PendingIntegrationGithubConnectMutationRequest extends PendingLinearReques
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['installationId' => 'String!'];
+	protected const ARGUMENT_TYPES = ['confirmReplace' => 'Boolean', 'githubHost' => 'String', 'codeAccess' => 'Boolean', 'code' => 'String!', 'installationId' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -15,6 +15,7 @@ class ProjectStatusFilterInput
 		public ?StringComparatorInput $description = null,
 		public ?NumberComparatorInput $position = null,
 		public ?StringComparatorInput $type = null,
+		public ?NullableTeamFilterInput $team = null,
 		public ?ProjectCollectionFilterInput $projects = null,
 		/** @var iterable<ProjectStatusFilterInput>|Collection<int, ProjectStatusFilterInput> */
 		public ?iterable $and = null,

@@ -20,10 +20,10 @@ class Emoji extends Data implements Node
 		public Optional|string $name,
 		public Optional|string $url,
 		public Optional|string $source,
-		public Optional|User $creator,
 		public Optional|Organization $organization,
 		#[LinearDate]
-		public Optional|CarbonImmutable|null $archivedAt
+		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|User|null $creator
 	) {
 	}
 }

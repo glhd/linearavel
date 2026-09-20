@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingUserSettingsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'notificationPreferences', 'unsubscribedFrom', 'subscribedToChangelog', 'subscribedToDPA', 'subscribedToInviteAccepted', 'subscribedToPrivacyLegalUpdates', 'subscribedToUnreadNotificationsReminder', 'showFullUserNames', 'archivedAt', 'calendarHash'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'unsubscribedFrom', 'subscribedToChangelog', 'subscribedToDPA', 'subscribedToInviteAccepted', 'subscribedToPrivacyLegalUpdates', 'showFullUserNames', 'autoAssignToSelf', 'archivedAt', 'calendarHash', 'feedSummarySchedule', 'feedLastSeenTime', 'pullRequestMergeStrategyPreference'];
 
 	protected const ARGUMENT_TYPES = [];
 

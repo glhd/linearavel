@@ -11,9 +11,9 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingDocumentsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.title', 'nodes.slugId', 'nodes.sortOrder', 'nodes.archivedAt', 'nodes.icon', 'nodes.color', 'nodes.content', 'nodes.contentState', 'nodes.contentData'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.title', 'nodes.slugId', 'nodes.sortOrder', 'nodes.url', 'nodes.archivedAt', 'nodes.summary', 'nodes.icon', 'nodes.color', 'nodes.hiddenAt', 'nodes.trashed', 'nodes.content', 'nodes.contentState', 'nodes.documentContentId'];
 
-	protected const ARGUMENT_TYPES = ['filter' => 'DocumentFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
+	protected const ARGUMENT_TYPES = ['filter' => 'DocumentFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy', 'sort' => '[DocumentSortInput!]'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

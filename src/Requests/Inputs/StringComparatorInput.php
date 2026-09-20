@@ -24,7 +24,8 @@ class StringComparatorInput
 		public ?string $contains = null,
 		public ?string $containsIgnoreCase = null,
 		public ?string $notContains = null,
-		public ?string $notContainsIgnoreCase = null
+		public ?string $notContainsIgnoreCase = null,
+		public ?string $containsIgnoreCaseAndAccent = null
 	) {
 	}
 }

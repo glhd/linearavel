@@ -23,9 +23,11 @@ class OrganizationDomain extends Data implements Node
 		public Optional|OrganizationDomainAuthType $authType,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|IdentityProvider|null $identityProvider,
 		public Optional|string|null $verificationEmail,
 		public Optional|User|null $creator,
-		public Optional|bool|null $claimed
+		public Optional|bool|null $claimed,
+		public Optional|bool|null $disableOrganizationCreation
 	) {
 	}
 }

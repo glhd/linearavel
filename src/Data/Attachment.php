@@ -28,7 +28,9 @@ class Attachment extends Data implements Node
 		public Optional|User|null $creator,
 		public Optional|ExternalUser|null $externalUserCreator,
 		public Optional|string|null $source,
-		public Optional|string|null $sourceType
+		public Optional|string|null $sourceType,
+		public Optional|Issue|null $originalIssue,
+		public Optional|string|null $bodyData
 	) {
 	}
 }

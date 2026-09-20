@@ -3,7 +3,7 @@
 namespace Glhd\Linearavel\Requests\Pending\Mutations;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
-use Glhd\Linearavel\Data\DeletePayload;
+use Glhd\Linearavel\Data\DocumentArchivePayload;
 use Glhd\Linearavel\Requests\LinearRequest;
 use Glhd\Linearavel\Requests\PendingLinearRequest;
 use Glhd\Linearavel\Responses\Mutations\DocumentDeleteMutationResponse;
@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingDocumentDeleteMutationRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success', 'entityId'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 
@@ -20,7 +20,7 @@ class PendingDocumentDeleteMutationRequest extends PendingLinearRequest
 		parent::__construct($connector, GraphQueryBuilder::make('mutation', 'documentDelete', $args, static::ARGUMENT_TYPES));
 	}
 
-	public function get(string ...$fields): DeletePayload
+	public function get(string ...$fields): DocumentArchivePayload
 	{
 		return $this->response(...$fields)->resolve();
 	}

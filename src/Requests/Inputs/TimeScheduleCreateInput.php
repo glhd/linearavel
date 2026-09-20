@@ -13,7 +13,8 @@ class TimeScheduleCreateInput
 		public iterable $entries,
 		public ?string $id = null,
 		public ?string $externalId = null,
-		public ?string $externalUrl = null
+		public ?string $externalUrl = null,
+		public ?TimeScheduleConfigInput $config = null
 	) {
 	}
 }

@@ -8,5 +8,6 @@ enum SlackChannelType: string
 	case DirectMessage = 'DirectMessage';
 	case MultiPersonDirectMessage = 'MultiPersonDirectMessage';
 	case Private = 'Private';
+	case PrivateGroup = 'PrivateGroup';
 	case Public = 'Public';
 }

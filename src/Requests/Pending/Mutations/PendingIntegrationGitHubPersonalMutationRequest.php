@@ -13,7 +13,7 @@ class PendingIntegrationGitHubPersonalMutationRequest extends PendingLinearReque
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['code' => 'String!'];
+	protected const ARGUMENT_TYPES = ['enterpriseUrl' => 'String', 'codeAccess' => 'Boolean', 'code' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

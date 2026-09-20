@@ -8,4 +8,5 @@ enum IssueRelationType: string
 	case blocks = 'blocks';
 	case duplicate = 'duplicate';
 	case related = 'related';
+	case similar = 'similar';
 }

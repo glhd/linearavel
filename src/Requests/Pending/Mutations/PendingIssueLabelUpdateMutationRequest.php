@@ -13,7 +13,7 @@ class PendingIssueLabelUpdateMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['input' => 'IssueLabelUpdateInput!', 'id' => 'String!'];
+	protected const ARGUMENT_TYPES = ['replaceTeamLabels' => 'Boolean', 'input' => 'IssueLabelUpdateInput!', 'id' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

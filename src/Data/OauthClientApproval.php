@@ -31,7 +31,10 @@ class OauthClientApproval extends Data implements Node
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $responderId,
 		public Optional|string|null $requestReason,
-		public Optional|string|null $denyReason
+		public Optional|string|null $denyReason,
+		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
+		public Optional|Collection|null $newlyRequestedScopes
 	) {
 	}
 }

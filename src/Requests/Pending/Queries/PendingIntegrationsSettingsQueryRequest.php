@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIntegrationsSettingsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'archivedAt', 'slackIssueCreated', 'slackIssueNewComment', 'slackIssueStatusChangedDone', 'slackIssueStatusChangedAll', 'slackProjectUpdateCreated', 'slackProjectUpdateCreatedToTeam', 'slackProjectUpdateCreatedToWorkspace', 'slackIssueAddedToTriage', 'slackIssueSlaHighRisk', 'slackIssueSlaBreached'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'archivedAt', 'contextViewType', 'slackIssueCreated', 'slackIssueNewComment', 'slackIssueStatusChangedDone', 'slackIssueAddedToView', 'slackIssueStatusChangedAll', 'slackProjectUpdateCreated', 'slackProjectCommentCreated', 'microsoftTeamsProjectUpdateCreated', 'slackProjectUpdateCreatedToTeam', 'slackProjectUpdateCreatedToWorkspace', 'slackInitiativeUpdateCreated', 'slackInitiativeCommentCreated', 'slackIssueAddedToTriage', 'slackIssueSlaHighRisk', 'slackIssueSlaBreached'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

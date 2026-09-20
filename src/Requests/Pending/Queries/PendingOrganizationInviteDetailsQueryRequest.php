@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOrganizationInviteDetailsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['__typename', 'on OrganizationInviteFullDetailsPayload.status', 'on OrganizationInviteFullDetailsPayload.inviter', 'on OrganizationInviteFullDetailsPayload.email', 'on OrganizationInviteFullDetailsPayload.role', 'on OrganizationInviteFullDetailsPayload.createdAt', 'on OrganizationInviteFullDetailsPayload.organizationName', 'on OrganizationInviteFullDetailsPayload.organizationId', 'on OrganizationInviteFullDetailsPayload.accepted', 'on OrganizationInviteFullDetailsPayload.expired', 'on OrganizationInviteFullDetailsPayload.organizationLogoUrl', 'on OrganizationAcceptedOrExpiredInviteDetailsPayload.status'];
+	protected const DEFAULT_ATTRIBUTES = ['__typename', 'on OrganizationInviteFullDetailsPayload.status', 'on OrganizationInviteFullDetailsPayload.inviter', 'on OrganizationInviteFullDetailsPayload.email', 'on OrganizationInviteFullDetailsPayload.role', 'on OrganizationInviteFullDetailsPayload.createdAt', 'on OrganizationInviteFullDetailsPayload.organizationName', 'on OrganizationInviteFullDetailsPayload.organizationId', 'on OrganizationInviteFullDetailsPayload.accepted', 'on OrganizationInviteFullDetailsPayload.expired', 'on OrganizationInviteFullDetailsPayload.allowedAuthServices', 'on OrganizationInviteFullDetailsPayload.organizationLogoUrl', 'on OrganizationAcceptedOrExpiredInviteDetailsPayload.status'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

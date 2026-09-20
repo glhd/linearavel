@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCommentQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'body', 'bodyData', 'reactionData', 'url', 'archivedAt', 'resolvedAt', 'editedAt', 'quotedText', 'summaryText'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'body', 'bodyData', 'reactionData', 'isArtificialAgentSessionRoot', 'url', 'hideInLinear', 'archivedAt', 'issueId', 'documentContentId', 'projectUpdateId', 'initiativeUpdateId', 'projectId', 'initiativeId', 'parentId', 'resolvedAt', 'resolvingCommentId', 'editedAt', 'quotedText', 'threadSummary'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String', 'issueId' => 'String', 'hash' => 'String'];
 

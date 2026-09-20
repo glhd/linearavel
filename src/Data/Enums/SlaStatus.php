@@ -11,5 +11,4 @@ enum SlaStatus: string
 	case LowRisk = 'LowRisk';
 	case Completed = 'Completed';
 	case Failed = 'Failed';
-	case Paused = 'Paused';
 }

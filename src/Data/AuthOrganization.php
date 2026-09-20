@@ -15,8 +15,11 @@ use Spatie\LaravelData\Optional;
 class AuthOrganization extends Data
 {
 	public function __construct(
+		#[LinearDate]
+		public Optional|CarbonImmutable $createdAt,
 		public Optional|string $id,
 		public Optional|string $name,
+		public Optional|bool $enabled,
 		public Optional|string $urlKey,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
@@ -26,13 +29,18 @@ class AuthOrganization extends Data
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $allowedAuthServices,
+		public Optional|string $authSettings,
 		public Optional|bool $scimEnabled,
 		public Optional|string $serviceId,
-		public Optional|float $userCount,
+		public Optional|string $region,
+		public Optional|string $cell,
+		public Optional|float $approximateUserCount,
+		public Optional|bool $hideNonPrimaryOrganizations,
 		public Optional|string|null $logoUrl,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $deletionRequestedAt,
-		public Optional|string|null $samlSettings
+		public Optional|string|null $samlSettings,
+		public Optional|float|null $userCount
 	) {
 	}
 }

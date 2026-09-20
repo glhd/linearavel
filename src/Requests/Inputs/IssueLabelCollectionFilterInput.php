@@ -12,9 +12,11 @@ class IssueLabelCollectionFilterInput
 		public ?DateComparatorInput $createdAt = null,
 		public ?DateComparatorInput $updatedAt = null,
 		public ?StringComparatorInput $name = null,
+		public ?BooleanComparatorInput $isGroup = null,
 		public ?NullableUserFilterInput $creator = null,
 		public ?NullableTeamFilterInput $team = null,
 		public ?IssueLabelFilterInput $parent = null,
+		public ?bool $null = null,
 		/** @var iterable<IssueLabelCollectionFilterInput>|Collection<int, IssueLabelCollectionFilterInput> */
 		public ?iterable $and = null,
 		/** @var iterable<IssueLabelCollectionFilterInput>|Collection<int, IssueLabelCollectionFilterInput> */

@@ -13,7 +13,7 @@ class PendingEmojisQueryRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.url', 'nodes.source', 'nodes.archivedAt'];
 
-	protected const ARGUMENT_TYPES = ['before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
+	protected const ARGUMENT_TYPES = ['filter' => 'EmojiFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy', 'sort' => '[EmojiSortInput!]'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

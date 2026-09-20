@@ -13,9 +13,15 @@ class CommentCollectionFilterInput
 		public ?DateComparatorInput $updatedAt = null,
 		public ?StringComparatorInput $body = null,
 		public ?UserFilterInput $user = null,
-		public ?IssueFilterInput $issue = null,
-		public ?ProjectUpdateFilterInput $projectUpdate = null,
-		public ?DocumentContentFilterInput $documentContent = null,
+		public ?NullableIssueFilterInput $issue = null,
+		public ?NullableProjectUpdateFilterInput $projectUpdate = null,
+		public ?NullableInitiativeUpdateFilterInput $initiativeUpdate = null,
+		public ?NullableCommentFilterInput $parent = null,
+		public ?NullableDocumentContentFilterInput $documentContent = null,
+		public ?NullableProjectFilterInput $project = null,
+		public ?NullableInitiativeFilterInput $initiative = null,
+		public ?ReactionCollectionFilterInput $reactions = null,
+		public ?CustomerNeedCollectionFilterInput $needs = null,
 		/** @var iterable<CommentCollectionFilterInput>|Collection<int, CommentCollectionFilterInput> */
 		public ?iterable $and = null,
 		/** @var iterable<CommentCollectionFilterInput>|Collection<int, CommentCollectionFilterInput> */

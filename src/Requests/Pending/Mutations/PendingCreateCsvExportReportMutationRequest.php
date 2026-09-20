@@ -13,7 +13,7 @@ class PendingCreateCsvExportReportMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['success'];
 
-	protected const ARGUMENT_TYPES = ['includePrivateTeamIds' => '[String!]'];
+	protected const ARGUMENT_TYPES = ['includePrivateTeamIds' => '[String!]', 'includeProtectedTeamIds' => '[String!]', 'includeRestrictedTeamIds' => '[String!]'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

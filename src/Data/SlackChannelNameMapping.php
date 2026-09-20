@@ -20,7 +20,13 @@ class SlackChannelNameMapping extends Data
 		public Optional|bool|null $autoCreateOnMessage,
 		public Optional|bool|null $autoCreateOnEmoji,
 		public Optional|bool|null $autoCreateOnBotMention,
-		public Optional|string|null $autoCreateTemplateId
+		public Optional|string|null $autoCreateTemplateId,
+		public Optional|bool|null $postCancellationUpdates,
+		public Optional|bool|null $postCompletionUpdates,
+		public Optional|bool|null $postAcceptedFromTriageUpdates,
+		public Optional|bool|null $aiTitles,
+		public Optional|bool|null $postAssignmentUpdates,
+		public Optional|bool|null $postSlaUpdates
 	) {
 	}
 }

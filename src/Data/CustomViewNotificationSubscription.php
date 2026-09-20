@@ -32,9 +32,11 @@ class CustomViewNotificationSubscription extends Data implements NotificationSub
 		public Optional|Collection $notificationSubscriptionTypes,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|Customer|null $customer,
 		public Optional|Cycle|null $cycle,
 		public Optional|IssueLabel|null $label,
 		public Optional|Project|null $project,
+		public Optional|Initiative|null $initiative,
 		public Optional|Team|null $team,
 		public Optional|User|null $user,
 		public Optional|ContextViewType|null $contextViewType,

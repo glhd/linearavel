@@ -11,9 +11,9 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomViewsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.filters', 'nodes.filterData', 'nodes.shared', 'nodes.modelName', 'nodes.archivedAt', 'nodes.description', 'nodes.icon', 'nodes.color', 'nodes.projectFilterData'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.filters', 'nodes.filterData', 'nodes.shared', 'nodes.slugId', 'nodes.modelName', 'nodes.archivedAt', 'nodes.description', 'nodes.icon', 'nodes.color', 'nodes.projectFilterData', 'nodes.initiativeFilterData', 'nodes.feedItemFilterData'];
 
-	protected const ARGUMENT_TYPES = ['before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
+	protected const ARGUMENT_TYPES = ['filter' => 'CustomViewFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy', 'sort' => '[CustomViewSortInput!]'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

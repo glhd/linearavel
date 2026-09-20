@@ -25,7 +25,8 @@ class WorkflowState extends Data implements Node
 		public Optional|IssueConnection $issues,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|string|null $description
+		public Optional|string|null $description,
+		public Optional|WorkflowState|null $inheritedFrom
 	) {
 	}
 }

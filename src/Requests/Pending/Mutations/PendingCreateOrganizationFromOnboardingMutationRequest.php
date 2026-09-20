@@ -13,7 +13,7 @@ class PendingCreateOrganizationFromOnboardingMutationRequest extends PendingLine
 {
 	protected const DEFAULT_ATTRIBUTES = [];
 
-	protected const ARGUMENT_TYPES = ['survey' => 'OnboardingCustomerSurvey', 'input' => 'CreateOrganizationInput!'];
+	protected const ARGUMENT_TYPES = ['partnerOfferToken' => 'String', 'sessionId' => 'String', 'survey' => 'OnboardingCustomerSurvey', 'input' => 'CreateOrganizationInput!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

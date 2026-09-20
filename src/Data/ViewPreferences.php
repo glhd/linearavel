@@ -19,6 +19,7 @@ class ViewPreferences extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $type,
 		public Optional|string $viewType,
+		public Optional|ViewPreferencesValues $preferences,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt
 	) {

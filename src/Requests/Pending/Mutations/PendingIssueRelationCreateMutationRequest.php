@@ -13,7 +13,7 @@ class PendingIssueRelationCreateMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['input' => 'IssueRelationCreateInput!'];
+	protected const ARGUMENT_TYPES = ['overrideCreatedAt' => 'DateTime', 'input' => 'IssueRelationCreateInput!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

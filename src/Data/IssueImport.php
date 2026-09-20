@@ -17,17 +17,19 @@ class IssueImport extends Data implements Node
 		public Optional|CarbonImmutable $createdAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
-		public Optional|string $creatorId,
 		public Optional|string $service,
 		public Optional|string $status,
+		public Optional|string $displayName,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $teamName,
+		public Optional|string|null $creatorId,
 		public Optional|string|null $mapping,
 		public Optional|string|null $error,
 		public Optional|float|null $progress,
 		public Optional|string|null $csvFileUrl,
-		public Optional|string|null $errorMetadata
+		public Optional|string|null $errorMetadata,
+		public Optional|string|null $serviceMetadata
 	) {
 	}
 }

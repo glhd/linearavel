@@ -13,7 +13,7 @@ class PendingLogoutAllSessionsMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['success'];
 
-	protected const ARGUMENT_TYPES = [];
+	protected const ARGUMENT_TYPES = ['reason' => 'String'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -16,7 +16,8 @@ class TimeScheduleEntry extends Data
 		#[LinearDate]
 		public Optional|CarbonImmutable $endsAt,
 		public Optional|string|null $userId,
-		public Optional|string|null $userEmail
+		public Optional|string|null $userEmail,
+		public Optional|TimeScheduleUser|null $overriddenUser
 	) {
 	}
 }

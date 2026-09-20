@@ -7,7 +7,7 @@ use DateTimeInterface;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/OpsgenieInput */
 class OpsgenieInput
 {
-	public function __construct(public DateTimeInterface $apiFailedWithUnauthorizedErrorAt)
+	public function __construct(public ?DateTimeInterface $apiFailedWithUnauthorizedErrorAt = null)
 	{
 	}
 }

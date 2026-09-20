@@ -2,6 +2,9 @@
 
 namespace Glhd\Linearavel\Requests\Inputs;
 
+use DateTimeInterface;
+use Glhd\Linearavel\Data\Enums\FeedSummarySchedule;
+use Glhd\Linearavel\Data\Enums\InboxBadgeScope;
 use Illuminate\Support\Collection;
 
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/inputs/UserSettingsUpdateInput */
@@ -15,9 +18,15 @@ class UserSettingsUpdateInput
 		public ?bool $subscribedToDPA = null,
 		public ?bool $subscribedToInviteAccepted = null,
 		public ?bool $subscribedToPrivacyLegalUpdates = null,
-		public ?bool $subscribedToUnreadNotificationsReminder = null,
-		public ?string $notificationPreferences = null,
-		public ?string $usageWarningHistory = null
+		public ?bool $subscribedToGeneralMarketingCommunications = null,
+		public ?NotificationCategoryPreferencesInput $notificationCategoryPreferences = null,
+		public ?PartialNotificationChannelPreferencesInput $notificationChannelPreferences = null,
+		public ?NotificationDeliveryPreferencesInput $notificationDeliveryPreferences = null,
+		public ?string $usageWarningHistory = null,
+		public ?FeedSummarySchedule $feedSummarySchedule = null,
+		public ?DateTimeInterface $feedLastSeenTime = null,
+		public ?bool $priorityInboxEnabled = null,
+		public ?InboxBadgeScope $inboxBadgeScope = null
 	) {
 	}
 }

@@ -21,7 +21,6 @@ class OrganizationInvite extends Data implements Node
 		public Optional|string $email,
 		public Optional|UserRoleType $role,
 		public Optional|bool $external,
-		public Optional|string $metadata,
 		public Optional|User $inviter,
 		public Optional|Organization $organization,
 		#[LinearDate]
@@ -30,6 +29,7 @@ class OrganizationInvite extends Data implements Node
 		public Optional|CarbonImmutable|null $acceptedAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $expiresAt,
+		public Optional|string|null $metadata,
 		public Optional|User|null $invitee
 	) {
 	}

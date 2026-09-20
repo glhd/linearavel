@@ -21,11 +21,14 @@ class ProjectStatus extends Data implements Node
 		public Optional|string $name,
 		public Optional|string $color,
 		public Optional|float $position,
+		public Optional|ProjectStatusType $type,
 		public Optional|bool $indefinite,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,
-		public Optional|ProjectStatusType|null $type
+		public Optional|Team|null $team,
+		public Optional|string|null $teamId,
+		public Optional|ProjectStatus|null $inheritedFrom
 	) {
 	}
 }

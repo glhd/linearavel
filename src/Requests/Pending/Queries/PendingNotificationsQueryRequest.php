@@ -13,7 +13,7 @@ class PendingNotificationsQueryRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['nodes'];
 
-	protected const ARGUMENT_TYPES = ['before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
+	protected const ARGUMENT_TYPES = ['filter' => 'NotificationFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

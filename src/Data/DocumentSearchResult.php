@@ -18,20 +18,33 @@ class DocumentSearchResult extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $title,
-		public Optional|User $creator,
-		public Optional|User $updatedBy,
-		public Optional|Project $project,
 		public Optional|string $slugId,
 		public Optional|float $sortOrder,
+		public Optional|CommentConnection $comments,
+		public Optional|UserConnection $subscribers,
+		public Optional|string $url,
 		public Optional|string $metadata,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
+		public Optional|string|null $summary,
 		public Optional|string|null $icon,
 		public Optional|string|null $color,
+		public Optional|User|null $creator,
+		public Optional|User|null $owner,
+		public Optional|User|null $updatedBy,
+		public Optional|Project|null $project,
+		public Optional|Initiative|null $initiative,
+		public Optional|Team|null $team,
+		public Optional|Issue|null $issue,
+		public Optional|Release|null $release,
+		public Optional|Cycle|null $cycle,
 		public Optional|Template|null $lastAppliedTemplate,
+		#[LinearDate]
+		public Optional|CarbonImmutable|null $hiddenAt,
+		public Optional|bool|null $trashed,
 		public Optional|string|null $content,
 		public Optional|string|null $contentState,
-		public Optional|string|null $contentData
+		public Optional|string|null $documentContentId
 	) {
 	}
 }

@@ -17,7 +17,9 @@ class TeamCollectionFilterInput
 		public ?iterable $or = null,
 		public ?TeamFilterInput $some = null,
 		public ?TeamFilterInput $every = null,
-		public ?NumberComparatorInput $length = null
+		public ?NumberComparatorInput $length = null,
+		public ?NullableTeamFilterInput $parent = null,
+		public ?TeamCollectionFilterInput $ancestors = null
 	) {
 	}
 }
