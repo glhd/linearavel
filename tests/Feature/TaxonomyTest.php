@@ -12,7 +12,7 @@ class TaxonomyTest extends TestCase
 		$taxonomy = new Taxonomy('FooBar', 'Query');
 		
 		$this->assertEquals('Glhd\\Linearavel\\Responses\\Queries\\FooBarQueryResponse', (string) $taxonomy->response());
-		$this->assertEquals('Glhd\\Linearavel\\Requests\\Pending\\PendingFooBarQueryRequest', (string) $taxonomy->pendingRequest());
+		$this->assertEquals('Glhd\\Linearavel\\Requests\\Pending\\Queries\\PendingFooBarQueryRequest', (string) $taxonomy->pendingRequest());
 	}
 	
 	public function test_it_can_generate_names_for_mutations(): void
@@ -20,6 +20,6 @@ class TaxonomyTest extends TestCase
 		$taxonomy = new Taxonomy('FooBar', 'Mutation');
 		
 		$this->assertEquals('Glhd\\Linearavel\\Responses\\Mutations\\FooBarMutationResponse', (string) $taxonomy->response());
-		$this->assertEquals('Glhd\\Linearavel\\Requests\\Pending\\PendingFooBarMutationRequest', (string) $taxonomy->pendingRequest());
+		$this->assertEquals('Glhd\\Linearavel\\Requests\\Pending\\Mutations\\PendingFooBarMutationRequest', (string) $taxonomy->pendingRequest());
 	}
 }
