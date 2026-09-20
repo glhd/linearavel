@@ -196,10 +196,10 @@ workflow fetches the live schema every day and, when it changes, rebuilds the pa
 and tags a release. Removed or narrowed schema types move the minor version; additions
 move the patch version.
 
-To rebuild locally:
+Schema downloads do not require a Linear API key. To rebuild locally:
 
 ```shell
-LINEAR_API_KEY=lin_api_... composer fetch-schema
+composer fetch-schema
 composer generate-data
 composer fix-style
 ```

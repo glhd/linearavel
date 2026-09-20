@@ -72,11 +72,6 @@ Artisan::command('linear:schema {--dry-run : Report on drift without writing the
 	/** @var \Illuminate\Console\Command $this */
 	$api_key = getenv('LINEAR_API_KEY') ?: '';
 	
-	if (blank($api_key)) {
-		$this->error('Set LINEAR_API_KEY to fetch the schema.');
-		return 1;
-	}
-	
 	$path = linearavel_base_path('local.graphql');
 	
 	$this->info('Fetching the live Linear schema...');

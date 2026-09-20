@@ -15,7 +15,7 @@ use RuntimeException;
 class SchemaFetcher
 {
 	public function __construct(
-		protected string $api_key,
+		protected string $api_key = '',
 		protected string $base_url = 'https://api.linear.app/graphql',
 		protected ?Factory $http = null,
 	) {
@@ -39,7 +39,7 @@ class SchemaFetcher
 	{
 		$response = $this->http
 			->baseUrl($this->base_url)
-			->withHeader('Authorization', $this->api_key)
+			->withHeaders('' !== $this->api_key ? ['Authorization' => $this->api_key] : [])
 			->asJson()
 			->timeout(120)
 			->retry(3, 2000, throw: false)

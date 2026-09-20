@@ -54,7 +54,6 @@ jobs:
       - name: Fetch the schema
         id: schema
         env:
-          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
           LINEAR_SCHEMA_SUMMARY: ${{ github.workspace }}/schema-changes.md
         run: php vendor/bin/testbench linear:schema
 

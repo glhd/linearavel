@@ -8,6 +8,7 @@ use GraphQL\GraphQL;
 use GraphQL\Type\Introspection;
 use GraphQL\Utils\BuildSchema;
 use Illuminate\Http\Client\Factory;
+use Illuminate\Http\Client\Request;
 use RuntimeException;
 
 class SchemaFetcherTest extends TestCase
@@ -34,7 +35,10 @@ class SchemaFetcherTest extends TestCase
 		}
 		GQL;
 		
-		$fetched = (new SchemaFetcher('token', 'https://example.test/graphql', $this->respondWith($sdl)))->sdl();
+		$http = $this->respondWith($sdl);
+		$fetched = (new SchemaFetcher(base_url: 'https://example.test/graphql', http: $http))->sdl();
+		
+		$http->assertSent(fn(Request $request) => ! $request->hasHeader('Authorization'));
 		
 		// Round-tripping through introspection has to be lossless, or the generated
 		// code would change every time we sync
@@ -55,6 +59,15 @@ class SchemaFetcherTest extends TestCase
 			$fetched,
 			'A sync would rewrite local.graphql even though the schema has not changed.'
 		);
+	}
+	
+	public function test_it_authenticates_when_an_api_key_is_provided(): void
+	{
+		$http = $this->respondWith('type Query { version: String! }');
+		
+		(new SchemaFetcher('token', 'https://example.test/graphql', $http))->sdl();
+		
+		$http->assertSent(fn(Request $request) => $request->hasHeader('Authorization', 'token'));
 	}
 	
 	public function test_it_complains_when_introspection_returns_errors(): void
