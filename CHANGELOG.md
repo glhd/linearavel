@@ -17,7 +17,8 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 ### Changed
 
 -   Pending requests are now namespaced by kind, e.g. `Requests\Pending\Queries\PendingIssuesQueryRequest`.
--   Requires PHP 8.2+, Laravel 11+ and `spatie/laravel-data` 4.11+.
+-   Requires PHP 8.2+, Laravel 11+, `saloonphp/saloon` 4.0+ and `spatie/laravel-data` 4.11+.
+-   Guzzle 8 is now allowed alongside Guzzle 7.
 -   `LinearResponse::resolve()` returns `object` rather than `Data|Collection`, so union responses can narrow it to their interface.
 
 ### Fixed
@@ -30,7 +31,6 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 -   Scalar list properties failed to hydrate under `spatie/laravel-data` 4.3 and newer.
 -   Input classes were generated with a name that did not match their file, and relied on PHP CS Fixer to rename them.
 -   `organizationInviteDetails` referred to a class that did not exist.
--   The lowest supported `saloonphp/saloon` did not have `MockClient::destroyGlobal()`, so the floor is now 3.5.
 
 ### Removed
 
