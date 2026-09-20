@@ -9,17 +9,26 @@ use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
 use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Return_;
+use PhpParser\NodeAbstract;
 
 class ResponseTransformer extends ClassTransformer
 {
@@ -190,47 +199,58 @@ class ResponseTransformer extends ClassTransformer
 	protected function resolveObjectStmt()
 	{
 		$underlying_type = $this->getUnderlyingType($this->node->type);
-		
+		$return_type = $this->getUnderlyingReturnType($this->node->type);
+
+		// Scalars come back off the JSON as-is; there is no data class to hydrate
 		if ($underlying_type instanceof Identifier) {
 			return new ClassMethod('resolve', [
-				'returnType' => new Name((string) $underlying_type),
+				'returnType' => $return_type,
 				'flags' => 1, // public
 				'stmts' => [
-					new Return_(
-						new MethodCall(
-							var: new Variable('this'),
-							name: new Identifier('json'),
-							args: [
-								new Arg(new String_("data.{$this->node->name->value}")),
-							],
-						),
-					),
+					new Return_($this->jsonCall()),
 				],
 			]);
 		}
-		
+
 		return new ClassMethod('resolve', [
-			'returnType' => new Name((string) $underlying_type),
+			'returnType' => $return_type,
 			'flags' => 1, // public
-			'stmts' => [
-				new Return_(
-					new StaticCall(
+			'stmts' => $return_type instanceof NullableType
+				? $this->nullableFromStmts($underlying_type)
+				: [
+					new Return_(
+						new StaticCall(
+							class: $underlying_type,
+							name: new Identifier('from'),
+							args: [new Arg($this->jsonCall())],
+						),
+					),
+				],
+		]);
+	}
+
+	/**
+	 * A field that can come back null cannot go straight into `Data::from()`, so
+	 * we pull the JSON out first and short-circuit on null.
+	 *
+	 * @return array<int, Stmt>
+	 */
+	protected function nullableFromStmts(NodeAbstract $underlying_type): array
+	{
+		return [
+			new Expression(new Assign(new Variable('data'), $this->jsonCall())),
+			new Nop(),
+			new Return_(
+				new Ternary(
+					cond: new Identical(new ConstFetch(new Name('null')), new Variable('data')),
+					if: new ConstFetch(new Name('null')),
+					else: new StaticCall(
 						class: $underlying_type,
 						name: new Identifier('from'),
-						args: [
-							new Arg(
-								new MethodCall(
-									var: new Variable('this'),
-									name: new Identifier('json'),
-									args: [
-										new Arg(new String_("data.{$this->node->name->value}")),
-									],
-								),
-							),
-						],
+						args: [new Arg(new Variable('data'))],
 					),
 				),
-			],
-		]);
+			),
+		];
 	}
 }

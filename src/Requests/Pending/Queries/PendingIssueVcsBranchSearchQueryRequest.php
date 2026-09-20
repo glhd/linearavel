@@ -20,7 +20,7 @@ class PendingIssueVcsBranchSearchQueryRequest extends PendingLinearRequest
 		parent::__construct($connector, GraphQueryBuilder::make('query', 'issueVcsBranchSearch', $args, static::ARGUMENT_TYPES));
 	}
 
-	public function get(string ...$fields): Issue
+	public function get(string ...$fields): ?Issue
 	{
 		return $this->response(...$fields)->resolve();
 	}

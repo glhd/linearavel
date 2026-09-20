@@ -93,13 +93,16 @@ class GraphQueryBuilder
 			: '';
 		$signature = $this->formatSignature();
 		$args = $this->formatArguments();
-		$fields = $this->formatFields($this->fields);
+
+		// Root fields that return a scalar have no fields to select, and GraphQL
+		// rejects an empty selection set
+		$selection = count($this->fields)
+			? " {\n\t\t".$this->formatFields($this->fields)."\n\t}"
+			: '';
 
 		return <<<gql
 		{$this->type}{$alias}{$signature} {
-			{$this->name}{$args} {
-				{$fields}
-			}
+			{$this->name}{$args}{$selection}
 		}
 		gql;
 	}

@@ -16,18 +16,21 @@ abstract class LinearResponse extends Response
 {
 	use ForwardsCalls;
 
-	protected ?object $resolved = null;
+	protected mixed $resolved = null;
+
+	protected bool $has_resolved = false;
 
 	/**
-	 * Resolve the response into the data object it represents.
+	 * Resolve the response into the value it represents.
 	 *
-	 * Generated responses narrow this to a concrete data class, a Collection, or—for
-	 * union types—the interface shared by the union's members. The return type is
-	 * `object` so that all three stay valid narrowings.
+	 * Generated responses narrow this to a concrete data class, a Collection, the
+	 * interface shared by a union's members, or—for root fields that return a
+	 * GraphQL scalar—a PHP scalar. The return type is `mixed` so that all of
+	 * those stay valid narrowings.
 	 *
-	 * @return Data|Collection<int, Data>|object
+	 * @return Data|Collection<int, Data>|object|string|int|float|bool|null
 	 */
-	abstract public function resolve(): object;
+	abstract public function resolve(): mixed;
 
 	public function __get(string $name)
 	{
@@ -73,8 +76,14 @@ abstract class LinearResponse extends Response
 			->values();
 	}
 
-	protected function implicitlyResolve(): object
+	protected function implicitlyResolve(): mixed
 	{
-		return $this->resolved ??= $this->resolve();
+		// Not `??=`: a response that resolves to null would otherwise resolve on every access
+		if (! $this->has_resolved) {
+			$this->resolved = $this->resolve();
+			$this->has_resolved = true;
+		}
+
+		return $this->resolved;
 	}
 }

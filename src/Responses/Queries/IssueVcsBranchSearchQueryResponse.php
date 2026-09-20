@@ -7,8 +7,10 @@ use Glhd\Linearavel\Responses\LinearResponse;
 
 class IssueVcsBranchSearchQueryResponse extends LinearResponse
 {
-	public function resolve(): Issue
+	public function resolve(): ?Issue
 	{
-		return Issue::from($this->json('data.issueVcsBranchSearch'));
+		$data = $this->json('data.issueVcsBranchSearch');
+		
+		return null === $data ? null : Issue::from($data);
 	}
 }

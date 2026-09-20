@@ -21,6 +21,16 @@ trait HasTypeNodes
 	{
 		return $this->namedType($this->underlyingTypeNode($node));
 	}
+
+	/** The underlying type, keeping the nullability the field itself declares. */
+	protected function getUnderlyingReturnType(TypeNode $node): NodeAbstract
+	{
+		$type = $this->getUnderlyingType($node);
+
+		return $node instanceof NonNullTypeNode
+			? $type
+			: new NullableType($type);
+	}
 	
 	/** Unwrap list and non-null wrappers to get at the type itself. */
 	protected function underlyingTypeNode(TypeNode $node): NamedTypeNode
