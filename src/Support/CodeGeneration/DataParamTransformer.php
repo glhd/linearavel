@@ -51,6 +51,7 @@ class DataParamTransformer extends ConstructorParamTransformer
 		$type = $this->typeToName($node->type);
 		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
+		$this->parent->use(Optional::class);
 		
 		// Lists of data objects are hydrated by laravel-data on their own, but lists of
 		// scalars and enums need an explicit cast to become a Collection

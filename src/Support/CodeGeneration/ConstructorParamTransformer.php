@@ -12,6 +12,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\UnionType;
 use PhpParser\NodeAbstract;
+use Spatie\LaravelData\Optional;
 
 class ConstructorParamTransformer extends ParamTransformer
 {
@@ -38,6 +39,7 @@ class ConstructorParamTransformer extends ParamTransformer
 		$type = $this->typeToName($node->type);
 		$this->param->setDocComment(new Doc("/** @var Collection<int, {$type}> */"));
 		$this->parent->use(Collection::class);
+		$this->parent->use(Optional::class);
 		
 		return new UnionType(array_filter([
 			new Name('Optional'),
