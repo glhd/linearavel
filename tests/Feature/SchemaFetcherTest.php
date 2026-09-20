@@ -3,6 +3,7 @@
 namespace Glhd\Linearavel\Tests\Feature;
 
 use Glhd\Linearavel\Support\CodeGeneration\SchemaFetcher;
+use Glhd\Linearavel\Tests\Support\BoundedDiff;
 use Glhd\Linearavel\Tests\TestCase;
 use GraphQL\GraphQL;
 use GraphQL\Type\Introspection;
@@ -53,11 +54,20 @@ class SchemaFetcherTest extends TestCase
 		$committed = file_get_contents($path);
 		
 		$fetched = (new SchemaFetcher('token', 'https://example.test/graphql', $this->respondWith($committed)))->sdl();
+		$printed = SchemaFetcher::print(BuildSchema::build($committed, options: ['assumeValid' => true]));
 		
-		$this->assertSame(
-			SchemaFetcher::print(BuildSchema::build($committed, options: ['assumeValid' => true])),
-			$fetched,
+		// Both sides are the whole Linear schema, and PHPUnit's differ takes about
+		// fifteen minutes to compare two documents that long. Match on a hash, and
+		// only describe the first few differences when they don't match.
+		if (hash('xxh128', $printed) === hash('xxh128', $fetched)) {
+			$this->addToAssertionCount(1);
+			
+			return;
+		}
+		
+		$this->fail(
 			'A sync would rewrite local.graphql even though the schema has not changed.'
+			."\n\n".(new BoundedDiff())->describe($printed, $fetched)
 		);
 	}
 	
