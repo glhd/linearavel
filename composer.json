@@ -17,7 +17,7 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "ext-json": "*",
         "illuminate/support": "^11.0|^12.0|^13.0",
         "guzzlehttp/guzzle": "^7.8|^8.0",

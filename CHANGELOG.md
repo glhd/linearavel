@@ -17,7 +17,7 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 ### Changed
 
 -   Pending requests are now namespaced by kind, e.g. `Requests\Pending\Queries\PendingIssuesQueryRequest`.
--   Requires PHP 8.2+, Laravel 11+, `saloonphp/saloon` 4.0+ and `spatie/laravel-data` 4.11+.
+-   Requires PHP 8.3+, Laravel 11+, `saloonphp/saloon` 4.0+ and `spatie/laravel-data` 4.11+.
 -   Guzzle 8 is now allowed alongside Guzzle 7.
 -   `LinearResponse::resolve()` returns `object` rather than `Data|Collection`, so union responses can narrow it to their interface.
 
