@@ -32,6 +32,7 @@ class UserSettings extends Data implements Node
 		public Optional|bool $subscribedToInviteAccepted,
 		public Optional|bool $subscribedToPrivacyLegalUpdates,
 		public Optional|bool $showFullUserNames,
+		public Optional|bool $showCodeBlockLineNumbers,
 		public Optional|bool $autoAssignToSelf,
 		public Optional|NotificationCategoryPreferences $notificationCategoryPreferences,
 		public Optional|NotificationChannelPreferences $notificationChannelPreferences,

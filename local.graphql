@@ -24706,6 +24706,9 @@ type UserSettings implements Node {
   "Whether to show full user names instead of display names."
   showFullUserNames: Boolean!
 
+  "Whether to show line numbers in code blocks."
+  showCodeBlockLineNumbers: Boolean!
+
   "The user's last seen time for the pulse feed."
   feedLastSeenTime: DateTime
 
