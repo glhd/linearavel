@@ -1336,9 +1336,9 @@ trait MutatesLinear
 		return new PendingIntegrationJiraFetchProjectStatusesMutationRequest($this, ['input' => $input]);
 	}
 
-	public function integrationJiraPersonalMutation(?string $code = null, ?string $accessToken = null): PendingIntegrationJiraPersonalMutationRequest
+	public function integrationJiraPersonalMutation(?string $workspaceIntegrationId = null, ?string $code = null, ?string $accessToken = null): PendingIntegrationJiraPersonalMutationRequest
 	{
-		return new PendingIntegrationJiraPersonalMutationRequest($this, ['code' => $code, 'accessToken' => $accessToken]);
+		return new PendingIntegrationJiraPersonalMutationRequest($this, ['workspaceIntegrationId' => $workspaceIntegrationId, 'code' => $code, 'accessToken' => $accessToken]);
 	}
 
 	public function integrationGitHubPersonalMutation(string $code, ?string $enterpriseUrl = null, ?bool $codeAccess = null): PendingIntegrationGitHubPersonalMutationRequest
@@ -2321,9 +2321,9 @@ trait MutatesLinear
 		return new PendingUserDiscordConnectMutationRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 
-	public function userExternalUserDisconnectMutation(string $service): PendingUserExternalUserDisconnectMutationRequest
+	public function userExternalUserDisconnectMutation(string $service, ?string $workspaceIntegrationId = null): PendingUserExternalUserDisconnectMutationRequest
 	{
-		return new PendingUserExternalUserDisconnectMutationRequest($this, ['service' => $service]);
+		return new PendingUserExternalUserDisconnectMutationRequest($this, ['service' => $service, 'workspaceIntegrationId' => $workspaceIntegrationId]);
 	}
 
 	public function userChangeRoleMutation(UserRoleType $role, string $id): PendingUserChangeRoleMutationRequest

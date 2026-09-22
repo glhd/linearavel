@@ -13,7 +13,7 @@ class PendingUserExternalUserDisconnectMutationRequest extends PendingLinearRequ
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['service' => 'String!'];
+	protected const ARGUMENT_TYPES = ['workspaceIntegrationId' => 'String', 'service' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

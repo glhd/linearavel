@@ -26377,6 +26377,9 @@ type Mutation {
 
   "Connect your Jira account to Linear."
   integrationJiraPersonal(
+    "The workspace Jira integration to connect to. Required when the connection would otherwise be ambiguous."
+    workspaceIntegrationId: String
+
     "The Jira OAuth code, when connecting using OAuth."
     code: String
 
@@ -28033,6 +28036,9 @@ type Mutation {
 
   "Disconnects the external user from this Linear account."
   userExternalUserDisconnect(
+    "The workspace Jira integration whose account mapping to remove. If omitted, removes all Jira mappings without a personal connection."
+    workspaceIntegrationId: String
+
     "The external service to disconnect."
     service: String!
   ): UserPayload!
@@ -31475,6 +31481,9 @@ input JiraConfigurationInput {
 input JiraUpdateInput {
   "The id of the integration to update."
   id: String!
+
+  "The mapped Jira project to use as its team's default. Omit to keep the current default."
+  defaultProjectId: String
 
   "Whether to refresh Jira Projects for the integration."
   updateProjects: Boolean

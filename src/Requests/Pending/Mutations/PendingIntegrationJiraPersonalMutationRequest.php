@@ -13,7 +13,7 @@ class PendingIntegrationJiraPersonalMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['code' => 'String', 'accessToken' => 'String'];
+	protected const ARGUMENT_TYPES = ['workspaceIntegrationId' => 'String', 'code' => 'String', 'accessToken' => 'String'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
