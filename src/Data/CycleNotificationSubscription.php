@@ -27,6 +27,7 @@ class CycleNotificationSubscription extends Data implements NotificationSubscrip
 		public Optional|User $subscriber,
 		public Optional|Cycle $cycle,
 		public Optional|bool $active,
+		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,

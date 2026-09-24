@@ -299,7 +299,10 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGithubImportRef
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitHubPersonalMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGithubRemoveCodeAccessMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabConnectMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabRotateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabTestConnectionMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabUpdateRotationSettingsMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabUpdateTokenMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGongMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGoogleCalendarPersonalConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGoogleSheetsMutationRequest;
@@ -1284,6 +1287,21 @@ trait MutatesLinear
 	public function integrationGitlabConnectMutation(string $accessToken, string $gitlabUrl, ?string $validationProjectPath = null, ?bool $readonly = null, ?string $expiresAt = null): PendingIntegrationGitlabConnectMutationRequest
 	{
 		return new PendingIntegrationGitlabConnectMutationRequest($this, ['accessToken' => $accessToken, 'gitlabUrl' => $gitlabUrl, 'validationProjectPath' => $validationProjectPath, 'readonly' => $readonly, 'expiresAt' => $expiresAt]);
+	}
+
+	public function integrationGitlabUpdateTokenMutation(string $accessToken, string $integrationId, ?DateTimeInterface $expiresAt = null, ?bool $readonly = null): PendingIntegrationGitlabUpdateTokenMutationRequest
+	{
+		return new PendingIntegrationGitlabUpdateTokenMutationRequest($this, ['accessToken' => $accessToken, 'integrationId' => $integrationId, 'expiresAt' => $expiresAt, 'readonly' => $readonly]);
+	}
+
+	public function integrationGitlabUpdateRotationSettingsMutation(bool $enabled, string $integrationId): PendingIntegrationGitlabUpdateRotationSettingsMutationRequest
+	{
+		return new PendingIntegrationGitlabUpdateRotationSettingsMutationRequest($this, ['enabled' => $enabled, 'integrationId' => $integrationId]);
+	}
+
+	public function integrationGitlabRotateMutation(string $integrationId): PendingIntegrationGitlabRotateMutationRequest
+	{
+		return new PendingIntegrationGitlabRotateMutationRequest($this, ['integrationId' => $integrationId]);
 	}
 
 	public function integrationGitlabTestConnectionMutation(string $integrationId): PendingIntegrationGitlabTestConnectionMutationRequest

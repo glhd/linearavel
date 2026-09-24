@@ -43,6 +43,7 @@ enum AiConversationTool: string
 	case TranscribeMedia = 'TranscribeMedia';
 	case Memory = 'Memory';
 	case SearchDocumentation = 'SearchDocumentation';
+	case ContactSupport = 'ContactSupport';
 	case WebSearch = 'WebSearch';
 	case GetSlackConversationHistory = 'GetSlackConversationHistory';
 	case PostChatMessage = 'PostChatMessage';

@@ -27,6 +27,7 @@ class CustomViewNotificationSubscription extends Data implements NotificationSub
 		public Optional|User $subscriber,
 		public Optional|CustomView $customView,
 		public Optional|bool $active,
+		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,

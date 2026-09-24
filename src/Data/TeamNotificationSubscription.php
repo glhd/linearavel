@@ -27,6 +27,7 @@ class TeamNotificationSubscription extends Data implements NotificationSubscript
 		public Optional|User $subscriber,
 		public Optional|Team $team,
 		public Optional|bool $active,
+		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,

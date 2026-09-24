@@ -6,6 +6,7 @@ namespace Glhd\Linearavel\Data\Enums;
 enum AiConversationAckKind: string
 {
 	case done = 'done';
+	case skipped = 'skipped';
 	case ignored = 'ignored';
 	case waiting = 'waiting';
 }

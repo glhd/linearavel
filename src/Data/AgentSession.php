@@ -52,6 +52,7 @@ class AgentSession extends Data implements Node
 		public Optional|AgentSessionType|null $type,
 		public Optional|string|null $url,
 		public Optional|string|null $codingHarnessModelLabel,
+		public Optional|AgentSessionCodingHarness|null $codingHarness,
 		/** @var Collection<int, AgentSessionWorkspaceDiffFile> */
 		public Optional|Collection|null $workspaceDiffFiles
 	) {

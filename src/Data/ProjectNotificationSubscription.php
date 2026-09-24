@@ -27,6 +27,7 @@ class ProjectNotificationSubscription extends Data implements NotificationSubscr
 		public Optional|User $subscriber,
 		public Optional|Project $project,
 		public Optional|bool $active,
+		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,

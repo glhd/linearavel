@@ -7,6 +7,8 @@ use Glhd\Linearavel\Data\Contracts\AiConversationPart;
 use Glhd\Linearavel\Data\Enums\AiConversationElicitationKind;
 use Glhd\Linearavel\Data\Enums\AiConversationPartType;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumerableCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -23,7 +25,12 @@ class AiConversationElicitationPart extends Data implements AiConversationBasePa
 		public Optional|string|null $title,
 		public Optional|string|null $serverUrl,
 		public Optional|AiConversationMcpServerConnectionScope|null $scope,
-		public Optional|string|null $integrationId
+		public Optional|string|null $integrationId,
+		public Optional|string|null $entityType,
+		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
+		public Optional|Collection|null $suggestedEntityIds,
+		public Optional|string|null $selection
 	) {
 	}
 }

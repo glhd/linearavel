@@ -6,4 +6,5 @@ namespace Glhd\Linearavel\Data\Enums;
 enum AgentActivityExecutionSkippedReason: string
 {
 	case quotaExceeded = 'quotaExceeded';
+	case permissionDenied = 'permissionDenied';
 }

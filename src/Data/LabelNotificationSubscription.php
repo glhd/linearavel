@@ -27,6 +27,7 @@ class LabelNotificationSubscription extends Data implements NotificationSubscrip
 		public Optional|User $subscriber,
 		public Optional|IssueLabel $label,
 		public Optional|bool $active,
+		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,

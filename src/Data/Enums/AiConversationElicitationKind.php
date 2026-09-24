@@ -8,4 +8,5 @@ enum AiConversationElicitationKind: string
 	case multipleChoice = 'multipleChoice';
 	case mcpServerConnection = 'mcpServerConnection';
 	case confirmation = 'confirmation';
+	case entitySelection = 'entitySelection';
 }

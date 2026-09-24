@@ -27,6 +27,7 @@ class CustomerNotificationSubscription extends Data implements NotificationSubsc
 		public Optional|User $subscriber,
 		public Optional|Customer $customer,
 		public Optional|bool $active,
+		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,

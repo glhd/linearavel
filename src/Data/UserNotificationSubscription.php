@@ -27,6 +27,7 @@ class UserNotificationSubscription extends Data implements NotificationSubscript
 		public Optional|User $subscriber,
 		public Optional|User $user,
 		public Optional|bool $active,
+		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,

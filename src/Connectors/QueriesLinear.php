@@ -75,6 +75,7 @@ use Glhd\Linearavel\Requests\Pending\Queries\PendingCustomViewQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingCustomViewsQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingCycleQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingCyclesQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingDependencyPackageMetadataQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingDiffQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingDocumentContentHistoryEntriesQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingDocumentContentHistoryQueryRequest;
@@ -649,6 +650,15 @@ trait QueriesLinear
 	public function cycle(string $id): PendingCycleQueryRequest
 	{
 		return new PendingCycleQueryRequest($this, ['id' => $id]);
+	}
+
+	/**
+	 * @param iterable $packages
+	 * @returns PendingDependencyPackageMetadataQueryRequest
+	 */
+	public function dependencyPackageMetadata(iterable $packages): PendingDependencyPackageMetadataQueryRequest
+	{
+		return new PendingDependencyPackageMetadataQueryRequest($this, ['packages' => $packages]);
 	}
 
 	/**

@@ -27,6 +27,7 @@ class InitiativeNotificationSubscription extends Data implements NotificationSub
 		public Optional|User $subscriber,
 		public Optional|Initiative $initiative,
 		public Optional|bool $active,
+		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $notificationSubscriptionTypes,
