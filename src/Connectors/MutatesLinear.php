@@ -94,6 +94,7 @@ use Glhd\Linearavel\Requests\Inputs\JiraConfigurationInput;
 use Glhd\Linearavel\Requests\Inputs\JiraFetchProjectStatusesInput;
 use Glhd\Linearavel\Requests\Inputs\JiraUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\JoinOrganizationInput;
+use Glhd\Linearavel\Requests\Inputs\McpServerIntegrationSettingsInput;
 use Glhd\Linearavel\Requests\Inputs\NotificationEntityInput;
 use Glhd\Linearavel\Requests\Inputs\NotificationSubscriptionCreateInput;
 use Glhd\Linearavel\Requests\Inputs\NotificationSubscriptionUpdateInput;
@@ -1549,9 +1550,9 @@ trait MutatesLinear
 		return new PendingIntegrationMcpServerPersonalConnectMutationRequest($this, ['serverUrl' => $serverUrl, 'customHeaders' => $customHeaders, 'mcpServerDefinitionId' => $mcpServerDefinitionId]);
 	}
 
-	public function integrationMcpServerConnectMutation(string $serverUrl, ?iterable $customHeaders = null, ?string $mcpServerDefinitionId = null, ?string $workflowDefinitionDraftId = null, ?string $workflowDefinitionId = null, ?string $teamId = null): PendingIntegrationMcpServerConnectMutationRequest
+	public function integrationMcpServerConnectMutation(string $serverUrl, ?McpServerIntegrationSettingsInput $settings = null, ?iterable $customHeaders = null, ?string $mcpServerDefinitionId = null, ?string $workflowDefinitionDraftId = null, ?string $workflowDefinitionId = null, ?string $teamId = null): PendingIntegrationMcpServerConnectMutationRequest
 	{
-		return new PendingIntegrationMcpServerConnectMutationRequest($this, ['serverUrl' => $serverUrl, 'customHeaders' => $customHeaders, 'mcpServerDefinitionId' => $mcpServerDefinitionId, 'workflowDefinitionDraftId' => $workflowDefinitionDraftId, 'workflowDefinitionId' => $workflowDefinitionId, 'teamId' => $teamId]);
+		return new PendingIntegrationMcpServerConnectMutationRequest($this, ['serverUrl' => $serverUrl, 'settings' => $settings, 'customHeaders' => $customHeaders, 'mcpServerDefinitionId' => $mcpServerDefinitionId, 'workflowDefinitionDraftId' => $workflowDefinitionDraftId, 'workflowDefinitionId' => $workflowDefinitionId, 'teamId' => $teamId]);
 	}
 
 	public function integrationDeleteMutation(string $id, ?bool $skipInstallationDeletion = null): PendingIntegrationDeleteMutationRequest

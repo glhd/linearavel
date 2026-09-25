@@ -13,7 +13,7 @@ class PendingIntegrationMcpServerConnectMutationRequest extends PendingLinearReq
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['customHeaders' => '[McpServerCustomHeaderInput!]', 'mcpServerDefinitionId' => 'String', 'workflowDefinitionDraftId' => 'String', 'workflowDefinitionId' => 'String', 'teamId' => 'String', 'serverUrl' => 'String!'];
+	protected const ARGUMENT_TYPES = ['settings' => 'McpServerIntegrationSettingsInput', 'customHeaders' => '[McpServerCustomHeaderInput!]', 'mcpServerDefinitionId' => 'String', 'workflowDefinitionDraftId' => 'String', 'workflowDefinitionId' => 'String', 'teamId' => 'String', 'serverUrl' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -1,14 +1,13 @@
 ### Added or widened
 
-- AiConversationContactSupportToolCall was added to union type AiConversationToolCall.
-- AiConversationEntitySelectionElicitationResponseData was added to union type AiConversationElicitationResponseData.
-- An optional field canSelfRotate on input type GitLabSettingsInput was added.
-- An optional field lastRotatedAt on input type GitLabSettingsInput was added.
-- An optional field nextRotationAt on input type GitLabSettingsInput was added.
-- An optional field rotationEnabled on input type GitLabSettingsInput was added.
-- An optional field rotationFailureReason on input type GitLabSettingsInput was added.
-- An optional field scopes on input type GitLabSettingsInput was added.
-- ContactSupport was added to enum type AiConversationTool.
-- entitySelection was added to enum type AiConversationElicitationKind.
-- permissionDenied was added to enum type AgentActivityExecutionSkippedReason.
-- skipped was added to enum type AiConversationAckKind.
+- An optional arg settings on Mutation.integrationMcpServerConnect was added
+- An optional arg settings on Mutation.integrationMcpServerConnect was added
+- An optional arg settings on Mutation.integrationMcpServerConnect was added
+- An optional arg settings on Mutation.integrationMcpServerConnect was added
+- An optional arg settings on Mutation.integrationMcpServerConnect was added
+- An optional arg settings on Mutation.integrationMcpServerConnect was added
+- An optional field conversationAccess on input type McpServerIntegrationSettingsInput was added.
+- An optional field includeSubInitiativeUpdates on input type NotificationSubscriptionCreateInput was added.
+- An optional field includeSubInitiativeUpdates on input type NotificationSubscriptionUpdateInput was added.
+- An optional field loopAccess on input type McpServerIntegrationSettingsInput was added.
+- stopping was added to enum type AgentSessionStatus.

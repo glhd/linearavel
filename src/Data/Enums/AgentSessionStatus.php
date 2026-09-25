@@ -7,6 +7,7 @@ enum AgentSessionStatus: string
 {
 	case pending = 'pending';
 	case active = 'active';
+	case stopping = 'stopping';
 	case complete = 'complete';
 	case awaitingInput = 'awaitingInput';
 	case error = 'error';

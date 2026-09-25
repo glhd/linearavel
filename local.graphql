@@ -8710,7 +8710,7 @@ type AgentSession implements Node {
   "The agent session's unique URL slug."
   slugId: String!
 
-  "The current status of the agent session, such as pending, active, awaiting input, complete, error, or stale."
+  "The current status of the agent session, such as pending, active, stopping, awaiting input, complete, error, or stale."
   status: AgentSessionStatus!
 
   "The time the agent session transitioned to active status and began work. Null if the session has not yet started."
@@ -8776,10 +8776,10 @@ type AgentSession implements Node {
   "The URL to the agent session page in the Linear app. Null when no issue is associated."
   url: String
 
-  "[Internal] Compact display label for the coding harness model used by this session, derived from the latest associated sandbox."
+  "[Internal] Compact display label for the coding harness model used by this cloud or local session."
   codingHarnessModelLabel: String
 
-  "[Internal] Coding harness metadata from the latest associated sandbox."
+  "[Internal] Coding harness metadata for this cloud or local session."
   codingHarness: AgentSessionCodingHarness
 
   "[Internal] Legacy per-file metadata for the agent session's live working-tree diff."
@@ -8820,6 +8820,7 @@ type AgentSession implements Node {
 enum AgentSessionStatus {
   pending
   active
+  stopping
   complete
   awaitingInput
   error
@@ -9075,12 +9076,12 @@ enum AgentSessionType {
   commentThread
 }
 
-"[Internal] Coding harness metadata from an agent session's latest sandbox."
+"[Internal] Coding harness metadata for a cloud or local coding session."
 type AgentSessionCodingHarness {
-  "The coding harness used by the sandbox."
+  "The coding harness or local target used by the session."
   harness: String!
 
-  "Compact display label for the model used by the sandbox."
+  "Compact display label for the model used by the session."
   modelLabel: String!
 }
 
@@ -26900,6 +26901,9 @@ type Mutation {
 
   "[INTERNAL] Connects the workspace with an MCP server."
   integrationMcpServerConnect(
+    "Access settings for a new team MCP connector."
+    settings: McpServerIntegrationSettingsInput
+
     "Optional additional HTTP headers to include with requests to this MCP server."
     customHeaders: [McpServerCustomHeaderInput!]
 
@@ -31476,6 +31480,12 @@ input SalesforceSettingsInput {
 input McpServerIntegrationSettingsInput {
   "The connection-specific display name."
   name: String
+
+  "Who may add this connector to a Loop."
+  loopAccess: String
+
+  "Who may use this connector in conversations."
+  conversationAccess: String
 }
 
 type GitHubCommitIntegrationPayload {
@@ -31642,8 +31652,8 @@ input JiraUpdateInput {
   "Webhook secret for a new manual configuration."
   webhookSecret: String
 
-  "Whether the Jira instance does not support webhook secrets."
-  noSecret: Boolean
+  "[DEPRECATED] Whether the Jira instance does not support webhook secrets. Setting it fails."
+  noSecret: Boolean @deprecated(reason: "Manual Jira webhooks require a secret. Use `webhookSecret` instead.")
 
   "The Jira personal access token, or the API key of a Jira Cloud service account."
   accessToken: String
@@ -32540,10 +32550,16 @@ input NotificationSubscriptionCreateInput {
 
   "Whether the subscription is active. Set to false to pause notifications without deleting the subscription."
   active: Boolean
+
+  "Whether to include updates from sub-initiatives."
+  includeSubInitiativeUpdates: Boolean
 }
 
 "Input for updating an existing notification subscription. Allows changing the subscribed notification types and active state."
 input NotificationSubscriptionUpdateInput {
+  "Whether to include updates from sub-initiatives."
+  includeSubInitiativeUpdates: Boolean
+
   "The specific notification event types the subscriber wants to receive. Replaces all previously configured types."
   notificationSubscriptionTypes: [String!]
 

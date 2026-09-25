@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 class NotificationSubscriptionUpdateInput
 {
 	public function __construct(
+		public ?bool $includeSubInitiativeUpdates = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $notificationSubscriptionTypes = null,
 		public ?bool $active = null

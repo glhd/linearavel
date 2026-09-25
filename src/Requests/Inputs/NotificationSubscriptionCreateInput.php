@@ -23,7 +23,8 @@ class NotificationSubscriptionCreateInput
 		public ?UserContextViewType $userContextViewType = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $notificationSubscriptionTypes = null,
-		public ?bool $active = null
+		public ?bool $active = null,
+		public ?bool $includeSubInitiativeUpdates = null
 	) {
 	}
 }
