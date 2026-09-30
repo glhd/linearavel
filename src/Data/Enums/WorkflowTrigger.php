@@ -13,6 +13,8 @@ enum WorkflowTrigger: string
 	case cycleStarted = 'cycleStarted';
 	case cycleEnded = 'cycleEnded';
 	case commentAdded = 'commentAdded';
+	case commentResolved = 'commentResolved';
+	case reviewSubmitted = 'reviewSubmitted';
 	case updatePosted = 'updatePosted';
 	case chatMessagePosted = 'chatMessagePosted';
 	case chatReactionAdded = 'chatReactionAdded';
