@@ -145,6 +145,8 @@ use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationInviteQueryReque
 use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationInvitesQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationMetaQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOriginInstallationQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOriginInstallUrlQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingPartnerOfferDetailsQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingPartnerOfferWorkspacesQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingPartnerProgramPartnersQueryRequest;
@@ -998,6 +1000,23 @@ trait QueriesLinear
 	public function integrationHasScopes(iterable $scopes, string $integrationId): PendingIntegrationHasScopesQueryRequest
 	{
 		return new PendingIntegrationHasScopesQueryRequest($this, ['scopes' => $scopes, 'integrationId' => $integrationId]);
+	}
+
+	/**
+	 * @returns PendingOriginInstallUrlQueryRequest
+	 */
+	public function originInstallUrl(): PendingOriginInstallUrlQueryRequest
+	{
+		return new PendingOriginInstallUrlQueryRequest($this, []);
+	}
+
+	/**
+	 * @param string $installationId the Origin installation id from the install redirect
+	 * @returns PendingOriginInstallationQueryRequest
+	 */
+	public function originInstallation(string $installationId): PendingOriginInstallationQueryRequest
+	{
+		return new PendingOriginInstallationQueryRequest($this, ['installationId' => $installationId]);
 	}
 
 	/**

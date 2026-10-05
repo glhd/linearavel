@@ -323,6 +323,8 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationMicrosoftTeamsM
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationMicrosoftTeamsProjectPostMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOpsgenieConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOpsgenieRefreshScheduleMappingsMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOriginConnectInstallationMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOriginConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationPagerDutyConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationPagerDutyRefreshScheduleMappingsMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationRequestMutationRequest;
@@ -423,6 +425,7 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationInviteUpdateMu
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationStartTrialForPlanMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationStartTrialMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationUpdateMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingOriginInstallationCancelMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingPartnerApplicationCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingPartnerOfferRedeemMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingPasskeyLoginFinishMutationRequest;
@@ -1303,6 +1306,21 @@ trait MutatesLinear
 	public function integrationGitlabRotateMutation(string $integrationId): PendingIntegrationGitlabRotateMutationRequest
 	{
 		return new PendingIntegrationGitlabRotateMutationRequest($this, ['integrationId' => $integrationId]);
+	}
+
+	public function integrationOriginConnectMutation(string $installationReceipt): PendingIntegrationOriginConnectMutationRequest
+	{
+		return new PendingIntegrationOriginConnectMutationRequest($this, ['installationReceipt' => $installationReceipt]);
+	}
+
+	public function integrationOriginConnectInstallationMutation(string $installationId): PendingIntegrationOriginConnectInstallationMutationRequest
+	{
+		return new PendingIntegrationOriginConnectInstallationMutationRequest($this, ['installationId' => $installationId]);
+	}
+
+	public function originInstallationCancelMutation(string $installationId): PendingOriginInstallationCancelMutationRequest
+	{
+		return new PendingOriginInstallationCancelMutationRequest($this, ['installationId' => $installationId]);
 	}
 
 	public function integrationGitlabTestConnectionMutation(string $integrationId): PendingIntegrationGitlabTestConnectionMutationRequest

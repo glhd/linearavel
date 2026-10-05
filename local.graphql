@@ -19690,6 +19690,15 @@ type Query {
     integrationId: String!
   ): IntegrationHasScopesPayload!
 
+  "[Internal] Builds the URL that starts installing Linear's Origin app into a codebase."
+  originInstallUrl: OriginInstallUrlPayload!
+
+  "[Internal] Describes an Origin installation that started on Origin, for its installer to confirm before connecting."
+  originInstallation(
+    "The Origin installation id from the install redirect."
+    installationId: String!
+  ): OriginInstallationDetails!
+
   "[INTERNAL] Fetches a Jira project's status names, split into issue (non-Epic) and project (Epic) statuses."
   integrationJiraProjectStatuses(
     "The Jira project ID to fetch statuses for."
@@ -22308,6 +22317,31 @@ type IntegrationHasScopesPayload {
 
   "The missing scopes."
   missingScopes: [String!]
+}
+
+type OriginInstallUrlPayload {
+  "The Origin URL to send the user to in order to install Linear's app."
+  installUrl: String!
+}
+
+type OriginInstallationDetails {
+  "The slug of the Origin owner the app was installed on."
+  ownerSlug: String!
+
+  "Whether the Origin owner is a `team` or a `user`."
+  ownerType: String
+
+  "Whether the installation covers `all` repositories of the owner or only `selected` ones."
+  repositorySelection: String!
+
+  "The email of the Origin user who installed the app."
+  installedByEmail: String
+
+  "The name of the Origin user who installed the app."
+  installedByName: String
+
+  "Whether the current user installed the app on Origin, which connecting requires."
+  installedByMatchesUser: Boolean!
 }
 
 type JiraProjectStatusesPayload {
@@ -26424,6 +26458,24 @@ type Mutation {
 
   "Rotates the GitLab token, revoking the previous token and saving its replacement."
   integrationGitlabRotate(integrationId: String!): IntegrationPayload!
+
+  "[Internal] Completes the Origin app installation so the workspace receives Origin webhooks."
+  integrationOriginConnect(
+    "The signed `installation_receipt` Origin returned to the install callback."
+    installationReceipt: String!
+  ): IntegrationPayload!
+
+  "[Internal] Connects an Origin installation that started on Origin, after the workspace admin who installed it confirms."
+  integrationOriginConnectInstallation(
+    "The Origin installation id from the install redirect."
+    installationId: String!
+  ): IntegrationPayload!
+
+  "[Internal] Removes Linear's app from an Origin installation that started on Origin and that no workspace connected."
+  originInstallationCancel(
+    "The Origin installation id from the install redirect."
+    installationId: String!
+  ): OriginInstallationCancelPayload!
 
   "Tests connectivity to a self-hosted GitLab instance and clears auth errors if successful."
   integrationGitlabTestConnection(
@@ -31572,6 +31624,11 @@ type GitLabIntegrationCreatePayload {
 
   "Method and post-encoding upstream URI of the failed request, for debugging proxy allowlist rules (e.g. `GET /api/v4/projects/aire%2Fagents`)."
   errorRequest: String
+}
+
+type OriginInstallationCancelPayload {
+  "Whether Linear's app was removed from the installation."
+  success: Boolean!
 }
 
 type GitLabTestConnectionPayload {
