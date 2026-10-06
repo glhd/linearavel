@@ -1,1 +1,5 @@
-The schema changed, but only in ways that do not affect the generated types.
+### Added or widened
+
+- An optional arg ifParentDocumentId on Mutation.documentDelete was added
+- An optional field parentDocumentId on input type DocumentCreateInput was added.
+- An optional field subDocumentSortOrder on input type DocumentCreateInput was added.

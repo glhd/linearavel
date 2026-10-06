@@ -1008,9 +1008,9 @@ trait MutatesLinear
 		return new PendingDocumentUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
 	}
 
-	public function documentDeleteMutation(string $id): PendingDocumentDeleteMutationRequest
+	public function documentDeleteMutation(string $id, ?string $ifParentDocumentId = null): PendingDocumentDeleteMutationRequest
 	{
-		return new PendingDocumentDeleteMutationRequest($this, ['id' => $id]);
+		return new PendingDocumentDeleteMutationRequest($this, ['id' => $id, 'ifParentDocumentId' => $ifParentDocumentId]);
 	}
 
 	public function documentUnarchiveMutation(string $id): PendingDocumentUnarchiveMutationRequest

@@ -38,6 +38,8 @@ class DocumentSearchResult extends Data implements Node
 		public Optional|Issue|null $issue,
 		public Optional|Release|null $release,
 		public Optional|Cycle|null $cycle,
+		public Optional|Document|null $parentDocument,
+		public Optional|float|null $subDocumentSortOrder,
 		public Optional|Template|null $lastAppliedTemplate,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $hiddenAt,

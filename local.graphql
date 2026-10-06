@@ -1619,6 +1619,12 @@ type Document implements Node {
   "[Internal] The cycle that the document is associated with. Null if the document belongs to a different parent entity type."
   cycle: Cycle
 
+  "[Internal] The parent document. Null if the document is not a sub-document."
+  parentDocument: Document
+
+  "[Internal] The sort order of the sub-document among its siblings. Null if the document is not a sub-document."
+  subDocumentSortOrder: Float
+
   "The document's unique URL slug, used to construct human-readable URLs."
   slugId: String!
 
@@ -19690,7 +19696,7 @@ type Query {
     integrationId: String!
   ): IntegrationHasScopesPayload!
 
-  "[Internal] Builds the URL that starts installing Linear's Origin app into a codebase."
+  "[Internal] Builds the URL that starts installing Linear's Origin app into a codebase, or reinstalling it to grant new scopes."
   originInstallUrl: OriginInstallUrlPayload!
 
   "[Internal] Describes an Origin installation that started on Origin, for its installer to confirm before connecting."
@@ -23282,6 +23288,12 @@ type DocumentSearchResult implements Node {
   "[Internal] The cycle that the document is associated with. Null if the document belongs to a different parent entity type."
   cycle: Cycle
 
+  "[Internal] The parent document. Null if the document is not a sub-document."
+  parentDocument: Document
+
+  "[Internal] The sort order of the sub-document among its siblings. Null if the document is not a sub-document."
+  subDocumentSortOrder: Float
+
   "The document's unique URL slug, used to construct human-readable URLs."
   slugId: String!
 
@@ -26023,6 +26035,9 @@ type Mutation {
 
   "Deletes (trashes) a document. The document is marked as trashed and archived, but not permanently removed."
   documentDelete(
+    "[Internal] Only trash the document if it is still a sub-document of this document. Otherwise the mutation fails and the document is left unchanged."
+    ifParentDocumentId: String
+
     "The identifier of the document to delete."
     id: String!
   ): DocumentArchivePayload!
@@ -29920,6 +29935,12 @@ input DocumentCreateInput {
 
   "[Internal] The resource folder containing the document."
   resourceFolderId: String
+
+  "[Internal] The parent document of the sub-document. The container of the document must match the container of the parent document."
+  parentDocumentId: String
+
+  "[Internal] The sort order of the sub-document among its siblings. Defaults to the last position. Requires `parentDocumentId`."
+  subDocumentSortOrder: Float
 
   "The ID of the last template applied to the document."
   lastAppliedTemplateId: String
