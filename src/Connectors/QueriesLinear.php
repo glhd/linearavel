@@ -23,6 +23,7 @@ use Glhd\Linearavel\Requests\Inputs\InitiativeUpdateFilterInput;
 use Glhd\Linearavel\Requests\Inputs\IssueFilterInput;
 use Glhd\Linearavel\Requests\Inputs\IssueLabelFilterInput;
 use Glhd\Linearavel\Requests\Inputs\NotificationFilterInput;
+use Glhd\Linearavel\Requests\Inputs\OrganizationQuotaFilterInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectFilterInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectLabelFilterInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectMilestoneFilterInput;
@@ -147,6 +148,7 @@ use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationMetaQueryRequest
 use Glhd\Linearavel\Requests\Pending\Queries\PendingOrganizationQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingOriginInstallationQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingOriginInstallUrlQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingOriginPendingInstallationsQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingPartnerOfferDetailsQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingPartnerOfferWorkspacesQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingPartnerProgramPartnersQueryRequest;
@@ -165,6 +167,7 @@ use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectStatusQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectUpdateQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingProjectUpdatesQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingPushSubscriptionTestQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingQuotasQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingRateLimitStatusQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingRecentReleasesByAccessKeyQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingReleaseNoteQueryRequest;
@@ -1020,6 +1023,14 @@ trait QueriesLinear
 	}
 
 	/**
+	 * @returns PendingOriginPendingInstallationsQueryRequest
+	 */
+	public function originPendingInstallations(): PendingOriginPendingInstallationsQueryRequest
+	{
+		return new PendingOriginPendingInstallationsQueryRequest($this, []);
+	}
+
+	/**
 	 * @param string $projectId the Jira project ID to fetch statuses for
 	 * @param string $integrationId the id of the Jira integration
 	 * @returns PendingIntegrationJiraProjectStatusesQueryRequest
@@ -1388,6 +1399,19 @@ trait QueriesLinear
 	public function organizationInviteDetails(string $id): PendingOrganizationInviteDetailsQueryRequest
 	{
 		return new PendingOrganizationInviteDetailsQueryRequest($this, ['id' => $id]);
+	}
+
+	/**
+	 * @param ?OrganizationQuotaFilterInput $filter
+	 * @param ?string $before a cursor to be used with last for backward pagination
+	 * @param ?string $after A cursor to be used with first for forward pagination
+	 * @param ?int $first The number of items to forward paginate (used with after). Defaults to 50.
+	 * @param ?int $last The number of items to backward paginate (used with before). Defaults to 50.
+	 * @returns PendingQuotasQueryRequest
+	 */
+	public function quotas(?OrganizationQuotaFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null): PendingQuotasQueryRequest
+	{
+		return new PendingQuotasQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last]);
 	}
 
 	/**

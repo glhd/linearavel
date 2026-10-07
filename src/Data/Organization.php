@@ -33,6 +33,7 @@ class Organization extends Data implements Node
 		public Optional|bool $gitLinkbackMessagesEnabled,
 		public Optional|bool $gitPublicLinkbackMessagesEnabled,
 		public Optional|bool $gitLinkbackDescriptionsEnabled,
+		public Optional|bool $suggestedBranchNameEnabled,
 		public Optional|bool $roadmapEnabled,
 		public Optional|Day $projectUpdateRemindersDay,
 		public Optional|float $projectUpdateRemindersHour,

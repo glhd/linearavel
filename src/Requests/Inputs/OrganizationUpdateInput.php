@@ -17,6 +17,7 @@ class OrganizationUpdateInput
 		public ?bool $gitLinkbackMessagesEnabled = null,
 		public ?bool $gitPublicLinkbackMessagesEnabled = null,
 		public ?bool $gitLinkbackDescriptionsEnabled = null,
+		public ?bool $suggestedBranchNameEnabled = null,
 		public ?bool $roadmapEnabled = null,
 		public ?float $projectUpdateReminderFrequencyInWeeks = null,
 		public ?Day $projectUpdateRemindersDay = null,

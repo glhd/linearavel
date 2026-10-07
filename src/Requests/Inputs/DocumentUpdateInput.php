@@ -21,6 +21,8 @@ class DocumentUpdateInput
 		public ?string $releaseId = null,
 		public ?string $cycleId = null,
 		public ?string $resourceFolderId = null,
+		public ?string $parentDocumentId = null,
+		public ?float $subDocumentSortOrder = null,
 		public ?string $lastAppliedTemplateId = null,
 		public ?string $ownerId = null,
 		public ?DateTimeInterface $hiddenAt = null,

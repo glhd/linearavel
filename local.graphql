@@ -1,14 +1,5 @@
-"A notification related to an issue, such as assignment, comment, mention, status change, or priority change."
-type IssueNotification implements Notification & Entity & Node {
-  "Related comment ID. Null if the notification is not related to a comment."
-  commentId: String
-
-  "Related parent comment ID. Null if the notification is not related to a comment."
-  parentCommentId: String
-
-  "Name of the reaction emoji related to the notification."
-  reactionEmoji: String
-
+"A notification subscription scoped to a specific customer. The subscriber receives notifications for events related to this customer, such as new customer needs or ownership changes."
+type CustomerNotificationSubscription implements NotificationSubscription & Entity & Node {
   "The unique identifier of the entity."
   id: ID!
 
@@ -24,99 +15,51 @@ type IssueNotification implements Notification & Entity & Node {
   "The time at which the entity was archived. Null if the entity has not been archived."
   archivedAt: DateTime
 
-  "Notification type. Determines the kind of event that triggered this notification and which associated entity fields will be populated."
-  type: String!
+  "The user who will receive notifications from this subscription."
+  subscriber: User!
 
-  "The user that caused the notification. Null if the notification was triggered by a non-user actor such as an integration, external user, or system event."
-  actor: User
+  "The customer subscribed to."
+  customer: Customer!
 
-  "The external user that caused the notification. Populated when the notification was triggered by an external user (e.g., a commenter from a connected integration like Slack or GitHub) rather than a Linear workspace member."
-  externalUserActor: ExternalUser
+  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customView: CustomView
 
-  "The recipient user of this notification."
-  user: User!
+  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  cycle: Cycle
 
-  "The time at which the user marked the notification as read. Null if the notification is unread."
-  readAt: DateTime
+  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  label: IssueLabel
 
-  "The time at which an email reminder for this notification was sent to the user. Null if no email reminder has been sent."
-  emailedAt: DateTime
+  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  project: Project
 
-  "The time until which a notification is snoozed. After this time, the notification reappears in the user's inbox. Null if the notification is not currently snoozed."
-  snoozedUntilAt: DateTime
+  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  initiative: Initiative
 
-  "The time at which a notification was unsnoozed. Null if the notification has not been unsnoozed."
-  unsnoozedAt: DateTime
+  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  team: Team
 
-  "The category of the notification."
-  category: NotificationCategory!
+  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
+  user: User
 
-  "[Internal] URL to the target of the notification."
-  url: String!
+  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
+  contextViewType: ContextViewType
 
-  "[Internal] Inbox URL for the notification."
-  inboxUrl: String!
+  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
+  userContextViewType: UserContextViewType
 
-  "[Internal] Notification title."
-  title: String!
+  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
+  active: Boolean!
 
-  "[Internal] Notification subtitle."
-  subtitle: String!
+  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
+  includeSubInitiativeUpdates: Boolean!
 
-  "[Internal] If notification actor was Linear."
-  isLinearActor: Boolean!
-
-  "[Internal] Notification avatar URL."
-  actorAvatarUrl: String
-
-  "[Internal] Notification actor initials if avatar is not available."
-  actorInitials: String
-
-  "[Internal] Notification actor initials if avatar is not available."
-  actorAvatarColor: String!
-
-  "[Internal] Whether the notification's user actor is deactivated in the workspace."
-  actorInactive: Boolean!
-
-  "[Internal] Issue's status type for issue notifications."
-  issueStatusType: String
-
-  "[Internal] Project update health for new updates."
-  projectUpdateHealth: String
-
-  "[Internal] Initiative update health for new updates."
-  initiativeUpdateHealth: String
-
-  "[Internal] Notifications with the same grouping key will be grouped together in the UI."
-  groupingKey: String!
-
-  "[Internal] Priority of the notification with the same grouping key. Higher number means higher priority. If priority is the same, notifications should be sorted by `createdAt`."
-  groupingPriority: Float!
-
-  "The bot that caused the notification."
-  botActor: ActorBot
-
-  "Related issue ID."
-  issueId: String!
-
-  "The issue related to the notification."
-  issue: Issue!
-
-  "The comment related to the notification."
-  comment: Comment
-
-  "The parent comment related to the notification, if a notification is a reply comment notification."
-  parentComment: Comment
-
-  "The team related to the issue notification."
-  team: Team!
-
-  "The subscriptions related to the notification."
-  subscriptions: [NotificationSubscription!]
+  "The notification event types that this subscription will deliver to the subscriber."
+  notificationSubscriptionTypes: [String!]!
 }
 
-"A notification delivered to a user's inbox. Notifications are created in response to activity in the workspace such as issue assignments, comments, mentions, and status changes. Each notification has a specific type that determines the associated entity (issue, project, document, etc.) and the nature of the event. Notifications can be read, snoozed, or archived by the user."
-interface Notification implements Entity & Node {
+"A subscription that controls which notifications a user receives for a specific entity such as a team, project, cycle, label, custom view, initiative, or user. This is not a billing subscription -- it determines notification preferences. Each subscription is scoped to exactly one target entity and specifies the notification types the subscriber wants to receive. When active, matching events on the target entity generate notifications for the subscriber."
+interface NotificationSubscription implements Entity & Node {
   "The unique identifier of the entity."
   id: ID!
 
@@ -132,77 +75,44 @@ interface Notification implements Entity & Node {
   "The time at which the entity was archived. Null if the entity has not been archived."
   archivedAt: DateTime
 
-  "Notification type. Determines the kind of event that triggered this notification and which associated entity fields will be populated."
-  type: String!
+  "The user who will receive notifications from this subscription."
+  subscriber: User!
 
-  "The user that caused the notification. Null if the notification was triggered by a non-user actor such as an integration, external user, or system event."
-  actor: User
+  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customer: Customer
 
-  "The external user that caused the notification. Populated when the notification was triggered by an external user (e.g., a commenter from a connected integration like Slack or GitHub) rather than a Linear workspace member."
-  externalUserActor: ExternalUser
+  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customView: CustomView
 
-  "The recipient user of this notification."
-  user: User!
+  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  cycle: Cycle
 
-  "The time at which the user marked the notification as read. Null if the notification is unread."
-  readAt: DateTime
+  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  label: IssueLabel
 
-  "The time at which an email reminder for this notification was sent to the user. Null if no email reminder has been sent."
-  emailedAt: DateTime
+  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  project: Project
 
-  "The time until which a notification is snoozed. After this time, the notification reappears in the user's inbox. Null if the notification is not currently snoozed."
-  snoozedUntilAt: DateTime
+  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  initiative: Initiative
 
-  "The time at which a notification was unsnoozed. Null if the notification has not been unsnoozed."
-  unsnoozedAt: DateTime
+  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  team: Team
 
-  "The category of the notification."
-  category: NotificationCategory!
+  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
+  user: User
 
-  "[Internal] URL to the target of the notification."
-  url: String!
+  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
+  contextViewType: ContextViewType
 
-  "[Internal] Inbox URL for the notification."
-  inboxUrl: String!
+  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
+  userContextViewType: UserContextViewType
 
-  "[Internal] Notification title."
-  title: String!
+  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
+  active: Boolean!
 
-  "[Internal] Notification subtitle."
-  subtitle: String!
-
-  "[Internal] If notification actor was Linear."
-  isLinearActor: Boolean!
-
-  "[Internal] Notification avatar URL."
-  actorAvatarUrl: String
-
-  "[Internal] Notification actor initials if avatar is not available."
-  actorInitials: String
-
-  "[Internal] Notification actor initials if avatar is not available."
-  actorAvatarColor: String!
-
-  "[Internal] Whether the notification's user actor is deactivated in the workspace."
-  actorInactive: Boolean!
-
-  "[Internal] Issue's status type for issue notifications."
-  issueStatusType: String
-
-  "[Internal] Project update health for new updates."
-  projectUpdateHealth: String
-
-  "[Internal] Initiative update health for new updates."
-  initiativeUpdateHealth: String
-
-  "[Internal] Notifications with the same grouping key will be grouped together in the UI."
-  groupingKey: String!
-
-  "[Internal] Priority of the notification with the same grouping key. Higher number means higher priority. If priority is the same, notifications should be sorted by `createdAt`."
-  groupingPriority: Float!
-
-  "The bot that caused the notification."
-  botActor: ActorBot
+  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
+  includeSubInitiativeUpdates: Boolean!
 }
 
 "A basic entity."
@@ -568,6 +478,9 @@ type Organization implements Node {
 
   "Whether issue descriptions should be included in the Git integration linkback messages posted to pull requests."
   gitLinkbackDescriptionsEnabled: Boolean!
+
+  "Whether the default prompt for copying an issue or opening it in a coding tool includes a suggested Git branch name."
+  suggestedBranchNameEnabled: Boolean!
 
   "Whether the roadmap feature is enabled for the workspace."
   roadmapEnabled: Boolean!
@@ -16857,29 +16770,368 @@ type FacetEdge {
   cursor: String!
 }
 
-"The categories of notifications a user can subscribe to."
-enum NotificationCategory {
-  assignments
-  statusChanges
-  commentsAndReplies
-  mentions
-  reactions
-  subscriptions
-  documentChanges
-  postsAndUpdates
-  reminders
-  reviews
-  loops
-  appsAndIntegrations
-  triage
-  customers
-  feed
-  billing
-  system
+"A notification subscription scoped to a specific custom view. The subscriber receives notifications for events matching the custom view's filter criteria."
+type CustomViewNotificationSubscription implements NotificationSubscription & Entity & Node {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  """
+  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
+      been updated after creation.
+  """
+  updatedAt: DateTime!
+
+  "The time at which the entity was archived. Null if the entity has not been archived."
+  archivedAt: DateTime
+
+  "The user who will receive notifications from this subscription."
+  subscriber: User!
+
+  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customer: Customer
+
+  "The custom view subscribed to."
+  customView: CustomView!
+
+  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  cycle: Cycle
+
+  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  label: IssueLabel
+
+  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  project: Project
+
+  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  initiative: Initiative
+
+  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  team: Team
+
+  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
+  user: User
+
+  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
+  contextViewType: ContextViewType
+
+  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
+  userContextViewType: UserContextViewType
+
+  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
+  active: Boolean!
+
+  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
+  includeSubInitiativeUpdates: Boolean!
+
+  "The notification event types that this subscription will deliver to the subscriber."
+  notificationSubscriptionTypes: [String!]!
 }
 
-"A subscription that controls which notifications a user receives for a specific entity such as a team, project, cycle, label, custom view, initiative, or user. This is not a billing subscription -- it determines notification preferences. Each subscription is scoped to exactly one target entity and specifies the notification types the subscriber wants to receive. When active, matching events on the target entity generate notifications for the subscriber."
-interface NotificationSubscription implements Entity & Node {
+"A notification subscription scoped to a specific cycle. The subscriber receives notifications for events related to issues in this cycle."
+type CycleNotificationSubscription implements NotificationSubscription & Entity & Node {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  """
+  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
+      been updated after creation.
+  """
+  updatedAt: DateTime!
+
+  "The time at which the entity was archived. Null if the entity has not been archived."
+  archivedAt: DateTime
+
+  "The user who will receive notifications from this subscription."
+  subscriber: User!
+
+  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customer: Customer
+
+  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customView: CustomView
+
+  "The cycle subscribed to."
+  cycle: Cycle!
+
+  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  label: IssueLabel
+
+  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  project: Project
+
+  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  initiative: Initiative
+
+  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  team: Team
+
+  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
+  user: User
+
+  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
+  contextViewType: ContextViewType
+
+  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
+  userContextViewType: UserContextViewType
+
+  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
+  active: Boolean!
+
+  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
+  includeSubInitiativeUpdates: Boolean!
+
+  "The notification event types that this subscription will deliver to the subscriber."
+  notificationSubscriptionTypes: [String!]!
+}
+
+"A notification subscription scoped to a specific issue label. The subscriber receives notifications for events related to issues with this label."
+type LabelNotificationSubscription implements NotificationSubscription & Entity & Node {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  """
+  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
+      been updated after creation.
+  """
+  updatedAt: DateTime!
+
+  "The time at which the entity was archived. Null if the entity has not been archived."
+  archivedAt: DateTime
+
+  "The user who will receive notifications from this subscription."
+  subscriber: User!
+
+  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customer: Customer
+
+  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customView: CustomView
+
+  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  cycle: Cycle
+
+  "The label subscribed to."
+  label: IssueLabel!
+
+  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  project: Project
+
+  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  initiative: Initiative
+
+  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  team: Team
+
+  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
+  user: User
+
+  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
+  contextViewType: ContextViewType
+
+  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
+  userContextViewType: UserContextViewType
+
+  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
+  active: Boolean!
+
+  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
+  includeSubInitiativeUpdates: Boolean!
+
+  "The notification event types that this subscription will deliver to the subscriber."
+  notificationSubscriptionTypes: [String!]!
+}
+
+"A notification subscription scoped to a specific project. The subscriber receives notifications for events related to this project, such as updates, comments, and membership changes."
+type ProjectNotificationSubscription implements NotificationSubscription & Entity & Node {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  """
+  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
+      been updated after creation.
+  """
+  updatedAt: DateTime!
+
+  "The time at which the entity was archived. Null if the entity has not been archived."
+  archivedAt: DateTime
+
+  "The user who will receive notifications from this subscription."
+  subscriber: User!
+
+  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customer: Customer
+
+  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customView: CustomView
+
+  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  cycle: Cycle
+
+  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  label: IssueLabel
+
+  "The project subscribed to."
+  project: Project!
+
+  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  initiative: Initiative
+
+  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  team: Team
+
+  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
+  user: User
+
+  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
+  contextViewType: ContextViewType
+
+  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
+  userContextViewType: UserContextViewType
+
+  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
+  active: Boolean!
+
+  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
+  includeSubInitiativeUpdates: Boolean!
+
+  "The notification event types that this subscription will deliver to the subscriber."
+  notificationSubscriptionTypes: [String!]!
+}
+
+"A notification subscription scoped to a specific initiative. The subscriber receives notifications for events related to this initiative, such as updates, comments, and ownership changes."
+type InitiativeNotificationSubscription implements NotificationSubscription & Entity & Node {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  """
+  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
+      been updated after creation.
+  """
+  updatedAt: DateTime!
+
+  "The time at which the entity was archived. Null if the entity has not been archived."
+  archivedAt: DateTime
+
+  "The user who will receive notifications from this subscription."
+  subscriber: User!
+
+  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customer: Customer
+
+  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customView: CustomView
+
+  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  cycle: Cycle
+
+  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  label: IssueLabel
+
+  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  project: Project
+
+  "The initiative subscribed to."
+  initiative: Initiative!
+
+  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  team: Team
+
+  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
+  user: User
+
+  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
+  contextViewType: ContextViewType
+
+  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
+  userContextViewType: UserContextViewType
+
+  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
+  active: Boolean!
+
+  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
+  includeSubInitiativeUpdates: Boolean!
+
+  "The notification event types that this subscription will deliver to the subscriber."
+  notificationSubscriptionTypes: [String!]!
+}
+
+"A notification subscription scoped to a specific team. The subscriber receives notifications for events related to issues and activity in this team."
+type TeamNotificationSubscription implements NotificationSubscription & Entity & Node {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  """
+  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
+      been updated after creation.
+  """
+  updatedAt: DateTime!
+
+  "The time at which the entity was archived. Null if the entity has not been archived."
+  archivedAt: DateTime
+
+  "The user who will receive notifications from this subscription."
+  subscriber: User!
+
+  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customer: Customer
+
+  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  customView: CustomView
+
+  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  cycle: Cycle
+
+  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  label: IssueLabel
+
+  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  project: Project
+
+  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
+  initiative: Initiative
+
+  "The team subscribed to."
+  team: Team!
+
+  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
+  user: User
+
+  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
+  contextViewType: ContextViewType
+
+  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
+  userContextViewType: UserContextViewType
+
+  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
+  active: Boolean!
+
+  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
+  includeSubInitiativeUpdates: Boolean!
+
+  "The notification event types that this subscription will deliver to the subscriber."
+  notificationSubscriptionTypes: [String!]!
+}
+
+"A notification subscription scoped to a specific user view. The subscriber receives notifications for events in the context of a particular user's activity view."
+type UserNotificationSubscription implements NotificationSubscription & Entity & Node {
   "The unique identifier of the entity."
   id: ID!
 
@@ -16919,8 +17171,8 @@ interface NotificationSubscription implements Entity & Node {
   "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   team: Team
 
-  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
-  user: User
+  "The user subscribed to."
+  user: User!
 
   "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
   contextViewType: ContextViewType
@@ -16933,6 +17185,237 @@ interface NotificationSubscription implements Entity & Node {
 
   "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
   includeSubInitiativeUpdates: Boolean!
+
+  "The notification event types that this subscription will deliver to the subscriber."
+  notificationSubscriptionTypes: [String!]!
+}
+
+"A notification related to an issue, such as assignment, comment, mention, status change, or priority change."
+type IssueNotification implements Notification & Entity & Node {
+  "Related comment ID. Null if the notification is not related to a comment."
+  commentId: String
+
+  "Related parent comment ID. Null if the notification is not related to a comment."
+  parentCommentId: String
+
+  "Name of the reaction emoji related to the notification."
+  reactionEmoji: String
+
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  """
+  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
+      been updated after creation.
+  """
+  updatedAt: DateTime!
+
+  "The time at which the entity was archived. Null if the entity has not been archived."
+  archivedAt: DateTime
+
+  "Notification type. Determines the kind of event that triggered this notification and which associated entity fields will be populated."
+  type: String!
+
+  "The user that caused the notification. Null if the notification was triggered by a non-user actor such as an integration, external user, or system event."
+  actor: User
+
+  "The external user that caused the notification. Populated when the notification was triggered by an external user (e.g., a commenter from a connected integration like Slack or GitHub) rather than a Linear workspace member."
+  externalUserActor: ExternalUser
+
+  "The recipient user of this notification."
+  user: User!
+
+  "The time at which the user marked the notification as read. Null if the notification is unread."
+  readAt: DateTime
+
+  "The time at which an email reminder for this notification was sent to the user. Null if no email reminder has been sent."
+  emailedAt: DateTime
+
+  "The time until which a notification is snoozed. After this time, the notification reappears in the user's inbox. Null if the notification is not currently snoozed."
+  snoozedUntilAt: DateTime
+
+  "The time at which a notification was unsnoozed. Null if the notification has not been unsnoozed."
+  unsnoozedAt: DateTime
+
+  "The category of the notification."
+  category: NotificationCategory!
+
+  "[Internal] URL to the target of the notification."
+  url: String!
+
+  "[Internal] Inbox URL for the notification."
+  inboxUrl: String!
+
+  "[Internal] Notification title."
+  title: String!
+
+  "[Internal] Notification subtitle."
+  subtitle: String!
+
+  "[Internal] If notification actor was Linear."
+  isLinearActor: Boolean!
+
+  "[Internal] Notification avatar URL."
+  actorAvatarUrl: String
+
+  "[Internal] Notification actor initials if avatar is not available."
+  actorInitials: String
+
+  "[Internal] Notification actor initials if avatar is not available."
+  actorAvatarColor: String!
+
+  "[Internal] Whether the notification's user actor is deactivated in the workspace."
+  actorInactive: Boolean!
+
+  "[Internal] Issue's status type for issue notifications."
+  issueStatusType: String
+
+  "[Internal] Project update health for new updates."
+  projectUpdateHealth: String
+
+  "[Internal] Initiative update health for new updates."
+  initiativeUpdateHealth: String
+
+  "[Internal] Notifications with the same grouping key will be grouped together in the UI."
+  groupingKey: String!
+
+  "[Internal] Priority of the notification with the same grouping key. Higher number means higher priority. If priority is the same, notifications should be sorted by `createdAt`."
+  groupingPriority: Float!
+
+  "The bot that caused the notification."
+  botActor: ActorBot
+
+  "Related issue ID."
+  issueId: String!
+
+  "The issue related to the notification."
+  issue: Issue!
+
+  "The comment related to the notification."
+  comment: Comment
+
+  "The parent comment related to the notification, if a notification is a reply comment notification."
+  parentComment: Comment
+
+  "The team related to the issue notification."
+  team: Team!
+
+  "The subscriptions related to the notification."
+  subscriptions: [NotificationSubscription!]
+}
+
+"A notification delivered to a user's inbox. Notifications are created in response to activity in the workspace such as issue assignments, comments, mentions, and status changes. Each notification has a specific type that determines the associated entity (issue, project, document, etc.) and the nature of the event. Notifications can be read, snoozed, or archived by the user."
+interface Notification implements Entity & Node {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  """
+  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
+      been updated after creation.
+  """
+  updatedAt: DateTime!
+
+  "The time at which the entity was archived. Null if the entity has not been archived."
+  archivedAt: DateTime
+
+  "Notification type. Determines the kind of event that triggered this notification and which associated entity fields will be populated."
+  type: String!
+
+  "The user that caused the notification. Null if the notification was triggered by a non-user actor such as an integration, external user, or system event."
+  actor: User
+
+  "The external user that caused the notification. Populated when the notification was triggered by an external user (e.g., a commenter from a connected integration like Slack or GitHub) rather than a Linear workspace member."
+  externalUserActor: ExternalUser
+
+  "The recipient user of this notification."
+  user: User!
+
+  "The time at which the user marked the notification as read. Null if the notification is unread."
+  readAt: DateTime
+
+  "The time at which an email reminder for this notification was sent to the user. Null if no email reminder has been sent."
+  emailedAt: DateTime
+
+  "The time until which a notification is snoozed. After this time, the notification reappears in the user's inbox. Null if the notification is not currently snoozed."
+  snoozedUntilAt: DateTime
+
+  "The time at which a notification was unsnoozed. Null if the notification has not been unsnoozed."
+  unsnoozedAt: DateTime
+
+  "The category of the notification."
+  category: NotificationCategory!
+
+  "[Internal] URL to the target of the notification."
+  url: String!
+
+  "[Internal] Inbox URL for the notification."
+  inboxUrl: String!
+
+  "[Internal] Notification title."
+  title: String!
+
+  "[Internal] Notification subtitle."
+  subtitle: String!
+
+  "[Internal] If notification actor was Linear."
+  isLinearActor: Boolean!
+
+  "[Internal] Notification avatar URL."
+  actorAvatarUrl: String
+
+  "[Internal] Notification actor initials if avatar is not available."
+  actorInitials: String
+
+  "[Internal] Notification actor initials if avatar is not available."
+  actorAvatarColor: String!
+
+  "[Internal] Whether the notification's user actor is deactivated in the workspace."
+  actorInactive: Boolean!
+
+  "[Internal] Issue's status type for issue notifications."
+  issueStatusType: String
+
+  "[Internal] Project update health for new updates."
+  projectUpdateHealth: String
+
+  "[Internal] Initiative update health for new updates."
+  initiativeUpdateHealth: String
+
+  "[Internal] Notifications with the same grouping key will be grouped together in the UI."
+  groupingKey: String!
+
+  "[Internal] Priority of the notification with the same grouping key. Higher number means higher priority. If priority is the same, notifications should be sorted by `createdAt`."
+  groupingPriority: Float!
+
+  "The bot that caused the notification."
+  botActor: ActorBot
+}
+
+"The categories of notifications a user can subscribe to."
+enum NotificationCategory {
+  assignments
+  statusChanges
+  commentsAndReplies
+  mentions
+  reactions
+  subscriptions
+  documentChanges
+  postsAndUpdates
+  reminders
+  reviews
+  loops
+  appsAndIntegrations
+  triage
+  customers
+  feed
+  billing
+  system
 }
 
 "A notification related to a project, such as being added as a member or lead, project updates, comments, or mentions on the project or its milestones."
@@ -18361,486 +18844,6 @@ type WorkflowDefinitionNotification implements Notification & Entity & Node {
   aiConversationId: String
 }
 
-"A notification subscription scoped to a specific customer. The subscriber receives notifications for events related to this customer, such as new customer needs or ownership changes."
-type CustomerNotificationSubscription implements NotificationSubscription & Entity & Node {
-  "The unique identifier of the entity."
-  id: ID!
-
-  "The time at which the entity was created."
-  createdAt: DateTime!
-
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-
-  "The time at which the entity was archived. Null if the entity has not been archived."
-  archivedAt: DateTime
-
-  "The user who will receive notifications from this subscription."
-  subscriber: User!
-
-  "The customer subscribed to."
-  customer: Customer!
-
-  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customView: CustomView
-
-  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  cycle: Cycle
-
-  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  label: IssueLabel
-
-  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  project: Project
-
-  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  initiative: Initiative
-
-  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  team: Team
-
-  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
-  user: User
-
-  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
-  contextViewType: ContextViewType
-
-  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
-  userContextViewType: UserContextViewType
-
-  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
-  active: Boolean!
-
-  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
-  includeSubInitiativeUpdates: Boolean!
-
-  "The notification event types that this subscription will deliver to the subscriber."
-  notificationSubscriptionTypes: [String!]!
-}
-
-"A notification subscription scoped to a specific custom view. The subscriber receives notifications for events matching the custom view's filter criteria."
-type CustomViewNotificationSubscription implements NotificationSubscription & Entity & Node {
-  "The unique identifier of the entity."
-  id: ID!
-
-  "The time at which the entity was created."
-  createdAt: DateTime!
-
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-
-  "The time at which the entity was archived. Null if the entity has not been archived."
-  archivedAt: DateTime
-
-  "The user who will receive notifications from this subscription."
-  subscriber: User!
-
-  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customer: Customer
-
-  "The custom view subscribed to."
-  customView: CustomView!
-
-  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  cycle: Cycle
-
-  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  label: IssueLabel
-
-  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  project: Project
-
-  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  initiative: Initiative
-
-  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  team: Team
-
-  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
-  user: User
-
-  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
-  contextViewType: ContextViewType
-
-  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
-  userContextViewType: UserContextViewType
-
-  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
-  active: Boolean!
-
-  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
-  includeSubInitiativeUpdates: Boolean!
-
-  "The notification event types that this subscription will deliver to the subscriber."
-  notificationSubscriptionTypes: [String!]!
-}
-
-"A notification subscription scoped to a specific cycle. The subscriber receives notifications for events related to issues in this cycle."
-type CycleNotificationSubscription implements NotificationSubscription & Entity & Node {
-  "The unique identifier of the entity."
-  id: ID!
-
-  "The time at which the entity was created."
-  createdAt: DateTime!
-
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-
-  "The time at which the entity was archived. Null if the entity has not been archived."
-  archivedAt: DateTime
-
-  "The user who will receive notifications from this subscription."
-  subscriber: User!
-
-  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customer: Customer
-
-  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customView: CustomView
-
-  "The cycle subscribed to."
-  cycle: Cycle!
-
-  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  label: IssueLabel
-
-  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  project: Project
-
-  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  initiative: Initiative
-
-  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  team: Team
-
-  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
-  user: User
-
-  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
-  contextViewType: ContextViewType
-
-  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
-  userContextViewType: UserContextViewType
-
-  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
-  active: Boolean!
-
-  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
-  includeSubInitiativeUpdates: Boolean!
-
-  "The notification event types that this subscription will deliver to the subscriber."
-  notificationSubscriptionTypes: [String!]!
-}
-
-"A notification subscription scoped to a specific issue label. The subscriber receives notifications for events related to issues with this label."
-type LabelNotificationSubscription implements NotificationSubscription & Entity & Node {
-  "The unique identifier of the entity."
-  id: ID!
-
-  "The time at which the entity was created."
-  createdAt: DateTime!
-
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-
-  "The time at which the entity was archived. Null if the entity has not been archived."
-  archivedAt: DateTime
-
-  "The user who will receive notifications from this subscription."
-  subscriber: User!
-
-  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customer: Customer
-
-  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customView: CustomView
-
-  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  cycle: Cycle
-
-  "The label subscribed to."
-  label: IssueLabel!
-
-  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  project: Project
-
-  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  initiative: Initiative
-
-  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  team: Team
-
-  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
-  user: User
-
-  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
-  contextViewType: ContextViewType
-
-  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
-  userContextViewType: UserContextViewType
-
-  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
-  active: Boolean!
-
-  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
-  includeSubInitiativeUpdates: Boolean!
-
-  "The notification event types that this subscription will deliver to the subscriber."
-  notificationSubscriptionTypes: [String!]!
-}
-
-"A notification subscription scoped to a specific project. The subscriber receives notifications for events related to this project, such as updates, comments, and membership changes."
-type ProjectNotificationSubscription implements NotificationSubscription & Entity & Node {
-  "The unique identifier of the entity."
-  id: ID!
-
-  "The time at which the entity was created."
-  createdAt: DateTime!
-
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-
-  "The time at which the entity was archived. Null if the entity has not been archived."
-  archivedAt: DateTime
-
-  "The user who will receive notifications from this subscription."
-  subscriber: User!
-
-  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customer: Customer
-
-  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customView: CustomView
-
-  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  cycle: Cycle
-
-  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  label: IssueLabel
-
-  "The project subscribed to."
-  project: Project!
-
-  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  initiative: Initiative
-
-  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  team: Team
-
-  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
-  user: User
-
-  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
-  contextViewType: ContextViewType
-
-  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
-  userContextViewType: UserContextViewType
-
-  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
-  active: Boolean!
-
-  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
-  includeSubInitiativeUpdates: Boolean!
-
-  "The notification event types that this subscription will deliver to the subscriber."
-  notificationSubscriptionTypes: [String!]!
-}
-
-"A notification subscription scoped to a specific initiative. The subscriber receives notifications for events related to this initiative, such as updates, comments, and ownership changes."
-type InitiativeNotificationSubscription implements NotificationSubscription & Entity & Node {
-  "The unique identifier of the entity."
-  id: ID!
-
-  "The time at which the entity was created."
-  createdAt: DateTime!
-
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-
-  "The time at which the entity was archived. Null if the entity has not been archived."
-  archivedAt: DateTime
-
-  "The user who will receive notifications from this subscription."
-  subscriber: User!
-
-  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customer: Customer
-
-  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customView: CustomView
-
-  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  cycle: Cycle
-
-  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  label: IssueLabel
-
-  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  project: Project
-
-  "The initiative subscribed to."
-  initiative: Initiative!
-
-  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  team: Team
-
-  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
-  user: User
-
-  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
-  contextViewType: ContextViewType
-
-  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
-  userContextViewType: UserContextViewType
-
-  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
-  active: Boolean!
-
-  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
-  includeSubInitiativeUpdates: Boolean!
-
-  "The notification event types that this subscription will deliver to the subscriber."
-  notificationSubscriptionTypes: [String!]!
-}
-
-"A notification subscription scoped to a specific team. The subscriber receives notifications for events related to issues and activity in this team."
-type TeamNotificationSubscription implements NotificationSubscription & Entity & Node {
-  "The unique identifier of the entity."
-  id: ID!
-
-  "The time at which the entity was created."
-  createdAt: DateTime!
-
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-
-  "The time at which the entity was archived. Null if the entity has not been archived."
-  archivedAt: DateTime
-
-  "The user who will receive notifications from this subscription."
-  subscriber: User!
-
-  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customer: Customer
-
-  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customView: CustomView
-
-  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  cycle: Cycle
-
-  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  label: IssueLabel
-
-  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  project: Project
-
-  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  initiative: Initiative
-
-  "The team subscribed to."
-  team: Team!
-
-  "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
-  user: User
-
-  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
-  contextViewType: ContextViewType
-
-  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
-  userContextViewType: UserContextViewType
-
-  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
-  active: Boolean!
-
-  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
-  includeSubInitiativeUpdates: Boolean!
-
-  "The notification event types that this subscription will deliver to the subscriber."
-  notificationSubscriptionTypes: [String!]!
-}
-
-"A notification subscription scoped to a specific user view. The subscriber receives notifications for events in the context of a particular user's activity view."
-type UserNotificationSubscription implements NotificationSubscription & Entity & Node {
-  "The unique identifier of the entity."
-  id: ID!
-
-  "The time at which the entity was created."
-  createdAt: DateTime!
-
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-
-  "The time at which the entity was archived. Null if the entity has not been archived."
-  archivedAt: DateTime
-
-  "The user who will receive notifications from this subscription."
-  subscriber: User!
-
-  "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customer: Customer
-
-  "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  customView: CustomView
-
-  "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  cycle: Cycle
-
-  "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  label: IssueLabel
-
-  "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  project: Project
-
-  "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  initiative: Initiative
-
-  "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
-  team: Team
-
-  "The user subscribed to."
-  user: User!
-
-  "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
-  contextViewType: ContextViewType
-
-  "The type of user-specific view that further scopes a user notification subscription. Null if the subscription is not associated with a user view type."
-  userContextViewType: UserContextViewType
-
-  "Whether the subscription is active. When inactive, no notifications are generated from this subscription even though it still exists."
-  active: Boolean!
-
-  "Whether initiative update notifications also include updates from sub-initiatives. Applies only when initiative updates are enabled and the workspace supports sub-initiatives."
-  includeSubInitiativeUpdates: Boolean!
-
-  "The notification event types that this subscription will deliver to the subscriber."
-  notificationSubscriptionTypes: [String!]!
-}
-
 type Query {
   "Returns all projects in the workspace, with optional filtering and sorting."
   projects(
@@ -19705,6 +19708,9 @@ type Query {
     installationId: String!
   ): OriginInstallationDetails!
 
+  "[Internal] Lists the Origin installations the current user started on Origin that no workspace has connected yet, matched by the user's email."
+  originPendingInstallations: [OriginInstallationDetails!]!
+
   "[INTERNAL] Fetches a Jira project's status names, split into issue (non-Epic) and project (Epic) statuses."
   integrationJiraProjectStatuses(
     "The Jira project ID to fetch statuses for."
@@ -20103,6 +20109,23 @@ type Query {
     "The identifier of the invite to retrieve details for."
     id: String!
   ): OrganizationInviteDetailsPayload!
+
+  "Public resource quotas for the authenticated workspace. These are not subscription limits."
+  quotas(
+    filter: OrganizationQuotaFilter
+
+    "A cursor to be used with last for backward pagination."
+    before: String
+
+    "A cursor to be used with first for forward pagination"
+    after: String
+
+    "The number of items to forward paginate (used with after). Defaults to 50."
+    first: Int
+
+    "The number of items to backward paginate (used with before). Defaults to 50."
+    last: Int
+  ): OrganizationQuotaConnection!
 
   "The authenticated user's workspace."
   organization: Organization!
@@ -22331,6 +22354,9 @@ type OriginInstallUrlPayload {
 }
 
 type OriginInstallationDetails {
+  "The Origin installation id."
+  installationId: String!
+
   "The slug of the Origin owner the app was installed on."
   ownerSlug: String!
 
@@ -22340,14 +22366,8 @@ type OriginInstallationDetails {
   "Whether the installation covers `all` repositories of the owner or only `selected` ones."
   repositorySelection: String!
 
-  "The email of the Origin user who installed the app."
-  installedByEmail: String
-
-  "The name of the Origin user who installed the app."
-  installedByName: String
-
-  "Whether the current user installed the app on Origin, which connecting requires."
-  installedByMatchesUser: Boolean!
+  "Whether the installation is already connected to the current workspace, as after a reinstall that updated it."
+  connectedToWorkspace: Boolean!
 }
 
 type JiraProjectStatusesPayload {
@@ -22819,6 +22839,41 @@ enum OrganizationInviteStatus {
 type OrganizationAcceptedOrExpiredInviteDetailsPayload {
   "The status of the invite."
   status: OrganizationInviteStatus!
+}
+
+type OrganizationQuotaConnection {
+  edges: [OrganizationQuotaEdge!]!
+  nodes: [OrganizationQuota!]!
+  pageInfo: PageInfo!
+}
+
+type OrganizationQuotaEdge {
+  node: OrganizationQuota!
+
+  "Used in `before` and `after` args"
+  cursor: String!
+}
+
+"A public resource quota for the current workspace."
+type OrganizationQuota implements Node {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "Stable quota key."
+  key: String!
+
+  "Effective quota limit, including workspace overrides."
+  limit: Float!
+
+  name: String!
+  description: String!
+}
+
+"Filter public workspace quotas by key."
+input OrganizationQuotaFilter {
+  key: StringComparator
+  and: [OrganizationQuotaFilter!]
+  or: [OrganizationQuotaFilter!]
 }
 
 "Response for checking whether a workspace exists."
@@ -29993,6 +30048,12 @@ input DocumentUpdateInput {
   "[Internal] The resource folder containing the document."
   resourceFolderId: String
 
+  "[Internal] The parent document of the sub-document. The document and its sub-documents move to the container of the parent document. Set to null to make the document a top-level document in its container."
+  parentDocumentId: String
+
+  "[Internal] The sort order of the sub-document among its siblings."
+  subDocumentSortOrder: Float
+
   "The ID of the last template applied to the document."
   lastAppliedTemplateId: String
 
@@ -32926,6 +32987,9 @@ input OrganizationUpdateInput {
 
   "Whether issue descriptions should be included in Git integration linkback messages."
   gitLinkbackDescriptionsEnabled: Boolean
+
+  "Whether the default prompt for copying an issue or opening it in a coding tool includes a suggested Git branch name."
+  suggestedBranchNameEnabled: Boolean
 
   "Whether the workspace is using roadmap."
   roadmapEnabled: Boolean

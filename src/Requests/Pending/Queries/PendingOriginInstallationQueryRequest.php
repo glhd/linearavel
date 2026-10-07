@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOriginInstallationQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['ownerSlug', 'repositorySelection', 'installedByMatchesUser', 'ownerType', 'installedByEmail', 'installedByName'];
+	protected const DEFAULT_ATTRIBUTES = ['installationId', 'ownerSlug', 'repositorySelection', 'connectedToWorkspace', 'ownerType'];
 
 	protected const ARGUMENT_TYPES = ['installationId' => 'String!'];
 
