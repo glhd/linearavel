@@ -1,11 +1,5 @@
-### Removed or narrowed
-
-- OriginInstallationDetails.installedByEmail was removed.
-- OriginInstallationDetails.installedByMatchesUser was removed.
-- OriginInstallationDetails.installedByName was removed.
-
 ### Added or widened
 
-- An optional field parentDocumentId on input type DocumentUpdateInput was added.
-- An optional field subDocumentSortOrder on input type DocumentUpdateInput was added.
-- An optional field suggestedBranchNameEnabled on input type OrganizationUpdateInput was added.
+- An optional field agentAutomationEnabled on input type TeamUpdateInput was added.
+- An optional field codingAgentEnabled on input type TeamUpdateInput was added.
+- An optional field personalUserId on input type DocumentUpdateInput was added.

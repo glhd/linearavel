@@ -1043,6 +1043,12 @@ type Team implements Node {
   "Whether to enable AI discussion summaries for issues in this team."
   aiDiscussionSummariesEnabled: Boolean!
 
+  "[Internal] Whether the team has enabled agent automation."
+  agentAutomationEnabled: Boolean!
+
+  "[Internal] Whether the team has enabled Coding Sessions."
+  codingAgentEnabled: Boolean!
+
   "Whether to send new issue notifications to Slack."
   slackNewIssue: Boolean! @deprecated(reason: "No longer is use")
 
@@ -1201,6 +1207,9 @@ type Team implements Node {
     "The user ID."
     userId: String!
   ): TeamMembership
+
+  "Whether the viewer can add themselves to the team. False when the viewer is already a member, the team is archived, retired, or SCIM-managed, the viewer lacks the plan access or permission to add themselves, or the viewer has reached their team membership limit. Runs the same checks `teamMembershipCreate` applies to a viewer joining on their own."
+  viewerCanJoin: Boolean!
 
   "Memberships associated with the team. For easier access of the same data, use `members` query."
   memberships(
@@ -21265,7 +21274,7 @@ type AuthResolverResponse {
   token: String @deprecated(reason: "Deprecated and not used anymore. Never populated.")
 }
 
-"A user that has access to the the resources of an organization."
+"A user that has access to the resources of an organization."
 type AuthUser {
   "The time at which the entity was created."
   createdAt: DateTime!
@@ -30071,6 +30080,9 @@ input DocumentUpdateInput {
 
   "[INTERNAL] The identifiers of the users subscribing to this document."
   subscriberIds: [String!]
+
+  "[Internal] Moves the document and its sub-documents into this user's personal space. Must be the acting user."
+  personalUserId: String
 }
 
 "A generic payload return from entity archive mutations."
@@ -34634,7 +34646,7 @@ input TeamCreateInput {
   "Auto assign completed issues to current active cycle setting."
   cycleIssueAutoAssignCompleted: Boolean
 
-  "Only allow issues issues with cycles in Active Issues."
+  "Only allow issues with cycles in Active Issues."
   cycleLockToActive: Boolean
 
   "How many upcoming cycles to create."
@@ -34841,6 +34853,12 @@ input TeamUpdateInput {
 
   "Whether to enable AI discussion summaries for issues."
   aiDiscussionSummariesEnabled: Boolean
+
+  "[Internal] Whether the team has enabled agent automation."
+  agentAutomationEnabled: Boolean
+
+  "[Internal] Whether the team has enabled Coding Sessions."
+  codingAgentEnabled: Boolean
 
   "The identifier of the default template for members of this team."
   defaultTemplateForMembersId: String
@@ -35732,7 +35750,7 @@ type Subscription {
   "Triggered when a comment is archived"
   commentArchived: Comment!
 
-  "Triggered when a a comment is unarchived"
+  "Triggered when a comment is unarchived"
   commentUnarchived: Comment!
 
   "Triggered when a comment is deleted"
@@ -35756,7 +35774,7 @@ type Subscription {
   "Triggered when a document is archived"
   documentArchived: Document!
 
-  "Triggered when a a document is unarchived"
+  "Triggered when a document is unarchived"
   documentUnarchived: Document!
 
   "Triggered when a document content is created"
@@ -35816,7 +35834,7 @@ type Subscription {
   "Triggered when an issue is archived"
   issueArchived: Issue!
 
-  "Triggered when a an issue is unarchived"
+  "Triggered when an issue is unarchived"
   issueUnarchived: Issue!
 
   "Triggered when an issue history is created"
@@ -35861,7 +35879,7 @@ type Subscription {
   "Triggered when a notification is archived"
   notificationArchived: Notification!
 
-  "Triggered when a a notification is unarchived"
+  "Triggered when a notification is unarchived"
   notificationUnarchived: Notification!
 
   "Triggered when a notification is deleted"
@@ -35879,7 +35897,7 @@ type Subscription {
   "Triggered when a project is archived"
   projectArchived: Project!
 
-  "Triggered when a a project is unarchived"
+  "Triggered when a project is unarchived"
   projectUnarchived: Project!
 
   "Triggered when a project label is created"

@@ -29,7 +29,8 @@ class DocumentUpdateInput
 		public ?float $sortOrder = null,
 		public ?bool $trashed = null,
 		/** @var iterable<string>|Collection<int, string> */
-		public ?iterable $subscriberIds = null
+		public ?iterable $subscriberIds = null,
+		public ?string $personalUserId = null
 	) {
 	}
 }
