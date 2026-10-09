@@ -13,6 +13,7 @@ enum WorkflowTriggerType: string
 	case release = 'release';
 	case cycle = 'cycle';
 	case schedule = 'schedule';
+	case webhook = 'webhook';
 	case chat = 'chat';
 	case pullRequest = 'pullRequest';
 }

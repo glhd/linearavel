@@ -1211,6 +1211,12 @@ type Team implements Node {
   "Whether the viewer can add themselves to the team. False when the viewer is already a member, the team is archived, retired, or SCIM-managed, the viewer lacks the plan access or permission to add themselves, or the viewer has reached their team membership limit. Runs the same checks `teamMembershipCreate` applies to a viewer joining on their own."
   viewerCanJoin: Boolean!
 
+  "The viewer's membership in the team. Null when the viewer is not a member."
+  viewerMembership: TeamMembership
+
+  "Whether the viewer can remove themselves from the team. False when the viewer is not a member, the team is SCIM-managed, the viewer is an app user the team does not accept, or leaving would leave the viewer without an active team. Otherwise mirrors the checks `teamMembershipDelete` applies to a viewer leaving on their own."
+  viewerCanLeave: Boolean!
+
   "Memberships associated with the team. For easier access of the same data, use `members` query."
   memberships(
     "A cursor to be used with last for backward pagination."
@@ -1784,7 +1790,7 @@ type Project implements Node {
   "Project URL."
   url: String!
 
-  "[Internal] The human-readable identifier of the project. Returns the custom identifier override when set, otherwise the default `P-<leadTeamKey>-<number>`. Null for projects without a lead team, for legacy projects that have not been backfilled, and while project identifiers are not enabled for the workspace."
+  "[Internal] The human-readable identifier of the project. Returns the custom identifier override when set, otherwise the default `P-<leadTeamKey>-<number>`. Null for projects without a lead team and for legacy projects that have not been backfilled."
   identifier: String
 
   "[Internal] Identifiers (default and custom) that this project has previously held. Used to resolve URLs that referenced an older identifier."
@@ -7288,7 +7294,7 @@ type Initiative implements Node {
   "The visibility of the initiative, derived from its lead team. Public when no lead team is assigned."
   visibility: InitiativeVisibility!
 
-  "[Internal] The human-readable identifier of the initiative. Returns the custom identifier override when set, otherwise the workspace default `<prefix>-<number>`. Null for legacy initiatives that have not been backfilled and while initiative identifiers are not enabled for the workspace."
+  "[Internal] The human-readable identifier of the initiative. Returns the custom identifier override when set, otherwise the workspace default `<prefix>-<number>`. Null for legacy initiatives that have not been backfilled."
   identifier: String
 
   "[Internal] Identifiers (default and custom) that this initiative has previously held. Used to resolve URLs that referenced an older identifier."
@@ -12805,6 +12811,9 @@ type AiConversation implements Node {
   "The user who the conversation belongs to."
   user: User
 
+  "[Internal] Users subscribed to this run."
+  subscriberIds: [String!]
+
   "[Internal] The Loop execution that created this conversation."
   loopExecution: LoopExecution
 
@@ -13058,6 +13067,7 @@ enum WorkflowTrigger {
   chatMessagePosted
   chatReactionAdded
   customerRequestAdded
+  webhookReceived
 }
 
 enum WorkflowTriggerType {
@@ -13069,6 +13079,7 @@ enum WorkflowTriggerType {
   release
   cycle
   schedule
+  webhook
   chat
   pullRequest
 }
@@ -23631,7 +23642,7 @@ type ProjectSearchResult implements Node {
   "Project URL."
   url: String!
 
-  "[Internal] The human-readable identifier of the project. Returns the custom identifier override when set, otherwise the default `P-<leadTeamKey>-<number>`. Null for projects without a lead team, for legacy projects that have not been backfilled, and while project identifiers are not enabled for the workspace."
+  "[Internal] The human-readable identifier of the project. Returns the custom identifier override when set, otherwise the default `P-<leadTeamKey>-<number>`. Null for projects without a lead team and for legacy projects that have not been backfilled."
   identifier: String
 
   "[Internal] Identifiers (default and custom) that this project has previously held. Used to resolve URLs that referenced an older identifier."

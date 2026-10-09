@@ -78,6 +78,7 @@ class Team extends Data implements Node
 		public Optional|CycleConnection $cycles,
 		public Optional|UserConnection $members,
 		public Optional|bool $viewerCanJoin,
+		public Optional|bool $viewerCanLeave,
 		public Optional|TeamMembershipConnection $memberships,
 		public Optional|ProjectConnection $projects,
 		public Optional|ReleasePipelineConnection $releasePipelines,
@@ -125,6 +126,7 @@ class Team extends Data implements Node
 		public Optional|Cycle|null $activeCycle,
 		public Optional|TriageResponsibility|null $triageResponsibility,
 		public Optional|TeamMembership|null $membership,
+		public Optional|TeamMembership|null $viewerMembership,
 		public Optional|IntegrationsSettings|null $integrationsSettings
 	) {
 	}

@@ -19,4 +19,5 @@ enum WorkflowTrigger: string
 	case chatMessagePosted = 'chatMessagePosted';
 	case chatReactionAdded = 'chatReactionAdded';
 	case customerRequestAdded = 'customerRequestAdded';
+	case webhookReceived = 'webhookReceived';
 }

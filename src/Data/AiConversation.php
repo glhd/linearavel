@@ -33,6 +33,9 @@ class AiConversation extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|User|null $user,
+		/** @var Collection<int, string> */
+		#[WithCast(EnumerableCast::class)]
+		public Optional|Collection|null $subscriberIds,
 		public Optional|LoopExecution|null $loopExecution,
 		public Optional|Issue|null $issue,
 		public Optional|Document|null $document,
