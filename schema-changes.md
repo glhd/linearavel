@@ -1,4 +1,1 @@
-### Added or widened
-
-- webhook was added to enum type WorkflowTriggerType.
-- webhookReceived was added to enum type WorkflowTrigger.
+The schema changed, but only in ways that do not affect the generated types.
