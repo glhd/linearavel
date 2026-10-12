@@ -3,6 +3,7 @@
 namespace Glhd\Linearavel\Connectors;
 
 use DateTimeInterface;
+use Glhd\Linearavel\Data\Enums\DocumentShareRole;
 use Glhd\Linearavel\Data\Enums\ExternalSyncService;
 use Glhd\Linearavel\Data\Enums\GitLinkKind;
 use Glhd\Linearavel\Data\Enums\InitiativeLeadTeamChangeMode;
@@ -230,7 +231,9 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleStartUpcomingCycleTod
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentDeleteMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentShareMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUnarchiveMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUnshareMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressDeleteMutationRequest;
@@ -1006,6 +1009,16 @@ trait MutatesLinear
 	public function documentUpdateMutation(DocumentUpdateInput $input, string $id): PendingDocumentUpdateMutationRequest
 	{
 		return new PendingDocumentUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
+	}
+
+	public function documentShareMutation(iterable $userIds, string $id, ?DocumentShareRole $role = null): PendingDocumentShareMutationRequest
+	{
+		return new PendingDocumentShareMutationRequest($this, ['userIds' => $userIds, 'id' => $id, 'role' => $role]);
+	}
+
+	public function documentUnshareMutation(iterable $userIds, string $id): PendingDocumentUnshareMutationRequest
+	{
+		return new PendingDocumentUnshareMutationRequest($this, ['userIds' => $userIds, 'id' => $id]);
 	}
 
 	public function documentDeleteMutation(string $id, ?string $ifParentDocumentId = null): PendingDocumentDeleteMutationRequest

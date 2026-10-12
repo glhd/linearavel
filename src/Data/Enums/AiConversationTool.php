@@ -36,6 +36,8 @@ enum AiConversationTool: string
 	case GetPullRequestFile = 'GetPullRequestFile';
 	case GetPullRequestCheckLogs = 'GetPullRequestCheckLogs';
 	case RetryPullRequestCheck = 'RetryPullRequestCheck';
+	case RerunPullRequestReview = 'RerunPullRequestReview';
+	case UpdatePullRequestReviewFinding = 'UpdatePullRequestReviewFinding';
 	case HandoffToCodingSession = 'HandoffToCodingSession';
 	case SubscribeToEvent = 'SubscribeToEvent';
 	case UnsubscribeFromEvent = 'UnsubscribeFromEvent';
