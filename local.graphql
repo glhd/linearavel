@@ -15033,6 +15033,9 @@ type AiConversationElicitationPart implements AiConversationBasePart {
   "The existing MCP integration to reconnect. Null when creating a new connection."
   integrationId: String
 
+  "The service of the integration to connect. Null for other elicitation kinds."
+  integrationService: IntegrationService
+
   "Entity type for entity selection."
   entityType: String
 
@@ -15047,6 +15050,7 @@ type AiConversationElicitationPart implements AiConversationBasePart {
 enum AiConversationElicitationKind {
   multipleChoice
   mcpServerConnection
+  integrationConnection
   confirmation
   entitySelection
 }
@@ -15108,7 +15112,7 @@ type AiConversationElicitationResponsePart implements AiConversationBasePart {
 }
 
 "The kind-specific data recorded when a user answers an AI conversation elicitation."
-union AiConversationElicitationResponseData = AiConversationMultipleChoiceElicitationResponseData | AiConversationConfirmationElicitationResponseData | AiConversationMcpServerConnectionElicitationResponseData | AiConversationEntitySelectionElicitationResponseData
+union AiConversationElicitationResponseData = AiConversationMultipleChoiceElicitationResponseData | AiConversationConfirmationElicitationResponseData | AiConversationMcpServerConnectionElicitationResponseData | AiConversationIntegrationConnectionElicitationResponseData | AiConversationEntitySelectionElicitationResponseData
 
 "The selected option in a multiple-choice AI conversation elicitation."
 type AiConversationMultipleChoiceElicitationResponseData {
@@ -15134,6 +15138,15 @@ type AiConversationMcpServerConnectionElicitationResponseData {
   kind: AiConversationElicitationKind!
 
   "The identifier of the MCP server integration that was connected."
+  integrationId: String!
+}
+
+"The integration connected to a Loop and its current run by a conversation."
+type AiConversationIntegrationConnectionElicitationResponseData {
+  "The kind of elicitation that was answered."
+  kind: AiConversationElicitationKind!
+
+  "The identifier of the integration that was connected."
   integrationId: String!
 }
 
