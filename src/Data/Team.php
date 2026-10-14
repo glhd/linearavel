@@ -75,6 +75,7 @@ class Team extends Data implements Node
 		public Optional|IssueConnection $issues,
 		public Optional|int $issueCount,
 		public Optional|int $ledInitiativeCount,
+		public Optional|WorkflowDefinitionConnection $loops,
 		public Optional|CycleConnection $cycles,
 		public Optional|UserConnection $members,
 		public Optional|bool $viewerCanJoin,

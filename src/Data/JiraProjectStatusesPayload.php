@@ -17,7 +17,11 @@ class JiraProjectStatusesPayload extends Data
 		public Optional|Collection $issueStatuses,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
-		public Optional|Collection $projectStatuses
+		public Optional|Collection $projectStatuses,
+		/** @var Collection<int, JiraStatusNameCategoriesPayload> */
+		public Optional|Collection $issueStatusCategories,
+		/** @var Collection<int, JiraStatusNameCategoriesPayload> */
+		public Optional|Collection $projectStatusCategories
 	) {
 	}
 }

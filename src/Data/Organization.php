@@ -77,6 +77,7 @@ class Organization extends Data implements Node
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $allowedAiProviders,
 		public Optional|UserConnection $users,
+		public Optional|WorkflowDefinitionConnection $loops,
 		public Optional|TeamConnection $teams,
 		/** @var Collection<int, ProjectStatus> */
 		public Optional|Collection $projectStatuses,

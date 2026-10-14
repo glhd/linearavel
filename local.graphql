@@ -656,6 +656,27 @@ type Organization implements Node {
     orderBy: PaginationOrderBy
   ): UserConnection!
 
+  "Loops in the workspace that are visible to the requesting user, including team and project loops. Includes enabled and disabled loops."
+  loops(
+    "A cursor to be used with last for backward pagination."
+    before: String
+
+    "A cursor to be used with first for forward pagination"
+    after: String
+
+    "The number of items to forward paginate (used with after). Defaults to 50."
+    first: Int
+
+    "The number of items to backward paginate (used with before). Defaults to 50."
+    last: Int
+
+    "Should archived resources be included (default: false)"
+    includeArchived: Boolean
+
+    "By which field should the pagination order by. Available options are createdAt (default) and updatedAt."
+    orderBy: PaginationOrderBy
+  ): WorkflowDefinitionConnection!
+
   "Teams in the workspace. Returns only teams visible to the requesting user (all public teams plus private teams the user is a member of)."
   teams(
     "Filter returned teams."
@@ -1141,6 +1162,27 @@ type Team implements Node {
 
   "The number of initiatives led by this team that would be deleted along with it. Counts every led initiative, including ones not otherwise visible to the caller, to mirror what deleting the team cascades."
   ledInitiativeCount: Int!
+
+  "Loops owned by the team that are visible to the requesting user. Includes enabled and disabled loops."
+  loops(
+    "A cursor to be used with last for backward pagination."
+    before: String
+
+    "A cursor to be used with first for forward pagination"
+    after: String
+
+    "The number of items to forward paginate (used with after). Defaults to 50."
+    first: Int
+
+    "The number of items to backward paginate (used with before). Defaults to 50."
+    last: Int
+
+    "Should archived resources be included (default: false)"
+    includeArchived: Boolean
+
+    "By which field should the pagination order by. Available options are createdAt (default) and updatedAt."
+    orderBy: PaginationOrderBy
+  ): WorkflowDefinitionConnection!
 
   "Cycles associated with the team."
   cycles(
@@ -8169,7 +8211,7 @@ type PullRequestCommitSignature {
 
 "[Internal] A deploy or build preview link (e.g., Vercel, Cloudflare Pages, Netlify) parsed from a pull request's description or comments."
 type PullRequestPreviewLink {
-  "The URL of the preview."
+  "The URL of the preview. Empty for a deployment that is still building and has not reported its URL."
   url: String!
 
   "The display name of the preview (e.g., the deploy target). Null if the provider did not supply one."
@@ -9801,6 +9843,9 @@ type InitiativeLabel implements Node {
   "[Internal] When the label was retired."
   retiredAt: DateTime
 
+  "The selection mode of this label group. Null for regular labels. Groups without a type use single-select behavior."
+  groupType: LabelGroupType
+
   "The workspace that the initiative label belongs to."
   organization: Organization!
 
@@ -9863,6 +9908,12 @@ type InitiativeLabel implements Node {
     "By which field should the pagination order by. Available options are createdAt (default) and updatedAt."
     orderBy: PaginationOrderBy
   ): InitiativeLabelConnection!
+}
+
+"The selection mode of a label group."
+enum LabelGroupType {
+  singleSelect
+  multiSelect
 }
 
 "A reusable template for creating issues, projects, or documents. Templates store pre-filled field values and content as JSON data. They can be scoped to a specific team or shared across the entire workspace. Team-scoped templates may be inherited from parent teams."
@@ -12081,6 +12132,39 @@ type ViewPreferencesValues {
   "Whether to show the updated date field for documents."
   documentFieldDateUpdated: Boolean
 
+  "[Internal] Whether to show the project column in documents lists."
+  documentFieldProject: Boolean
+
+  "[Internal] Grouping of a documents list."
+  documentsListGrouping: String
+
+  "[Internal] Ordering of a documents list."
+  documentsListOrdering: String
+
+  "[Internal] Direction of a documents list when ordered by project."
+  documentsListProjectDirection: String
+
+  "[Internal] Direction of a documents list when ordered by name."
+  documentsListNameDirection: String
+
+  "[Internal] Direction of a documents list when ordered by owner."
+  documentsListOwnerDirection: String
+
+  "[Internal] Direction of a documents list when ordered by last edited."
+  documentsListLastEditedDirection: String
+
+  "[Internal] Direction of a documents list when ordered by created date."
+  documentsListCreatedDateDirection: String
+
+  "[Internal] Whether a documents list shows documents from completed or canceled projects."
+  documentsListShowInactiveProjects: Boolean
+
+  "[Internal] Whether a documents list only shows documents from projects the user is part of."
+  documentsListShowOnlyMyProjects: Boolean
+
+  "[Internal] Ordered ids of the documents pinned to the top of a documents list."
+  pinnedDocumentIds: [String!]
+
   "The inbox view ordering."
   inboxViewOrdering: String
 
@@ -12273,12 +12357,6 @@ type IssueLabel implements Node {
   ): IssueLabelConnection!
 }
 
-"The selection mode of an issue label group."
-enum LabelGroupType {
-  singleSelect
-  multiSelect
-}
-
 type IssueLabelConnection {
   edges: [IssueLabelEdge!]!
   nodes: [IssueLabel!]!
@@ -12326,6 +12404,9 @@ type ProjectLabel implements Node {
 
   "[Internal] When the label was retired."
   retiredAt: DateTime
+
+  "The selection mode of this label group. Null for regular labels. Groups without a type use single-select behavior."
+  groupType: LabelGroupType
 
   "The workspace that the project label belongs to."
   organization: Organization!
@@ -12846,6 +12927,9 @@ type AiConversation implements Node {
 
   "[Internal] The workflow definition that created this conversation."
   workflowDefinition: WorkflowDefinition
+
+  "[Internal] The published loop edited by this private setup conversation."
+  setupWorkflowDefinition: WorkflowDefinition
 
   "[Internal] The cron workflow definition that created this conversation."
   workflowCronJobDefinition: WorkflowCronJobDefinition
@@ -16004,6 +16088,19 @@ type ProjectRelation implements Node {
 
   "The user who last created or modified the relation. Null if the user has been deleted."
   user: User
+}
+
+type WorkflowDefinitionConnection {
+  edges: [WorkflowDefinitionEdge!]!
+  nodes: [WorkflowDefinition!]!
+  pageInfo: PageInfo!
+}
+
+type WorkflowDefinitionEdge {
+  node: WorkflowDefinition!
+
+  "Used in `before` and `after` args"
+  cursor: String!
 }
 
 type CycleConnection {
@@ -22453,6 +22550,20 @@ type JiraProjectStatusesPayload {
 
   "The Jira project's project statuses (Epic)."
   projectStatuses: [String!]!
+
+  "The status categories of each of the Jira project's issue statuses (non-Epic)."
+  issueStatusCategories: [JiraStatusNameCategoriesPayload!]!
+
+  "The status categories of each of the Jira project's project statuses (Epic)."
+  projectStatusCategories: [JiraStatusNameCategoriesPayload!]!
+}
+
+type JiraStatusNameCategoriesPayload {
+  "The name of the Jira status."
+  name: String!
+
+  "The distinct status category keys (new, indeterminate, or done) of the Jira statuses with this name."
+  categories: [String!]!
 }
 
 type MicrosoftTeamsChannelsPayload {
@@ -25269,6 +25380,18 @@ enum ViewType {
   feedFollowing
   feedPopular
   workspaceMembers
+
+  "[Internal] The My documents tab of the documents page."
+  myDocuments
+
+  "[Internal] The Shared with me tab of the documents page."
+  sharedDocuments
+
+  "[Internal] The All tab of the documents page."
+  allDocuments
+
+  "[Internal] The documents list of a team."
+  teamDocuments
   releasePipelines
   automations
   automationRunHistory
@@ -27330,6 +27453,9 @@ type Mutation {
 
     "Asana team name to choose which issues we should import."
     asanaTeamName: String!
+
+    "Name of an Asana project in the team. When set, only tasks from this project are imported."
+    asanaProjectName: String
 
     "Whether to instantly process the import with the default configuration mapping."
     instantProcess: Boolean
@@ -30822,6 +30948,9 @@ input InitiativeLabelCreateInput {
 
   "The time at which the label was retired. Set to null to restore a retired label."
   retiredAt: DateTime
+
+  "The selection mode of the label group. Only singleSelect is currently supported. Null uses single-select behavior."
+  groupType: LabelGroupType
 }
 
 "Input for updating an existing initiative label. All fields are optional; only provided fields will be updated."
@@ -30843,6 +30972,9 @@ input InitiativeLabelUpdateInput {
 
   "The time at which the label was retired. Set to null to restore a retired label."
   retiredAt: DateTime
+
+  "The selection mode of the label group. Omit to keep the current value. Only singleSelect is currently supported. Null uses single-select behavior."
+  groupType: LabelGroupType
 }
 
 "The result of an initiative relation mutation."
@@ -33512,6 +33644,9 @@ input ProjectLabelCreateInput {
   "The time at which the label was retired. Set to null to restore a retired label."
   retiredAt: DateTime
 
+  "The selection mode of the label group. Only singleSelect is currently supported. Null uses single-select behavior."
+  groupType: LabelGroupType
+
   "The identifier of the team to scope the label to. If not given, the label is a workspace-level label available to all teams."
   teamId: String
 }
@@ -33535,6 +33670,9 @@ input ProjectLabelUpdateInput {
 
   "The time at which the label was retired. Set to null to restore a retired label."
   retiredAt: DateTime
+
+  "The selection mode of the label group. Omit to keep the current value. Only singleSelect is currently supported. Null uses single-select behavior."
+  groupType: LabelGroupType
 }
 
 "The result of a project milestone mutation."

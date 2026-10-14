@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\LabelGroupType;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -30,6 +31,7 @@ class InitiativeLabel extends Data implements Node
 		public Optional|CarbonImmutable|null $lastAppliedAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $retiredAt,
+		public Optional|LabelGroupType|null $groupType,
 		public Optional|User|null $creator,
 		public Optional|User|null $retiredBy,
 		public Optional|InitiativeLabel|null $parent

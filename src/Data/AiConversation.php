@@ -45,6 +45,7 @@ class AiConversation extends Data implements Node
 		public Optional|Diff|null $diff,
 		public Optional|string|null $summary,
 		public Optional|WorkflowDefinition|null $workflowDefinition,
+		public Optional|WorkflowDefinition|null $setupWorkflowDefinition,
 		public Optional|WorkflowCronJobDefinition|null $workflowCronJobDefinition,
 		public Optional|AiConversationClientPlatform|null $clientPlatform,
 		public Optional|string|null $iterationId,

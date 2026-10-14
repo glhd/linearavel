@@ -68,6 +68,10 @@ enum ViewType: string
 	case feedFollowing = 'feedFollowing';
 	case feedPopular = 'feedPopular';
 	case workspaceMembers = 'workspaceMembers';
+	case myDocuments = 'myDocuments';
+	case sharedDocuments = 'sharedDocuments';
+	case allDocuments = 'allDocuments';
+	case teamDocuments = 'teamDocuments';
 	case releasePipelines = 'releasePipelines';
 	case automations = 'automations';
 	case automationRunHistory = 'automationRunHistory';

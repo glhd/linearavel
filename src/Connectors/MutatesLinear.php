@@ -1641,9 +1641,9 @@ trait MutatesLinear
 		return new PendingIssueImportCreateClubhouseMutationRequest($this, ['clubhouseToken' => $clubhouseToken, 'clubhouseGroupName' => $clubhouseGroupName, 'organizationId' => $organizationId, 'teamId' => $teamId, 'teamName' => $teamName, 'instantProcess' => $instantProcess, 'includeClosedIssues' => $includeClosedIssues, 'id' => $id]);
 	}
 
-	public function issueImportCreateAsanaMutation(string $asanaToken, string $asanaTeamName, ?string $organizationId = null, ?string $teamId = null, ?string $teamName = null, ?bool $instantProcess = null, ?bool $includeClosedIssues = null, ?string $id = null): PendingIssueImportCreateAsanaMutationRequest
+	public function issueImportCreateAsanaMutation(string $asanaToken, string $asanaTeamName, ?string $organizationId = null, ?string $teamId = null, ?string $teamName = null, ?string $asanaProjectName = null, ?bool $instantProcess = null, ?bool $includeClosedIssues = null, ?string $id = null): PendingIssueImportCreateAsanaMutationRequest
 	{
-		return new PendingIssueImportCreateAsanaMutationRequest($this, ['asanaToken' => $asanaToken, 'asanaTeamName' => $asanaTeamName, 'organizationId' => $organizationId, 'teamId' => $teamId, 'teamName' => $teamName, 'instantProcess' => $instantProcess, 'includeClosedIssues' => $includeClosedIssues, 'id' => $id]);
+		return new PendingIssueImportCreateAsanaMutationRequest($this, ['asanaToken' => $asanaToken, 'asanaTeamName' => $asanaTeamName, 'organizationId' => $organizationId, 'teamId' => $teamId, 'teamName' => $teamName, 'asanaProjectName' => $asanaProjectName, 'instantProcess' => $instantProcess, 'includeClosedIssues' => $includeClosedIssues, 'id' => $id]);
 	}
 
 	public function issueImportCreateLinearV2Mutation(string $linearSourceOrganizationId, ?string $id = null): PendingIssueImportCreateLinearV2MutationRequest
