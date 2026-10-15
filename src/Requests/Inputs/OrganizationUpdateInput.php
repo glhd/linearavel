@@ -62,6 +62,7 @@ class OrganizationUpdateInput
 		public ?string $pullRequestIssueMode = null,
 		public ?bool $hipaaComplianceEnabled = null,
 		public ?OrganizationSecuritySettingsInput $securitySettings = null,
+		public ?WorkspaceTeamSecuritySettingsInput $teamSecuritySettings = null,
 		public ?OrganizationAuthSettingsInput $authSettings = null,
 		public ?string $slackProjectChannelIntegrationId = null,
 		public ?string $slackProjectChannelPrefix = null,

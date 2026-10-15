@@ -44,6 +44,7 @@ enum AiConversationTool: string
 	case TranscribeVideo = 'TranscribeVideo';
 	case TranscribeMedia = 'TranscribeMedia';
 	case Memory = 'Memory';
+	case RenameAgentChat = 'RenameAgentChat';
 	case SearchDocumentation = 'SearchDocumentation';
 	case ContactSupport = 'ContactSupport';
 	case WebSearch = 'WebSearch';

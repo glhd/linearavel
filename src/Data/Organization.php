@@ -45,6 +45,7 @@ class Organization extends Data implements Node
 		public Optional|Collection $workingDays,
 		public Optional|bool $samlEnabled,
 		public Optional|bool $scimEnabled,
+		public Optional|string $teamSecuritySettings,
 		public Optional|string $securitySettings,
 		public Optional|string $authSettings,
 		/** @var Collection<int, string> */

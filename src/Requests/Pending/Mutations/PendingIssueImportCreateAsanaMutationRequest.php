@@ -13,7 +13,7 @@ class PendingIssueImportCreateAsanaMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['organizationId' => 'String', 'teamId' => 'String', 'teamName' => 'String', 'asanaToken' => 'String!', 'asanaTeamName' => 'String!', 'asanaProjectName' => 'String', 'instantProcess' => 'Boolean', 'includeClosedIssues' => 'Boolean', 'id' => 'String'];
+	protected const ARGUMENT_TYPES = ['organizationId' => 'String', 'teamId' => 'String', 'teamName' => 'String', 'asanaToken' => 'String!', 'asanaTeamName' => 'String!', 'asanaProjectName' => 'String', 'asanaProjectNames' => '[String!]', 'instantProcess' => 'Boolean', 'includeClosedIssues' => 'Boolean', 'id' => 'String'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
