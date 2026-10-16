@@ -1,16 +1,9 @@
 ### Added or widened
 
-- AiConversationRenameAgentChatToolCall was added to union type AiConversationToolCall.
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional arg asanaProjectNames on Mutation.issueImportCreateAsana was added
-- An optional field teamSecuritySettings on input type OrganizationUpdateInput was added.
-- An optional field trustedExternalSourceUpdate on input type OrganizationCodingAgentSettingsInput was added.
-- An optional field trustedExternalSources on input type OrganizationCodingAgentSettingsInput was added.
-- RenameAgentChat was added to enum type AiConversationTool.
+- An optional field inlineAnchorFrom on input type CommentCreateInput was added.
+- An optional field inlineAnchorTo on input type CommentCreateInput was added.
+- An optional field origin on input type IntegrationSettingsInput was added.
+- addedToMergeQueue was added to enum type WorkflowTrigger.
+- comment was added to enum type DocumentShareRole.
+- removedFromMergeQueue was added to enum type WorkflowTrigger.
+- view was added to enum type DocumentShareRole.

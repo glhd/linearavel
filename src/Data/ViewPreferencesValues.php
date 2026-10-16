@@ -256,6 +256,7 @@ class ViewPreferencesValues extends Data
 		public Optional|bool|null $documentFieldDateCreated,
 		public Optional|bool|null $documentFieldDateUpdated,
 		public Optional|bool|null $documentFieldProject,
+		public Optional|bool|null $documentFieldCollaborators,
 		public Optional|string|null $documentsListGrouping,
 		public Optional|string|null $documentsListOrdering,
 		public Optional|string|null $documentsListProjectDirection,

@@ -6,4 +6,6 @@ namespace Glhd\Linearavel\Data\Enums;
 enum DocumentShareRole: string
 {
 	case edit = 'edit';
+	case comment = 'comment';
+	case view = 'view';
 }

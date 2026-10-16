@@ -26,6 +26,8 @@ class CommentCreateInput
 		public ?bool $doNotSubscribeToIssue = null,
 		public ?bool $createOnSyncedSlackThread = null,
 		public ?string $quotedText = null,
+		public ?string $inlineAnchorFrom = null,
+		public ?string $inlineAnchorTo = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $subscriberIds = null
 	) {

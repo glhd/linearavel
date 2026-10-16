@@ -15,6 +15,8 @@ enum WorkflowTrigger: string
 	case commentAdded = 'commentAdded';
 	case commentResolved = 'commentResolved';
 	case reviewSubmitted = 'reviewSubmitted';
+	case addedToMergeQueue = 'addedToMergeQueue';
+	case removedFromMergeQueue = 'removedFromMergeQueue';
 	case updatePosted = 'updatePosted';
 	case chatMessagePosted = 'chatMessagePosted';
 	case chatReactionAdded = 'chatReactionAdded';

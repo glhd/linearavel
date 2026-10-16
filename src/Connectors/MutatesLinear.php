@@ -234,6 +234,7 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentDeleteMutationRequ
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentShareMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUnarchiveMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUnshareMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateCollaboratorRoleMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressDeleteMutationRequest;
@@ -381,6 +382,7 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRelationDeleteMutatio
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRelationUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueReminderMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRemoveLabelMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRequestSolubilityPredictionMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueShareMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueSubscribeMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueToReleaseCreateMutationRequest;
@@ -1014,6 +1016,11 @@ trait MutatesLinear
 	public function documentShareMutation(iterable $userIds, string $id, ?DocumentShareRole $role = null): PendingDocumentShareMutationRequest
 	{
 		return new PendingDocumentShareMutationRequest($this, ['userIds' => $userIds, 'id' => $id, 'role' => $role]);
+	}
+
+	public function documentUpdateCollaboratorRoleMutation(DocumentShareRole $role, iterable $userIds, string $id): PendingDocumentUpdateCollaboratorRoleMutationRequest
+	{
+		return new PendingDocumentUpdateCollaboratorRoleMutationRequest($this, ['role' => $role, 'userIds' => $userIds, 'id' => $id]);
 	}
 
 	public function documentUnshareMutation(iterable $userIds, string $id): PendingDocumentUnshareMutationRequest
@@ -1764,6 +1771,11 @@ trait MutatesLinear
 	public function issueReminderMutation(DateTimeInterface $reminderAt, string $id): PendingIssueReminderMutationRequest
 	{
 		return new PendingIssueReminderMutationRequest($this, ['reminderAt' => $reminderAt, 'id' => $id]);
+	}
+
+	public function issueRequestSolubilityPredictionMutation(string $id): PendingIssueRequestSolubilityPredictionMutationRequest
+	{
+		return new PendingIssueRequestSolubilityPredictionMutationRequest($this, ['id' => $id]);
 	}
 
 	public function issueSubscribeMutation(string $id, ?string $userEmail = null, ?string $userId = null): PendingIssueSubscribeMutationRequest

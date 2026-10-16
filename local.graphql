@@ -2509,6 +2509,9 @@ type Issue implements Node {
   "[Internal] The time at which the most recent suggestions for this issue were generated."
   suggestionsGeneratedAt: DateTime
 
+  "[Internal] AI-generated analyses of the issue, keyed by feature, such as coding-agent suitability. Null if no analysis has run."
+  aiAnalysis: JSONObject
+
   "[Internal] The activity summary information for this issue."
   activitySummary: JSONObject
 
@@ -9274,7 +9277,7 @@ type AiPromptProgress implements Node {
   logId: String
 }
 
-"[Internal] The type of AI prompt workflow."
+"The type of AI prompt workflow."
 enum AiPromptType {
   productIntelligence
   internalResearch
@@ -12228,6 +12231,9 @@ type ViewPreferencesValues {
   "[Internal] Whether to show the project column in documents lists."
   documentFieldProject: Boolean
 
+  "[Internal] Whether to show the collaborators column in documents lists."
+  documentFieldCollaborators: Boolean
+
   "[Internal] Grouping of a documents list."
   documentsListGrouping: String
 
@@ -13240,6 +13246,8 @@ enum WorkflowTrigger {
   commentAdded
   commentResolved
   reviewSubmitted
+  addedToMergeQueue
+  removedFromMergeQueue
   updatePosted
   chatMessagePosted
   chatReactionAdded
@@ -24356,6 +24364,9 @@ type IssueSearchResult implements Node {
   "[Internal] The time at which the most recent suggestions for this issue were generated."
   suggestionsGeneratedAt: DateTime
 
+  "[Internal] AI-generated analyses of the issue, keyed by feature, such as coding-agent suitability. Null if no analysis has run."
+  aiAnalysis: JSONObject
+
   "[Internal] The activity summary information for this issue."
   activitySummary: JSONObject
 
@@ -26312,15 +26323,27 @@ type Mutation {
     id: String!
   ): DocumentPayload!
 
-  "[Internal] Shares a personal document and its sub-documents with workspace members. Only the owner of the document can share it. New collaborators are subscribed to the document."
+  "[Internal] Shares a personal document and its sub-documents with workspace members at a role. Only the owner of the document can share it. New collaborators are subscribed to the document. Users who already have another role move to the given one."
   documentShare(
-    "The role of the new collaborators."
+    "The role of the collaborators. Defaults to edit."
     role: DocumentShareRole = edit
 
     "The identifiers of the users to share the document with."
     userIds: [String!]!
 
     "The identifier of the personal document to share."
+    id: String!
+  ): DocumentPayload!
+
+  "[Internal] Changes the role of users a personal document is shared with, on the document and its sub-documents. Only the owner of the document can change roles. Only users who already collaborate on a document change; no one is added."
+  documentUpdateCollaboratorRole(
+    "The new role of the collaborators."
+    role: DocumentShareRole!
+
+    "The identifiers of the collaborators whose role changes."
+    userIds: [String!]!
+
+    "The identifier of the personal document."
     id: String!
   ): DocumentPayload!
 
@@ -27688,6 +27711,12 @@ type Mutation {
     "The identifier of the issue to add a reminder for."
     id: String!
   ): IssuePayload!
+
+  "[Internal] Requests a coding-agent suitability prediction for an issue without a current one, such as an issue created before predictions existed."
+  issueRequestSolubilityPrediction(
+    "The identifier of the issue to predict suitability for."
+    id: String!
+  ): SuccessPayload!
 
   "Subscribes a user to an issue."
   issueSubscribe(
@@ -29516,6 +29545,12 @@ input CommentCreateInput {
   "The text that this comment references. Only defined for inline comments."
   quotedText: String
 
+  "[Internal] Where the commented text starts, as a base64-encoded Y.js relative position created on the commenter's copy of the document content. Requires `inlineAnchorTo` and `documentContentId`."
+  inlineAnchorFrom: String
+
+  "[Internal] Where the commented text ends, as a base64-encoded Y.js relative position created on the commenter's copy of the document content. Requires `inlineAnchorFrom` and `documentContentId`."
+  inlineAnchorTo: String
+
   "[INTERNAL] The identifiers of the users subscribing to this comment thread."
   subscriberIds: [String!]
 }
@@ -30331,6 +30366,12 @@ input DocumentUpdateInput {
 enum DocumentShareRole {
   "The user can read, edit, and comment on the document."
   edit
+
+  "The user can read and comment on the document but not edit it."
+  comment
+
+  "The user can read the document but not edit or comment on it."
+  view
 }
 
 "A generic payload return from entity archive mutations."
@@ -31206,6 +31247,7 @@ input IntegrationSettingsInput {
   gong: GongSettingsInput
   microsoftTeams: MicrosoftTeamsSettingsInput
   microsoftTeamsProjectPost: MicrosoftTeamsPostSettingsInput
+  origin: OriginSettingsInput
   jira: JiraSettingsInput
   notion: NotionSettingsInput
   opsgenie: OpsgenieInput
@@ -31737,6 +31779,11 @@ input MicrosoftTeamsPostSettingsInput {
 
   "Azure AD tenant id the team belongs to."
   tenantId: String!
+}
+
+input OriginSettingsInput {
+  "The slug of the Origin team or user that owns the installation."
+  ownerSlug: String
 }
 
 input JiraSettingsInput {

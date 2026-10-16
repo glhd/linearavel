@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAttachmentIssueQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'number', 'title', 'priority', 'boardOrder', 'sortOrder', 'prioritySortOrder', 'labelIds', 'previousIdentifiers', 'reactionData', 'priorityLabel', 'inheritsSharedAccess', 'identifier', 'url', 'branchName', 'customerTicketCount', 'archivedAt', 'estimate', 'startedAt', 'completedAt', 'startedTriageAt', 'triagedAt', 'canceledAt', 'autoClosedAt', 'autoArchivedAt', 'dueDate', 'slaStartedAt', 'slaMediumRiskAt', 'slaHighRiskAt', 'slaBreachesAt', 'slaType', 'addedToProjectAt', 'addedToCycleAt', 'addedToTeamAt', 'trashed', 'snoozedUntilAt', 'suggestionsGeneratedAt', 'activitySummary', 'subIssueSortOrder', 'trusted', 'integrationSourceType', 'description', 'descriptionState'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'number', 'title', 'priority', 'boardOrder', 'sortOrder', 'prioritySortOrder', 'labelIds', 'previousIdentifiers', 'reactionData', 'priorityLabel', 'inheritsSharedAccess', 'identifier', 'url', 'branchName', 'customerTicketCount', 'archivedAt', 'estimate', 'startedAt', 'completedAt', 'startedTriageAt', 'triagedAt', 'canceledAt', 'autoClosedAt', 'autoArchivedAt', 'dueDate', 'slaStartedAt', 'slaMediumRiskAt', 'slaHighRiskAt', 'slaBreachesAt', 'slaType', 'addedToProjectAt', 'addedToCycleAt', 'addedToTeamAt', 'trashed', 'snoozedUntilAt', 'suggestionsGeneratedAt', 'aiAnalysis', 'activitySummary', 'subIssueSortOrder', 'trusted', 'integrationSourceType', 'description', 'descriptionState'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

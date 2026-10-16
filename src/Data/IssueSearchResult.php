@@ -102,6 +102,7 @@ class IssueSearchResult extends Data implements Node
 		public Optional|CarbonImmutable|null $snoozedUntilAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $suggestionsGeneratedAt,
+		public Optional|string|null $aiAnalysis,
 		public Optional|string|null $activitySummary,
 		public Optional|Summary|null $summary,
 		public Optional|Cycle|null $cycle,
