@@ -32,8 +32,7 @@ class InitiativeUpdateInput
 		public ?int $updateRemindersHour = null,
 		public ?int $priority = null,
 		/** @var iterable<string>|Collection<int, string> */
-		public ?iterable $labelIds = null,
-		public ?string $customIdentifier = null
+		public ?iterable $labelIds = null
 	) {
 	}
 }

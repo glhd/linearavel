@@ -15,9 +15,12 @@ enum ViewType: string
 	case myIssuesSharedWithMe = 'myIssuesSharedWithMe';
 	case userProfile = 'userProfile';
 	case userProfileCreatedByUser = 'userProfileCreatedByUser';
+	case userProfileDiffs = 'userProfileDiffs';
+	case userProfileProjects = 'userProfileProjects';
 	case board = 'board';
 	case completedCycle = 'completedCycle';
 	case cycle = 'cycle';
+	case upcomingCycle = 'upcomingCycle';
 	case release = 'release';
 	case releaseOverviewIssues = 'releaseOverviewIssues';
 	case continuousPipelineReleases = 'continuousPipelineReleases';
@@ -29,6 +32,7 @@ enum ViewType: string
 	case activeIssues = 'activeIssues';
 	case backlog = 'backlog';
 	case subIssues = 'subIssues';
+	case subDocuments = 'subDocuments';
 	case allIssues = 'allIssues';
 	case dashboards = 'dashboards';
 	case customView = 'customView';
@@ -70,6 +74,7 @@ enum ViewType: string
 	case workspaceMembers = 'workspaceMembers';
 	case myDocuments = 'myDocuments';
 	case sharedDocuments = 'sharedDocuments';
+	case recentDocuments = 'recentDocuments';
 	case allDocuments = 'allDocuments';
 	case teamDocuments = 'teamDocuments';
 	case releasePipelines = 'releasePipelines';

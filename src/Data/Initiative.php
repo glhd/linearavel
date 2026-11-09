@@ -31,8 +31,6 @@ class Initiative extends Data implements Node
 		public Optional|Organization $organization,
 		public Optional|string $slugId,
 		public Optional|float $sortOrder,
-		/** @var Collection<int, Facet> */
-		public Optional|Collection $facets,
 		public Optional|InitiativeStatus $status,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
@@ -41,15 +39,11 @@ class Initiative extends Data implements Node
 		public Optional|float $prioritySortOrder,
 		public Optional|string $url,
 		public Optional|InitiativeVisibility $visibility,
-		/** @var Collection<int, string> */
-		#[WithCast(EnumerableCast::class)]
-		public Optional|Collection $previousIdentifiers,
 		public Optional|ProjectConnection $projects,
 		public Optional|EntityExternalLinkConnection $links,
 		public Optional|InitiativeHistoryConnection $history,
 		public Optional|InitiativeUpdateConnection $initiativeUpdates,
 		public Optional|InitiativeConnection $subInitiatives,
-		public Optional|InitiativeConnection $parentInitiatives,
 		public Optional|DocumentConnection $documents,
 		public Optional|InitiativeLabelConnection $labels,
 		#[LinearDate]
@@ -75,9 +69,6 @@ class Initiative extends Data implements Node
 		public Optional|CarbonImmutable|null $startedAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $completedAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $canceledAt,
-		public Optional|string|null $identifier,
 		public Optional|IntegrationsSettings|null $integrationsSettings,
 		public Optional|Initiative|null $parentInitiative,
 		public Optional|string|null $content,

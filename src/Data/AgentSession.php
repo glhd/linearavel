@@ -25,7 +25,6 @@ class AgentSession extends Data implements Node
 		public Optional|AgentSessionStatus $status,
 		public Optional|AgentActivityConnection $activities,
 		public Optional|string $context,
-		public Optional|AgentSessionToPullRequestConnection $pullRequests,
 		/** @var Collection<int, AgentSessionExternalLink> */
 		public Optional|Collection $externalLinks,
 		public Optional|string $externalUrls,
@@ -35,7 +34,6 @@ class AgentSession extends Data implements Node
 		public Optional|Comment|null $comment,
 		public Optional|Comment|null $sourceComment,
 		public Optional|Issue|null $issue,
-		public Optional|PullRequest|null $pullRequest,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $startedAt,
 		#[LinearDate]
@@ -46,15 +44,9 @@ class AgentSession extends Data implements Node
 		public Optional|string|null $externalLink,
 		public Optional|string|null $summary,
 		public Optional|string|null $sourceMetadata,
-		public Optional|string|null $modelSelection,
 		public Optional|string|null $plan,
-		public Optional|string|null $workspaceDiff,
 		public Optional|AgentSessionType|null $type,
-		public Optional|string|null $url,
-		public Optional|string|null $codingHarnessModelLabel,
-		public Optional|AgentSessionCodingHarness|null $codingHarness,
-		/** @var Collection<int, AgentSessionWorkspaceDiffFile> */
-		public Optional|Collection|null $workspaceDiffFiles
+		public Optional|string|null $url
 	) {
 	}
 }

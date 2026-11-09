@@ -21,7 +21,6 @@ class ProjectUpdate extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $body,
 		public Optional|string $reactionData,
-		public Optional|string $bodyData,
 		public Optional|string $slugId,
 		public Optional|Project $project,
 		public Optional|ProjectUpdateHealthType $health,
@@ -38,7 +37,6 @@ class ProjectUpdate extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $editedAt,
 		public Optional|string|null $shortSummary,
-		public Optional|string|null $infoSnapshot,
 		public Optional|string|null $diff,
 		public Optional|string|null $diffMarkdown
 	) {

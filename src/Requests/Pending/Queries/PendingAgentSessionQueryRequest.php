@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAgentSessionQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'slugId', 'status', 'context', 'externalUrls', 'archivedAt', 'startedAt', 'endedAt', 'dismissedAt', 'externalLink', 'summary', 'sourceMetadata', 'modelSelection', 'plan', 'workspaceDiff', 'type', 'url', 'codingHarnessModelLabel'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'slugId', 'status', 'context', 'externalUrls', 'archivedAt', 'startedAt', 'endedAt', 'dismissedAt', 'externalLink', 'summary', 'sourceMetadata', 'plan', 'type', 'url'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

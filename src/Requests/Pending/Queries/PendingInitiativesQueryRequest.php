@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingInitiativesQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.frequencyResolution', 'nodes.name', 'nodes.slugId', 'nodes.sortOrder', 'nodes.status', 'nodes.labelIds', 'nodes.priority', 'nodes.prioritySortOrder', 'nodes.url', 'nodes.visibility', 'nodes.previousIdentifiers', 'nodes.archivedAt', 'nodes.updateReminderFrequencyInWeeks', 'nodes.updateReminderFrequency', 'nodes.updateRemindersDay', 'nodes.updateRemindersHour', 'nodes.description', 'nodes.color', 'nodes.icon', 'nodes.trashed', 'nodes.targetDate', 'nodes.targetDateResolution', 'nodes.health', 'nodes.healthUpdatedAt', 'nodes.startedAt', 'nodes.completedAt', 'nodes.canceledAt', 'nodes.identifier', 'nodes.content'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.frequencyResolution', 'nodes.name', 'nodes.slugId', 'nodes.sortOrder', 'nodes.status', 'nodes.labelIds', 'nodes.priority', 'nodes.prioritySortOrder', 'nodes.url', 'nodes.visibility', 'nodes.archivedAt', 'nodes.updateReminderFrequencyInWeeks', 'nodes.updateReminderFrequency', 'nodes.updateRemindersDay', 'nodes.updateRemindersHour', 'nodes.description', 'nodes.color', 'nodes.icon', 'nodes.trashed', 'nodes.targetDate', 'nodes.targetDateResolution', 'nodes.health', 'nodes.healthUpdatedAt', 'nodes.startedAt', 'nodes.completedAt', 'nodes.content'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'InitiativeFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy', 'sort' => '[InitiativeSortInput!]'];
 

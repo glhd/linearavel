@@ -14,7 +14,6 @@ class IssueCreateInput
 		public ?string $id = null,
 		public ?string $title = null,
 		public ?string $description = null,
-		public ?string $descriptionData = null,
 		public ?string $assigneeId = null,
 		public ?string $delegateId = null,
 		public ?string $parentId = null,
@@ -31,7 +30,6 @@ class IssueCreateInput
 		public ?string $stateId = null,
 		public ?string $referenceCommentId = null,
 		public ?string $sourceCommentId = null,
-		public ?string $sourcePullRequestCommentId = null,
 		public ?float $boardOrder = null,
 		public ?float $sortOrder = null,
 		public ?float $prioritySortOrder = null,
@@ -41,15 +39,12 @@ class IssueCreateInput
 		public ?string $displayIconUrl = null,
 		public ?bool $preserveSortOrderOnCreate = null,
 		public ?DateTimeInterface $createdAt = null,
-		public ?DateTimeInterface $slaBreachesAt = null,
-		public ?DateTimeInterface $slaStartedAt = null,
 		public ?string $templateId = null,
 		public ?DateTimeInterface $completedAt = null,
 		public ?SLADayCountType $slaType = null,
 		public ?bool $useDefaultTemplate = null,
 		/** @var iterable<string>|Collection<int, string> */
-		public ?iterable $releaseIds = null,
-		public ?bool $inheritsSharedAccess = null
+		public ?iterable $releaseIds = null
 	) {
 	}
 }

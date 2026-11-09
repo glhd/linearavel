@@ -20,11 +20,9 @@ class DocumentContentHistoryType extends Data
 		public Optional|CarbonImmutable $createdAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable $contentDataSnapshotAt,
-		public Optional|string|null $contentData,
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
-		public Optional|Collection|null $actorIds,
-		public Optional|string|null $metadata
+		public Optional|Collection|null $actorIds
 	) {
 	}
 }

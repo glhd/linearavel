@@ -14,8 +14,7 @@ class TriageResponsibilityManualSelection extends Data
 	public function __construct(
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
-		public Optional|Collection $userIds,
-		public Optional|int|null $assignmentIndex
+		public Optional|Collection $userIds
 	) {
 	}
 }

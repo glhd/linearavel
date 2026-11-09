@@ -37,7 +37,6 @@ class Release extends Data implements Node
 		public Optional|string|null $description,
 		public Optional|string|null $version,
 		public Optional|string|null $commitSha,
-		public Optional|ReleaseNote|null $releaseNote,
 		public Optional|User|null $creator,
 		public Optional|string|null $startDate,
 		public Optional|string|null $targetDate,

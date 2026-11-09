@@ -30,9 +30,6 @@ class Project extends Data implements Node
 		public Optional|string $slugId,
 		public Optional|string $color,
 		public Optional|ProjectStatus $status,
-		public Optional|string $leadTeamId,
-		/** @var Collection<int, Facet> */
-		public Optional|Collection $facets,
 		public Optional|float $sortOrder,
 		public Optional|float $prioritySortOrder,
 		public Optional|int $priority,
@@ -51,8 +48,6 @@ class Project extends Data implements Node
 		/** @var Collection<int, float> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $inProgressScopeHistory,
-		public Optional|string $progressHistory,
-		public Optional|string $currentProgress,
 		public Optional|bool $slackNewIssue,
 		public Optional|bool $slackIssueComments,
 		public Optional|bool $slackIssueStatuses,
@@ -60,9 +55,6 @@ class Project extends Data implements Node
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $labelIds,
 		public Optional|string $url,
-		/** @var Collection<int, string> */
-		#[WithCast(EnumerableCast::class)]
-		public Optional|Collection $previousIdentifiers,
 		public Optional|InitiativeConnection $initiatives,
 		public Optional|InitiativeToProjectConnection $initiativeToProjects,
 		public Optional|TeamConnection $teams,
@@ -93,7 +85,6 @@ class Project extends Data implements Node
 		public Optional|string|null $icon,
 		public Optional|User|null $creator,
 		public Optional|User|null $lead,
-		public Optional|Team|null $leadTeam,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $projectUpdateRemindersPausedUntilAt,
 		public Optional|string|null $startDate,
@@ -116,12 +107,10 @@ class Project extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $healthUpdatedAt,
 		public Optional|Favorite|null $favorite,
-		public Optional|string|null $identifier,
 		public Optional|IntegrationsSettings|null $integrationsSettings,
 		public Optional|string|null $slackChannelId,
 		public Optional|string|null $microsoftTeamsChannelId,
 		public Optional|string|null $content,
-		public Optional|string|null $contentState,
 		public Optional|DocumentContent|null $documentContent,
 		/** @var Collection<int, ExternalEntityInfo> */
 		public Optional|Collection|null $syncedWith

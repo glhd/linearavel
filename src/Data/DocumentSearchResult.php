@@ -5,6 +5,7 @@ namespace Glhd\Linearavel\Data;
 use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
+use Glhd\Linearavel\Data\Enums\DocumentShareRole;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -26,7 +27,6 @@ class DocumentSearchResult extends Data implements Node
 		public Optional|string $metadata,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
-		public Optional|string|null $summary,
 		public Optional|string|null $icon,
 		public Optional|string|null $color,
 		public Optional|User|null $creator,
@@ -34,19 +34,15 @@ class DocumentSearchResult extends Data implements Node
 		public Optional|User|null $updatedBy,
 		public Optional|Project|null $project,
 		public Optional|Initiative|null $initiative,
-		public Optional|Team|null $team,
 		public Optional|Issue|null $issue,
 		public Optional|Release|null $release,
-		public Optional|Cycle|null $cycle,
-		public Optional|Document|null $parentDocument,
-		public Optional|float|null $subDocumentSortOrder,
 		public Optional|Template|null $lastAppliedTemplate,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $hiddenAt,
 		public Optional|bool|null $trashed,
 		public Optional|string|null $content,
-		public Optional|string|null $contentState,
-		public Optional|string|null $documentContentId
+		public Optional|string|null $documentContentId,
+		public Optional|DocumentShareRole|null $workspaceAccess
 	) {
 	}
 }

@@ -24,7 +24,6 @@ class ProjectCreateInput
 		public ?string $templateId = null,
 		public ?bool $useDefaultTemplate = null,
 		public ?string $leadId = null,
-		public ?string $leadTeamId = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $memberIds = null,
 		public ?string $startDate = null,

@@ -66,7 +66,6 @@ class IssueHistory extends Data implements Node
 		public Optional|string|null $fromDueDate,
 		public Optional|string|null $toDueDate,
 		public Optional|string|null $customerNeedId,
-		public Optional|string|null $changes,
 		public Optional|User|null $actor,
 		/** @var Collection<int, User> */
 		public Optional|Collection|null $actors,
@@ -115,9 +114,7 @@ class IssueHistory extends Data implements Node
 		/** @var Collection<int, Release> */
 		public Optional|Collection|null $addedToReleases,
 		/** @var Collection<int, Release> */
-		public Optional|Collection|null $removedFromReleases,
-		public Optional|IssueHistoryTriageRuleMetadata|null $triageRuleMetadata,
-		public Optional|IssueHistoryWorkflowMetadata|null $workflowMetadata
+		public Optional|Collection|null $removedFromReleases
 	) {
 	}
 }

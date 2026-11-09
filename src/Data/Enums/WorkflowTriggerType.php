@@ -16,4 +16,6 @@ enum WorkflowTriggerType: string
 	case webhook = 'webhook';
 	case chat = 'chat';
 	case pullRequest = 'pullRequest';
+	case aiConversation = 'aiConversation';
+	case agentSession = 'agentSession';
 }

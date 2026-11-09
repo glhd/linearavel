@@ -23,8 +23,7 @@ class AuthUser extends Data
 		public Optional|string $userAccountId,
 		public Optional|AuthOrganization $organization,
 		public Optional|string|null $avatarUrl,
-		public Optional|string|null $oauthClientId,
-		public Optional|AuthIdentityProvider|null $identityProvider
+		public Optional|string|null $oauthClientId
 	) {
 	}
 }

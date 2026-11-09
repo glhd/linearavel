@@ -3,18 +3,14 @@
 namespace Glhd\Linearavel\Connectors;
 
 use DateTimeInterface;
-use Glhd\Linearavel\Data\Enums\DocumentShareRole;
 use Glhd\Linearavel\Data\Enums\ExternalSyncService;
 use Glhd\Linearavel\Data\Enums\GitLinkKind;
-use Glhd\Linearavel\Data\Enums\InitiativeLeadTeamChangeMode;
 use Glhd\Linearavel\Data\Enums\NotificationCategory;
 use Glhd\Linearavel\Data\Enums\NotificationChannel;
 use Glhd\Linearavel\Data\Enums\UserFlagType;
 use Glhd\Linearavel\Data\Enums\UserFlagUpdateOperation;
 use Glhd\Linearavel\Data\Enums\UserRoleType;
 use Glhd\Linearavel\Requests\Inputs\AgentActivityCreateInput;
-use Glhd\Linearavel\Requests\Inputs\AgentActivityCreatePromptInput;
-use Glhd\Linearavel\Requests\Inputs\AgentSessionCreateInput;
 use Glhd\Linearavel\Requests\Inputs\AgentSessionCreateOnCommentInput;
 use Glhd\Linearavel\Requests\Inputs\AgentSessionCreateOnIssueInput;
 use Glhd\Linearavel\Requests\Inputs\AgentSessionUpdateExternalUrlInput;
@@ -27,8 +23,6 @@ use Glhd\Linearavel\Requests\Inputs\AttachmentUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\CommentCreateInput;
 use Glhd\Linearavel\Requests\Inputs\CommentUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\ContactCreateInput;
-use Glhd\Linearavel\Requests\Inputs\ContactSalesCreateInput;
-use Glhd\Linearavel\Requests\Inputs\CreateOrganizationInput;
 use Glhd\Linearavel\Requests\Inputs\CustomerCreateInput;
 use Glhd\Linearavel\Requests\Inputs\CustomerNeedCreateFromAttachmentInput;
 use Glhd\Linearavel\Requests\Inputs\CustomerNeedCreateInput;
@@ -74,13 +68,10 @@ use Glhd\Linearavel\Requests\Inputs\InitiativeToProjectUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\InitiativeUpdateCreateInput;
 use Glhd\Linearavel\Requests\Inputs\InitiativeUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\InitiativeUpdateUpdateInput;
-use Glhd\Linearavel\Requests\Inputs\IntegrationCustomerDataAttributesRefreshInput;
 use Glhd\Linearavel\Requests\Inputs\IntegrationRequestInput;
-use Glhd\Linearavel\Requests\Inputs\IntegrationSettingsInput;
 use Glhd\Linearavel\Requests\Inputs\IntegrationsSettingsCreateInput;
 use Glhd\Linearavel\Requests\Inputs\IntegrationsSettingsUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\IntegrationTemplateCreateInput;
-use Glhd\Linearavel\Requests\Inputs\IntegrationUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\IntercomSettingsInput;
 use Glhd\Linearavel\Requests\Inputs\IssueBatchCreateInput;
 use Glhd\Linearavel\Requests\Inputs\IssueCreateInput;
@@ -91,31 +82,21 @@ use Glhd\Linearavel\Requests\Inputs\IssueRelationCreateInput;
 use Glhd\Linearavel\Requests\Inputs\IssueRelationUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\IssueToReleaseCreateInput;
 use Glhd\Linearavel\Requests\Inputs\IssueUpdateInput;
-use Glhd\Linearavel\Requests\Inputs\JiraConfigurationInput;
-use Glhd\Linearavel\Requests\Inputs\JiraFetchProjectStatusesInput;
-use Glhd\Linearavel\Requests\Inputs\JiraUpdateInput;
-use Glhd\Linearavel\Requests\Inputs\JoinOrganizationInput;
-use Glhd\Linearavel\Requests\Inputs\McpServerIntegrationSettingsInput;
+use Glhd\Linearavel\Requests\Inputs\JiraProjectBatchMigrateInput;
 use Glhd\Linearavel\Requests\Inputs\NotificationEntityInput;
 use Glhd\Linearavel\Requests\Inputs\NotificationSubscriptionCreateInput;
 use Glhd\Linearavel\Requests\Inputs\NotificationSubscriptionUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\NotificationUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\OAuthApplicationCreateInput;
 use Glhd\Linearavel\Requests\Inputs\OAuthApplicationUpdateInput;
-use Glhd\Linearavel\Requests\Inputs\OnboardingCustomerSurveyInput;
-use Glhd\Linearavel\Requests\Inputs\OrganizationDomainCreateInput;
-use Glhd\Linearavel\Requests\Inputs\OrganizationDomainUpdateInput;
-use Glhd\Linearavel\Requests\Inputs\OrganizationDomainVerificationInput;
 use Glhd\Linearavel\Requests\Inputs\OrganizationInviteCreateInput;
 use Glhd\Linearavel\Requests\Inputs\OrganizationInviteUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\OrganizationStartTrialInput;
 use Glhd\Linearavel\Requests\Inputs\OrganizationUpdateInput;
-use Glhd\Linearavel\Requests\Inputs\PartnerApplicationCreateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectCreateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectLabelCreateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectLabelUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectMilestoneCreateInput;
-use Glhd\Linearavel\Requests\Inputs\ProjectMilestoneMoveInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectMilestoneUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectRelationCreateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectRelationUpdateInput;
@@ -164,13 +145,8 @@ use Glhd\Linearavel\Requests\Inputs\WebhookUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\WorkflowStateCreateInput;
 use Glhd\Linearavel\Requests\Inputs\WorkflowStateUpdateInput;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentActivityCreateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentActivityCreatePromptMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentActivityDeleteQueuedMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentActivitySendQueuedMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentSessionCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentSessionCreateOnCommentMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentSessionCreateOnIssueMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentSessionRestartWithDefaultModelMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentSessionUpdateExternalUrlMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentSessionUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingAgentSkillCreateMutationRequest;
@@ -198,10 +174,8 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingCommentResolveMutationRequ
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCommentUnresolveMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCommentUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingContactCreateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingContactSalesCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCreateCsvExportReportMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCreateInitiativeUpdateReminderMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingCreateOrganizationFromOnboardingMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCreateProjectUpdateReminderMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCustomerCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCustomerDeleteMutationRequest;
@@ -231,11 +205,9 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleStartUpcomingCycleTod
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentDeleteMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentShareMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUnarchiveMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUnshareMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateCollaboratorRoleMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateWorkspaceAccessMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressRefreshSesDomainStatusMutationRequest;
@@ -252,7 +224,6 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingEntityExternalLinkUpdateMu
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingFileUploadDangerouslyDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingFileUploadMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationStateCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationStateDeleteMutationRequest;
@@ -273,7 +244,6 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeLabelDeleteMutat
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeLabelRestoreMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeLabelRetireMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeLabelUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeLeadTeamUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeRelationCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeRelationDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeRelationUpdateMutationRequest;
@@ -289,9 +259,6 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeUpdateUnarchiveM
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingInitiativeUpdateUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationArchiveMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationAsksConnectChannelMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationCustomerDataAttributesRefreshMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationDatadogConnectMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationDatadogEnvironmentsMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationDiscordMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationFigmaMutationRequest;
@@ -309,51 +276,31 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabTestConne
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabUpdateRotationSettingsMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGitlabUpdateTokenMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGongMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGoogleCalendarPersonalConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationGoogleSheetsMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationIntercomDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationIntercomMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationIntercomSettingsUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationJiraFetchProjectStatusesMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationJiraPersonalMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationJiraUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationLaunchDarklyConnectMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationLaunchDarklyPersonalConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationLoomMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationMcpServerConnectMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationMcpServerPersonalConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationMicrosoftPersonalConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationMicrosoftTeamsMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationMicrosoftTeamsProjectPostMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOpsgenieConnectMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOpsgenieRefreshScheduleMappingsMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOriginConnectInstallationMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationOriginConnectMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationPagerDutyConnectMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationPagerDutyRefreshScheduleMappingsMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationRequestMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSalesforceMetadataRefreshMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSalesforceMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSentryConnectMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSettingsUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackAsksMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackCustomerChannelLinkMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackCustomViewNotificationsMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackImportEmojisMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackInitiativePostMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackOrAsksUpdateSlackTeamNameMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackOrgInitiativeUpdatesPostMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackOrgProjectUpdatesPostMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackPersonalMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackPostMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackProjectPostMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationSlackWorkflowAccessUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationsSettingsCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationsSettingsUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationTemplateCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationTemplateDeleteMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIntegrationZendeskMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueAddLabelMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueArchiveMutationRequest;
@@ -361,14 +308,12 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueBatchCreateMutationRe
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueBatchUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueDeleteMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueDescriptionUpdateFromFrontMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueExternalSyncDisableMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateAsanaMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateClubhouseMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateCSVJiraMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateGithubMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateJiraMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportCreateLinearV2MutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportProcessMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueImportUpdateMutationRequest;
@@ -382,7 +327,6 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRelationDeleteMutatio
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRelationUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueReminderMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRemoveLabelMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueRequestSolubilityPredictionMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueShareMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueSubscribeMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueToReleaseCreateMutationRequest;
@@ -392,9 +336,7 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueUnarchiveMutationRequ
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueUnshareMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueUnsubscribeMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingIssueUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingJiraIntegrationConnectMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingJoinOrganizationFromOnboardingMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingLeaveOrganizationMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingJiraProjectBatchMigrateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingLogoutAllSessionsMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingLogoutMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingLogoutOtherSessionsMutationRequest;
@@ -419,28 +361,17 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingOauthApplicationUpdateMuta
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationCancelDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDeleteChallengeMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDeleteMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainClaimMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainDeleteMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationDomainVerifyMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationInviteCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationInviteDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationInviteUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationStartTrialForPlanMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationStartTrialMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingOrganizationUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingOriginInstallationCancelMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingPartnerApplicationCreateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingPartnerOfferRedeemMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingPasskeyLoginFinishMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingPasskeyLoginStartMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectAddLabelMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectArchiveMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectCreateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectCreateSlackChannelMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectDeleteMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectDismissSlackChannelCreationFailureMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectExternalSyncDisableMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLabelCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLabelDeleteMutationRequest;
@@ -449,9 +380,7 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLabelRetireMutation
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLabelUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneDeleteMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneMoveMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectReassignStatusMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectRelationCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectRelationDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectRelationUpdateMutationRequest;
@@ -527,7 +456,6 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingTrackAnonymousEventMutatio
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingTriageResponsibilityCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingTriageResponsibilityDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingTriageResponsibilityUpdateMutationRequest;
-use Glhd\Linearavel\Requests\Pending\Mutations\PendingUpdateIntegrationSlackScopesMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserChangeRoleMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserDiscordConnectMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingUserExternalUserDisconnectMutationRequest;
@@ -563,21 +491,6 @@ trait MutatesLinear
 		return new PendingProjectUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
 	}
 
-	public function projectCreateSlackChannelMutation(string $slackChannelName, string $id, ?string $integrationId = null): PendingProjectCreateSlackChannelMutationRequest
-	{
-		return new PendingProjectCreateSlackChannelMutationRequest($this, ['slackChannelName' => $slackChannelName, 'id' => $id, 'integrationId' => $integrationId]);
-	}
-
-	public function projectDismissSlackChannelCreationFailureMutation(string $id): PendingProjectDismissSlackChannelCreationFailureMutationRequest
-	{
-		return new PendingProjectDismissSlackChannelCreationFailureMutationRequest($this, ['id' => $id]);
-	}
-
-	public function projectReassignStatusMutation(string $newProjectStatusId, string $originalProjectStatusId): PendingProjectReassignStatusMutationRequest
-	{
-		return new PendingProjectReassignStatusMutationRequest($this, ['newProjectStatusId' => $newProjectStatusId, 'originalProjectStatusId' => $originalProjectStatusId]);
-	}
-
 	public function projectDeleteMutation(string $id): PendingProjectDeleteMutationRequest
 	{
 		return new PendingProjectDeleteMutationRequest($this, ['id' => $id]);
@@ -608,44 +521,9 @@ trait MutatesLinear
 		return new PendingProjectExternalSyncDisableMutationRequest($this, ['syncSource' => $syncSource, 'projectId' => $projectId]);
 	}
 
-	public function fileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null, ?bool $makePublic = null): PendingFileUploadMutationRequest
-	{
-		return new PendingFileUploadMutationRequest($this, ['size' => $size, 'contentType' => $contentType, 'filename' => $filename, 'metaData' => $metaData, 'makePublic' => $makePublic]);
-	}
-
-	public function importFileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null): PendingImportFileUploadMutationRequest
-	{
-		return new PendingImportFileUploadMutationRequest($this, ['size' => $size, 'contentType' => $contentType, 'filename' => $filename, 'metaData' => $metaData]);
-	}
-
-	public function imageUploadFromUrlMutation(string $url): PendingImageUploadFromUrlMutationRequest
-	{
-		return new PendingImageUploadFromUrlMutationRequest($this, ['url' => $url]);
-	}
-
-	public function fileUploadDangerouslyDeleteMutation(string $assetUrl): PendingFileUploadDangerouslyDeleteMutationRequest
-	{
-		return new PendingFileUploadDangerouslyDeleteMutationRequest($this, ['assetUrl' => $assetUrl]);
-	}
-
 	public function agentActivityCreateMutation(AgentActivityCreateInput $input): PendingAgentActivityCreateMutationRequest
 	{
 		return new PendingAgentActivityCreateMutationRequest($this, ['input' => $input]);
-	}
-
-	public function agentActivityCreatePromptMutation(AgentActivityCreatePromptInput $input): PendingAgentActivityCreatePromptMutationRequest
-	{
-		return new PendingAgentActivityCreatePromptMutationRequest($this, ['input' => $input]);
-	}
-
-	public function agentActivitySendQueuedMutation(string $id): PendingAgentActivitySendQueuedMutationRequest
-	{
-		return new PendingAgentActivitySendQueuedMutationRequest($this, ['id' => $id]);
-	}
-
-	public function agentActivityDeleteQueuedMutation(string $id): PendingAgentActivityDeleteQueuedMutationRequest
-	{
-		return new PendingAgentActivityDeleteQueuedMutationRequest($this, ['id' => $id]);
 	}
 
 	public function agentSessionCreateOnCommentMutation(AgentSessionCreateOnCommentInput $input): PendingAgentSessionCreateOnCommentMutationRequest
@@ -656,16 +534,6 @@ trait MutatesLinear
 	public function agentSessionCreateOnIssueMutation(AgentSessionCreateOnIssueInput $input): PendingAgentSessionCreateOnIssueMutationRequest
 	{
 		return new PendingAgentSessionCreateOnIssueMutationRequest($this, ['input' => $input]);
-	}
-
-	public function agentSessionCreateMutation(AgentSessionCreateInput $input, ?string $pullRequestId = null): PendingAgentSessionCreateMutationRequest
-	{
-		return new PendingAgentSessionCreateMutationRequest($this, ['input' => $input, 'pullRequestId' => $pullRequestId]);
-	}
-
-	public function agentSessionRestartWithDefaultModelMutation(string $id): PendingAgentSessionRestartWithDefaultModelMutationRequest
-	{
-		return new PendingAgentSessionRestartWithDefaultModelMutationRequest($this, ['id' => $id]);
 	}
 
 	public function agentSessionUpdateExternalUrlMutation(AgentSessionUpdateExternalUrlInput $input, string $id): PendingAgentSessionUpdateExternalUrlMutationRequest
@@ -788,31 +656,6 @@ trait MutatesLinear
 		return new PendingGoogleUserAccountAuthMutationRequest($this, ['input' => $input]);
 	}
 
-	public function passkeyLoginStartMutation(string $authId): PendingPasskeyLoginStartMutationRequest
-	{
-		return new PendingPasskeyLoginStartMutationRequest($this, ['authId' => $authId]);
-	}
-
-	public function passkeyLoginFinishMutation(string $response, string $authId): PendingPasskeyLoginFinishMutationRequest
-	{
-		return new PendingPasskeyLoginFinishMutationRequest($this, ['response' => $response, 'authId' => $authId]);
-	}
-
-	public function createOrganizationFromOnboardingMutation(CreateOrganizationInput $input, ?string $partnerOfferToken = null, ?string $sessionId = null, ?OnboardingCustomerSurveyInput $survey = null): PendingCreateOrganizationFromOnboardingMutationRequest
-	{
-		return new PendingCreateOrganizationFromOnboardingMutationRequest($this, ['input' => $input, 'partnerOfferToken' => $partnerOfferToken, 'sessionId' => $sessionId, 'survey' => $survey]);
-	}
-
-	public function joinOrganizationFromOnboardingMutation(JoinOrganizationInput $input): PendingJoinOrganizationFromOnboardingMutationRequest
-	{
-		return new PendingJoinOrganizationFromOnboardingMutationRequest($this, ['input' => $input]);
-	}
-
-	public function leaveOrganizationMutation(string $organizationId): PendingLeaveOrganizationMutationRequest
-	{
-		return new PendingLeaveOrganizationMutationRequest($this, ['organizationId' => $organizationId]);
-	}
-
 	public function logoutMutation(?string $reason = null): PendingLogoutMutationRequest
 	{
 		return new PendingLogoutMutationRequest($this, ['reason' => $reason]);
@@ -861,16 +704,6 @@ trait MutatesLinear
 	public function contactCreateMutation(ContactCreateInput $input): PendingContactCreateMutationRequest
 	{
 		return new PendingContactCreateMutationRequest($this, ['input' => $input]);
-	}
-
-	public function contactSalesCreateMutation(ContactSalesCreateInput $input): PendingContactSalesCreateMutationRequest
-	{
-		return new PendingContactSalesCreateMutationRequest($this, ['input' => $input]);
-	}
-
-	public function partnerApplicationCreateMutation(PartnerApplicationCreateInput $input): PendingPartnerApplicationCreateMutationRequest
-	{
-		return new PendingPartnerApplicationCreateMutationRequest($this, ['input' => $input]);
 	}
 
 	public function customViewCreateMutation(CustomViewCreateInput $input): PendingCustomViewCreateMutationRequest
@@ -1013,19 +846,9 @@ trait MutatesLinear
 		return new PendingDocumentUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
 	}
 
-	public function documentShareMutation(iterable $userIds, string $id, ?DocumentShareRole $role = null): PendingDocumentShareMutationRequest
+	public function documentUpdateWorkspaceAccessMutation(string $workspaceAccess, string $id, ?string $previousWorkspaceAccess = null, ?bool $applyToSubDocuments = null): PendingDocumentUpdateWorkspaceAccessMutationRequest
 	{
-		return new PendingDocumentShareMutationRequest($this, ['userIds' => $userIds, 'id' => $id, 'role' => $role]);
-	}
-
-	public function documentUpdateCollaboratorRoleMutation(DocumentShareRole $role, iterable $userIds, string $id): PendingDocumentUpdateCollaboratorRoleMutationRequest
-	{
-		return new PendingDocumentUpdateCollaboratorRoleMutationRequest($this, ['role' => $role, 'userIds' => $userIds, 'id' => $id]);
-	}
-
-	public function documentUnshareMutation(iterable $userIds, string $id): PendingDocumentUnshareMutationRequest
-	{
-		return new PendingDocumentUnshareMutationRequest($this, ['userIds' => $userIds, 'id' => $id]);
+		return new PendingDocumentUpdateWorkspaceAccessMutationRequest($this, ['workspaceAccess' => $workspaceAccess, 'id' => $id, 'previousWorkspaceAccess' => $previousWorkspaceAccess, 'applyToSubDocuments' => $applyToSubDocuments]);
 	}
 
 	public function documentDeleteMutation(string $id, ?string $ifParentDocumentId = null): PendingDocumentDeleteMutationRequest
@@ -1113,6 +936,21 @@ trait MutatesLinear
 		return new PendingFavoriteDeleteMutationRequest($this, ['id' => $id]);
 	}
 
+	public function fileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null, ?bool $makePublic = null): PendingFileUploadMutationRequest
+	{
+		return new PendingFileUploadMutationRequest($this, ['size' => $size, 'contentType' => $contentType, 'filename' => $filename, 'metaData' => $metaData, 'makePublic' => $makePublic]);
+	}
+
+	public function importFileUploadMutation(int $size, string $contentType, string $filename, ?string $metaData = null): PendingImportFileUploadMutationRequest
+	{
+		return new PendingImportFileUploadMutationRequest($this, ['size' => $size, 'contentType' => $contentType, 'filename' => $filename, 'metaData' => $metaData]);
+	}
+
+	public function imageUploadFromUrlMutation(string $url): PendingImageUploadFromUrlMutationRequest
+	{
+		return new PendingImageUploadFromUrlMutationRequest($this, ['url' => $url]);
+	}
+
 	public function gitAutomationStateCreateMutation(GitAutomationStateCreateInput $input): PendingGitAutomationStateCreateMutationRequest
 	{
 		return new PendingGitAutomationStateCreateMutationRequest($this, ['input' => $input]);
@@ -1151,11 +989,6 @@ trait MutatesLinear
 	public function initiativeUpdateMutation(InitiativeUpdateInput $input, string $id): PendingInitiativeUpdateMutationRequest
 	{
 		return new PendingInitiativeUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
-	}
-
-	public function initiativeLeadTeamUpdateMutation(string $id, ?InitiativeLeadTeamChangeMode $mode = null, ?string $leadTeamId = null): PendingInitiativeLeadTeamUpdateMutationRequest
-	{
-		return new PendingInitiativeLeadTeamUpdateMutationRequest($this, ['id' => $id, 'mode' => $mode, 'leadTeamId' => $leadTeamId]);
 	}
 
 	public function initiativeArchiveMutation(string $id): PendingInitiativeArchiveMutationRequest
@@ -1268,16 +1101,6 @@ trait MutatesLinear
 		return new PendingIntegrationRequestMutationRequest($this, ['input' => $input]);
 	}
 
-	public function integrationUpdateMutation(IntegrationUpdateInput $input, string $id): PendingIntegrationUpdateMutationRequest
-	{
-		return new PendingIntegrationUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
-	}
-
-	public function integrationSettingsUpdateMutation(IntegrationSettingsInput $input, string $id): PendingIntegrationSettingsUpdateMutationRequest
-	{
-		return new PendingIntegrationSettingsUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
-	}
-
 	public function integrationGithubCommitCreateMutation(): PendingIntegrationGithubCommitCreateMutationRequest
 	{
 		return new PendingIntegrationGithubCommitCreateMutationRequest($this, []);
@@ -1328,21 +1151,6 @@ trait MutatesLinear
 		return new PendingIntegrationGitlabRotateMutationRequest($this, ['integrationId' => $integrationId]);
 	}
 
-	public function integrationOriginConnectMutation(string $installationReceipt): PendingIntegrationOriginConnectMutationRequest
-	{
-		return new PendingIntegrationOriginConnectMutationRequest($this, ['installationReceipt' => $installationReceipt]);
-	}
-
-	public function integrationOriginConnectInstallationMutation(string $installationId): PendingIntegrationOriginConnectInstallationMutationRequest
-	{
-		return new PendingIntegrationOriginConnectInstallationMutationRequest($this, ['installationId' => $installationId]);
-	}
-
-	public function originInstallationCancelMutation(string $installationId): PendingOriginInstallationCancelMutationRequest
-	{
-		return new PendingOriginInstallationCancelMutationRequest($this, ['installationId' => $installationId]);
-	}
-
 	public function integrationGitlabTestConnectionMutation(string $integrationId): PendingIntegrationGitlabTestConnectionMutationRequest
 	{
 		return new PendingIntegrationGitlabTestConnectionMutationRequest($this, ['integrationId' => $integrationId]);
@@ -1351,46 +1159,6 @@ trait MutatesLinear
 	public function airbyteIntegrationConnectMutation(AirbyteConfigurationInput $input): PendingAirbyteIntegrationConnectMutationRequest
 	{
 		return new PendingAirbyteIntegrationConnectMutationRequest($this, ['input' => $input]);
-	}
-
-	public function integrationGoogleCalendarPersonalConnectMutation(string $code): PendingIntegrationGoogleCalendarPersonalConnectMutationRequest
-	{
-		return new PendingIntegrationGoogleCalendarPersonalConnectMutationRequest($this, ['code' => $code]);
-	}
-
-	public function integrationDatadogEnvironmentsMutation(string $site, string $apiKey, string $applicationKey): PendingIntegrationDatadogEnvironmentsMutationRequest
-	{
-		return new PendingIntegrationDatadogEnvironmentsMutationRequest($this, ['site' => $site, 'apiKey' => $apiKey, 'applicationKey' => $applicationKey]);
-	}
-
-	public function integrationDatadogConnectMutation(string $site, string $apiKey, string $applicationKey, string $environmentId): PendingIntegrationDatadogConnectMutationRequest
-	{
-		return new PendingIntegrationDatadogConnectMutationRequest($this, ['site' => $site, 'apiKey' => $apiKey, 'applicationKey' => $applicationKey, 'environmentId' => $environmentId]);
-	}
-
-	public function integrationLaunchDarklyConnectMutation(string $code, string $projectKey, string $environment): PendingIntegrationLaunchDarklyConnectMutationRequest
-	{
-		return new PendingIntegrationLaunchDarklyConnectMutationRequest($this, ['code' => $code, 'projectKey' => $projectKey, 'environment' => $environment]);
-	}
-
-	public function integrationLaunchDarklyPersonalConnectMutation(string $code): PendingIntegrationLaunchDarklyPersonalConnectMutationRequest
-	{
-		return new PendingIntegrationLaunchDarklyPersonalConnectMutationRequest($this, ['code' => $code]);
-	}
-
-	public function jiraIntegrationConnectMutation(JiraConfigurationInput $input): PendingJiraIntegrationConnectMutationRequest
-	{
-		return new PendingJiraIntegrationConnectMutationRequest($this, ['input' => $input]);
-	}
-
-	public function integrationJiraUpdateMutation(JiraUpdateInput $input): PendingIntegrationJiraUpdateMutationRequest
-	{
-		return new PendingIntegrationJiraUpdateMutationRequest($this, ['input' => $input]);
-	}
-
-	public function integrationJiraFetchProjectStatusesMutation(JiraFetchProjectStatusesInput $input): PendingIntegrationJiraFetchProjectStatusesMutationRequest
-	{
-		return new PendingIntegrationJiraFetchProjectStatusesMutationRequest($this, ['input' => $input]);
 	}
 
 	public function integrationJiraPersonalMutation(?string $workspaceIntegrationId = null, ?string $code = null, ?string $accessToken = null): PendingIntegrationJiraPersonalMutationRequest
@@ -1413,11 +1181,6 @@ trait MutatesLinear
 		return new PendingIntegrationIntercomDeleteMutationRequest($this, []);
 	}
 
-	public function integrationCustomerDataAttributesRefreshMutation(IntegrationCustomerDataAttributesRefreshInput $input): PendingIntegrationCustomerDataAttributesRefreshMutationRequest
-	{
-		return new PendingIntegrationCustomerDataAttributesRefreshMutationRequest($this, ['input' => $input]);
-	}
-
 	public function integrationIntercomSettingsUpdateMutation(IntercomSettingsInput $input): PendingIntegrationIntercomSettingsUpdateMutationRequest
 	{
 		return new PendingIntegrationIntercomSettingsUpdateMutationRequest($this, ['input' => $input]);
@@ -1426,31 +1189,6 @@ trait MutatesLinear
 	public function integrationDiscordMutation(string $redirectUri, string $code): PendingIntegrationDiscordMutationRequest
 	{
 		return new PendingIntegrationDiscordMutationRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
-	}
-
-	public function integrationOpsgenieConnectMutation(string $apiKey): PendingIntegrationOpsgenieConnectMutationRequest
-	{
-		return new PendingIntegrationOpsgenieConnectMutationRequest($this, ['apiKey' => $apiKey]);
-	}
-
-	public function integrationOpsgenieRefreshScheduleMappingsMutation(): PendingIntegrationOpsgenieRefreshScheduleMappingsMutationRequest
-	{
-		return new PendingIntegrationOpsgenieRefreshScheduleMappingsMutationRequest($this, []);
-	}
-
-	public function integrationPagerDutyConnectMutation(string $code, string $redirectUri): PendingIntegrationPagerDutyConnectMutationRequest
-	{
-		return new PendingIntegrationPagerDutyConnectMutationRequest($this, ['code' => $code, 'redirectUri' => $redirectUri]);
-	}
-
-	public function integrationPagerDutyRefreshScheduleMappingsMutation(): PendingIntegrationPagerDutyRefreshScheduleMappingsMutationRequest
-	{
-		return new PendingIntegrationPagerDutyRefreshScheduleMappingsMutationRequest($this, []);
-	}
-
-	public function updateIntegrationSlackScopesMutation(string $integrationId, string $redirectUri, string $code, ?iterable $requestedScopes = null): PendingUpdateIntegrationSlackScopesMutationRequest
-	{
-		return new PendingUpdateIntegrationSlackScopesMutationRequest($this, ['integrationId' => $integrationId, 'redirectUri' => $redirectUri, 'code' => $code, 'requestedScopes' => $requestedScopes]);
 	}
 
 	public function integrationSlackMutation(string $redirectUri, string $code, ?iterable $requestedScopes = null, ?bool $shouldUseV2Auth = null): PendingIntegrationSlackMutationRequest
@@ -1488,11 +1226,6 @@ trait MutatesLinear
 		return new PendingIntegrationSlackProjectPostMutationRequest($this, ['service' => $service, 'redirectUri' => $redirectUri, 'projectId' => $projectId, 'code' => $code]);
 	}
 
-	public function integrationSlackInitiativePostMutation(string $redirectUri, string $initiativeId, string $code): PendingIntegrationSlackInitiativePostMutationRequest
-	{
-		return new PendingIntegrationSlackInitiativePostMutationRequest($this, ['redirectUri' => $redirectUri, 'initiativeId' => $initiativeId, 'code' => $code]);
-	}
-
 	public function integrationSlackCustomViewNotificationsMutation(string $redirectUri, string $customViewId, string $code): PendingIntegrationSlackCustomViewNotificationsMutationRequest
 	{
 		return new PendingIntegrationSlackCustomViewNotificationsMutationRequest($this, ['redirectUri' => $redirectUri, 'customViewId' => $customViewId, 'code' => $code]);
@@ -1506,11 +1239,6 @@ trait MutatesLinear
 	public function integrationSlackOrgProjectUpdatesPostMutation(string $redirectUri, string $code): PendingIntegrationSlackOrgProjectUpdatesPostMutationRequest
 	{
 		return new PendingIntegrationSlackOrgProjectUpdatesPostMutationRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
-	}
-
-	public function integrationSlackOrgInitiativeUpdatesPostMutation(string $redirectUri, string $code): PendingIntegrationSlackOrgInitiativeUpdatesPostMutationRequest
-	{
-		return new PendingIntegrationSlackOrgInitiativeUpdatesPostMutationRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
 	}
 
 	public function integrationSlackImportEmojisMutation(string $redirectUri, string $code): PendingIntegrationSlackImportEmojisMutationRequest
@@ -1536,11 +1264,6 @@ trait MutatesLinear
 	public function integrationMicrosoftPersonalConnectMutation(string $redirectUri, string $code): PendingIntegrationMicrosoftPersonalConnectMutationRequest
 	{
 		return new PendingIntegrationMicrosoftPersonalConnectMutationRequest($this, ['redirectUri' => $redirectUri, 'code' => $code]);
-	}
-
-	public function integrationMicrosoftTeamsProjectPostMutation(string $membershipType, string $channelName, string $channelId, string $teamName, string $teamId, string $projectId): PendingIntegrationMicrosoftTeamsProjectPostMutationRequest
-	{
-		return new PendingIntegrationMicrosoftTeamsProjectPostMutationRequest($this, ['membershipType' => $membershipType, 'channelName' => $channelName, 'channelId' => $channelId, 'teamName' => $teamName, 'teamId' => $teamId, 'projectId' => $projectId]);
 	}
 
 	public function integrationGoogleSheetsMutation(string $code): PendingIntegrationGoogleSheetsMutationRequest
@@ -1578,21 +1301,6 @@ trait MutatesLinear
 		return new PendingIntegrationSalesforceMutationRequest($this, ['code' => $code, 'subdomain' => $subdomain, 'redirectUri' => $redirectUri, 'codeVerifier' => $codeVerifier]);
 	}
 
-	public function integrationSalesforceMetadataRefreshMutation(string $id): PendingIntegrationSalesforceMetadataRefreshMutationRequest
-	{
-		return new PendingIntegrationSalesforceMetadataRefreshMutationRequest($this, ['id' => $id]);
-	}
-
-	public function integrationMcpServerPersonalConnectMutation(string $serverUrl, ?iterable $customHeaders = null, ?string $mcpServerDefinitionId = null): PendingIntegrationMcpServerPersonalConnectMutationRequest
-	{
-		return new PendingIntegrationMcpServerPersonalConnectMutationRequest($this, ['serverUrl' => $serverUrl, 'customHeaders' => $customHeaders, 'mcpServerDefinitionId' => $mcpServerDefinitionId]);
-	}
-
-	public function integrationMcpServerConnectMutation(string $serverUrl, ?McpServerIntegrationSettingsInput $settings = null, ?iterable $customHeaders = null, ?string $mcpServerDefinitionId = null, ?string $workflowDefinitionDraftId = null, ?string $workflowDefinitionId = null, ?string $teamId = null): PendingIntegrationMcpServerConnectMutationRequest
-	{
-		return new PendingIntegrationMcpServerConnectMutationRequest($this, ['serverUrl' => $serverUrl, 'settings' => $settings, 'customHeaders' => $customHeaders, 'mcpServerDefinitionId' => $mcpServerDefinitionId, 'workflowDefinitionDraftId' => $workflowDefinitionDraftId, 'workflowDefinitionId' => $workflowDefinitionId, 'teamId' => $teamId]);
-	}
-
 	public function integrationDeleteMutation(string $id, ?bool $skipInstallationDeletion = null): PendingIntegrationDeleteMutationRequest
 	{
 		return new PendingIntegrationDeleteMutationRequest($this, ['id' => $id, 'skipInstallationDeletion' => $skipInstallationDeletion]);
@@ -1601,11 +1309,6 @@ trait MutatesLinear
 	public function integrationArchiveMutation(string $id): PendingIntegrationArchiveMutationRequest
 	{
 		return new PendingIntegrationArchiveMutationRequest($this, ['id' => $id]);
-	}
-
-	public function integrationSlackWorkflowAccessUpdateMutation(bool $enabled, string $integrationId): PendingIntegrationSlackWorkflowAccessUpdateMutationRequest
-	{
-		return new PendingIntegrationSlackWorkflowAccessUpdateMutationRequest($this, ['enabled' => $enabled, 'integrationId' => $integrationId]);
 	}
 
 	public function integrationTemplateCreateMutation(IntegrationTemplateCreateInput $input): PendingIntegrationTemplateCreateMutationRequest
@@ -1651,11 +1354,6 @@ trait MutatesLinear
 	public function issueImportCreateAsanaMutation(string $asanaToken, string $asanaTeamName, ?string $organizationId = null, ?string $teamId = null, ?string $teamName = null, ?string $asanaProjectName = null, ?iterable $asanaProjectNames = null, ?bool $instantProcess = null, ?bool $includeClosedIssues = null, ?string $id = null): PendingIssueImportCreateAsanaMutationRequest
 	{
 		return new PendingIssueImportCreateAsanaMutationRequest($this, ['asanaToken' => $asanaToken, 'asanaTeamName' => $asanaTeamName, 'organizationId' => $organizationId, 'teamId' => $teamId, 'teamName' => $teamName, 'asanaProjectName' => $asanaProjectName, 'asanaProjectNames' => $asanaProjectNames, 'instantProcess' => $instantProcess, 'includeClosedIssues' => $includeClosedIssues, 'id' => $id]);
-	}
-
-	public function issueImportCreateLinearV2Mutation(string $linearSourceOrganizationId, ?string $id = null): PendingIssueImportCreateLinearV2MutationRequest
-	{
-		return new PendingIssueImportCreateLinearV2MutationRequest($this, ['linearSourceOrganizationId' => $linearSourceOrganizationId, 'id' => $id]);
 	}
 
 	public function issueImportDeleteMutation(string $issueImportId): PendingIssueImportDeleteMutationRequest
@@ -1773,11 +1471,6 @@ trait MutatesLinear
 		return new PendingIssueReminderMutationRequest($this, ['reminderAt' => $reminderAt, 'id' => $id]);
 	}
 
-	public function issueRequestSolubilityPredictionMutation(string $id): PendingIssueRequestSolubilityPredictionMutationRequest
-	{
-		return new PendingIssueRequestSolubilityPredictionMutationRequest($this, ['id' => $id]);
-	}
-
 	public function issueSubscribeMutation(string $id, ?string $userEmail = null, ?string $userId = null): PendingIssueSubscribeMutationRequest
 	{
 		return new PendingIssueSubscribeMutationRequest($this, ['id' => $id, 'userEmail' => $userEmail, 'userId' => $userId]);
@@ -1786,11 +1479,6 @@ trait MutatesLinear
 	public function issueUnsubscribeMutation(string $id, ?string $userEmail = null, ?string $userId = null): PendingIssueUnsubscribeMutationRequest
 	{
 		return new PendingIssueUnsubscribeMutationRequest($this, ['id' => $id, 'userEmail' => $userEmail, 'userId' => $userId]);
-	}
-
-	public function issueDescriptionUpdateFromFrontMutation(string $description, string $id): PendingIssueDescriptionUpdateFromFrontMutationRequest
-	{
-		return new PendingIssueDescriptionUpdateFromFrontMutationRequest($this, ['description' => $description, 'id' => $id]);
 	}
 
 	public function issueExternalSyncDisableMutation(string $attachmentId): PendingIssueExternalSyncDisableMutationRequest
@@ -1811,6 +1499,11 @@ trait MutatesLinear
 	public function issueToReleaseDeleteMutation(string $id): PendingIssueToReleaseDeleteMutationRequest
 	{
 		return new PendingIssueToReleaseDeleteMutationRequest($this, ['id' => $id]);
+	}
+
+	public function jiraProjectBatchMigrateMutation(JiraProjectBatchMigrateInput $input): PendingJiraProjectBatchMigrateMutationRequest
+	{
+		return new PendingJiraProjectBatchMigrateMutationRequest($this, ['input' => $input]);
 	}
 
 	public function notificationUpdateMutation(NotificationUpdateInput $input, string $id): PendingNotificationUpdateMutationRequest
@@ -1898,26 +1591,6 @@ trait MutatesLinear
 		return new PendingOauthApplicationRotateWebhookSecretMutationRequest($this, ['id' => $id]);
 	}
 
-	public function organizationDomainClaimMutation(string $id): PendingOrganizationDomainClaimMutationRequest
-	{
-		return new PendingOrganizationDomainClaimMutationRequest($this, ['id' => $id]);
-	}
-
-	public function organizationDomainVerifyMutation(OrganizationDomainVerificationInput $input): PendingOrganizationDomainVerifyMutationRequest
-	{
-		return new PendingOrganizationDomainVerifyMutationRequest($this, ['input' => $input]);
-	}
-
-	public function organizationDomainCreateMutation(OrganizationDomainCreateInput $input, ?bool $triggerEmailVerification = null): PendingOrganizationDomainCreateMutationRequest
-	{
-		return new PendingOrganizationDomainCreateMutationRequest($this, ['input' => $input, 'triggerEmailVerification' => $triggerEmailVerification]);
-	}
-
-	public function organizationDomainUpdateMutation(OrganizationDomainUpdateInput $input, string $id): PendingOrganizationDomainUpdateMutationRequest
-	{
-		return new PendingOrganizationDomainUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
-	}
-
 	public function organizationDomainDeleteMutation(string $id): PendingOrganizationDomainDeleteMutationRequest
 	{
 		return new PendingOrganizationDomainDeleteMutationRequest($this, ['id' => $id]);
@@ -1978,11 +1651,6 @@ trait MutatesLinear
 		return new PendingOrganizationStartTrialMutationRequest($this, []);
 	}
 
-	public function partnerOfferRedeemMutation(string $organizationId, string $token): PendingPartnerOfferRedeemMutationRequest
-	{
-		return new PendingPartnerOfferRedeemMutationRequest($this, ['organizationId' => $organizationId, 'token' => $token]);
-	}
-
 	public function projectLabelCreateMutation(ProjectLabelCreateInput $input, ?bool $replaceTeamLabels = null): PendingProjectLabelCreateMutationRequest
 	{
 		return new PendingProjectLabelCreateMutationRequest($this, ['input' => $input, 'replaceTeamLabels' => $replaceTeamLabels]);
@@ -2021,11 +1689,6 @@ trait MutatesLinear
 	public function projectMilestoneDeleteMutation(string $id): PendingProjectMilestoneDeleteMutationRequest
 	{
 		return new PendingProjectMilestoneDeleteMutationRequest($this, ['id' => $id]);
-	}
-
-	public function projectMilestoneMoveMutation(ProjectMilestoneMoveInput $input, string $id): PendingProjectMilestoneMoveMutationRequest
-	{
-		return new PendingProjectMilestoneMoveMutationRequest($this, ['input' => $input, 'id' => $id]);
 	}
 
 	public function projectRelationCreateMutation(ProjectRelationCreateInput $input): PendingProjectRelationCreateMutationRequest

@@ -24,7 +24,6 @@ class Reaction extends Data implements Node
 		public Optional|Comment|null $comment,
 		public Optional|ProjectUpdate|null $projectUpdate,
 		public Optional|InitiativeUpdate|null $initiativeUpdate,
-		public Optional|Post|null $post,
 		public Optional|User|null $user,
 		public Optional|ExternalUser|null $externalUser
 	) {

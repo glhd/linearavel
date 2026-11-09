@@ -32,6 +32,7 @@ class WorkflowDefinition extends Data implements Node
 		public Optional|bool $enabled,
 		public Optional|bool $runOnce,
 		public Optional|bool $applyToSubTeams,
+		public Optional|bool $postResultsToEntity,
 		public Optional|User $creator,
 		public Optional|string $activities,
 		public Optional|string $sortOrder,
@@ -47,7 +48,6 @@ class WorkflowDefinition extends Data implements Node
 		public Optional|WorkflowIntelligence|null $intelligence,
 		public Optional|string|null $conditions,
 		public Optional|string|null $schedule,
-		public Optional|string|null $triggerConfig,
 		public Optional|Team|null $team,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $lastExecutedAt,
@@ -61,6 +61,7 @@ class WorkflowDefinition extends Data implements Node
 		public Optional|ContextViewType|null $contextViewType,
 		public Optional|UserContextViewType|null $userContextViewType,
 		public Optional|string|null $stats,
+		public Optional|bool|null $trashed,
 		public Optional|User|null $owner,
 		public Optional|WorkflowDefinitionEditAccess|null $editAccess
 	) {

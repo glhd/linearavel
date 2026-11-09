@@ -29,6 +29,7 @@ class EmailIntakeAddress extends Data implements Node
 		public Optional|bool $issueCompletedAutoReplyEnabled,
 		public Optional|bool $issueCanceledAutoReplyEnabled,
 		public Optional|bool $reopenOnReply,
+		public Optional|string $emailAddress,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $forwardingEmailAddress,

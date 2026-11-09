@@ -13,8 +13,7 @@ class OrganizationInviteCreateInput
 		public ?string $id = null,
 		public ?UserRoleType $role = null,
 		/** @var iterable<string>|Collection<int, string> */
-		public ?iterable $teamIds = null,
-		public ?string $metadata = null
+		public ?iterable $teamIds = null
 	) {
 	}
 }

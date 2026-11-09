@@ -11,6 +11,7 @@ class CustomerTierFilterInput
 		public ?IDComparatorInput $id = null,
 		public ?DateComparatorInput $createdAt = null,
 		public ?DateComparatorInput $updatedAt = null,
+		public ?bool $null = null,
 		public ?StringComparatorInput $name = null,
 		public ?StringComparatorInput $displayName = null,
 		public ?StringComparatorInput $description = null,

@@ -28,7 +28,6 @@ class CustomView extends Data implements Node
 		public Optional|string $modelName,
 		public Optional|ProjectConnection $projects,
 		public Optional|IssueConnection $issues,
-		public Optional|FeedItemConnection $updates,
 		public Optional|InitiativeConnection $initiatives,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
@@ -39,7 +38,6 @@ class CustomView extends Data implements Node
 		public Optional|string|null $projectFilterData,
 		public Optional|string|null $initiativeFilterData,
 		public Optional|string|null $feedItemFilterData,
-		public Optional|Facet|null $facet,
 		public Optional|Team|null $team,
 		public Optional|ViewPreferences|null $userViewPreferences,
 		public Optional|ViewPreferences|null $organizationViewPreferences,

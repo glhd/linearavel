@@ -10,7 +10,7 @@ use Spatie\LaravelData\Optional;
 /** @see https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference/objects/AgentActivityPromptContent */
 class AgentActivityPromptContent extends Data implements AgentActivityContent
 {
-	public function __construct(public Optional|AgentActivityType $type, public Optional|string $body, public Optional|string $bodyData, public Optional|string|null $title)
+	public function __construct(public Optional|AgentActivityType $type, public Optional|string $body, public Optional|string|null $title)
 	{
 	}
 }

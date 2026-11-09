@@ -39,7 +39,6 @@ class AuthOrganization extends Data
 		public Optional|string|null $logoUrl,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $deletionRequestedAt,
-		public Optional|string|null $samlSettings,
 		public Optional|float|null $userCount
 	) {
 	}

@@ -19,16 +19,10 @@ class Comment extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $body,
-		public Optional|string $bodyData,
 		public Optional|string $reactionData,
-		public Optional|bool $isArtificialAgentSessionRoot,
 		public Optional|string $url,
 		public Optional|CommentConnection $children,
-		public Optional|AgentSessionConnection $agentSessions,
-		public Optional|AgentSessionConnection $spawnedAgentSessions,
-		public Optional|AiPromptProgressConnection $aiPromptProgresses,
 		public Optional|IssueConnection $createdIssues,
-		public Optional|bool $hideInLinear,
 		/** @var Collection<int, Reaction> */
 		public Optional|Collection $reactions,
 		#[LinearDate]
@@ -41,7 +35,6 @@ class Comment extends Data implements Node
 		public Optional|string|null $projectUpdateId,
 		public Optional|InitiativeUpdate|null $initiativeUpdate,
 		public Optional|string|null $initiativeUpdateId,
-		public Optional|Post|null $post,
 		public Optional|Project|null $project,
 		public Optional|string|null $projectId,
 		public Optional|Initiative|null $initiative,
@@ -58,10 +51,8 @@ class Comment extends Data implements Node
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $editedAt,
 		public Optional|string|null $quotedText,
-		public Optional|string|null $threadSummary,
 		public Optional|AgentSession|null $agentSession,
 		public Optional|ActorBot|null $botActor,
-		public Optional|User|null $onBehalfOf,
 		public Optional|SyncedExternalThread|null $externalThread,
 		/** @var Collection<int, ExternalEntityInfo> */
 		public Optional|Collection|null $syncedWith

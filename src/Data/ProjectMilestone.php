@@ -20,8 +20,6 @@ class ProjectMilestone extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $name,
 		public Optional|Project $project,
-		public Optional|string $progressHistory,
-		public Optional|string $currentProgress,
 		public Optional|float $sortOrder,
 		public Optional|ProjectMilestoneStatus $status,
 		public Optional|float $progress,
@@ -30,8 +28,7 @@ class ProjectMilestone extends Data implements Node
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|DocumentContent|null $documentContent,
 		public Optional|string|null $targetDate,
-		public Optional|string|null $description,
-		public Optional|string|null $descriptionState
+		public Optional|string|null $description
 	) {
 	}
 }

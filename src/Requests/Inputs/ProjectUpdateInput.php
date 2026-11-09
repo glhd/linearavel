@@ -30,7 +30,6 @@ class ProjectUpdateInput
 		public ?Day $updateRemindersDay = null,
 		public ?int $updateRemindersHour = null,
 		public ?string $leadId = null,
-		public ?string $leadTeamId = null,
 		/** @var iterable<string>|Collection<int, string> */
 		public ?iterable $memberIds = null,
 		public ?string $startDate = null,

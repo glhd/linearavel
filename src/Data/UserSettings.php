@@ -6,7 +6,6 @@ use Carbon\CarbonImmutable;
 use Glhd\Linearavel\Data\Casts\LinearDate;
 use Glhd\Linearavel\Data\Contracts\Node;
 use Glhd\Linearavel\Data\Enums\FeedSummarySchedule;
-use Glhd\Linearavel\Data\Enums\PullRequestMergeMethod;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\EnumerableCast;
@@ -42,7 +41,6 @@ class UserSettings extends Data implements Node
 		public Optional|FeedSummarySchedule|null $feedSummarySchedule,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $feedLastSeenTime,
-		public Optional|PullRequestMergeMethod|null $pullRequestMergeStrategyPreference,
 		public Optional|UserSettingsTheme|null $theme
 	) {
 	}

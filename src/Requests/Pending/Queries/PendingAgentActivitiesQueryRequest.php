@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingAgentActivitiesQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.content', 'nodes.ephemeral', 'nodes.queued', 'nodes.archivedAt', 'nodes.sourceMetadata', 'nodes.executionSkippedReason', 'nodes.signal', 'nodes.contextualMetadata', 'nodes.sentAt', 'nodes.signalMetadata'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.content', 'nodes.ephemeral', 'nodes.archivedAt', 'nodes.sourceMetadata', 'nodes.signal', 'nodes.signalMetadata'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'AgentActivityFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
 

@@ -6,6 +6,7 @@ namespace Glhd\Linearavel\Data\Enums;
 enum IntegrationService: string
 {
 	case airbyte = 'airbyte';
+	case claudeSecurity = 'claudeSecurity';
 	case datadog = 'datadog';
 	case discord = 'discord';
 	case figma = 'figma';
@@ -19,6 +20,7 @@ enum IntegrationService: string
 	case githubPersonal = 'githubPersonal';
 	case githubCodeAccessPersonal = 'githubCodeAccessPersonal';
 	case gitlab = 'gitlab';
+	case gitlabPersonal = 'gitlabPersonal';
 	case origin = 'origin';
 	case googleCalendarPersonal = 'googleCalendarPersonal';
 	case googleSheets = 'googleSheets';

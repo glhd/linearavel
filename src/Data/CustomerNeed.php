@@ -27,7 +27,6 @@ class CustomerNeed extends Data implements Node
 		public Optional|Attachment|null $attachment,
 		public Optional|ProjectAttachment|null $projectAttachment,
 		public Optional|string|null $body,
-		public Optional|string|null $bodyData,
 		public Optional|User|null $creator,
 		public Optional|Issue|null $originalIssue,
 		public Optional|string|null $url,

@@ -21,7 +21,6 @@ class InitiativeUpdate extends Data implements Node
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|string $body,
 		public Optional|string $reactionData,
-		public Optional|string $bodyData,
 		public Optional|string $slugId,
 		public Optional|Initiative $initiative,
 		public Optional|User $user,
@@ -37,7 +36,6 @@ class InitiativeUpdate extends Data implements Node
 		public Optional|CarbonImmutable|null $archivedAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $editedAt,
-		public Optional|string|null $infoSnapshot,
 		public Optional|string|null $diff,
 		public Optional|string|null $diffMarkdown
 	) {

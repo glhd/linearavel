@@ -66,5 +66,7 @@ enum UserFlagType: string
 	case slackProjectChannelsPromoDismissed = 'slackProjectChannelsPromoDismissed';
 	case slackProjectChannelsPromoShown = 'slackProjectChannelsPromoShown';
 	case reviewsPromptToConnectGithubDismissed = 'reviewsPromptToConnectGithubDismissed';
+	case workspaceSetupCompletedHidden = 'workspaceSetupCompletedHidden';
+	case pinnedDocumentsEmptyStateDismissed = 'pinnedDocumentsEmptyStateDismissed';
 	case all = 'all';
 }

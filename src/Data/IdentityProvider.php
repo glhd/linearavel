@@ -33,10 +33,7 @@ class IdentityProvider extends Data implements Node
 		public Optional|string|null $spEntityId,
 		public Optional|float|null $priority,
 		#[LinearDate]
-		public Optional|CarbonImmutable|null $ssoVerifiedAt,
-		public Optional|string|null $ownersGroupPush,
-		public Optional|string|null $adminsGroupPush,
-		public Optional|string|null $guestsGroupPush
+		public Optional|CarbonImmutable|null $ssoVerifiedAt
 	) {
 	}
 }

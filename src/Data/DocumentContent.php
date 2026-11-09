@@ -22,12 +22,10 @@ class DocumentContent extends Data implements Node
 		public Optional|string|null $content,
 		public Optional|string|null $contentState,
 		public Optional|Issue|null $issue,
-		public Optional|PullRequest|null $pullRequest,
 		public Optional|Project|null $project,
 		public Optional|Initiative|null $initiative,
 		public Optional|ProjectMilestone|null $projectMilestone,
 		public Optional|Document|null $document,
-		public Optional|Meeting|null $meeting,
 		public Optional|AiPromptRules|null $aiPromptRules,
 		public Optional|WelcomeMessage|null $welcomeMessage,
 		#[LinearDate]

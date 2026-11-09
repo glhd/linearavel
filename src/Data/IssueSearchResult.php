@@ -47,8 +47,6 @@ class IssueSearchResult extends Data implements Node
 		public Optional|UserConnection $subscribers,
 		public Optional|IssueConnection $children,
 		public Optional|CommentConnection $comments,
-		public Optional|AgentSessionConnection $agentSessions,
-		public Optional|AiPromptProgressConnection $aiPromptProgresses,
 		public Optional|IssueHistoryConnection $history,
 		public Optional|IssueLabelConnection $labels,
 		public Optional|IssueRelationConnection $relations,
@@ -60,8 +58,6 @@ class IssueSearchResult extends Data implements Node
 		public Optional|CustomerNeedConnection $needs,
 		public Optional|CustomerNeedConnection $formerNeeds,
 		public Optional|ReleaseConnection $releases,
-		public Optional|IssueSuggestionConnection $suggestions,
-		public Optional|IssueSuggestionConnection $incomingSuggestions,
 		public Optional|IssueStateSpanConnection $stateHistory,
 		public Optional|string $metadata,
 		#[LinearDate]
@@ -100,11 +96,6 @@ class IssueSearchResult extends Data implements Node
 		public Optional|bool|null $trashed,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $snoozedUntilAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $suggestionsGeneratedAt,
-		public Optional|string|null $aiAnalysis,
-		public Optional|string|null $activitySummary,
-		public Optional|Summary|null $summary,
 		public Optional|Cycle|null $cycle,
 		public Optional|Project|null $project,
 		public Optional|ProjectMilestone|null $projectMilestone,
@@ -117,13 +108,11 @@ class IssueSearchResult extends Data implements Node
 		public Optional|User|null $snoozedBy,
 		public Optional|float|null $subIssueSortOrder,
 		public Optional|Comment|null $sourceComment,
-		public Optional|bool|null $trusted,
 		public Optional|IntegrationService|null $integrationSourceType,
 		public Optional|ActorBot|null $botActor,
 		public Optional|Favorite|null $favorite,
 		public Optional|Issue|null $parent,
 		public Optional|string|null $description,
-		public Optional|string|null $descriptionState,
 		public Optional|DocumentContent|null $documentContent,
 		/** @var Collection<int, ExternalEntityInfo> */
 		public Optional|Collection|null $syncedWith,

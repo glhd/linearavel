@@ -26,7 +26,6 @@ class User extends Data implements Node
 		public Optional|bool $guest,
 		public Optional|bool $app,
 		public Optional|bool $active,
-		public Optional|IssueDraftConnection $issueDrafts,
 		public Optional|DraftConnection $drafts,
 		public Optional|string $url,
 		public Optional|IssueConnection $assignedIssues,
@@ -35,7 +34,6 @@ class User extends Data implements Node
 		public Optional|int $createdIssueCount,
 		public Optional|TeamConnection $teams,
 		public Optional|TeamMembershipConnection $teamMemberships,
-		public Optional|FacetConnection $feedFacets,
 		public Optional|bool $canAccessAnyPublicTeam,
 		public Optional|bool $isMe,
 		public Optional|bool $admin,
@@ -44,7 +42,6 @@ class User extends Data implements Node
 		public Optional|bool $isMentionable,
 		public Optional|bool $supportsAgentSessions,
 		public Optional|string $inviteHash,
-		public Optional|bool $hasGitHubCodeAccess,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $avatarUrl,
@@ -59,7 +56,6 @@ class User extends Data implements Node
 		public Optional|string|null $timezone,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $lastSeen,
-		public Optional|IdentityProvider|null $identityProvider,
 		public Optional|string|null $gitHubUserId
 	) {
 	}

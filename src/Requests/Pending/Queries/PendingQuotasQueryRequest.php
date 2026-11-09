@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingQuotasQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.key', 'nodes.limit', 'nodes.name', 'nodes.description'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.key', 'nodes.scope', 'nodes.limit', 'nodes.name', 'nodes.description'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'OrganizationQuotaFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int'];
 

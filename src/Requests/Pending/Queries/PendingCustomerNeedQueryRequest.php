@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomerNeedQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'priority', 'archivedAt', 'body', 'bodyData', 'url', 'content'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'priority', 'archivedAt', 'body', 'url', 'content'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String', 'hash' => 'String'];
 

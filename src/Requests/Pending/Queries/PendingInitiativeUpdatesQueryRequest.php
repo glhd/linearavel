@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingInitiativeUpdatesQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.body', 'nodes.reactionData', 'nodes.bodyData', 'nodes.slugId', 'nodes.health', 'nodes.isDiffHidden', 'nodes.url', 'nodes.isStale', 'nodes.commentCount', 'nodes.archivedAt', 'nodes.editedAt', 'nodes.infoSnapshot', 'nodes.diff', 'nodes.diffMarkdown'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.body', 'nodes.reactionData', 'nodes.slugId', 'nodes.health', 'nodes.isDiffHidden', 'nodes.url', 'nodes.isStale', 'nodes.commentCount', 'nodes.archivedAt', 'nodes.editedAt', 'nodes.diff', 'nodes.diffMarkdown'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'InitiativeUpdateFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy'];
 

@@ -33,6 +33,7 @@ class OAuthApplication extends Data
 		/** @var Collection<int, OAuthApplicationGrantType> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $grantTypes,
+		public Optional|bool $requireTokenBinding,
 		#[LinearDate]
 		public Optional|CarbonImmutable $createdAt,
 		#[LinearDate]

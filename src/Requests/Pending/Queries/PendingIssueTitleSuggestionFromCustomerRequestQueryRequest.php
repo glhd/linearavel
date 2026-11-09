@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingIssueTitleSuggestionFromCustomerRequestQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'title', 'logId'];
+	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'title'];
 
 	protected const ARGUMENT_TYPES = ['request' => 'String!'];
 

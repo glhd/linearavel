@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingOauthApplicationQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'clientId', 'name', 'developer', 'developerUrl', 'redirectUris', 'distribution', 'webhookResourceTypes', 'webhookEnabled', 'grantTypes', 'createdAt', 'updatedAt', 'description', 'imageUrl', 'webhookUrl'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'clientId', 'name', 'developer', 'developerUrl', 'redirectUris', 'distribution', 'webhookResourceTypes', 'webhookEnabled', 'grantTypes', 'requireTokenBinding', 'createdAt', 'updatedAt', 'description', 'imageUrl', 'webhookUrl'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

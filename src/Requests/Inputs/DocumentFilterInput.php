@@ -22,6 +22,8 @@ class DocumentFilterInput
 		public ?NullableTeamFilterInput $team = null,
 		public ?CycleFilterInput $cycle = null,
 		public ?ReleaseFilterInput $release = null,
+		public ?NullableDocumentFilterInput $parentDocument = null,
+		public ?NullableUserFilterInput $personalUser = null,
 		/** @var iterable<DocumentFilterInput>|Collection<int, DocumentFilterInput> */
 		public ?iterable $and = null,
 		/** @var iterable<DocumentFilterInput>|Collection<int, DocumentFilterInput> */

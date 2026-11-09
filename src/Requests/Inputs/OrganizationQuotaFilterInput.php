@@ -9,6 +9,7 @@ class OrganizationQuotaFilterInput
 {
 	public function __construct(
 		public ?StringComparatorInput $key = null,
+		public ?StringComparatorInput $scope = null,
 		/** @var iterable<OrganizationQuotaFilterInput>|Collection<int, OrganizationQuotaFilterInput> */
 		public ?iterable $and = null,
 		/** @var iterable<OrganizationQuotaFilterInput>|Collection<int, OrganizationQuotaFilterInput> */

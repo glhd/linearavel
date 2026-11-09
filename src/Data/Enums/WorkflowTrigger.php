@@ -18,6 +18,7 @@ enum WorkflowTrigger: string
 	case addedToMergeQueue = 'addedToMergeQueue';
 	case removedFromMergeQueue = 'removedFromMergeQueue';
 	case updatePosted = 'updatePosted';
+	case updateDue = 'updateDue';
 	case chatMessagePosted = 'chatMessagePosted';
 	case chatReactionAdded = 'chatReactionAdded';
 	case customerRequestAdded = 'customerRequestAdded';

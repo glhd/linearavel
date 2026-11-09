@@ -18,6 +18,7 @@ class OAuthApplicationCreateInput
 		public ?string $developerUrl = null,
 		/** @var iterable<OAuthApplicationGrantType>|Collection<int, OAuthApplicationGrantType> */
 		public ?iterable $grantTypes = null,
+		public ?bool $requireTokenBinding = null,
 		public ?string $idempotencyKey = null,
 		public ?string $imageUrl = null,
 		public ?string $webhookUrl = null,

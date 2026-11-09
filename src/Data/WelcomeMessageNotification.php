@@ -23,15 +23,6 @@ class WelcomeMessageNotification extends Data implements Notification, Entity, N
 		public Optional|string $type,
 		public Optional|User $user,
 		public Optional|NotificationCategory $category,
-		public Optional|string $url,
-		public Optional|string $inboxUrl,
-		public Optional|string $title,
-		public Optional|string $subtitle,
-		public Optional|bool $isLinearActor,
-		public Optional|string $actorAvatarColor,
-		public Optional|bool $actorInactive,
-		public Optional|string $groupingKey,
-		public Optional|float $groupingPriority,
 		public Optional|string $welcomeMessageId,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
@@ -45,11 +36,6 @@ class WelcomeMessageNotification extends Data implements Notification, Entity, N
 		public Optional|CarbonImmutable|null $snoozedUntilAt,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $unsnoozedAt,
-		public Optional|string|null $actorAvatarUrl,
-		public Optional|string|null $actorInitials,
-		public Optional|string|null $issueStatusType,
-		public Optional|string|null $projectUpdateHealth,
-		public Optional|string|null $initiativeUpdateHealth,
 		public Optional|ActorBot|null $botActor
 	) {
 	}

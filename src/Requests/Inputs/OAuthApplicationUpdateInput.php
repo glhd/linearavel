@@ -18,6 +18,7 @@ class OAuthApplicationUpdateInput
 		public ?iterable $redirectUris = null,
 		/** @var iterable<OAuthApplicationGrantType>|Collection<int, OAuthApplicationGrantType> */
 		public ?iterable $grantTypes = null,
+		public ?bool $requireTokenBinding = null,
 		public ?string $imageUrl = null,
 		public ?string $webhookUrl = null,
 		public ?bool $webhookEnabled = null,

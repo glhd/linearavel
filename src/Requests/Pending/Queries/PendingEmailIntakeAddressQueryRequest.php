@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingEmailIntakeAddressQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'address', 'type', 'enabled', 'repliesEnabled', 'useUserNamesInReplies', 'customerRequestsEnabled', 'issueCreatedAutoReplyEnabled', 'issueCompletedAutoReplyEnabled', 'issueCanceledAutoReplyEnabled', 'reopenOnReply', 'archivedAt', 'forwardingEmailAddress', 'senderName', 'issueCreatedAutoReply', 'issueCompletedAutoReply', 'issueCanceledAutoReply', 'lastUsedAt'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'address', 'type', 'enabled', 'repliesEnabled', 'useUserNamesInReplies', 'customerRequestsEnabled', 'issueCreatedAutoReplyEnabled', 'issueCompletedAutoReplyEnabled', 'issueCanceledAutoReplyEnabled', 'reopenOnReply', 'emailAddress', 'archivedAt', 'forwardingEmailAddress', 'senderName', 'issueCreatedAutoReply', 'issueCompletedAutoReply', 'issueCanceledAutoReply', 'lastUsedAt'];
 
 	protected const ARGUMENT_TYPES = ['id' => 'String!'];
 

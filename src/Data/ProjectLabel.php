@@ -29,8 +29,6 @@ class ProjectLabel extends Data implements Node
 		public Optional|string|null $description,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $lastAppliedAt,
-		#[LinearDate]
-		public Optional|CarbonImmutable|null $retiredAt,
 		public Optional|LabelGroupType|null $groupType,
 		public Optional|Team|null $team,
 		public Optional|User|null $creator,

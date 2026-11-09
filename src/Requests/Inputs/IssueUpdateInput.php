@@ -12,7 +12,6 @@ class IssueUpdateInput
 	public function __construct(
 		public ?string $title = null,
 		public ?string $description = null,
-		public ?string $descriptionData = null,
 		public ?string $assigneeId = null,
 		public ?string $delegateId = null,
 		public ?string $parentId = null,
@@ -44,10 +43,7 @@ class IssueUpdateInput
 		public ?float $subIssueSortOrder = null,
 		public ?string $dueDate = null,
 		public ?bool $inheritsSharedAccess = null,
-		public ?bool $trusted = null,
 		public ?bool $trashed = null,
-		public ?DateTimeInterface $slaBreachesAt = null,
-		public ?DateTimeInterface $slaStartedAt = null,
 		public ?DateTimeInterface $snoozedUntilAt = null,
 		public ?string $snoozedById = null,
 		public ?SLADayCountType $slaType = null,
