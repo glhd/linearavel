@@ -53,6 +53,7 @@ class Comment extends Data implements Node
 		public Optional|string|null $quotedText,
 		public Optional|AgentSession|null $agentSession,
 		public Optional|ActorBot|null $botActor,
+		public Optional|User|null $onBehalfOf,
 		public Optional|SyncedExternalThread|null $externalThread,
 		/** @var Collection<int, ExternalEntityInfo> */
 		public Optional|Collection|null $syncedWith

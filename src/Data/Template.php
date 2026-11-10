@@ -22,6 +22,7 @@ class Template extends Data implements Node
 		public Optional|string $templateData,
 		public Optional|float $sortOrder,
 		public Optional|Organization $organization,
+		public Optional|bool $hasFormFields,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $description,

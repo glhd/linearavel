@@ -7480,6 +7480,9 @@ type Comment implements Node {
   "The bot credited with the comment. Null when a Linear user is credited instead."
   botActor: ActorBot
 
+  "The user on whose behalf the comment was created, such as when an agent posts for a user. This attribution is separate from the comment's author. Null when no user is attributed or the attributed user is archived or inaccessible."
+  onBehalfOf: User
+
   "The external discussion synced with this root comment. Null for replies and unsynced comments."
   externalThread: SyncedExternalThread
 
@@ -7813,8 +7816,8 @@ type Draft implements Node {
   "The parent comment for which this is a draft reply. Null if the draft is a top-level comment or belongs to a different parent entity type."
   parentComment: Comment
 
-  "The customer need that this draft is referencing. Null if the draft belongs to a different parent entity type."
-  customerNeed: CustomerNeed
+  "Always null. Drafts cannot belong to a customer need."
+  customerNeed: CustomerNeed @deprecated(reason: "Drafts for customer needs were never supported. This field is always null.")
 
   "The team for which this is a draft post. Null if the draft belongs to a different parent entity type."
   team: Team
@@ -10785,6 +10788,9 @@ type Template implements Node {
 
   "The body that the template applies, converted to Markdown. Form fields appear as placeholders so you can preview the template without interpreting its configuration. Null if the template has no body content."
   content: String
+
+  "Whether the template contains form fields. This does not indicate whether those fields have values."
+  hasFormFields: Boolean!
 }
 
 "Written notes covering one or more releases in a single pipeline. The covered releases define the note’s range and default title, while the body is stored as document content. Scheduled pipelines allow a note to cover exactly one release."

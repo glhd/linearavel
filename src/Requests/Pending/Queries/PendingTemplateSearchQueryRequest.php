@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class PendingTemplateSearchQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'name', 'templateData', 'sortOrder', 'archivedAt', 'description', 'icon', 'color', 'lastAppliedAt', 'content'];
+	protected const DEFAULT_ATTRIBUTES = ['id', 'createdAt', 'updatedAt', 'type', 'name', 'templateData', 'sortOrder', 'hasFormFields', 'archivedAt', 'description', 'icon', 'color', 'lastAppliedAt', 'content'];
 
 	protected const ARGUMENT_TYPES = ['includeArchived' => 'Boolean', 'first' => 'Int', 'filter' => 'TemplateFilter'];
 
