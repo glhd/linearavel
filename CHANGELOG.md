@@ -5,6 +5,10 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+### Added
+
+- Sign in as a Linear OAuth app with the client credentials grant (`LINEAR_CLIENT_ID`, `LINEAR_CLIENT_SECRET`, `LINEAR_SCOPES`). The app token is cached until it expires, and replaced when Linear rejects it.
+
 ## [0.1.2] - 2026-09-20
 
 ### Added
