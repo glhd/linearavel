@@ -77,6 +77,7 @@ enum ViewType: string
 	case recentDocuments = 'recentDocuments';
 	case allDocuments = 'allDocuments';
 	case teamDocuments = 'teamDocuments';
+	case workspaceDocuments = 'workspaceDocuments';
 	case releasePipelines = 'releasePipelines';
 	case automations = 'automations';
 	case automationRunHistory = 'automationRunHistory';

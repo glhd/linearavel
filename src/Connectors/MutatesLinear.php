@@ -224,6 +224,7 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingEntityExternalLinkUpdateMu
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingFavoriteUpdateMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingFileUploadDangerouslyDeleteMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingFileUploadMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationStateCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingGitAutomationStateDeleteMutationRequest;
@@ -949,6 +950,11 @@ trait MutatesLinear
 	public function imageUploadFromUrlMutation(string $url): PendingImageUploadFromUrlMutationRequest
 	{
 		return new PendingImageUploadFromUrlMutationRequest($this, ['url' => $url]);
+	}
+
+	public function fileUploadDangerouslyDeleteMutation(string $assetUrl): PendingFileUploadDangerouslyDeleteMutationRequest
+	{
+		return new PendingFileUploadDangerouslyDeleteMutationRequest($this, ['assetUrl' => $assetUrl]);
 	}
 
 	public function gitAutomationStateCreateMutation(GitAutomationStateCreateInput $input): PendingGitAutomationStateCreateMutationRequest

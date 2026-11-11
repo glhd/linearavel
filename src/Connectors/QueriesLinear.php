@@ -51,6 +51,7 @@ use Glhd\Linearavel\Requests\Pending\Queries\PendingArchivedIntegrationsQueryReq
 use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentIssueQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentsForURLQueryRequest;
+use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentSourcesQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingAttachmentsQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingAuditEntriesQueryRequest;
 use Glhd\Linearavel\Requests\Pending\Queries\PendingAuditEntryTypesQueryRequest;
@@ -369,6 +370,15 @@ trait QueriesLinear
 	public function attachmentIssue(string $id): PendingAttachmentIssueQueryRequest
 	{
 		return new PendingAttachmentIssueQueryRequest($this, ['id' => $id]);
+	}
+
+	/**
+	 * @param ?string $teamId (optional) if provided will only return attachment sources for the given team
+	 * @returns PendingAttachmentSourcesQueryRequest
+	 */
+	public function attachmentSources(?string $teamId = null): PendingAttachmentSourcesQueryRequest
+	{
+		return new PendingAttachmentSourcesQueryRequest($this, ['teamId' => $teamId]);
 	}
 
 	/**

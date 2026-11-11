@@ -15073,6 +15073,12 @@ type Query {
     id: String!
   ): Issue! @deprecated(reason: "Will be removed in near future, please use `attachmentsForURL` to get attachments and their issues instead.")
 
+  "Lists distinct sources on accessible, non-archived issue attachments. API and OAuth attachment sources are grouped by URL domain; other sources are grouped by type. Each group includes the oldest attachment's source metadata. Results may be cached for up to one hour."
+  attachmentSources(
+    "(optional) if provided will only return attachment sources for the given team."
+    teamId: String
+  ): AttachmentSourcesPayload!
+
   "Lists supported audit action identifiers and a description of each action. Use the returned type values to interpret AuditEntry.type or filter auditEntries. Requires permission to view the workspace audit log."
   auditEntryTypes: [AuditEntryType!]!
 
@@ -17100,6 +17106,12 @@ enum CodingSessionsDisabledReason {
 
   "Coding Sessions and trusted external sources are available, but the application's source is not approved or is no longer available in the workspace."
   APP_NOT_TRUSTED
+}
+
+"The result of an attachment sources query."
+type AttachmentSourcesPayload {
+  "A unique list of all source types used in this workspace."
+  sources: JSONObject!
 }
 
 "An audit event identifier and its meaning."
@@ -21132,6 +21144,9 @@ enum ViewType {
 
   "[Internal] The documents list of a team."
   teamDocuments
+
+  "[Internal] The documents list of the workspace."
+  workspaceDocuments
   releasePipelines
   automations
   automationRunHistory
@@ -22036,6 +22051,12 @@ type Mutation {
     "URL of the file to be uploaded to Linear."
     url: String!
   ): ImageUploadFromUrlPayload!
+
+  "Permanently delete an uploaded file by asset URL. This should be used as a last resort and will break comments and documents that reference the asset."
+  fileUploadDangerouslyDelete(
+    "The asset URL of the uploaded file to delete."
+    assetUrl: String!
+  ): FileUploadDeletePayload!
 
   "Creates a rule that maps a Git event to an issue status for a team. Requires permission to manage that team. Rules cannot be created for retired teams."
   gitAutomationStateCreate(
@@ -25659,6 +25680,11 @@ type ImageUploadFromUrlPayload {
   "The Linear asset URL after the image has been copied. Null if no upload is returned."
   url: String
 
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+type FileUploadDeletePayload {
   "Whether the operation was successful."
   success: Boolean!
 }
