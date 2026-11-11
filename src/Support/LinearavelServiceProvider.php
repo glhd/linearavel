@@ -3,6 +3,7 @@
 namespace Glhd\Linearavel\Support;
 
 use Glhd\Linearavel\Connectors\LinearConnector;
+use Glhd\Linearavel\Connectors\LinearOAuthConnector;
 use Glhd\Linearavel\Support\CodeGeneration\PhpStormMetaWriter;
 use Glhd\Linearavel\Support\CodeGeneration\WriteQueue;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,11 @@ class LinearavelServiceProvider extends ServiceProvider
 			return new LinearConnector(
 				api_key: config('linearavel.api_key'),
 				base_url: config('linearavel.base_url', 'https://api.linear.app/graphql'),
+				oauth: config('linearavel.client_id') ? new LinearOAuthConnector(
+					client_id: config('linearavel.client_id'),
+					client_secret: config('linearavel.client_secret'),
+					scopes: array_map('trim', explode(',', config('linearavel.scopes'))),
+				) : null,
 			);
 		});
 		
