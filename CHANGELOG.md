@@ -9,6 +9,10 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 
 - Sign in as a Linear OAuth app with the client credentials grant (`LINEAR_CLIENT_ID`, `LINEAR_CLIENT_SECRET`, `LINEAR_SCOPES`). The app token is cached until it expires, and replaced when Linear rejects it.
 
+### Removed
+
+- Laravel 11 support. Every Laravel 11 release now has unpatched security advisories, so Composer refuses to install it.
+
 ## [0.1.2] - 2026-09-20
 
 ### Added
