@@ -25,6 +25,8 @@ class Webhook extends Data implements Node
 		/** @var Collection<int, string> */
 		#[WithCast(EnumerableCast::class)]
 		public Optional|Collection $resourceTypes,
+		/** @var Collection<int, WebhookFailureEvent> */
+		public Optional|Collection $failures,
 		#[LinearDate]
 		public Optional|CarbonImmutable|null $archivedAt,
 		public Optional|string|null $label,

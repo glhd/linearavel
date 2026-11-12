@@ -202,41 +202,6 @@ use Glhd\Linearavel\Requests\Pending\Queries\PendingWorkflowStatesQueryRequest;
 trait QueriesLinear
 {
 	/**
-	 * @param ?ProjectFilterInput $filter filter returned projects
-	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
-	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
-	 * @param ?int $first The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`.
-	 * @param ?int $last The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`.
-	 * @param ?bool $includeArchived Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources.
-	 * @param ?PaginationOrderBy $orderBy Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them.
-	 * @param ?iterable $sort sort returned projects
-	 * @returns PendingProjectsQueryRequest
-	 */
-	public function projects(?ProjectFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null, ?iterable $sort = null): PendingProjectsQueryRequest
-	{
-		return new PendingProjectsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy, 'sort' => $sort]);
-	}
-
-	/**
-	 * @param string $id the project UUID, slug ID, or human-readable identifier
-	 * @returns PendingProjectQueryRequest
-	 */
-	public function project(string $id): PendingProjectQueryRequest
-	{
-		return new PendingProjectQueryRequest($this, ['id' => $id]);
-	}
-
-	/**
-	 * @param ?string $teamId [Internal] The ID of the team if filtering a team view
-	 * @param string $prompt text describing the projects to match
-	 * @returns PendingProjectFilterSuggestionQueryRequest
-	 */
-	public function projectFilterSuggestion(string $prompt, ?string $teamId = null): PendingProjectFilterSuggestionQueryRequest
-	{
-		return new PendingProjectFilterSuggestionQueryRequest($this, ['prompt' => $prompt, 'teamId' => $teamId]);
-	}
-
-	/**
 	 * @param ?AgentActivityFilterInput $filter filter returned agent activities
 	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
 	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
@@ -455,6 +420,41 @@ trait QueriesLinear
 	public function comment(?string $id = null, ?string $issueId = null, ?string $hash = null): PendingCommentQueryRequest
 	{
 		return new PendingCommentQueryRequest($this, ['id' => $id, 'issueId' => $issueId, 'hash' => $hash]);
+	}
+
+	/**
+	 * @param ?ProjectFilterInput $filter filter returned projects
+	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
+	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
+	 * @param ?int $first The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`.
+	 * @param ?int $last The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`.
+	 * @param ?bool $includeArchived Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources.
+	 * @param ?PaginationOrderBy $orderBy Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them.
+	 * @param ?iterable $sort sort returned projects
+	 * @returns PendingProjectsQueryRequest
+	 */
+	public function projects(?ProjectFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null, ?iterable $sort = null): PendingProjectsQueryRequest
+	{
+		return new PendingProjectsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy, 'sort' => $sort]);
+	}
+
+	/**
+	 * @param string $id the project UUID, slug ID, or human-readable identifier
+	 * @returns PendingProjectQueryRequest
+	 */
+	public function project(string $id): PendingProjectQueryRequest
+	{
+		return new PendingProjectQueryRequest($this, ['id' => $id]);
+	}
+
+	/**
+	 * @param ?string $teamId [Internal] The ID of the team if filtering a team view
+	 * @param string $prompt text describing the projects to match
+	 * @returns PendingProjectFilterSuggestionQueryRequest
+	 */
+	public function projectFilterSuggestion(string $prompt, ?string $teamId = null): PendingProjectFilterSuggestionQueryRequest
+	{
+		return new PendingProjectFilterSuggestionQueryRequest($this, ['prompt' => $prompt, 'teamId' => $teamId]);
 	}
 
 	/**

@@ -1,3 +1,3 @@
 ### Added or widened
 
-- workspaceDocuments was added to enum type ViewType.
+- homeCardsEmptyStateDismissed was added to enum type UserFlagType.

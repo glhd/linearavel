@@ -97,6 +97,7 @@ use Glhd\Linearavel\Requests\Inputs\ProjectCreateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectLabelCreateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectLabelUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectMilestoneCreateInput;
+use Glhd\Linearavel\Requests\Inputs\ProjectMilestoneMoveInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectMilestoneUpdateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectRelationCreateInput;
 use Glhd\Linearavel\Requests\Inputs\ProjectRelationUpdateInput;
@@ -381,6 +382,7 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLabelRetireMutation
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectLabelUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneDeleteMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneMoveMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectMilestoneUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectRelationCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingProjectRelationDeleteMutationRequest;
@@ -482,46 +484,6 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingWorkflowStateUpdateMutatio
 
 trait MutatesLinear
 {
-	public function projectCreateMutation(ProjectCreateInput $input, ?string $aiConversationId = null, ?string $projectDraftId = null, ?string $slackChannelName = null, ?bool $connectSlackChannel = null): PendingProjectCreateMutationRequest
-	{
-		return new PendingProjectCreateMutationRequest($this, ['input' => $input, 'aiConversationId' => $aiConversationId, 'projectDraftId' => $projectDraftId, 'slackChannelName' => $slackChannelName, 'connectSlackChannel' => $connectSlackChannel]);
-	}
-
-	public function projectUpdateMutation(ProjectUpdateInput $input, string $id): PendingProjectUpdateMutationRequest
-	{
-		return new PendingProjectUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
-	}
-
-	public function projectDeleteMutation(string $id): PendingProjectDeleteMutationRequest
-	{
-		return new PendingProjectDeleteMutationRequest($this, ['id' => $id]);
-	}
-
-	public function projectArchiveMutation(string $id, ?bool $trash = null): PendingProjectArchiveMutationRequest
-	{
-		return new PendingProjectArchiveMutationRequest($this, ['id' => $id, 'trash' => $trash]);
-	}
-
-	public function projectUnarchiveMutation(string $id): PendingProjectUnarchiveMutationRequest
-	{
-		return new PendingProjectUnarchiveMutationRequest($this, ['id' => $id]);
-	}
-
-	public function projectAddLabelMutation(string $labelId, string $id): PendingProjectAddLabelMutationRequest
-	{
-		return new PendingProjectAddLabelMutationRequest($this, ['labelId' => $labelId, 'id' => $id]);
-	}
-
-	public function projectRemoveLabelMutation(string $labelId, string $id): PendingProjectRemoveLabelMutationRequest
-	{
-		return new PendingProjectRemoveLabelMutationRequest($this, ['labelId' => $labelId, 'id' => $id]);
-	}
-
-	public function projectExternalSyncDisableMutation(ExternalSyncService $syncSource, string $projectId): PendingProjectExternalSyncDisableMutationRequest
-	{
-		return new PendingProjectExternalSyncDisableMutationRequest($this, ['syncSource' => $syncSource, 'projectId' => $projectId]);
-	}
-
 	public function agentActivityCreateMutation(AgentActivityCreateInput $input): PendingAgentActivityCreateMutationRequest
 	{
 		return new PendingAgentActivityCreateMutationRequest($this, ['input' => $input]);
@@ -705,6 +667,46 @@ trait MutatesLinear
 	public function contactCreateMutation(ContactCreateInput $input): PendingContactCreateMutationRequest
 	{
 		return new PendingContactCreateMutationRequest($this, ['input' => $input]);
+	}
+
+	public function projectCreateMutation(ProjectCreateInput $input, ?string $aiConversationId = null, ?string $projectDraftId = null, ?string $slackChannelName = null, ?bool $connectSlackChannel = null): PendingProjectCreateMutationRequest
+	{
+		return new PendingProjectCreateMutationRequest($this, ['input' => $input, 'aiConversationId' => $aiConversationId, 'projectDraftId' => $projectDraftId, 'slackChannelName' => $slackChannelName, 'connectSlackChannel' => $connectSlackChannel]);
+	}
+
+	public function projectUpdateMutation(ProjectUpdateInput $input, string $id): PendingProjectUpdateMutationRequest
+	{
+		return new PendingProjectUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
+	}
+
+	public function projectDeleteMutation(string $id): PendingProjectDeleteMutationRequest
+	{
+		return new PendingProjectDeleteMutationRequest($this, ['id' => $id]);
+	}
+
+	public function projectArchiveMutation(string $id, ?bool $trash = null): PendingProjectArchiveMutationRequest
+	{
+		return new PendingProjectArchiveMutationRequest($this, ['id' => $id, 'trash' => $trash]);
+	}
+
+	public function projectUnarchiveMutation(string $id): PendingProjectUnarchiveMutationRequest
+	{
+		return new PendingProjectUnarchiveMutationRequest($this, ['id' => $id]);
+	}
+
+	public function projectAddLabelMutation(string $labelId, string $id): PendingProjectAddLabelMutationRequest
+	{
+		return new PendingProjectAddLabelMutationRequest($this, ['labelId' => $labelId, 'id' => $id]);
+	}
+
+	public function projectRemoveLabelMutation(string $labelId, string $id): PendingProjectRemoveLabelMutationRequest
+	{
+		return new PendingProjectRemoveLabelMutationRequest($this, ['labelId' => $labelId, 'id' => $id]);
+	}
+
+	public function projectExternalSyncDisableMutation(ExternalSyncService $syncSource, string $projectId): PendingProjectExternalSyncDisableMutationRequest
+	{
+		return new PendingProjectExternalSyncDisableMutationRequest($this, ['syncSource' => $syncSource, 'projectId' => $projectId]);
 	}
 
 	public function customViewCreateMutation(CustomViewCreateInput $input): PendingCustomViewCreateMutationRequest
@@ -1695,6 +1697,11 @@ trait MutatesLinear
 	public function projectMilestoneDeleteMutation(string $id): PendingProjectMilestoneDeleteMutationRequest
 	{
 		return new PendingProjectMilestoneDeleteMutationRequest($this, ['id' => $id]);
+	}
+
+	public function projectMilestoneMoveMutation(ProjectMilestoneMoveInput $input, string $id): PendingProjectMilestoneMoveMutationRequest
+	{
+		return new PendingProjectMilestoneMoveMutationRequest($this, ['input' => $input, 'id' => $id]);
 	}
 
 	public function projectRelationCreateMutation(ProjectRelationCreateInput $input): PendingProjectRelationCreateMutationRequest

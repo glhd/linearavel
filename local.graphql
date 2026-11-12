@@ -2985,16 +2985,16 @@ input IssueFilter {
   "Conditions on the number of distinct customers with active, important requests linked to the issue. Important requests without a customer record each count separately. Supply one comparison; to apply a range, put separate customerImportantCount conditions in and."
   customerImportantCount: NumberComparator
 
-  "Lead time (created -> completed) comparator."
+  "Compares the elapsed time from creation to completion. The duration is null for issues without a completion time. Accepts ISO 8601 durations or milliseconds."
   leadTime: NullableDurationComparator
 
-  "Cycle time (started -> completed) comparator."
+  "Compares the elapsed time from work starting to completion. The duration is null if either timestamp is missing. Accepts ISO 8601 durations or milliseconds."
   cycleTime: NullableDurationComparator
 
-  "Age (created -> now) comparator, defined if the issue is still open."
+  "Compares the elapsed time from creation to the start of the query's database transaction. The duration is null for completed or canceled issues. Accepts ISO 8601 durations or milliseconds."
   ageTime: NullableDurationComparator
 
-  "Triage time (entered triaged -> triaged) comparator."
+  "Compares the elapsed time from entering triage to leaving triage. The duration is null if either timestamp is missing. Accepts ISO 8601 durations or milliseconds."
   triageTime: NullableDurationComparator
 
   "Conditions that the issue must all match. These are combined with the other fields in this filter."
@@ -3612,16 +3612,16 @@ input IssueCollectionFilter {
   "Conditions on the number of distinct customers with active, important requests linked to the issue. Important requests without a customer record each count separately. Supply one comparison; to apply a range, put separate customerImportantCount conditions in and."
   customerImportantCount: NumberComparator
 
-  "Lead time (created -> completed) comparator."
+  "Compares the elapsed time from creation to completion. The duration is null for issues without a completion time. Accepts ISO 8601 durations or milliseconds."
   leadTime: NullableDurationComparator
 
-  "Cycle time (started -> completed) comparator."
+  "Compares the elapsed time from work starting to completion. The duration is null if either timestamp is missing. Accepts ISO 8601 durations or milliseconds."
   cycleTime: NullableDurationComparator
 
-  "Age (created -> now) comparator, defined if the issue is still open."
+  "Compares the elapsed time from creation to the start of the query's database transaction. The duration is null for completed or canceled issues. Accepts ISO 8601 durations or milliseconds."
   ageTime: NullableDurationComparator
 
-  "Triage time (entered triaged -> triaged) comparator."
+  "Compares the elapsed time from entering triage to leaving triage. The duration is null if either timestamp is missing. Accepts ISO 8601 durations or milliseconds."
   triageTime: NullableDurationComparator
 
   "Collection conditions that must all match. Different some branches can be satisfied by different issues."
@@ -4297,16 +4297,16 @@ input NullableIssueFilter {
   "Conditions on the number of distinct customers with active, important requests linked to the issue. Important requests without a customer record each count separately. Supply one comparison; to apply a range, put separate customerImportantCount conditions in and."
   customerImportantCount: NumberComparator
 
-  "Lead time (created -> completed) comparator."
+  "Compares the elapsed time from creation to completion. The duration is null for issues without a completion time. Accepts ISO 8601 durations or milliseconds."
   leadTime: NullableDurationComparator
 
-  "Cycle time (started -> completed) comparator."
+  "Compares the elapsed time from work starting to completion. The duration is null if either timestamp is missing. Accepts ISO 8601 durations or milliseconds."
   cycleTime: NullableDurationComparator
 
-  "Age (created -> now) comparator, defined if the issue is still open."
+  "Compares the elapsed time from creation to the start of the query's database transaction. The duration is null for completed or canceled issues. Accepts ISO 8601 durations or milliseconds."
   ageTime: NullableDurationComparator
 
-  "Triage time (entered triaged -> triaged) comparator."
+  "Compares the elapsed time from entering triage to leaving triage. The duration is null if either timestamp is missing. Accepts ISO 8601 durations or milliseconds."
   triageTime: NullableDurationComparator
 
   "Use true to match an unset issue relation, or false to require it to be set. Omit this field when you only want to test the related record’s properties."
@@ -13298,6 +13298,33 @@ type Webhook implements Node {
 
   "The resource types this webhook is subscribed to (e.g., 'Issue', 'Comment', 'Project', 'Cycle'). The webhook will only receive payloads for events affecting these resource types."
   resourceTypes: [String!]!
+
+  "Up to 50 recorded delivery failures for this webhook in the current workspace, newest first."
+  failures: [WebhookFailureEvent!]!
+}
+
+"A record of a failed webhook delivery attempt. Created when a webhook payload could not be successfully delivered to the destination URL, either due to an HTTP error response or a network failure. Each failure event captures the HTTP status code (if available), the response body or error message, and a stable execution ID that is shared across retries of the same delivery."
+type WebhookFailureEvent {
+  "The unique identifier of the entity."
+  id: ID!
+
+  "The time at which the entity was created."
+  createdAt: DateTime!
+
+  "The webhook that this failure event is associated with."
+  webhook: Webhook!
+
+  "The URL that the webhook was trying to push to."
+  url: String!
+
+  "The HTTP status code returned by the webhook recipient. Null if the request failed before receiving a response (e.g., DNS resolution failure, connection timeout)."
+  httpStatus: Float
+
+  "The HTTP response body returned by the recipient, or the error message if the request failed before receiving a response. Truncated to 1000 characters."
+  responseOrError: String
+
+  "A stable identifier for the webhook delivery attempt. This ID remains the same across retries of the same payload, making it useful for correlating multiple failure events that belong to the same logical delivery."
+  executionId: String!
 }
 
 enum FacetPageSource {
@@ -14875,48 +14902,6 @@ type AgentSessionNotification implements Notification & Entity & Node {
 }
 
 type Query {
-  "Returns projects visible to you in the workspace. Use filter to narrow the results and the connection arguments to page or sort them."
-  projects(
-    "Filter returned projects."
-    filter: ProjectFilter
-
-    "Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`."
-    before: String
-
-    "Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`."
-    after: String
-
-    "The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`."
-    first: Int
-
-    "The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`."
-    last: Int
-
-    "Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources."
-    includeArchived: Boolean
-
-    "Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them."
-    orderBy: PaginationOrderBy
-
-    "Sort returned projects."
-    sort: [ProjectSortInput!]
-  ): ProjectConnection!
-
-  "Returns a project you can access by UUID, URL slug, or human-readable project identifier. Archived projects can also be retrieved."
-  project(
-    "The project UUID, slug ID, or human-readable identifier."
-    id: String!
-  ): Project!
-
-  "Suggests filters for a project view based on a text prompt."
-  projectFilterSuggestion(
-    "[Internal] The ID of the team if filtering a team view."
-    teamId: String
-
-    "Text describing the projects to match."
-    prompt: String!
-  ): ProjectFilterSuggestionPayload!
-
   "Accessible agent activities, with filters and cursor-based pagination."
   agentActivities(
     "Filter returned agent activities."
@@ -15159,6 +15144,48 @@ type Query {
     "Comment hash from a Linear comment URL. Supply either hash or id."
     hash: String
   ): Comment!
+
+  "Returns projects visible to you in the workspace. Use filter to narrow the results and the connection arguments to page or sort them."
+  projects(
+    "Filter returned projects."
+    filter: ProjectFilter
+
+    "Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`."
+    before: String
+
+    "Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`."
+    after: String
+
+    "The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`."
+    first: Int
+
+    "The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`."
+    last: Int
+
+    "Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources."
+    includeArchived: Boolean
+
+    "Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them."
+    orderBy: PaginationOrderBy
+
+    "Sort returned projects."
+    sort: [ProjectSortInput!]
+  ): ProjectConnection!
+
+  "Returns a project you can access by UUID, URL slug, or human-readable project identifier. Archived projects can also be retrieved."
+  project(
+    "The project UUID, slug ID, or human-readable identifier."
+    id: String!
+  ): Project!
+
+  "Suggests filters for a project view based on a text prompt."
+  projectFilterSuggestion(
+    "[Internal] The ID of the team if filtering a team view."
+    teamId: String
+
+    "Text describing the projects to match."
+    prompt: String!
+  ): ProjectFilterSuggestionPayload!
 
   "All custom views accessible to the user, including personal views and shared workspace views. Excludes views scoped to a specific project or initiative."
   customViews(
@@ -16949,15 +16976,6 @@ type Query {
   ): WorkflowState!
 }
 
-"The result of a project filter suggestion query."
-type ProjectFilterSuggestionPayload {
-  "The json filter that is suggested."
-  filter: JSONObject
-
-  "The log id of the prompt, that created this filter."
-  logId: String
-}
-
 "A page of results. Read `nodes` for the resources, or `edges` if you also need a cursor for each result. Use `pageInfo` to fetch further pages; a connection may contain fewer results than the requested page size."
 type AgentSkillConnection {
   "The page's results paired with their cursors."
@@ -17438,6 +17456,15 @@ type SsoUrlFromEmailResponse {
 
   "SAML SSO sign-in URL."
   samlSsoUrl: String!
+}
+
+"The result of a project filter suggestion query."
+type ProjectFilterSuggestionPayload {
+  "The json filter that is suggested."
+  filter: JSONObject
+
+  "The log id of the prompt, that created this filter."
+  logId: String
 }
 
 "A page of results. Read `nodes` for the resources, or `edges` if you also need a cursor for each result. Use `pageInfo` to fetch further pages; a connection may contain fewer results than the requested page size."
@@ -21158,81 +21185,6 @@ enum ViewType {
 }
 
 type Mutation {
-  "Creates a project in the supplied teams. You can apply a project template to fill in defaults and create its milestones, initial issues, and initiative associations. The new project must have at least one accessible team."
-  projectCreate(
-    "[Internal] The identifier of the project draft conversation to attach to this project."
-    aiConversationId: String
-
-    "[Internal] The identifier of the project draft that produced this project."
-    projectDraftId: String
-
-    "The full name for the Slack channel to create (including prefix). When provided, a Slack channel will be created and connected to the project."
-    slackChannelName: String
-
-    "[DEPRECATED] Whether to connect a Slack channel to the project."
-    connectSlackChannel: Boolean @deprecated(reason: "Use slackChannelName instead")
-
-    "The project properties to set on the new project."
-    input: ProjectCreateInput!
-  ): ProjectPayload!
-
-  "Updates the supplied fields of a project you can edit. Omitted fields keep their current values. List inputs such as memberIds and labelIds replace the corresponding lists; see each input for clearing rules and team-access behavior."
-  projectUpdate(
-    "A partial project object to update the project with."
-    input: ProjectUpdateInput!
-
-    "The identifier of the project to update. Also the identifier from the URL is accepted."
-    id: String!
-  ): ProjectPayload!
-
-  "Moves a project to the trash. This archives the project rather than immediately deleting it permanently. You can restore it with projectUnarchive while it remains available in the trash."
-  projectDelete(
-    "The identifier of the project to delete."
-    id: String!
-  ): ProjectArchivePayload!
-
-  "Archives a project."
-  projectArchive(
-    "Whether to trash the project."
-    trash: Boolean
-
-    "The identifier of the project to archive. Also the identifier from the URL is accepted."
-    id: String!
-  ): ProjectArchivePayload! @deprecated(reason: "Deprecated in favor of projectDelete.")
-
-  "Restores an archived or trashed project. The operation checks the project quota of each associated team before restoring it."
-  projectUnarchive(
-    "The identifier of the project to restore. Also the identifier from the URL is accepted."
-    id: String!
-  ): ProjectArchivePayload!
-
-  "Adds a project label while keeping the project’s other labels. The label must be available to the project; label-group and team-scoping rules still apply."
-  projectAddLabel(
-    "The identifier of the label to add."
-    labelId: String!
-
-    "The identifier of the project to add the label to."
-    id: String!
-  ): ProjectPayload!
-
-  "Removes a project label while keeping the project’s other labels. The label itself is not deleted."
-  projectRemoveLabel(
-    "The identifier of the label to remove."
-    labelId: String!
-
-    "The identifier of the project to remove the label from."
-    id: String!
-  ): ProjectPayload!
-
-  "Disables external sync on a project."
-  projectExternalSyncDisable(
-    "The source of the external sync to disable."
-    syncSource: ExternalSyncService!
-
-    "The ID of the project to disable external sync for."
-    projectId: String!
-  ): ProjectPayload!
-
   "Publishes an activity to your agent’s session and updates its lifecycle. Thoughts and actions report ongoing work; a response completes the turn unless it has the continue signal, an elicitation waits for user input, and an error records a failed turn. The session must be unarchived and owned by the authenticated app user. Use the agent app’s OAuth or workload identity token; personal API keys cannot publish agent activities."
   agentActivityCreate(
     "The agent activity object to create."
@@ -21685,6 +21637,81 @@ type Mutation {
     "The contact entry to create."
     input: ContactCreateInput!
   ): ContactPayload!
+
+  "Creates a project in the supplied teams. You can apply a project template to fill in defaults and create its milestones, initial issues, and initiative associations. The new project must have at least one accessible team."
+  projectCreate(
+    "[Internal] The identifier of the project draft conversation to attach to this project."
+    aiConversationId: String
+
+    "[Internal] The identifier of the project draft that produced this project."
+    projectDraftId: String
+
+    "The full name for the Slack channel to create (including prefix). When provided, a Slack channel will be created and connected to the project."
+    slackChannelName: String
+
+    "[DEPRECATED] Whether to connect a Slack channel to the project."
+    connectSlackChannel: Boolean @deprecated(reason: "Use slackChannelName instead")
+
+    "The project properties to set on the new project."
+    input: ProjectCreateInput!
+  ): ProjectPayload!
+
+  "Updates the supplied fields of a project you can edit. Omitted fields keep their current values. List inputs such as memberIds and labelIds replace the corresponding lists; see each input for clearing rules and team-access behavior."
+  projectUpdate(
+    "A partial project object to update the project with."
+    input: ProjectUpdateInput!
+
+    "The identifier of the project to update. Also the identifier from the URL is accepted."
+    id: String!
+  ): ProjectPayload!
+
+  "Moves a project to the trash. This archives the project rather than immediately deleting it permanently. You can restore it with projectUnarchive while it remains available in the trash."
+  projectDelete(
+    "The identifier of the project to delete."
+    id: String!
+  ): ProjectArchivePayload!
+
+  "Archives a project."
+  projectArchive(
+    "Whether to trash the project."
+    trash: Boolean
+
+    "The identifier of the project to archive. Also the identifier from the URL is accepted."
+    id: String!
+  ): ProjectArchivePayload! @deprecated(reason: "Deprecated in favor of projectDelete.")
+
+  "Restores an archived or trashed project. The operation checks the project quota of each associated team before restoring it."
+  projectUnarchive(
+    "The identifier of the project to restore. Also the identifier from the URL is accepted."
+    id: String!
+  ): ProjectArchivePayload!
+
+  "Adds a project label while keeping the project’s other labels. The label must be available to the project; label-group and team-scoping rules still apply."
+  projectAddLabel(
+    "The identifier of the label to add."
+    labelId: String!
+
+    "The identifier of the project to add the label to."
+    id: String!
+  ): ProjectPayload!
+
+  "Removes a project label while keeping the project’s other labels. The label itself is not deleted."
+  projectRemoveLabel(
+    "The identifier of the label to remove."
+    labelId: String!
+
+    "The identifier of the project to remove the label from."
+    id: String!
+  ): ProjectPayload!
+
+  "Disables external sync on a project."
+  projectExternalSyncDisable(
+    "The source of the external sync to disable."
+    syncSource: ExternalSyncService!
+
+    "The ID of the project to disable external sync for."
+    projectId: String!
+  ): ProjectPayload!
 
   "Creates a saved view owned by you. Choose an issue, project, initiative, or update filter and set shared if others in its scope should use it. Display settings can be saved separately with viewPreferencesCreate."
   customViewCreate(
@@ -23357,6 +23384,15 @@ type Mutation {
     id: String!
   ): DeletePayload!
 
+  "Moves a milestone and its issues to another project, including archived issues. The caller must have access to every issue in the milestone, and the milestone and destination project must be writable. If an issue's team is not part of the destination project, provide newIssueTeamId or addIssueTeamToProject. The returned team snapshots can be passed to the undo inputs when moving the milestone back to its original project."
+  projectMilestoneMove(
+    "The project to move the milestone to, as well as any additional options need to make a successful move, or undo a previous move."
+    input: ProjectMilestoneMoveInput!
+
+    "The identifier of the project milestone to move."
+    id: String!
+  ): ProjectMilestoneMovePayload!
+
   "Creates a dependency between two different projects using date or milestone anchors."
   projectRelationCreate(
     "The project relation to create."
@@ -24015,219 +24051,6 @@ type Mutation {
   ): WorkflowStateArchivePayload!
 }
 
-"The result of a project mutation."
-type ProjectPayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "The project that was created or updated."
-  project: Project
-
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
-"The details for a new project. Provide a name and the teams that will own its issues. A project template can supply defaults and create related milestones or issues; see templateId for how template values and your input are combined."
-input ProjectCreateInput {
-  "The identifier in UUID v4 format. If none is provided, the backend will generate one."
-  id: String
-
-  "The name of the project."
-  name: String!
-
-  "The icon of the project."
-  icon: String
-
-  "The project color as a hexadecimal color string, such as #5E6AD2."
-  color: String
-
-  "[DEPRECATED] The state of the project."
-  state: String @deprecated(reason: "Use statusId instead")
-
-  "The UUID of an active project status available to the project’s lead team. Without an explicit status or a template default, the project uses the first backlog status in that team’s status scope."
-  statusId: String
-
-  "A short plain-text summary. Use content for the full Markdown overview."
-  description: String
-
-  "The full project overview in Markdown, separate from the short description."
-  content: String
-
-  "UUIDs of the teams that the project belongs to. At least one accessible team must remain after template processing. Issues in the project must belong to one of these teams."
-  teamIds: [String!]!
-
-  "The ID of the issue that was converted into this project."
-  convertedFromIssueId: String
-
-  "Records the last applied template UUID. To create the project from a template, use templateId."
-  lastAppliedTemplateId: String
-
-  "The UUID of a project template to apply. Non-null input values override template defaults for icon, color, summary, status, priority, lead, and members. A nonempty teamIds list replaces the template’s teams; an empty list uses them. Nonempty content replaces the template overview. Labels are combined, with your selection taking precedence within a single-select group. The template can also create milestones, initial issues, and initiative associations. A nonempty name is still required. Omit useDefaultTemplate when supplying this field."
-  templateId: String
-
-  "Whether to apply the first supplied team’s default project template. The request fails if that team has no default template. Omit or use false to create without a default template. This field cannot be supplied alongside templateId, even when false."
-  useDefaultTemplate: Boolean
-
-  "UUID of the project lead. Application users cannot be leads. The lead is also added as a member."
-  leadId: String
-
-  "UUIDs of users to add as project members. Application users cannot be members, and the project lead is added even when not listed. Without this input, a template can supply members; otherwise the list starts empty."
-  memberIds: [String!]
-
-  "The planned start date in YYYY-MM-DD format."
-  startDate: TimelessDate
-
-  "The precision of startDate: month, quarter, halfYear, or year. Omit for an exact date."
-  startDateResolution: DateResolutionType
-
-  "The planned completion date in YYYY-MM-DD format."
-  targetDate: TimelessDate
-
-  "The precision of targetDate: month, quarter, halfYear, or year. Omit for an exact date."
-  targetDateResolution: DateResolutionType
-
-  "Position in shared project views, in ascending order. Omit or pass 0 to append; collisions are adjusted."
-  sortOrder: Float
-
-  "The sort order for the project within shared views, when ordered by priority."
-  prioritySortOrder: Float
-
-  "The priority of the project. 0 = No priority, 1 = Urgent, 2 = High, 3 = Medium, 4 = Low."
-  priority: Int
-
-  "UUIDs of project labels to apply. When using a template, these are combined with its applicable labels; an explicitly supplied label takes precedence over a template label in the same group. Label groups themselves cannot be applied."
-  labelIds: [String!]
-}
-
-"Changes to a project. Omit a field to keep its current value. Lists replace the corresponding selections unless their description says otherwise; null only clears fields that explicitly support it."
-input ProjectUpdateInput {
-  "[DEPRECATED] The state of the project."
-  state: String @deprecated(reason: "Use statusId instead")
-
-  "The UUID of an active project status available to the project’s lead team. Moving between status types updates startedAt, completedAt, or canceledAt as appropriate. Omit to keep the current status."
-  statusId: String
-
-  "The name of the project."
-  name: String
-
-  "A short plain-text summary. Use an empty string to clear it; null is not accepted."
-  description: String
-
-  "Replacement project overview in Markdown. Empty strings, null, and omission leave the existing content unchanged."
-  content: String
-
-  "The ID of the issue from which that project is created."
-  convertedFromIssueId: String
-
-  "Records the last applied template UUID without applying its contents."
-  lastAppliedTemplateId: String
-
-  "The icon of the project."
-  icon: String
-
-  "The color of the project."
-  color: String
-
-  "The replacement list of team UUIDs. Teams you cannot access are preserved, so omitting a private team does not remove it. At least one team must remain, and a team with active project issues cannot be removed until those issues are moved."
-  teamIds: [String!]
-
-  "The time until which project update reminders are paused. Set null to remove the project-specific pause; reminders still follow the configured schedule. Omit to leave the pause unchanged."
-  projectUpdateRemindersPausedUntilAt: DateTime
-
-  "The interval between update reminders in weeks. Null inherits the workspace setting; omit to leave unchanged."
-  updateReminderFrequencyInWeeks: Float
-
-  "The interval between update reminders, in the unit given by frequencyResolution. Null inherits the workspace setting; omit to leave unchanged."
-  updateReminderFrequency: Float
-
-  "The unit of updateReminderFrequency: daily or weekly."
-  frequencyResolution: FrequencyResolutionType
-
-  "The day of the week on which to prompt for project updates."
-  updateRemindersDay: Day
-
-  "The hour of the day (0-23) at which to prompt for project updates."
-  updateRemindersHour: Int
-
-  "UUID of the project lead. Pass null to remove the lead. Application users cannot be leads; a new lead is added as a member."
-  leadId: String
-
-  "The replacement list of project member UUIDs. Use [] to remove all members except the project lead, who remains a member. Application users cannot be added; omit the field to keep the current members."
-  memberIds: [String!]
-
-  "The planned start date in YYYY-MM-DD format. Null clears the date."
-  startDate: TimelessDate
-
-  "The precision of startDate: month, quarter, halfYear, or year. Null uses an exact date."
-  startDateResolution: DateResolutionType
-
-  "The planned completion date in YYYY-MM-DD format. Null clears the date."
-  targetDate: TimelessDate
-
-  "The precision of targetDate: month, quarter, halfYear, or year. Null uses an exact date."
-  targetDateResolution: DateResolutionType
-
-  "The time at which the project was completed."
-  completedAt: DateTime
-
-  "The time at which the project was canceled."
-  canceledAt: DateTime
-
-  "Whether to send new issue notifications to Slack."
-  slackNewIssue: Boolean
-
-  "Whether to send new issue comment notifications to Slack."
-  slackIssueComments: Boolean
-
-  "Whether to send issue status update notifications to Slack."
-  slackIssueStatuses: Boolean
-
-  "Position in shared project views, in ascending order. Pass 0 to append; collisions are adjusted."
-  sortOrder: Float
-
-  "The sort order for the project within shared views, when ordered by priority."
-  prioritySortOrder: Float
-
-  "The stored trash flag. This field does not archive or restore the project. Use projectDelete to move it to the trash and projectUnarchive to restore it."
-  trashed: Boolean
-
-  "The priority of the project. 0 = No priority, 1 = Urgent, 2 = High, 3 = Medium, 4 = Low."
-  priority: Int
-
-  "The replacement list of project label UUIDs. Use [] to remove all labels, or omit the field to keep them. Use projectAddLabel or projectRemoveLabel when you only need to change one label; team and label-group rules apply to both approaches."
-  labelIds: [String!]
-}
-
-"Result of an operation that returns a success flag."
-type SuccessPayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
-"The result of archiving or restoring a resource."
-type ProjectArchivePayload implements ArchivePayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "Whether the operation was successful."
-  success: Boolean!
-
-  "The resource after the operation, when returned. This can be null when the mutation does not return a resource, including after deletion. Check `success` for the operation's result."
-  entity: Project
-}
-
-"The result of archiving, restoring, or deleting a resource."
-interface ArchivePayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
 "The result of an agent activity mutation."
 type AgentActivityPayload {
   "Synchronization cursor used by Linear clients. External integrations can ignore this field."
@@ -24406,6 +24229,15 @@ type DeletePayload implements ArchivePayload {
 
   "The ID of the resource targeted by the delete operation. Use this to remove the resource from your local state after a successful mutation."
   entityId: String!
+}
+
+"The result of archiving, restoring, or deleting a resource."
+interface ArchivePayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "Whether the operation was successful."
+  success: Boolean!
 }
 
 "The result of an attachment mutation."
@@ -24680,6 +24512,210 @@ input ContactCreateInput {
 
   "How disappointed the user would be if they could no longer use Linear. Scale: 0 = not disappointed, 1 = somewhat disappointed, 2 = very disappointed, 3 = extremely disappointed."
   disappointmentRating: Int
+}
+
+"The result of a project mutation."
+type ProjectPayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "The project that was created or updated."
+  project: Project
+
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+"The details for a new project. Provide a name and the teams that will own its issues. A project template can supply defaults and create related milestones or issues; see templateId for how template values and your input are combined."
+input ProjectCreateInput {
+  "The identifier in UUID v4 format. If none is provided, the backend will generate one."
+  id: String
+
+  "The name of the project."
+  name: String!
+
+  "The icon of the project."
+  icon: String
+
+  "The project color as a hexadecimal color string, such as #5E6AD2."
+  color: String
+
+  "[DEPRECATED] The state of the project."
+  state: String @deprecated(reason: "Use statusId instead")
+
+  "The UUID of an active project status available to the project’s lead team. Without an explicit status or a template default, the project uses the first backlog status in that team’s status scope."
+  statusId: String
+
+  "A short plain-text summary. Use content for the full Markdown overview."
+  description: String
+
+  "The full project overview in Markdown, separate from the short description."
+  content: String
+
+  "UUIDs of the teams that the project belongs to. At least one accessible team must remain after template processing. Issues in the project must belong to one of these teams."
+  teamIds: [String!]!
+
+  "The ID of the issue that was converted into this project."
+  convertedFromIssueId: String
+
+  "Records the last applied template UUID. To create the project from a template, use templateId."
+  lastAppliedTemplateId: String
+
+  "The UUID of a project template to apply. Non-null input values override template defaults for icon, color, summary, status, priority, lead, and members. A nonempty teamIds list replaces the template’s teams; an empty list uses them. Nonempty content replaces the template overview. Labels are combined, with your selection taking precedence within a single-select group. The template can also create milestones, initial issues, and initiative associations. A nonempty name is still required. Omit useDefaultTemplate when supplying this field."
+  templateId: String
+
+  "Whether to apply the first supplied team’s default project template. The request fails if that team has no default template. Omit or use false to create without a default template. This field cannot be supplied alongside templateId, even when false."
+  useDefaultTemplate: Boolean
+
+  "UUID of the project lead. Application users cannot be leads. The lead is also added as a member."
+  leadId: String
+
+  "UUIDs of users to add as project members. Application users cannot be members, and the project lead is added even when not listed. Without this input, a template can supply members; otherwise the list starts empty."
+  memberIds: [String!]
+
+  "The planned start date in YYYY-MM-DD format."
+  startDate: TimelessDate
+
+  "The precision of startDate: month, quarter, halfYear, or year. Omit for an exact date."
+  startDateResolution: DateResolutionType
+
+  "The planned completion date in YYYY-MM-DD format."
+  targetDate: TimelessDate
+
+  "The precision of targetDate: month, quarter, halfYear, or year. Omit for an exact date."
+  targetDateResolution: DateResolutionType
+
+  "Position in shared project views, in ascending order. Omit or pass 0 to append; collisions are adjusted."
+  sortOrder: Float
+
+  "The sort order for the project within shared views, when ordered by priority."
+  prioritySortOrder: Float
+
+  "The priority of the project. 0 = No priority, 1 = Urgent, 2 = High, 3 = Medium, 4 = Low."
+  priority: Int
+
+  "UUIDs of project labels to apply. When using a template, these are combined with its applicable labels; an explicitly supplied label takes precedence over a template label in the same group. Label groups themselves cannot be applied."
+  labelIds: [String!]
+}
+
+"Changes to a project. Omit a field to keep its current value. Lists replace the corresponding selections unless their description says otherwise; null only clears fields that explicitly support it."
+input ProjectUpdateInput {
+  "[DEPRECATED] The state of the project."
+  state: String @deprecated(reason: "Use statusId instead")
+
+  "The UUID of an active project status available to the project’s lead team. Moving between status types updates startedAt, completedAt, or canceledAt as appropriate. Omit to keep the current status."
+  statusId: String
+
+  "The name of the project."
+  name: String
+
+  "A short plain-text summary. Use an empty string to clear it; null is not accepted."
+  description: String
+
+  "Replacement project overview in Markdown. Empty strings, null, and omission leave the existing content unchanged."
+  content: String
+
+  "The ID of the issue from which that project is created."
+  convertedFromIssueId: String
+
+  "Records the last applied template UUID without applying its contents."
+  lastAppliedTemplateId: String
+
+  "The icon of the project."
+  icon: String
+
+  "The color of the project."
+  color: String
+
+  "The replacement list of team UUIDs. Teams you cannot access are preserved, so omitting a private team does not remove it. At least one team must remain, and a team with active project issues cannot be removed until those issues are moved."
+  teamIds: [String!]
+
+  "The time until which project update reminders are paused. Set null to remove the project-specific pause; reminders still follow the configured schedule. Omit to leave the pause unchanged."
+  projectUpdateRemindersPausedUntilAt: DateTime
+
+  "The interval between update reminders in weeks. Null inherits the workspace setting; omit to leave unchanged."
+  updateReminderFrequencyInWeeks: Float
+
+  "The interval between update reminders, in the unit given by frequencyResolution. Null inherits the workspace setting; omit to leave unchanged."
+  updateReminderFrequency: Float
+
+  "The unit of updateReminderFrequency: daily or weekly."
+  frequencyResolution: FrequencyResolutionType
+
+  "The day of the week on which to prompt for project updates."
+  updateRemindersDay: Day
+
+  "The hour of the day (0-23) at which to prompt for project updates."
+  updateRemindersHour: Int
+
+  "UUID of the project lead. Pass null to remove the lead. Application users cannot be leads; a new lead is added as a member."
+  leadId: String
+
+  "The replacement list of project member UUIDs. Use [] to remove all members except the project lead, who remains a member. Application users cannot be added; omit the field to keep the current members."
+  memberIds: [String!]
+
+  "The planned start date in YYYY-MM-DD format. Null clears the date."
+  startDate: TimelessDate
+
+  "The precision of startDate: month, quarter, halfYear, or year. Null uses an exact date."
+  startDateResolution: DateResolutionType
+
+  "The planned completion date in YYYY-MM-DD format. Null clears the date."
+  targetDate: TimelessDate
+
+  "The precision of targetDate: month, quarter, halfYear, or year. Null uses an exact date."
+  targetDateResolution: DateResolutionType
+
+  "The time at which the project was completed."
+  completedAt: DateTime
+
+  "The time at which the project was canceled."
+  canceledAt: DateTime
+
+  "Whether to send new issue notifications to Slack."
+  slackNewIssue: Boolean
+
+  "Whether to send new issue comment notifications to Slack."
+  slackIssueComments: Boolean
+
+  "Whether to send issue status update notifications to Slack."
+  slackIssueStatuses: Boolean
+
+  "Position in shared project views, in ascending order. Pass 0 to append; collisions are adjusted."
+  sortOrder: Float
+
+  "The sort order for the project within shared views, when ordered by priority."
+  prioritySortOrder: Float
+
+  "The stored trash flag. This field does not archive or restore the project. Use projectDelete to move it to the trash and projectUnarchive to restore it."
+  trashed: Boolean
+
+  "The priority of the project. 0 = No priority, 1 = Urgent, 2 = High, 3 = Medium, 4 = Low."
+  priority: Int
+
+  "The replacement list of project label UUIDs. Use [] to remove all labels, or omit the field to keep them. Use projectAddLabel or projectRemoveLabel when you only need to change one label; team and label-group rules apply to both approaches."
+  labelIds: [String!]
+}
+
+"Result of an operation that returns a success flag."
+type SuccessPayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+"The result of archiving or restoring a resource."
+type ProjectArchivePayload implements ArchivePayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "Whether the operation was successful."
+  success: Boolean!
+
+  "The resource after the operation, when returned. This can be null when the mutation does not return a resource, including after deletion. Check `success` for the operation's result."
+  entity: Project
 }
 
 "The result of a custom view mutation."
@@ -27857,6 +27893,76 @@ input ProjectMilestoneUpdateInput {
   projectId: String
 }
 
+"The result of a project milestone move mutation."
+type ProjectMilestoneMovePayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "The project milestone that was created or updated."
+  projectMilestone: ProjectMilestone!
+
+  "Whether the operation was successful."
+  success: Boolean!
+
+  "A snapshot of the issues that were moved to new teams, if the user selected to do it, containing an array of mappings between an issue and its previous team. Store on the client to use for undoing a previous milestone move."
+  previousIssueTeamIds: [ProjectMilestoneMoveIssueToTeam!]
+
+  "A snapshot of the project that had new teams added to it, if the user selected to do it, containing an array of mappings between a project and its previous teams. Store on the client to use for undoing a previous milestone move."
+  previousProjectTeamIds: ProjectMilestoneMoveProjectTeams
+}
+
+type ProjectMilestoneMoveIssueToTeam {
+  "The identifier of the issue to restore to its previous team. Must match an issue in the milestone."
+  issueId: String!
+
+  "The team id in this relationship"
+  teamId: String!
+}
+
+type ProjectMilestoneMoveProjectTeams {
+  "The project id"
+  projectId: String!
+
+  "The team ids for the project"
+  teamIds: [String!]!
+}
+
+"Input for moving a project milestone to another project."
+input ProjectMilestoneMoveInput {
+  "The identifier of the project to move the milestone to."
+  projectId: String!
+
+  "The team id to move the attached issues to. This is needed when there is a mismatch between a project's teams and the milestone's issues' teams. Either this or addIssueTeamToProject is required in that situation to resolve constraints."
+  newIssueTeamId: String
+
+  "Whether to add each milestone issue's team to the project. This is needed when there is a mismatch between a project's teams and the milestone's issues' teams. Either this or newIssueTeamId is required in that situation to resolve constraints."
+  addIssueTeamToProject: Boolean
+
+  "A list of issue id to team ids, used for undoing a previous milestone move where the specified issues were moved from the specified teams."
+  undoIssueTeamIds: [ProjectMilestoneMoveIssueToTeamInput!]
+
+  "A mapping of project id to a previous set of team ids, used for undoing a previous milestone move where the specified teams were added to the project."
+  undoProjectTeamIds: ProjectMilestoneMoveProjectTeamsInput
+}
+
+"Used for ProjectMilestoneMoveInput to describe a mapping between an issue and its team."
+input ProjectMilestoneMoveIssueToTeamInput {
+  "The identifier of the issue to restore to its previous team. Must match an issue in the milestone."
+  issueId: String!
+
+  "The team id in this relationship"
+  teamId: String!
+}
+
+"Used for ProjectMilestoneMoveInput to describe a snapshot of a project and its team ids"
+input ProjectMilestoneMoveProjectTeamsInput {
+  "The project id"
+  projectId: String!
+
+  "The team ids for the project"
+  teamIds: [String!]!
+}
+
 "The result of a project relation mutation."
 type ProjectRelationPayload {
   "Synchronization cursor used by Linear clients. External integrations can ignore this field."
@@ -29680,6 +29786,7 @@ enum UserFlagType {
   reviewsPromptToConnectGithubDismissed
   workspaceSetupCompletedHidden
   pinnedDocumentsEmptyStateDismissed
+  homeCardsEmptyStateDismissed
   all
 }
 
@@ -29919,21 +30026,6 @@ type WorkflowStateArchivePayload implements ArchivePayload {
 }
 
 type Subscription {
-  "Triggered when a workflow state is created"
-  workflowStateCreated: WorkflowState!
-
-  "Triggered when a workflow state is updated"
-  workflowStateUpdated: WorkflowState!
-
-  "Triggered when a workflow state is archived"
-  workflowStateArchived: WorkflowState!
-
-  "Triggered when an issue history is created"
-  issueHistoryCreated: IssueHistory!
-
-  "Triggered when an issue history is updated"
-  issueHistoryUpdated: IssueHistory!
-
   "Triggered when an agent activity is created"
   agentActivityCreated: AgentActivity!
 
@@ -29943,14 +30035,14 @@ type Subscription {
   "Triggered when an agent activity is archived"
   agentActivityArchived: AgentActivity!
 
-  "Triggered when a draft is created"
-  draftCreated: Draft!
+  "Triggered when a workflow state is created"
+  workflowStateCreated: WorkflowState!
 
-  "Triggered when a draft is updated"
-  draftUpdated: Draft!
+  "Triggered when a workflow state is updated"
+  workflowStateUpdated: WorkflowState!
 
-  "Triggered when a draft is deleted"
-  draftDeleted: Draft!
+  "Triggered when a workflow state is archived"
+  workflowStateArchived: WorkflowState!
 
   "Triggered when an issue relation is created"
   issueRelationCreated: IssueRelation!
@@ -30018,72 +30110,6 @@ type Subscription {
   "Triggered when a team is deleted"
   teamDeleted: Team!
 
-  "Triggered when a document content is created"
-  documentContentCreated: DocumentContent!
-
-  "Triggered when a document content is updated"
-  documentContentUpdated: DocumentContent!
-
-  "Triggered when a roadmap is created"
-  roadmapCreated: Roadmap!
-
-  "Triggered when a roadmap is updated"
-  roadmapUpdated: Roadmap!
-
-  "Triggered when a roadmap is deleted"
-  roadmapDeleted: Roadmap!
-
-  "Triggered when an initiative is created"
-  initiativeCreated: Initiative!
-
-  "Triggered when an initiative is updated"
-  initiativeUpdated: Initiative!
-
-  "Triggered when an initiative is deleted"
-  initiativeDeleted: Initiative!
-
-  "Triggered when a cycle is created"
-  cycleCreated: Cycle!
-
-  "Triggered when a cycle is updated"
-  cycleUpdated: Cycle!
-
-  "Triggered when a cycle is archived"
-  cycleArchived: Cycle!
-
-  "Triggered when a document is created"
-  documentCreated: Document!
-
-  "Triggered when a document is updated"
-  documentUpdated: Document!
-
-  "Triggered when a document is archived"
-  documentArchived: Document!
-
-  "Triggered when a document is unarchived"
-  documentUnarchived: Document!
-
-  "Triggered when a favorite is created"
-  favoriteCreated: Favorite!
-
-  "Triggered when a favorite is updated"
-  favoriteUpdated: Favorite!
-
-  "Triggered when a favorite is deleted"
-  favoriteDeleted: Favorite!
-
-  "Triggered when a project is created"
-  projectCreated: Project!
-
-  "Triggered when a project is updated"
-  projectUpdated: Project!
-
-  "Triggered when a project is archived"
-  projectArchived: Project!
-
-  "Triggered when a project is unarchived"
-  projectUnarchived: Project!
-
   "Triggered when a project label is created"
   projectLabelCreated: ProjectLabel!
 
@@ -30102,11 +30128,80 @@ type Subscription {
   "Triggered when an issue label is deleted"
   issueLabelDeleted: IssueLabel!
 
-  "Triggered when an user is created"
-  userCreated: User!
+  "Triggered when a favorite is created"
+  favoriteCreated: Favorite!
 
-  "Triggered when an user is updated"
-  userUpdated: User!
+  "Triggered when a favorite is updated"
+  favoriteUpdated: Favorite!
+
+  "Triggered when a favorite is deleted"
+  favoriteDeleted: Favorite!
+
+  "Triggered when a roadmap is created"
+  roadmapCreated: Roadmap!
+
+  "Triggered when a roadmap is updated"
+  roadmapUpdated: Roadmap!
+
+  "Triggered when a roadmap is deleted"
+  roadmapDeleted: Roadmap!
+
+  "Triggered when a project is created"
+  projectCreated: Project!
+
+  "Triggered when a project is updated"
+  projectUpdated: Project!
+
+  "Triggered when a project is archived"
+  projectArchived: Project!
+
+  "Triggered when a project is unarchived"
+  projectUnarchived: Project!
+
+  "Triggered when a draft is created"
+  draftCreated: Draft!
+
+  "Triggered when a draft is updated"
+  draftUpdated: Draft!
+
+  "Triggered when a draft is deleted"
+  draftDeleted: Draft!
+
+  "Triggered when an initiative is created"
+  initiativeCreated: Initiative!
+
+  "Triggered when an initiative is updated"
+  initiativeUpdated: Initiative!
+
+  "Triggered when an initiative is deleted"
+  initiativeDeleted: Initiative!
+
+  "Triggered when a document is created"
+  documentCreated: Document!
+
+  "Triggered when a document is updated"
+  documentUpdated: Document!
+
+  "Triggered when a document is archived"
+  documentArchived: Document!
+
+  "Triggered when a document is unarchived"
+  documentUnarchived: Document!
+
+  "Triggered when a cycle is created"
+  cycleCreated: Cycle!
+
+  "Triggered when a cycle is updated"
+  cycleUpdated: Cycle!
+
+  "Triggered when a cycle is archived"
+  cycleArchived: Cycle!
+
+  "Triggered when an issue history is created"
+  issueHistoryCreated: IssueHistory!
+
+  "Triggered when an issue history is updated"
+  issueHistoryUpdated: IssueHistory!
 
   "Triggered when a comment is created"
   commentCreated: Comment!
@@ -30140,6 +30235,18 @@ type Subscription {
 
   "Triggered when an issue is unarchived"
   issueUnarchived: Issue!
+
+  "Triggered when an user is created"
+  userCreated: User!
+
+  "Triggered when an user is updated"
+  userUpdated: User!
+
+  "Triggered when a document content is created"
+  documentContentCreated: DocumentContent!
+
+  "Triggered when a document content is updated"
+  documentContentUpdated: DocumentContent!
 
   "Triggered when an agent session is created"
   agentSessionCreated: AgentSession!

@@ -68,5 +68,6 @@ enum UserFlagType: string
 	case reviewsPromptToConnectGithubDismissed = 'reviewsPromptToConnectGithubDismissed';
 	case workspaceSetupCompletedHidden = 'workspaceSetupCompletedHidden';
 	case pinnedDocumentsEmptyStateDismissed = 'pinnedDocumentsEmptyStateDismissed';
+	case homeCardsEmptyStateDismissed = 'homeCardsEmptyStateDismissed';
 	case all = 'all';
 }
