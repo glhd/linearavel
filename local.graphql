@@ -4984,6 +4984,9 @@ input InitiativeCollectionFilter {
   "Comparator for the initiative's custom identifier."
   customIdentifier: NullableStringComparator
 
+  "Comparator for the initiative's name and summary."
+  searchableContent: ContentComparator
+
   "Filters that the initiative creator must satisfy."
   creator: NullableUserFilter
 
@@ -5020,7 +5023,7 @@ input InitiativeCollectionFilter {
   "The initiative’s health after accounting for the age of its latest update and its reminder schedule. Accepts onTrack, atRisk, offTrack, outdated, or noUpdate."
   healthWithAge: StringComparator
 
-  "Comparator for the initiative activity type."
+  "Not supported. Initiative activity is not stored on the server, so filters that set this field are rejected."
   activityType: StringComparator
 
   "Conditions on this initiative’s parent initiatives and their ancestors. For example, some: { id: { eq: ID } } finds descendants of the specified initiative."
@@ -5188,6 +5191,9 @@ input InitiativeFilter {
   "Comparator for the initiative's custom identifier."
   customIdentifier: NullableStringComparator
 
+  "Comparator for the initiative's name and summary."
+  searchableContent: ContentComparator
+
   "Filters that the initiative creator must satisfy."
   creator: NullableUserFilter
 
@@ -5224,7 +5230,7 @@ input InitiativeFilter {
   "The initiative’s health after accounting for the age of its latest update and its reminder schedule. Accepts onTrack, atRisk, offTrack, outdated, or noUpdate."
   healthWithAge: StringComparator
 
-  "Comparator for the initiative activity type."
+  "Not supported. Initiative activity is not stored on the server, so filters that set this field are rejected."
   activityType: StringComparator
 
   "Conditions on this initiative’s parent initiatives and their ancestors. For example, some: { id: { eq: ID } } finds descendants of the specified initiative."
@@ -5976,6 +5982,9 @@ input NullableInitiativeFilter {
   "Comparator for the initiative's custom identifier."
   customIdentifier: NullableStringComparator
 
+  "Comparator for the initiative's name and summary."
+  searchableContent: ContentComparator
+
   "Filters that the initiative creator must satisfy."
   creator: NullableUserFilter
 
@@ -6012,7 +6021,7 @@ input NullableInitiativeFilter {
   "The initiative’s health after accounting for the age of its latest update and its reminder schedule. Accepts onTrack, atRisk, offTrack, outdated, or noUpdate."
   healthWithAge: StringComparator
 
-  "Comparator for the initiative activity type."
+  "Not supported. Initiative activity is not stored on the server, so filters that set this field are rejected."
   activityType: StringComparator
 
   "Conditions on this initiative’s parent initiatives and their ancestors. For example, some: { id: { eq: ID } } finds descendants of the specified initiative."
@@ -7964,7 +7973,7 @@ enum FeedSummarySchedule {
   never
 }
 
-"A request or piece of feedback associated with a customer and linked to an issue or project. It can include a written message, priority, and an attachment pointing to the original conversation. Multiple needs can connect the same customer to the same work, preserving each source of feedback."
+"A request or piece of feedback optionally associated with a customer and linked to work. It can include a written message, priority, and an attachment pointing to the original conversation. Multiple needs can connect the same customer to the same work, preserving each source of feedback."
 type CustomerNeed implements Node {
   "The resource's unique UUID. This stays unchanged when the resource is renamed or moved; use it for stored references and mutations."
   id: ID!
@@ -16548,6 +16557,9 @@ type Query {
 
   "Searches accessible documents using text matching and meaning. Use teamId to narrow the search, and includeArchived to include archived documents. Results are ordered by relevance unless orderBy is supplied and use cursor pagination. Limited to 30 requests per minute."
   searchDocuments(
+    "Filter returned documents."
+    filter: DocumentFilter
+
     "Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`."
     before: String
 
@@ -19349,7 +19361,7 @@ type DocumentSearchPayload {
   "Serialized archived documents on this page and their archived projects, for Linear’s client. For normal API reads, select the document fields you need from nodes instead."
   archivePayload: ArchiveResponse!
 
-  "Number of candidates retrieved before filtering and pagination. Search caps candidates, so this is not an exact count of all matching documents."
+  "Number of candidates retrieved that match the document filter, before pagination. Search caps candidates, so this is not an exact count of all matching documents."
   totalCount: Float!
 }
 
@@ -21734,7 +21746,7 @@ type Mutation {
     id: String!
   ): DeletePayload!
 
-  "Records a customer request against an issue. Provide input.issueId and optionally identify the customer, add Markdown feedback, or link a source attachment. Multiple needs can be recorded for the same customer and issue."
+  "Records customer feedback, optionally linked to an issue. Unlinked requests require Customer Signals to be enabled. You can identify the customer, add Markdown feedback, or link a source attachment. Multiple requests can be recorded for the same customer and issue."
   customerNeedCreate(
     "The customer need to create."
     input: CustomerNeedCreateInput!
@@ -24829,7 +24841,7 @@ type CustomerNeedPayload {
   success: Boolean!
 }
 
-"The issue and optional customer details for a new request. Provide issueId when using the public API. You can include Markdown feedback and a source attachment, and identify the customer by either its UUID or external-system ID."
+"The feedback and optional customer and work links for a new request. Requests may be created without a linked issue, project, or signal when Customer Signals is enabled. You can include Markdown feedback and a source attachment, and identify the customer by either its UUID or external-system ID."
 input CustomerNeedCreateInput {
   "The identifier in UUID v4 format. If none is provided, the backend will generate one."
   id: String
@@ -24840,7 +24852,7 @@ input CustomerNeedCreateInput {
   "The external system ID of the customer this need belongs to. Cannot be used together with customerId."
   customerExternalId: String
 
-  "The issue UUID or identifier, such as LIN-123. Required for public API calls."
+  "The optional issue UUID or identifier, such as LIN-123."
   issueId: String
 
   "The UUID of an existing comment to associate with this need for additional context."
@@ -30026,15 +30038,6 @@ type WorkflowStateArchivePayload implements ArchivePayload {
 }
 
 type Subscription {
-  "Triggered when an agent activity is created"
-  agentActivityCreated: AgentActivity!
-
-  "Triggered when an agent activity is updated"
-  agentActivityUpdated: AgentActivity!
-
-  "Triggered when an agent activity is archived"
-  agentActivityArchived: AgentActivity!
-
   "Triggered when a workflow state is created"
   workflowStateCreated: WorkflowState!
 
@@ -30043,6 +30046,12 @@ type Subscription {
 
   "Triggered when a workflow state is archived"
   workflowStateArchived: WorkflowState!
+
+  "Triggered when an issue history is created"
+  issueHistoryCreated: IssueHistory!
+
+  "Triggered when an issue history is updated"
+  issueHistoryUpdated: IssueHistory!
 
   "Triggered when an issue relation is created"
   issueRelationCreated: IssueRelation!
@@ -30053,29 +30062,35 @@ type Subscription {
   "Triggered when an issue relation is deleted"
   issueRelationDeleted: IssueRelation!
 
-  "Triggered when a team membership is created"
-  teamMembershipCreated: TeamMembership!
+  "Triggered when an agent activity is created"
+  agentActivityCreated: AgentActivity!
 
-  "Triggered when a team membership is updated"
-  teamMembershipUpdated: TeamMembership!
+  "Triggered when an agent activity is updated"
+  agentActivityUpdated: AgentActivity!
 
-  "Triggered when a team membership is deleted"
-  teamMembershipDeleted: TeamMembership!
+  "Triggered when an agent activity is archived"
+  agentActivityArchived: AgentActivity!
+
+  "Triggered when a project label is created"
+  projectLabelCreated: ProjectLabel!
+
+  "Triggered when a project label is updated"
+  projectLabelUpdated: ProjectLabel!
+
+  "Triggered when a project label is deleted"
+  projectLabelDeleted: ProjectLabel!
 
   "Triggered when an user settings is updated"
   userSettingsUpdated: UserSettings!
 
-  "Triggered when a project update is created"
-  projectUpdateCreated: ProjectUpdate!
+  "Triggered when a favorite is created"
+  favoriteCreated: Favorite!
 
-  "Triggered when a project update is updated"
-  projectUpdateUpdated: ProjectUpdate!
+  "Triggered when a favorite is updated"
+  favoriteUpdated: Favorite!
 
-  "Triggered when a project update is archived"
-  projectUpdateArchived: ProjectUpdate!
-
-  "Triggered when a project update is deleted"
-  projectUpdateDeleted: ProjectUpdate!
+  "Triggered when a favorite is deleted"
+  favoriteDeleted: Favorite!
 
   "Triggered when a document content revision is created"
   documentContentRevisionCreated: DocumentContentRevision!
@@ -30101,23 +30116,14 @@ type Subscription {
   "Triggered when a notification is deleted"
   notificationDeleted: Notification!
 
-  "Triggered when a team is created"
-  teamCreated: Team!
+  "Triggered when a team membership is created"
+  teamMembershipCreated: TeamMembership!
 
-  "Triggered when a team is updated"
-  teamUpdated: Team!
+  "Triggered when a team membership is updated"
+  teamMembershipUpdated: TeamMembership!
 
-  "Triggered when a team is deleted"
-  teamDeleted: Team!
-
-  "Triggered when a project label is created"
-  projectLabelCreated: ProjectLabel!
-
-  "Triggered when a project label is updated"
-  projectLabelUpdated: ProjectLabel!
-
-  "Triggered when a project label is deleted"
-  projectLabelDeleted: ProjectLabel!
+  "Triggered when a team membership is deleted"
+  teamMembershipDeleted: TeamMembership!
 
   "Triggered when an issue label is created"
   issueLabelCreated: IssueLabel!
@@ -30128,35 +30134,17 @@ type Subscription {
   "Triggered when an issue label is deleted"
   issueLabelDeleted: IssueLabel!
 
-  "Triggered when a favorite is created"
-  favoriteCreated: Favorite!
+  "Triggered when a project update is created"
+  projectUpdateCreated: ProjectUpdate!
 
-  "Triggered when a favorite is updated"
-  favoriteUpdated: Favorite!
+  "Triggered when a project update is updated"
+  projectUpdateUpdated: ProjectUpdate!
 
-  "Triggered when a favorite is deleted"
-  favoriteDeleted: Favorite!
+  "Triggered when a project update is archived"
+  projectUpdateArchived: ProjectUpdate!
 
-  "Triggered when a roadmap is created"
-  roadmapCreated: Roadmap!
-
-  "Triggered when a roadmap is updated"
-  roadmapUpdated: Roadmap!
-
-  "Triggered when a roadmap is deleted"
-  roadmapDeleted: Roadmap!
-
-  "Triggered when a project is created"
-  projectCreated: Project!
-
-  "Triggered when a project is updated"
-  projectUpdated: Project!
-
-  "Triggered when a project is archived"
-  projectArchived: Project!
-
-  "Triggered when a project is unarchived"
-  projectUnarchived: Project!
+  "Triggered when a project update is deleted"
+  projectUpdateDeleted: ProjectUpdate!
 
   "Triggered when a draft is created"
   draftCreated: Draft!
@@ -30166,6 +30154,15 @@ type Subscription {
 
   "Triggered when a draft is deleted"
   draftDeleted: Draft!
+
+  "Triggered when a roadmap is created"
+  roadmapCreated: Roadmap!
+
+  "Triggered when a roadmap is updated"
+  roadmapUpdated: Roadmap!
+
+  "Triggered when a roadmap is deleted"
+  roadmapDeleted: Roadmap!
 
   "Triggered when an initiative is created"
   initiativeCreated: Initiative!
@@ -30197,11 +30194,20 @@ type Subscription {
   "Triggered when a cycle is archived"
   cycleArchived: Cycle!
 
-  "Triggered when an issue history is created"
-  issueHistoryCreated: IssueHistory!
+  "Triggered when a team is created"
+  teamCreated: Team!
 
-  "Triggered when an issue history is updated"
-  issueHistoryUpdated: IssueHistory!
+  "Triggered when a team is updated"
+  teamUpdated: Team!
+
+  "Triggered when a team is deleted"
+  teamDeleted: Team!
+
+  "Triggered when an user is created"
+  userCreated: User!
+
+  "Triggered when an user is updated"
+  userUpdated: User!
 
   "Triggered when a comment is created"
   commentCreated: Comment!
@@ -30236,11 +30242,17 @@ type Subscription {
   "Triggered when an issue is unarchived"
   issueUnarchived: Issue!
 
-  "Triggered when an user is created"
-  userCreated: User!
+  "Triggered when a project is created"
+  projectCreated: Project!
 
-  "Triggered when an user is updated"
-  userUpdated: User!
+  "Triggered when a project is updated"
+  projectUpdated: Project!
+
+  "Triggered when a project is archived"
+  projectArchived: Project!
+
+  "Triggered when a project is unarchived"
+  projectUnarchived: Project!
 
   "Triggered when a document content is created"
   documentContentCreated: DocumentContent!

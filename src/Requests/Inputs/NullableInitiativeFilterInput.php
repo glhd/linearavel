@@ -14,6 +14,7 @@ class NullableInitiativeFilterInput
 		public ?StringComparatorInput $name = null,
 		public ?StringComparatorInput $slugId = null,
 		public ?NullableStringComparatorInput $customIdentifier = null,
+		public ?ContentComparatorInput $searchableContent = null,
 		public ?NullableUserFilterInput $creator = null,
 		public ?StringComparatorInput $status = null,
 		public ?NullableNumberComparatorInput $priority = null,
