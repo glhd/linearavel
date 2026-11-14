@@ -8,4 +8,5 @@ enum UsageAlertType: string
 	case lowBalance = 'lowBalance';
 	case exhausted = 'exhausted';
 	case expiringPromoCredit = 'expiringPromoCredit';
+	case spendLimitReached = 'spendLimitReached';
 }

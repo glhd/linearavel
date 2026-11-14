@@ -20847,6 +20847,9 @@ enum UsageAlertType {
 
   "A promotional usage credit grant is nearing its expiration."
   expiringPromoCredit
+
+  "Workspace spend reached a workspace spend limit."
+  spendLimitReached
 }
 
 "A user’s preferences for notifications and the Linear app within a workspace. Channel preferences enable delivery methods, category preferences choose which events use them, and delivery preferences control scheduling. These are separate from billing subscriptions."
