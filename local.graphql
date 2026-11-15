@@ -4397,6 +4397,9 @@ input IssueLabelFilter {
   or: [IssueLabelFilter!]
 }
 
+"JSON data whose shape is defined by the field using it. Inputs accept a JSON-encoded string or a value that the API encodes for you. Responses preserve the field's stored representation: some fields return an encoded string to parse, while others return a JSON object or array directly. Check the field's description for its format."
+scalar JSON
+
 "Tests whether any related records exist."
 input RelationExistsComparator {
   "True requires at least one related record; false requires none."
@@ -7831,9 +7834,6 @@ type Draft implements Node {
   "The team for which this is a draft post. Null if the draft belongs to a different parent entity type."
   team: Team
 }
-
-"JSON data whose shape is defined by the field using it. Inputs accept a JSON-encoded string or a value that the API encodes for you. Responses preserve the field's stored representation: some fields return an encoded string to parse, while others return a JSON object or array directly. Check the field's description for its format."
-scalar JSON
 
 "The health status carried by a project update or initiative update draft."
 enum DraftUpdateHealthType {
@@ -30206,12 +30206,6 @@ type Subscription {
   "Triggered when a team is deleted"
   teamDeleted: Team!
 
-  "Triggered when an user is created"
-  userCreated: User!
-
-  "Triggered when an user is updated"
-  userUpdated: User!
-
   "Triggered when a comment is created"
   commentCreated: Comment!
 
@@ -30244,6 +30238,12 @@ type Subscription {
 
   "Triggered when an issue is unarchived"
   issueUnarchived: Issue!
+
+  "Triggered when an user is created"
+  userCreated: User!
+
+  "Triggered when an user is updated"
+  userUpdated: User!
 
   "Triggered when a project is created"
   projectCreated: Project!

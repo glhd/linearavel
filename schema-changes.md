@@ -1,3 +1,1 @@
-### Added or widened
-
-- spendLimitReached was added to enum type UsageAlertType.
+The schema changed, but only in ways that do not affect the generated types.
