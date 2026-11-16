@@ -40,14 +40,32 @@ Linear changes their schema.
 composer require glhd/linearavel
 ```
 
-Then add your API key to your `.env` file:
+Then add your personal API key to your `.env` file:
 
 ```dotenv
 LINEAR_API_KEY=lin_api_...
 ```
 
 You can create a key under **Settings → Security & access → Personal API keys** in
-Linear. To publish the config file:
+Linear.
+
+To act as an app instead of as your own user, create an OAuth application in Linear
+(**Settings → API → OAuth applications**), turn on **Client credentials**, and add
+its credentials in place of a personal API key. Linear requires a redirect URI when
+you create the app, but the client credentials grant never uses it, so any URL on
+your own domain will do.
+
+```dotenv
+LINEAR_CLIENT_ID=...
+LINEAR_CLIENT_SECRET=...
+LINEAR_SCOPES=read,write
+```
+
+Linearavel requests an app token with the client credentials grant and keeps it in
+your application cache until it expires (30 days). If Linear rejects the token,
+Linearavel fetches a new one and sends the request again.
+
+To publish the config file:
 
 ```shell
 php artisan vendor:publish --tag=linearavel-config
