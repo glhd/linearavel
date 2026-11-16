@@ -202,6 +202,23 @@ use Glhd\Linearavel\Requests\Pending\Queries\PendingWorkflowStatesQueryRequest;
 trait QueriesLinear
 {
 	/**
+	 * @returns PendingOrganizationQueryRequest
+	 */
+	public function organization(): PendingOrganizationQueryRequest
+	{
+		return new PendingOrganizationQueryRequest($this, []);
+	}
+
+	/**
+	 * @param string $urlKey the URL key of the workspace to check
+	 * @returns PendingOrganizationExistsQueryRequest
+	 */
+	public function organizationExists(string $urlKey): PendingOrganizationExistsQueryRequest
+	{
+		return new PendingOrganizationExistsQueryRequest($this, ['urlKey' => $urlKey]);
+	}
+
+	/**
 	 * @param ?AgentActivityFilterInput $filter filter returned agent activities
 	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
 	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
@@ -1319,23 +1336,6 @@ trait QueriesLinear
 	}
 
 	/**
-	 * @returns PendingOrganizationQueryRequest
-	 */
-	public function organization(): PendingOrganizationQueryRequest
-	{
-		return new PendingOrganizationQueryRequest($this, []);
-	}
-
-	/**
-	 * @param string $urlKey the URL key of the workspace to check
-	 * @returns PendingOrganizationExistsQueryRequest
-	 */
-	public function organizationExists(string $urlKey): PendingOrganizationExistsQueryRequest
-	{
-		return new PendingOrganizationExistsQueryRequest($this, ['urlKey' => $urlKey]);
-	}
-
-	/**
 	 * @param ?ProjectLabelFilterInput $filter filter returned project labels
 	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
 	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
@@ -1538,12 +1538,14 @@ trait QueriesLinear
 	}
 
 	/**
+	 * @param ?string $after Returns releases after this release in the same order. Pass the ID of the last release from the previous page, and keep `includeArchived` unchanged between pages. A started release moves up when it is updated, so it can be skipped or repeated while you page.
+	 * @param ?bool $includeArchived Includes archived releases alongside active ones. Defaults to false. Completed releases are archived automatically six months after completion when they have no unarchived issues. Deleted releases and releases of archived pipelines are never returned.
 	 * @param ?int $limit Maximum number of releases to return. Defaults to 20 and is capped at 100.
 	 * @returns PendingRecentReleasesByAccessKeyQueryRequest
 	 */
-	public function recentReleasesByAccessKey(?int $limit = null): PendingRecentReleasesByAccessKeyQueryRequest
+	public function recentReleasesByAccessKey(?string $after = null, ?bool $includeArchived = null, ?int $limit = null): PendingRecentReleasesByAccessKeyQueryRequest
 	{
-		return new PendingRecentReleasesByAccessKeyQueryRequest($this, ['limit' => $limit]);
+		return new PendingRecentReleasesByAccessKeyQueryRequest($this, ['after' => $after, 'includeArchived' => $includeArchived, 'limit' => $limit]);
 	}
 
 	/**

@@ -484,6 +484,36 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingWorkflowStateUpdateMutatio
 
 trait MutatesLinear
 {
+	public function organizationUpdateMutation(OrganizationUpdateInput $input): PendingOrganizationUpdateMutationRequest
+	{
+		return new PendingOrganizationUpdateMutationRequest($this, ['input' => $input]);
+	}
+
+	public function organizationDeleteChallengeMutation(): PendingOrganizationDeleteChallengeMutationRequest
+	{
+		return new PendingOrganizationDeleteChallengeMutationRequest($this, []);
+	}
+
+	public function organizationDeleteMutation(DeleteOrganizationInput $input): PendingOrganizationDeleteMutationRequest
+	{
+		return new PendingOrganizationDeleteMutationRequest($this, ['input' => $input]);
+	}
+
+	public function organizationCancelDeleteMutation(): PendingOrganizationCancelDeleteMutationRequest
+	{
+		return new PendingOrganizationCancelDeleteMutationRequest($this, []);
+	}
+
+	public function organizationStartTrialForPlanMutation(OrganizationStartTrialInput $input): PendingOrganizationStartTrialForPlanMutationRequest
+	{
+		return new PendingOrganizationStartTrialForPlanMutationRequest($this, ['input' => $input]);
+	}
+
+	public function organizationStartTrialMutation(): PendingOrganizationStartTrialMutationRequest
+	{
+		return new PendingOrganizationStartTrialMutationRequest($this, []);
+	}
+
 	public function agentActivityCreateMutation(AgentActivityCreateInput $input): PendingAgentActivityCreateMutationRequest
 	{
 		return new PendingAgentActivityCreateMutationRequest($this, ['input' => $input]);
@@ -1627,36 +1657,6 @@ trait MutatesLinear
 	public function organizationInviteDeleteMutation(string $id): PendingOrganizationInviteDeleteMutationRequest
 	{
 		return new PendingOrganizationInviteDeleteMutationRequest($this, ['id' => $id]);
-	}
-
-	public function organizationUpdateMutation(OrganizationUpdateInput $input): PendingOrganizationUpdateMutationRequest
-	{
-		return new PendingOrganizationUpdateMutationRequest($this, ['input' => $input]);
-	}
-
-	public function organizationDeleteChallengeMutation(): PendingOrganizationDeleteChallengeMutationRequest
-	{
-		return new PendingOrganizationDeleteChallengeMutationRequest($this, []);
-	}
-
-	public function organizationDeleteMutation(DeleteOrganizationInput $input): PendingOrganizationDeleteMutationRequest
-	{
-		return new PendingOrganizationDeleteMutationRequest($this, ['input' => $input]);
-	}
-
-	public function organizationCancelDeleteMutation(): PendingOrganizationCancelDeleteMutationRequest
-	{
-		return new PendingOrganizationCancelDeleteMutationRequest($this, []);
-	}
-
-	public function organizationStartTrialForPlanMutation(OrganizationStartTrialInput $input): PendingOrganizationStartTrialForPlanMutationRequest
-	{
-		return new PendingOrganizationStartTrialForPlanMutationRequest($this, ['input' => $input]);
-	}
-
-	public function organizationStartTrialMutation(): PendingOrganizationStartTrialMutationRequest
-	{
-		return new PendingOrganizationStartTrialMutationRequest($this, []);
 	}
 
 	public function projectLabelCreateMutation(ProjectLabelCreateInput $input, ?bool $replaceTeamLabels = null): PendingProjectLabelCreateMutationRequest

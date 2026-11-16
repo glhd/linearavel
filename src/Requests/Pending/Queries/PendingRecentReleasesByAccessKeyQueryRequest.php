@@ -14,7 +14,7 @@ class PendingRecentReleasesByAccessKeyQueryRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['id', 'name', 'createdAt', 'url', 'commitSha', 'version', 'completedAt', 'archivedAt'];
 
-	protected const ARGUMENT_TYPES = ['limit' => 'Int'];
+	protected const ARGUMENT_TYPES = ['after' => 'String', 'includeArchived' => 'Boolean', 'limit' => 'Int'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

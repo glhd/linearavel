@@ -9794,10 +9794,10 @@ type ViewPreferencesValues {
   "The project ordering. Values: sortOrder, name, createdAt, updatedAt, healthUpdatedAt, startDate, targetDate, status, priority, customerCount, customerImportantCount, customerRevenue, activity."
   projectViewOrdering: String
 
-  "The project grouping. Values: statusType, activity, leadTeam, lead, member, health, none, status, priority, label, labelGroup, roadmap, initiative, subInitiative, team, startDate, targetDate, rolloutStage."
+  "The project grouping. Values: statusType, activity, leadTeam, lead, member, health, none, status, priority, label, labelGroup, roadmap, initiative, subInitiative, team, startDate, targetDate, rolloutStage, customer."
   projectGrouping: String
 
-  "The project sub-grouping. Values: statusType, activity, leadTeam, lead, member, health, none, status, priority, label, labelGroup, roadmap, initiative, subInitiative, team, startDate, targetDate, rolloutStage."
+  "The project sub-grouping. Values: statusType, activity, leadTeam, lead, member, health, none, status, priority, label, labelGroup, roadmap, initiative, subInitiative, team, startDate, targetDate, rolloutStage, customer."
   projectSubGrouping: String
 
   "The ordering of project groups."
@@ -14911,6 +14911,15 @@ type AgentSessionNotification implements Notification & Entity & Node {
 }
 
 type Query {
+  "Returns the workspace associated with the credentials used for this request. Its ID and URL key identify the workspace, and its fields expose shared settings and resources."
+  organization: Organization!
+
+  "Checks whether a workspace with the given URL key exists."
+  organizationExists(
+    "The URL key of the workspace to check."
+    urlKey: String!
+  ): OrganizationExistsPayload!
+
   "Accessible agent activities, with filters and cursor-based pagination."
   agentActivities(
     "Filter returned agent activities."
@@ -16183,15 +16192,6 @@ type Query {
     last: Int
   ): OrganizationQuotaConnection!
 
-  "Returns the workspace associated with the credentials used for this request. Its ID and URL key identify the workspace, and its fields expose shared settings and resources."
-  organization: Organization!
-
-  "Checks whether a workspace with the given URL key exists."
-  organizationExists(
-    "The URL key of the workspace to check."
-    urlKey: String!
-  ): OrganizationExistsPayload!
-
   "All project labels. Returns a paginated list of labels visible to the authenticated user, including both workspace-level and team-scoped labels, with optional filtering."
   projectLabels(
     "Filter returned project labels."
@@ -16422,6 +16422,12 @@ type Query {
 
   "Returns releases for the pipeline associated with the access key, ordered with the most recently completed or updated first."
   recentReleasesByAccessKey(
+    "Returns releases after this release in the same order. Pass the ID of the last release from the previous page, and keep `includeArchived` unchanged between pages. A started release moves up when it is updated, so it can be skipped or repeated while you page."
+    after: String
+
+    "Includes archived releases alongside active ones. Defaults to false. Completed releases are archived automatically six months after completion when they have no unarchived issues. Deleted releases and releases of archived pipelines are never returned."
+    includeArchived: Boolean = false
+
     "Maximum number of releases to return. Defaults to 20 and is capped at 100."
     limit: Int
   ): [AccessKeyRelease!]!
@@ -16986,6 +16992,15 @@ type Query {
     "The identifier of the workflow state to retrieve."
     id: String!
   ): WorkflowState!
+}
+
+"Response for checking whether a workspace exists."
+type OrganizationExistsPayload {
+  "Whether the operation was successful."
+  success: Boolean!
+
+  "Whether the organization exists."
+  exists: Boolean!
 }
 
 "A page of results. Read `nodes` for the resources, or `edges` if you also need a cursor for each result. Use `pageInfo` to fetch further pages; a connection may contain fewer results than the requested page size."
@@ -19022,15 +19037,6 @@ input OrganizationQuotaFilter {
 
   "Requires at least one listed filter to match."
   or: [OrganizationQuotaFilter!]
-}
-
-"Response for checking whether a workspace exists."
-type OrganizationExistsPayload {
-  "Whether the operation was successful."
-  success: Boolean!
-
-  "Whether the organization exists."
-  exists: Boolean!
 }
 
 "A page of results. Read `nodes` for the resources, or `edges` if you also need a cursor for each result. Use `pageInfo` to fetch further pages; a connection may contain fewer results than the requested page size."
@@ -21200,6 +21206,33 @@ enum ViewType {
 }
 
 type Mutation {
+  "Updates the workspace associated with your credentials. Omitted fields keep their current values. Most changes require workspace-settings permission; project and initiative reminder schedules require schedule-management permission. Some settings also depend on the workspace’s plan."
+  organizationUpdate(
+    "A partial workspace object to update the workspace with."
+    input: OrganizationUpdateInput!
+  ): OrganizationPayload!
+
+  "Requests a deletion confirmation code for the workspace. The code is sent to the requesting user's email and must be used with the organizationDelete mutation to confirm deletion."
+  organizationDeleteChallenge: OrganizationDeletePayload!
+
+  "Schedules deletion of the workspace and its data after validating the code from organizationDeleteChallenge. This does not finish the deletion during the request. Use organizationCancelDelete while cancellation is still available."
+  organizationDelete(
+    "Information required to delete the workspace."
+    input: DeleteOrganizationInput!
+  ): OrganizationDeletePayload!
+
+  "Cancels a scheduled workspace deletion while the deletion process still permits cancellation. Requires workspace-settings permission."
+  organizationCancelDelete: OrganizationCancelDeletePayload!
+
+  "Starts a trial for the workspace on the specified plan type. The workspace must not already be on a paid plan or in an active trial."
+  organizationStartTrialForPlan(
+    "Plan details for trial"
+    input: OrganizationStartTrialInput!
+  ): OrganizationStartTrialPayload!
+
+  "[DEPRECATED] Starts a trial for the workspace."
+  organizationStartTrial: OrganizationStartTrialPayload! @deprecated(reason: "Use organizationStartTrialForPlan")
+
   "Publishes an activity to your agent’s session and updates its lifecycle. Thoughts and actions report ongoing work; a response completes the turn unless it has the continue signal, an elicitation waits for user input, and an error records a failed turn. The session must be unarchived and owned by the authenticated app user. Use the agent app’s OAuth or workload identity token; personal API keys cannot publish agent activities."
   agentActivityCreate(
     "The agent activity object to create."
@@ -21884,7 +21917,7 @@ type Mutation {
     input: CycleCreateInput!
   ): CyclePayload! @deprecated(reason: "Cycle creation is not supported.")
 
-  "Updates a cycle’s name, description, or schedule and returns the resulting cycle. Date changes can shorten adjacent cycles to prevent overlap. You cannot change an active cycle’s start or a completed cycle’s dates, or edit inherited cycles directly."
+  "Updates a cycle’s name, description, or schedule and returns the resulting cycle. Date changes can shorten adjacent cycles to prevent overlap. You cannot change an active cycle’s start or a completed cycle’s dates, or edit inherited cycles directly. Requires permission to manage the team."
   cycleUpdate(
     "A partial cycle object to update the cycle with."
     input: CycleUpdateInput!
@@ -21893,7 +21926,7 @@ type Mutation {
     id: String!
   ): CyclePayload!
 
-  "Archives a cycle and removes its current issues from it. The issues themselves are not archived. An inherited cycle must be managed through its parent team."
+  "Archives a cycle and removes its current issues from it. The issues themselves are not archived. An inherited cycle must be managed through its parent team. Requires permission to manage the team."
   cycleArchive(
     "The identifier of the cycle to archive."
     id: String!
@@ -21905,7 +21938,7 @@ type Mutation {
     input: CycleShiftAllInput!
   ): CyclePayload!
 
-  "Starts the upcoming cycle as of midnight today. Completes the previous cycle if it has not yet ended. Only the next upcoming (not yet started) cycle for the team can be started."
+  "Starts the upcoming cycle as of midnight today. Completes the previous cycle if it has not yet ended. Only the next upcoming (not yet started) cycle for the team can be started. Requires permission to manage the team."
   cycleStartUpcomingCycleToday(
     "The identifier of the cycle to start as of midnight today. Must be the upcoming cycle."
     id: String!
@@ -23312,33 +23345,6 @@ type Mutation {
     id: String!
   ): DeletePayload!
 
-  "Updates the workspace associated with your credentials. Omitted fields keep their current values. Most changes require workspace-settings permission; project and initiative reminder schedules require schedule-management permission. Some settings also depend on the workspace’s plan."
-  organizationUpdate(
-    "A partial workspace object to update the workspace with."
-    input: OrganizationUpdateInput!
-  ): OrganizationPayload!
-
-  "Requests a deletion confirmation code for the workspace. The code is sent to the requesting user's email and must be used with the organizationDelete mutation to confirm deletion."
-  organizationDeleteChallenge: OrganizationDeletePayload!
-
-  "Schedules deletion of the workspace and its data after validating the code from organizationDeleteChallenge. This does not finish the deletion during the request. Use organizationCancelDelete while cancellation is still available."
-  organizationDelete(
-    "Information required to delete the workspace."
-    input: DeleteOrganizationInput!
-  ): OrganizationDeletePayload!
-
-  "Cancels a scheduled workspace deletion while the deletion process still permits cancellation. Requires workspace-settings permission."
-  organizationCancelDelete: OrganizationCancelDeletePayload!
-
-  "Starts a trial for the workspace on the specified plan type. The workspace must not already be on a paid plan or in an active trial."
-  organizationStartTrialForPlan(
-    "Plan details for trial"
-    input: OrganizationStartTrialInput!
-  ): OrganizationStartTrialPayload!
-
-  "[DEPRECATED] Starts a trial for the workspace."
-  organizationStartTrial: OrganizationStartTrialPayload! @deprecated(reason: "Use organizationStartTrialForPlan")
-
   "Creates a label or label group for projects. Workspace labels require workspace label-management permission; team labels require label-management permission in that team and a plan that supports team project labels. replaceTeamLabels can migrate matching labels into the new scope."
   projectLabelCreate(
     "Whether to replace all team-specific labels with the same name with this newly created workspace label (default: false)."
@@ -24064,6 +24070,231 @@ type Mutation {
     "The identifier of the state to archive."
     id: String!
   ): WorkflowStateArchivePayload!
+}
+
+"Workspace update operation response."
+type OrganizationPayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "The workspace that was created or updated."
+  organization: Organization
+
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+"Changes to the workspace associated with your credentials. Omitted fields keep their current values. Most settings require workspace-settings permission, while update reminder schedules require schedule-management permission."
+input OrganizationUpdateInput {
+  "The name of the workspace."
+  name: String
+
+  "The logo URL of the workspace."
+  logoUrl: String
+
+  "The URL key of the workspace."
+  urlKey: String
+
+  "How git branches are formatted. If null, default formatting will be used."
+  gitBranchFormat: String
+
+  "Whether the Git integration linkback messages should be sent for private repositories."
+  gitLinkbackMessagesEnabled: Boolean
+
+  "Whether the Git integration linkback messages should be sent for public repositories."
+  gitPublicLinkbackMessagesEnabled: Boolean
+
+  "Whether issue descriptions should be included in Git integration linkback messages."
+  gitLinkbackDescriptionsEnabled: Boolean
+
+  "Whether the default prompt for copying an issue or opening it in a coding tool includes a suggested Git branch name."
+  suggestedBranchNameEnabled: Boolean
+
+  "Whether initiatives are enabled for the workspace. The field keeps its legacy roadmap name, but controls access to initiative creation."
+  roadmapEnabled: Boolean
+
+  "Weeks between project update reminders, from 0 to 8. Null disables workspace reminders."
+  projectUpdateReminderFrequencyInWeeks: Float
+
+  "The day at which project updates are sent."
+  projectUpdateRemindersDay: Day
+
+  "The hour for project update reminders, from 0 to 23."
+  projectUpdateRemindersHour: Float
+
+  "[ALPHA] Weeks between initiative update reminders, from 0 to 8. Null disables workspace reminders."
+  initiativeUpdateReminderFrequencyInWeeks: Float
+
+  "[ALPHA] The day at which initiative updates are sent."
+  initiativeUpdateRemindersDay: Day
+
+  "[ALPHA] The hour for initiative update reminders, from 0 to 23."
+  initiativeUpdateRemindersHour: Float
+
+  "The fiscal year’s first month, from 0 for January to 11 for December."
+  fiscalYearStartMonth: Float
+
+  "The default home view for members of the workspace who have not chosen their own default."
+  defaultHomeView: String
+
+  "The id of the specific initiative, project, view, or dashboard used as the default home view. The type of entity is given by defaultHomeView."
+  defaultHomeViewTargetId: String
+
+  "Whether the workspace has opted for reduced customer support attachment information."
+  reducedPersonalInformation: Boolean
+
+  "Whether the workspace has opted for having to approve all OAuth applications for install."
+  oauthAppReview: Boolean
+
+  "[DEPRECATED] List of services that are allowed to be used for login."
+  allowedAuthServices: [String!] @deprecated(reason: "Use `authSettings.allowedAuthServices` instead.")
+
+  "[DEPRECATED] Whether member users are allowed to send invites."
+  allowMembersToInvite: Boolean @deprecated(reason: "This field is now ignored. Use `securitySettings.invitationsRole` instead.")
+
+  "[DEPRECATED] Whether team creation is restricted to admins."
+  restrictTeamCreationToAdmins: Boolean @deprecated(reason: "This field is now ignored. Use `securitySettings.teamCreationRole` instead.")
+
+  "[DEPRECATED] Whether label creation is restricted to admins."
+  restrictLabelManagementToAdmins: Boolean @deprecated(reason: "This field is now ignored. Use `securitySettings.labelManagementRole` instead.")
+
+  "Whether agent invocation is restricted to full workspace members."
+  restrictAgentInvocationToMembers: Boolean
+
+  "The allowed file MIME types or patterns, such as application/pdf or text/*. This replaces the workspace’s upload restriction list. Use null to remove the workspace-specific restriction; configuring restrictions requires the corresponding plan feature."
+  allowedFileUploadContentTypes: [String!]
+
+  "Whether the workspace has enabled the feed feature."
+  feedEnabled: Boolean
+
+  "[DEPRECATED] Whether to hide other workspaces during signup for users whose email domain is claimed by this workspace."
+  hideNonPrimaryOrganizations: Boolean @deprecated(reason: "Use `authSettings.hideNonPrimaryOrganizations` instead.")
+
+  "Default schedule for how often feed summaries are generated."
+  defaultFeedSummarySchedule: FeedSummarySchedule
+
+  "[DEPRECATED] Whether the workspace has enabled the member API keys."
+  personalApiKeysEnabled: Boolean @deprecated(reason: "This field is now ignored. Use `securitySettings.personalApiKeysRole` instead.")
+
+  "Whether the workspace has enabled AI discussion summaries for issues."
+  aiDiscussionSummariesEnabled: Boolean
+
+  "Whether the workspace has enabled resolved thread AI summaries."
+  aiThreadSummariesEnabled: Boolean
+
+  "Whether the workspace generates AI Pull Request guides for new pull requests."
+  pullRequestTourEnabled: Boolean
+
+  "How Linear suggests and links issues for pull requests that have none linked: 'off', 'suggest', or 'autoOnMerge'."
+  pullRequestIssueMode: String
+
+  "Whether HIPAA compliance is enabled for the workspace."
+  hipaaComplianceEnabled: Boolean
+
+  "The security settings for the workspace."
+  securitySettings: OrganizationSecuritySettingsInput
+
+  "The authentication settings for the workspace."
+  authSettings: OrganizationAuthSettingsInput
+
+  "The ID of the Slack integration to use for auto-creating project channels."
+  slackProjectChannelIntegrationId: String
+
+  "The prefix to use for auto-created Slack project channels (p-, proj-, or project-)."
+  slackProjectChannelPrefix: String
+}
+
+"Minimum workspace roles required for individual actions, such as inviting members or creating API keys. These settings control who can perform the actions; they do not change users’ assigned roles."
+input OrganizationSecuritySettingsInput {
+  "The minimum role required to grant or revoke the workspace admin role."
+  adminManagementRole: UserRoleType
+
+  "The minimum role required to create personal API keys."
+  personalApiKeysRole: UserRoleType
+
+  "The minimum role required to invite users."
+  invitationsRole: UserRoleType
+
+  "The minimum role required to create teams."
+  teamCreationRole: UserRoleType
+
+  "The minimum role required to create initiatives without a lead team or move initiatives between workspace and team scopes."
+  workspaceInitiativesRole: UserRoleType
+
+  "The minimum role required to manage workspace labels."
+  labelManagementRole: UserRoleType
+
+  "The minimum role required to manage API settings."
+  apiSettingsRole: UserRoleType
+
+  "The minimum role required to manage workspace templates."
+  templateManagementRole: UserRoleType
+
+  "The minimum role required to manage workspace loops."
+  automationManagementRole: UserRoleType
+
+  "The minimum role required to import data."
+  importRole: UserRoleType
+
+  "The minimum role required to manage agent guidance prompts and settings."
+  agentGuidanceRole: UserRoleType
+
+  "The minimum role required to install and connect new integrations."
+  integrationCreationRole: UserRoleType
+
+  "The minimum role required to pin views to workspace pages and to change the views pinned there."
+  pinnedViewManagementRole: UserRoleType
+}
+
+"All possible roles within a team in terms of access to team settings and operations."
+enum TeamRoleType {
+  owner
+  member
+}
+
+"Workspace authentication restrictions and sign-in behavior. Use allowedAuthServices to limit login providers and the bypass setting to control whether administrators can use other providers."
+input OrganizationAuthSettingsInput {
+  "The replacement list of authentication providers allowed for sign-in. An empty array allows all providers. Omit to keep the existing list; restricting providers requires the corresponding plan feature."
+  allowedAuthServices: [String!]
+
+  "Whether to hide non-primary workspaces during signup for users with matching email domains."
+  hideNonPrimaryOrganizations: Boolean
+
+  "Whether to disable admin/owner auth service bypass."
+  disableAuthServiceBypass: Boolean
+}
+
+"An RFC 4122 UUID string, such as `550e8400-e29b-41d4-a716-446655440000`. Accepts versions 1 through 5 in the standard hyphenated form and normalizes letters to lowercase. Human-readable identifiers such as `ENG-123` are not UUIDs."
+scalar UUID
+
+"Workspace deletion operation response."
+type OrganizationDeletePayload {
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+"Input for confirming workspace deletion with a verification code."
+input DeleteOrganizationInput {
+  "The deletion code to confirm operation."
+  deletionCode: String!
+}
+
+"Workspace deletion cancellation response."
+type OrganizationCancelDeletePayload {
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+"Workspace trial start response."
+type OrganizationStartTrialPayload {
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+"Input for starting a workspace trial on a specific plan."
+input OrganizationStartTrialInput {
+  "The plan type to trial."
+  planType: String!
 }
 
 "The result of an agent activity mutation."
@@ -26975,9 +27206,6 @@ input IssueUpdateInput {
   autoClosedByParentClosing: Boolean
 }
 
-"An RFC 4122 UUID string, such as `550e8400-e29b-41d4-a716-446655440000`. Accepts versions 1 through 5 in the standard hyphenated form and normalizes letters to lowercase. Human-readable identifiers such as `ENG-123` are not UUIDs."
-scalar UUID
-
 "The result of archiving or restoring a resource."
 type IssueArchivePayload implements ArchivePayload {
   "Synchronization cursor used by Linear clients. External integrations can ignore this field."
@@ -27567,228 +27795,6 @@ input OrganizationInviteCreateInput {
 input OrganizationInviteUpdateInput {
   "Replaces the team UUIDs the invitee will join on acceptance."
   teamIds: [String!]!
-}
-
-"Workspace update operation response."
-type OrganizationPayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "The workspace that was created or updated."
-  organization: Organization
-
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
-"Changes to the workspace associated with your credentials. Omitted fields keep their current values. Most settings require workspace-settings permission, while update reminder schedules require schedule-management permission."
-input OrganizationUpdateInput {
-  "The name of the workspace."
-  name: String
-
-  "The logo URL of the workspace."
-  logoUrl: String
-
-  "The URL key of the workspace."
-  urlKey: String
-
-  "How git branches are formatted. If null, default formatting will be used."
-  gitBranchFormat: String
-
-  "Whether the Git integration linkback messages should be sent for private repositories."
-  gitLinkbackMessagesEnabled: Boolean
-
-  "Whether the Git integration linkback messages should be sent for public repositories."
-  gitPublicLinkbackMessagesEnabled: Boolean
-
-  "Whether issue descriptions should be included in Git integration linkback messages."
-  gitLinkbackDescriptionsEnabled: Boolean
-
-  "Whether the default prompt for copying an issue or opening it in a coding tool includes a suggested Git branch name."
-  suggestedBranchNameEnabled: Boolean
-
-  "Whether initiatives are enabled for the workspace. The field keeps its legacy roadmap name, but controls access to initiative creation."
-  roadmapEnabled: Boolean
-
-  "Weeks between project update reminders, from 0 to 8. Null disables workspace reminders."
-  projectUpdateReminderFrequencyInWeeks: Float
-
-  "The day at which project updates are sent."
-  projectUpdateRemindersDay: Day
-
-  "The hour for project update reminders, from 0 to 23."
-  projectUpdateRemindersHour: Float
-
-  "[ALPHA] Weeks between initiative update reminders, from 0 to 8. Null disables workspace reminders."
-  initiativeUpdateReminderFrequencyInWeeks: Float
-
-  "[ALPHA] The day at which initiative updates are sent."
-  initiativeUpdateRemindersDay: Day
-
-  "[ALPHA] The hour for initiative update reminders, from 0 to 23."
-  initiativeUpdateRemindersHour: Float
-
-  "The fiscal year’s first month, from 0 for January to 11 for December."
-  fiscalYearStartMonth: Float
-
-  "The default home view for members of the workspace who have not chosen their own default."
-  defaultHomeView: String
-
-  "The id of the specific initiative, project, view, or dashboard used as the default home view. The type of entity is given by defaultHomeView."
-  defaultHomeViewTargetId: String
-
-  "Whether the workspace has opted for reduced customer support attachment information."
-  reducedPersonalInformation: Boolean
-
-  "Whether the workspace has opted for having to approve all OAuth applications for install."
-  oauthAppReview: Boolean
-
-  "[DEPRECATED] List of services that are allowed to be used for login."
-  allowedAuthServices: [String!] @deprecated(reason: "Use `authSettings.allowedAuthServices` instead.")
-
-  "[DEPRECATED] Whether member users are allowed to send invites."
-  allowMembersToInvite: Boolean @deprecated(reason: "This field is now ignored. Use `securitySettings.invitationsRole` instead.")
-
-  "[DEPRECATED] Whether team creation is restricted to admins."
-  restrictTeamCreationToAdmins: Boolean @deprecated(reason: "This field is now ignored. Use `securitySettings.teamCreationRole` instead.")
-
-  "[DEPRECATED] Whether label creation is restricted to admins."
-  restrictLabelManagementToAdmins: Boolean @deprecated(reason: "This field is now ignored. Use `securitySettings.labelManagementRole` instead.")
-
-  "Whether agent invocation is restricted to full workspace members."
-  restrictAgentInvocationToMembers: Boolean
-
-  "The allowed file MIME types or patterns, such as application/pdf or text/*. This replaces the workspace’s upload restriction list. Use null to remove the workspace-specific restriction; configuring restrictions requires the corresponding plan feature."
-  allowedFileUploadContentTypes: [String!]
-
-  "Whether the workspace has enabled the feed feature."
-  feedEnabled: Boolean
-
-  "[DEPRECATED] Whether to hide other workspaces during signup for users whose email domain is claimed by this workspace."
-  hideNonPrimaryOrganizations: Boolean @deprecated(reason: "Use `authSettings.hideNonPrimaryOrganizations` instead.")
-
-  "Default schedule for how often feed summaries are generated."
-  defaultFeedSummarySchedule: FeedSummarySchedule
-
-  "[DEPRECATED] Whether the workspace has enabled the member API keys."
-  personalApiKeysEnabled: Boolean @deprecated(reason: "This field is now ignored. Use `securitySettings.personalApiKeysRole` instead.")
-
-  "Whether the workspace has enabled AI discussion summaries for issues."
-  aiDiscussionSummariesEnabled: Boolean
-
-  "Whether the workspace has enabled resolved thread AI summaries."
-  aiThreadSummariesEnabled: Boolean
-
-  "Whether the workspace generates AI Pull Request guides for new pull requests."
-  pullRequestTourEnabled: Boolean
-
-  "How Linear suggests and links issues for pull requests that have none linked: 'off', 'suggest', or 'autoOnMerge'."
-  pullRequestIssueMode: String
-
-  "Whether HIPAA compliance is enabled for the workspace."
-  hipaaComplianceEnabled: Boolean
-
-  "The security settings for the workspace."
-  securitySettings: OrganizationSecuritySettingsInput
-
-  "The authentication settings for the workspace."
-  authSettings: OrganizationAuthSettingsInput
-
-  "The ID of the Slack integration to use for auto-creating project channels."
-  slackProjectChannelIntegrationId: String
-
-  "The prefix to use for auto-created Slack project channels (p-, proj-, or project-)."
-  slackProjectChannelPrefix: String
-}
-
-"Minimum workspace roles required for individual actions, such as inviting members or creating API keys. These settings control who can perform the actions; they do not change users’ assigned roles."
-input OrganizationSecuritySettingsInput {
-  "The minimum role required to grant or revoke the workspace admin role."
-  adminManagementRole: UserRoleType
-
-  "The minimum role required to create personal API keys."
-  personalApiKeysRole: UserRoleType
-
-  "The minimum role required to invite users."
-  invitationsRole: UserRoleType
-
-  "The minimum role required to create teams."
-  teamCreationRole: UserRoleType
-
-  "The minimum role required to create initiatives without a lead team or move initiatives between workspace and team scopes."
-  workspaceInitiativesRole: UserRoleType
-
-  "The minimum role required to manage workspace labels."
-  labelManagementRole: UserRoleType
-
-  "The minimum role required to manage API settings."
-  apiSettingsRole: UserRoleType
-
-  "The minimum role required to manage workspace templates."
-  templateManagementRole: UserRoleType
-
-  "The minimum role required to manage workspace loops."
-  automationManagementRole: UserRoleType
-
-  "The minimum role required to import data."
-  importRole: UserRoleType
-
-  "The minimum role required to manage agent guidance prompts and settings."
-  agentGuidanceRole: UserRoleType
-
-  "The minimum role required to install and connect new integrations."
-  integrationCreationRole: UserRoleType
-
-  "The minimum role required to pin views to workspace pages and to change the views pinned there."
-  pinnedViewManagementRole: UserRoleType
-}
-
-"All possible roles within a team in terms of access to team settings and operations."
-enum TeamRoleType {
-  owner
-  member
-}
-
-"Workspace authentication restrictions and sign-in behavior. Use allowedAuthServices to limit login providers and the bypass setting to control whether administrators can use other providers."
-input OrganizationAuthSettingsInput {
-  "The replacement list of authentication providers allowed for sign-in. An empty array allows all providers. Omit to keep the existing list; restricting providers requires the corresponding plan feature."
-  allowedAuthServices: [String!]
-
-  "Whether to hide non-primary workspaces during signup for users with matching email domains."
-  hideNonPrimaryOrganizations: Boolean
-
-  "Whether to disable admin/owner auth service bypass."
-  disableAuthServiceBypass: Boolean
-}
-
-"Workspace deletion operation response."
-type OrganizationDeletePayload {
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
-"Input for confirming workspace deletion with a verification code."
-input DeleteOrganizationInput {
-  "The deletion code to confirm operation."
-  deletionCode: String!
-}
-
-"Workspace deletion cancellation response."
-type OrganizationCancelDeletePayload {
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
-"Workspace trial start response."
-type OrganizationStartTrialPayload {
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
-"Input for starting a workspace trial on a specific plan."
-input OrganizationStartTrialInput {
-  "The plan type to trial."
-  planType: String!
 }
 
 "The result of a project label mutation."

@@ -1,1 +1,4 @@
-The schema changed, but only in ways that do not affect the generated types.
+### Added or widened
+
+- An optional arg after on Query.recentReleasesByAccessKey was added
+- An optional arg includeArchived on Query.recentReleasesByAccessKey was added
