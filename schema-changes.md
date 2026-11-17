@@ -1,4 +1,6 @@
-### Added or widened
+### Removed or narrowed
 
-- An optional arg after on Query.recentReleasesByAccessKey was added
-- An optional arg includeArchived on Query.recentReleasesByAccessKey was added
+- DocumentContentDraft was removed.
+- Subscription.documentContentDraftCreated was removed.
+- Subscription.documentContentDraftDeleted was removed.
+- Subscription.documentContentDraftUpdated was removed.

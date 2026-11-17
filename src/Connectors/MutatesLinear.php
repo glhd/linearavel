@@ -1314,9 +1314,9 @@ trait MutatesLinear
 		return new PendingRefreshGoogleSheetsDataMutationRequest($this, ['id' => $id, 'type' => $type]);
 	}
 
-	public function integrationSentryConnectMutation(string $organizationSlug, string $code, string $installationId): PendingIntegrationSentryConnectMutationRequest
+	public function integrationSentryConnectMutation(string $code, string $installationId, ?string $organizationSlug = null): PendingIntegrationSentryConnectMutationRequest
 	{
-		return new PendingIntegrationSentryConnectMutationRequest($this, ['organizationSlug' => $organizationSlug, 'code' => $code, 'installationId' => $installationId]);
+		return new PendingIntegrationSentryConnectMutationRequest($this, ['code' => $code, 'installationId' => $installationId, 'organizationSlug' => $organizationSlug]);
 	}
 
 	public function integrationFrontMutation(string $redirectUri, string $code): PendingIntegrationFrontMutationRequest

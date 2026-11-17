@@ -7679,45 +7679,6 @@ type PullRequestUserState implements Node {
   archivedAt: DateTime
 }
 
-"[ALPHA] A code repository connected to the workspace from a supported version control provider (e.g., GitHub, GitLab). Normalizes repository metadata that was previously stored as JSONB on individual pull requests, providing a single source of truth for repository owner, name, visibility, and default branch."
-type CodeRepository implements Node {
-  "The resource's unique UUID. This stays unchanged when the resource is renamed or moved; use it for stored references and mutations."
-  id: ID!
-
-  "The resource’s recorded creation time, in UTC. Imports may preserve an earlier creation time."
-  createdAt: DateTime!
-
-  "When the resource was last meaningfully updated, in UTC. Some background or housekeeping changes do not advance this timestamp."
-  updatedAt: DateTime!
-
-  "When the resource was archived, in UTC. Null while active, including after unarchiving. Archived resources still exist but are normally excluded from lists unless `includeArchived` is true."
-  archivedAt: DateTime
-
-  "The owner of the repository on the hosting provider, which is typically a user account or organization name (e.g., 'linear' in 'linear/linear-app')."
-  owner: String!
-
-  "The name of the repository on the hosting provider (e.g., 'linear-app' in 'linear/linear-app')."
-  name: String!
-
-  "The unique identifier for this repository on the external hosting provider (e.g., the GitHub GraphQL node ID). Used to deduplicate repositories across webhook events and API calls."
-  externalRepositoryId: String!
-
-  "The unique identifier for the repository owner on the external hosting provider. Used to group repositories by owner organization."
-  externalOwnerId: String!
-
-  "The visibility level of the repository on the hosting provider. One of 'public', 'private', or 'internal'. Used in conjunction with repository access policies to control which features workspace members can use."
-  visibility: String!
-
-  "The base URL of the repository hosting provider (e.g., 'https://github.com'). Used to construct full URLs to the repository and its resources."
-  baseUrl: String!
-
-  "The name of the repository's default branch (e.g., 'main', 'master'). Empty string if the default branch has not yet been synced from the provider."
-  defaultBranch: String!
-
-  "The full path of the repository in 'owner/name' format (e.g., 'linear/linear-app'). This is a computed field derived from the owner and name."
-  fullPath: String!
-}
-
 "A comment on a pull request, synced bidirectionally with the hosting provider (e.g., GitHub). Comments can be top-level or threaded replies, and may be associated with specific code locations via an anchor. Comments belonging to a pending review are not visible to other users or synced to the provider until the review is submitted."
 type PullRequestComment implements Node {
   "The resource's unique UUID. This stays unchanged when the resource is renamed or moved; use it for stored references and mutations."
@@ -7755,6 +7716,45 @@ type PullRequestComment implements Node {
 
   "Emoji reaction summary for this pull request comment, grouped by emoji type. Each entry contains the emoji name, count, and the IDs of users who reacted."
   reactionData: JSONObject!
+}
+
+"[ALPHA] A code repository connected to the workspace from a supported version control provider (e.g., GitHub, GitLab). Normalizes repository metadata that was previously stored as JSONB on individual pull requests, providing a single source of truth for repository owner, name, visibility, and default branch."
+type CodeRepository implements Node {
+  "The resource's unique UUID. This stays unchanged when the resource is renamed or moved; use it for stored references and mutations."
+  id: ID!
+
+  "The resource’s recorded creation time, in UTC. Imports may preserve an earlier creation time."
+  createdAt: DateTime!
+
+  "When the resource was last meaningfully updated, in UTC. Some background or housekeeping changes do not advance this timestamp."
+  updatedAt: DateTime!
+
+  "When the resource was archived, in UTC. Null while active, including after unarchiving. Archived resources still exist but are normally excluded from lists unless `includeArchived` is true."
+  archivedAt: DateTime
+
+  "The owner of the repository on the hosting provider, which is typically a user account or organization name (e.g., 'linear' in 'linear/linear-app')."
+  owner: String!
+
+  "The name of the repository on the hosting provider (e.g., 'linear-app' in 'linear/linear-app')."
+  name: String!
+
+  "The unique identifier for this repository on the external hosting provider (e.g., the GitHub GraphQL node ID). Used to deduplicate repositories across webhook events and API calls."
+  externalRepositoryId: String!
+
+  "The unique identifier for the repository owner on the external hosting provider. Used to group repositories by owner organization."
+  externalOwnerId: String!
+
+  "The visibility level of the repository on the hosting provider. One of 'public', 'private', or 'internal'. Used in conjunction with repository access policies to control which features workspace members can use."
+  visibility: String!
+
+  "The base URL of the repository hosting provider (e.g., 'https://github.com'). Used to construct full URLs to the repository and its resources."
+  baseUrl: String!
+
+  "The name of the repository's default branch (e.g., 'main', 'master'). Empty string if the default branch has not yet been synced from the provider."
+  defaultBranch: String!
+
+  "The full path of the repository in 'owner/name' format (e.g., 'linear/linear-app'). This is a computed field derived from the owner and name."
+  fullPath: String!
 }
 
 "A page of results. Read `nodes` for the resources, or `edges` if you also need a cursor for each result. Use `pageInfo` to fetch further pages; a connection may contain fewer results than the requested page size."
@@ -22684,8 +22684,8 @@ type Mutation {
 
   "Connects a Sentry installation by exchanging its grant code and confirming installation with Sentry. The workspace can have one active Sentry connection. The new connection initially enables completing linked Linear issues when Sentry issues are resolved and reopening them when Sentry issues are unresolved."
   integrationSentryConnect(
-    "The slug of the Sentry organization being connected."
-    organizationSlug: String!
+    "[DEPRECATED] Ignored. Linear stores the organization slug that Sentry reports for the installation."
+    organizationSlug: String @deprecated(reason: "This argument is now ignored.")
 
     "The Sentry grant code that's exchanged for OAuth tokens."
     code: String!
@@ -30277,15 +30277,6 @@ type Subscription {
 
   "Triggered when an organization is updated"
   organizationUpdated: Organization!
-
-  "Triggered when a document content draft is created"
-  documentContentDraftCreated: DocumentContentDraft!
-
-  "Triggered when a document content draft is updated"
-  documentContentDraftUpdated: DocumentContentDraft!
-
-  "Triggered when a document content draft is deleted"
-  documentContentDraftDeleted: DocumentContentDraft!
 }
 
 "Unpublished changes to rich-text content contributed by automations. The live body stays unchanged until the revision is applied. The base and revision states let a compatible editor compare the proposal with the live content it was based on."
@@ -30343,34 +30334,4 @@ input IssueSubscriptionFilter {
 
   "Filter by parent issue ID."
   parentId: IDComparator
-}
-
-"A user’s unpublished changes to a DocumentContent record. Each user can have one active draft for the same content, and the live body stays unchanged until the draft is applied. Use documentContentId to associate the draft with the resource being edited."
-type DocumentContentDraft implements Node {
-  "The resource's unique UUID. This stays unchanged when the resource is renamed or moved; use it for stored references and mutations."
-  id: ID!
-
-  "The resource’s recorded creation time, in UTC. Imports may preserve an earlier creation time."
-  createdAt: DateTime!
-
-  "When the resource was last meaningfully updated, in UTC. Some background or housekeeping changes do not advance this timestamp."
-  updatedAt: DateTime!
-
-  "When the resource was archived, in UTC. Null while active, including after unarchiving. Archived resources still exist but are normally excluded from lists unless `includeArchived` is true."
-  archivedAt: DateTime
-
-  "The document content that this draft is a revision of."
-  documentContent: DocumentContent!
-
-  "The identifier of the document content that this draft is a revision of."
-  documentContentId: String!
-
-  "The draft’s full content as a base64-encoded Yjs update. This is the unpublished version, not a Markdown string or a list of changed lines."
-  contentState: String!
-
-  "The user who created or owns this draft."
-  user: User!
-
-  "The identifier of the user who owns this draft."
-  userId: String!
 }
