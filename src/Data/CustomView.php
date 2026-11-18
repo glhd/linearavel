@@ -38,6 +38,7 @@ class CustomView extends Data implements Node
 		public Optional|string|null $projectFilterData,
 		public Optional|string|null $initiativeFilterData,
 		public Optional|string|null $feedItemFilterData,
+		public Optional|string|null $filterTimezone,
 		public Optional|Team|null $team,
 		public Optional|ViewPreferences|null $userViewPreferences,
 		public Optional|ViewPreferences|null $organizationViewPreferences,

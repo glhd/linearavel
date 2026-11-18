@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingCustomViewsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.filters', 'nodes.filterData', 'nodes.shared', 'nodes.slugId', 'nodes.modelName', 'nodes.archivedAt', 'nodes.description', 'nodes.icon', 'nodes.color', 'nodes.projectFilterData', 'nodes.initiativeFilterData', 'nodes.feedItemFilterData'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.name', 'nodes.filters', 'nodes.filterData', 'nodes.shared', 'nodes.slugId', 'nodes.modelName', 'nodes.archivedAt', 'nodes.description', 'nodes.icon', 'nodes.color', 'nodes.projectFilterData', 'nodes.initiativeFilterData', 'nodes.feedItemFilterData', 'nodes.filterTimezone'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'CustomViewFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy', 'sort' => '[CustomViewSortInput!]'];
 

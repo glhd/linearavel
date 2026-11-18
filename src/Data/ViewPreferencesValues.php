@@ -278,6 +278,7 @@ class ViewPreferencesValues extends Data
 		public Optional|bool|null $reviewFieldQuickToReview,
 		public Optional|bool|null $reviewFieldSla,
 		public Optional|bool|null $reviewFieldLabels,
+		public Optional|bool|null $reviewFieldRisk,
 		public Optional|bool|null $showTeamReviews,
 		public Optional|bool|null $reviewFieldChecks,
 		public Optional|string|null $showCompletedAgentSessions

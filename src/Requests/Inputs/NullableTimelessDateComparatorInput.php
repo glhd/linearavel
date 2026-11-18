@@ -18,7 +18,9 @@ class NullableTimelessDateComparatorInput
 		public ?string $lt = null,
 		public ?string $lte = null,
 		public ?string $gt = null,
-		public ?string $gte = null
+		public ?string $gte = null,
+		public ?bool $today = null,
+		public ?string $timezone = null
 	) {
 	}
 }

@@ -3019,7 +3019,7 @@ input IssueIDComparator {
   nin: [ID!]
 }
 
-"Compares timestamps at millisecond precision. Accepts ISO 8601 timestamps or durations relative to when the filter runs; `{ gte: \"-P7D\" }` includes times from seven days ago onward. Combine `gte` and `lt` for a time window. A YYYY-MM-DD value means midnight UTC, so equality with a date does not match the whole day."
+"Compares timestamps at millisecond precision. Accepts ISO 8601 timestamps or durations relative to when the filter runs; `{ gte: \"-P7D\" }` includes times from seven days ago onward. Combine `gte` and `lt` for a time window. A YYYY-MM-DD value means midnight in `timezone`, or UTC by default, so equality with a date does not match the whole day. Use `today` to match the whole current day."
 input DateComparator {
   "Matches the given value."
   eq: DateTimeOrDuration
@@ -3044,6 +3044,12 @@ input DateComparator {
 
   "Matches values greater than or equal to the given value."
   gte: DateTimeOrDuration
+
+  "Matches today's calendar day, or its complement when false. Uses timezone, defaulting to UTC."
+  today: Boolean
+
+  "Timezone for calendar dates. Saved views use one timezone for all date filters."
+  timezone: String
 }
 
 "An ISO 8601 timestamp, a YYYY-MM-DD date, or a relative ISO 8601 duration such as `-P7D`. Durations are resolved when the filter runs, so saved filters keep their relative meaning. A date without a time means midnight UTC; use a range to match an entire day."
@@ -3275,6 +3281,12 @@ input NullableDateComparator {
 
   "Matches values greater than or equal to the given value."
   gte: DateTimeOrDuration
+
+  "Matches today's calendar day, or its complement when false. Uses timezone, defaulting to UTC."
+  today: Boolean
+
+  "Timezone for calendar dates. Saved views use one timezone for all date filters."
+  timezone: String
 }
 
 "Conditions on when an issue joined its cycle relative to the cycle’s schedule. This uses the recorded cycle assignment time, not the issue’s creation time."
@@ -3335,6 +3347,12 @@ input NullableTimelessDateComparator {
 
   "Matches values greater than or equal to the given value."
   gte: TimelessDateOrDuration
+
+  "Matches today's calendar day, or its complement when false. Uses timezone, defaulting to UTC."
+  today: Boolean
+
+  "Timezone for calendar dates. Saved views use one timezone for all date filters."
+  timezone: String
 }
 
 "A YYYY-MM-DD calendar date or an ISO 8601 duration relative to today, such as `-P7D` for seven days ago. Durations stay relative in saved filters and are resolved each time the filter runs. Use a fixed date when the boundary should stay unchanged."
@@ -8936,6 +8954,9 @@ type CustomView implements Node {
   "The filter applied to feed items in the custom view. When set, this view displays feed items (updates) instead of issues."
   feedItemFilterData: JSONObject
 
+  "[Internal] The timezone captured when the view was created. Missing values use UTC."
+  filterTimezone: String
+
   "Whether the view is shared rather than personal. Sharing makes the view available to people in its scope; it does not grant access to issues, projects, or other items they could not otherwise see."
   shared: Boolean!
 
@@ -10375,6 +10396,9 @@ type ViewPreferencesValues {
 
   "Whether to show GitHub labels on review list items. Null if the preference is unset."
   reviewFieldLabels: Boolean
+
+  "Whether to show the pull request risk level on review list items. Null if the preference is unset."
+  reviewFieldRisk: Boolean
 
   "Whether team reviews are shown in the reviews list."
   showTeamReviews: Boolean
