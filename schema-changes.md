@@ -1,8 +1,10 @@
-### Added or widened
+### Removed or narrowed
 
-- An optional field timezone on input type DateComparator was added.
-- An optional field timezone on input type NullableDateComparator was added.
-- An optional field timezone on input type NullableTimelessDateComparator was added.
-- An optional field today on input type DateComparator was added.
-- An optional field today on input type NullableDateComparator was added.
-- An optional field today on input type NullableTimelessDateComparator was added.
+- CustomViewNotificationSubscription.customView changed type from CustomView! to CustomView.
+- CustomerNotificationSubscription.customer changed type from Customer! to Customer.
+- CycleNotificationSubscription.cycle changed type from Cycle! to Cycle.
+- InitiativeNotificationSubscription.initiative changed type from Initiative! to Initiative.
+- LabelNotificationSubscription.label changed type from IssueLabel! to IssueLabel.
+- ProjectNotificationSubscription.project changed type from Project! to Project.
+- TeamNotificationSubscription.team changed type from Team! to Team.
+- UserNotificationSubscription.user changed type from User! to User.

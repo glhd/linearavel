@@ -15,8 +15,8 @@ type CustomerNotificationSubscription implements NotificationSubscription & Enti
   "The user who will receive notifications from this subscription."
   subscriber: User!
 
-  "The customer subscribed to."
-  customer: Customer!
+  "The customer subscribed to. Null if the subscriber can no longer access it."
+  customer: Customer
 
   "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   customView: CustomView
@@ -13540,8 +13540,8 @@ type CustomViewNotificationSubscription implements NotificationSubscription & En
   "The customer that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   customer: Customer
 
-  "The custom view subscribed to."
-  customView: CustomView!
+  "The custom view subscribed to. Null if the subscriber can no longer access it."
+  customView: CustomView
 
   "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   cycle: Cycle
@@ -13600,8 +13600,8 @@ type CycleNotificationSubscription implements NotificationSubscription & Entity 
   "The custom view that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   customView: CustomView
 
-  "The cycle subscribed to."
-  cycle: Cycle!
+  "The cycle subscribed to. Null if the subscriber can no longer access it."
+  cycle: Cycle
 
   "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   label: IssueLabel
@@ -13660,8 +13660,8 @@ type LabelNotificationSubscription implements NotificationSubscription & Entity 
   "The cycle that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   cycle: Cycle
 
-  "The label subscribed to."
-  label: IssueLabel!
+  "The label subscribed to. Null if the subscriber can no longer access it."
+  label: IssueLabel
 
   "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   project: Project
@@ -13720,8 +13720,8 @@ type ProjectNotificationSubscription implements NotificationSubscription & Entit
   "The issue label that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   label: IssueLabel
 
-  "The project subscribed to."
-  project: Project!
+  "The project subscribed to. Null if the subscriber can no longer access it."
+  project: Project
 
   "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   initiative: Initiative
@@ -13780,8 +13780,8 @@ type InitiativeNotificationSubscription implements NotificationSubscription & En
   "The project that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   project: Project
 
-  "The initiative subscribed to."
-  initiative: Initiative!
+  "The initiative subscribed to. Null if the subscriber can no longer access it."
+  initiative: Initiative
 
   "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   team: Team
@@ -13840,8 +13840,8 @@ type TeamNotificationSubscription implements NotificationSubscription & Entity &
   "The initiative that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   initiative: Initiative
 
-  "The team subscribed to."
-  team: Team!
+  "The team subscribed to. Null if the subscriber can no longer access it."
+  team: Team
 
   "The user that this notification subscription is scoped to, for user-specific view subscriptions. Null if the subscription targets a different entity type."
   user: User
@@ -13900,8 +13900,8 @@ type UserNotificationSubscription implements NotificationSubscription & Entity &
   "The team that this notification subscription is scoped to. Null if the subscription targets a different entity type."
   team: Team
 
-  "The user subscribed to."
-  user: User!
+  "The user subscribed to. Null if the subscriber can no longer access it."
+  user: User
 
   "The type of contextual view (e.g., active issues, backlog) that further scopes a team notification subscription. Null if the subscription is not associated with a specific view type."
   contextViewType: ContextViewType
@@ -21881,7 +21881,7 @@ type Mutation {
     targetCustomerId: String!
   ): CustomerPayload!
 
-  "Finds a customer using the supplied UUID, external ID, Slack channel, or domains, and updates it; otherwise creates one. A name is required when no customer matches. Unlike customerUpdate, this operation can override integration-managed fields, and a tierName can create a new customer tier."
+  "Finds a customer using the supplied UUID, external ID, Slack channel, or domains, and updates it; otherwise creates one. A name is required when no customer matches. Unlike customerUpdate, this operation can override integration-managed fields, and a tierName can create a new customer tier when the caller has permission to manage customer settings."
   customerUpsert(
     "The customer to create."
     input: CustomerUpsertInput!
@@ -25320,7 +25320,7 @@ input CustomerUpsertInput {
   "The URL of the customer's logo image."
   logoUrl: String
 
-  "The customer tier’s name or display name. An existing matching tier is reused; otherwise a tier is created. Use this when importing named tiers, or use tierId to select a known tier. The two fields cannot be combined."
+  "The customer tier’s name or display name. An existing matching tier is reused; otherwise a tier is created, which requires permission to manage customer settings. Use this when importing named tiers, or use tierId to select a known tier. The two fields cannot be combined."
   tierName: String
 }
 
@@ -30071,30 +30071,6 @@ type WorkflowStateArchivePayload implements ArchivePayload {
 }
 
 type Subscription {
-  "Triggered when a workflow state is created"
-  workflowStateCreated: WorkflowState!
-
-  "Triggered when a workflow state is updated"
-  workflowStateUpdated: WorkflowState!
-
-  "Triggered when a workflow state is archived"
-  workflowStateArchived: WorkflowState!
-
-  "Triggered when an issue history is created"
-  issueHistoryCreated: IssueHistory!
-
-  "Triggered when an issue history is updated"
-  issueHistoryUpdated: IssueHistory!
-
-  "Triggered when an issue relation is created"
-  issueRelationCreated: IssueRelation!
-
-  "Triggered when an issue relation is updated"
-  issueRelationUpdated: IssueRelation!
-
-  "Triggered when an issue relation is deleted"
-  issueRelationDeleted: IssueRelation!
-
   "Triggered when an agent activity is created"
   agentActivityCreated: AgentActivity!
 
@@ -30113,17 +30089,38 @@ type Subscription {
   "Triggered when a project label is deleted"
   projectLabelDeleted: ProjectLabel!
 
+  "Triggered when a workflow state is created"
+  workflowStateCreated: WorkflowState!
+
+  "Triggered when a workflow state is updated"
+  workflowStateUpdated: WorkflowState!
+
+  "Triggered when a workflow state is archived"
+  workflowStateArchived: WorkflowState!
+
+  "Triggered when an issue relation is created"
+  issueRelationCreated: IssueRelation!
+
+  "Triggered when an issue relation is updated"
+  issueRelationUpdated: IssueRelation!
+
+  "Triggered when an issue relation is deleted"
+  issueRelationDeleted: IssueRelation!
+
   "Triggered when an user settings is updated"
   userSettingsUpdated: UserSettings!
 
-  "Triggered when a favorite is created"
-  favoriteCreated: Favorite!
+  "Triggered when a project update is created"
+  projectUpdateCreated: ProjectUpdate!
 
-  "Triggered when a favorite is updated"
-  favoriteUpdated: Favorite!
+  "Triggered when a project update is updated"
+  projectUpdateUpdated: ProjectUpdate!
 
-  "Triggered when a favorite is deleted"
-  favoriteDeleted: Favorite!
+  "Triggered when a project update is archived"
+  projectUpdateArchived: ProjectUpdate!
+
+  "Triggered when a project update is deleted"
+  projectUpdateDeleted: ProjectUpdate!
 
   "Triggered when a document content revision is created"
   documentContentRevisionCreated: DocumentContentRevision!
@@ -30149,14 +30146,14 @@ type Subscription {
   "Triggered when a notification is deleted"
   notificationDeleted: Notification!
 
-  "Triggered when a team membership is created"
-  teamMembershipCreated: TeamMembership!
+  "Triggered when a favorite is created"
+  favoriteCreated: Favorite!
 
-  "Triggered when a team membership is updated"
-  teamMembershipUpdated: TeamMembership!
+  "Triggered when a favorite is updated"
+  favoriteUpdated: Favorite!
 
-  "Triggered when a team membership is deleted"
-  teamMembershipDeleted: TeamMembership!
+  "Triggered when a favorite is deleted"
+  favoriteDeleted: Favorite!
 
   "Triggered when an issue label is created"
   issueLabelCreated: IssueLabel!
@@ -30167,26 +30164,50 @@ type Subscription {
   "Triggered when an issue label is deleted"
   issueLabelDeleted: IssueLabel!
 
-  "Triggered when a project update is created"
-  projectUpdateCreated: ProjectUpdate!
+  "Triggered when a team membership is created"
+  teamMembershipCreated: TeamMembership!
 
-  "Triggered when a project update is updated"
-  projectUpdateUpdated: ProjectUpdate!
+  "Triggered when a team membership is updated"
+  teamMembershipUpdated: TeamMembership!
 
-  "Triggered when a project update is archived"
-  projectUpdateArchived: ProjectUpdate!
+  "Triggered when a team membership is deleted"
+  teamMembershipDeleted: TeamMembership!
 
-  "Triggered when a project update is deleted"
-  projectUpdateDeleted: ProjectUpdate!
+  "Triggered when a team is created"
+  teamCreated: Team!
 
-  "Triggered when a draft is created"
-  draftCreated: Draft!
+  "Triggered when a team is updated"
+  teamUpdated: Team!
 
-  "Triggered when a draft is updated"
-  draftUpdated: Draft!
+  "Triggered when a team is deleted"
+  teamDeleted: Team!
 
-  "Triggered when a draft is deleted"
-  draftDeleted: Draft!
+  "Triggered when an issue history is created"
+  issueHistoryCreated: IssueHistory!
+
+  "Triggered when an issue history is updated"
+  issueHistoryUpdated: IssueHistory!
+
+  "Triggered when a cycle is created"
+  cycleCreated: Cycle!
+
+  "Triggered when a cycle is updated"
+  cycleUpdated: Cycle!
+
+  "Triggered when a cycle is archived"
+  cycleArchived: Cycle!
+
+  "Triggered when a document is created"
+  documentCreated: Document!
+
+  "Triggered when a document is updated"
+  documentUpdated: Document!
+
+  "Triggered when a document is archived"
+  documentArchived: Document!
+
+  "Triggered when a document is unarchived"
+  documentUnarchived: Document!
 
   "Triggered when a roadmap is created"
   roadmapCreated: Roadmap!
@@ -30206,35 +30227,14 @@ type Subscription {
   "Triggered when an initiative is deleted"
   initiativeDeleted: Initiative!
 
-  "Triggered when a document is created"
-  documentCreated: Document!
+  "Triggered when a draft is created"
+  draftCreated: Draft!
 
-  "Triggered when a document is updated"
-  documentUpdated: Document!
+  "Triggered when a draft is updated"
+  draftUpdated: Draft!
 
-  "Triggered when a document is archived"
-  documentArchived: Document!
-
-  "Triggered when a document is unarchived"
-  documentUnarchived: Document!
-
-  "Triggered when a cycle is created"
-  cycleCreated: Cycle!
-
-  "Triggered when a cycle is updated"
-  cycleUpdated: Cycle!
-
-  "Triggered when a cycle is archived"
-  cycleArchived: Cycle!
-
-  "Triggered when a team is created"
-  teamCreated: Team!
-
-  "Triggered when a team is updated"
-  teamUpdated: Team!
-
-  "Triggered when a team is deleted"
-  teamDeleted: Team!
+  "Triggered when a draft is deleted"
+  draftDeleted: Draft!
 
   "Triggered when a comment is created"
   commentCreated: Comment!

@@ -25,7 +25,6 @@ class InitiativeNotificationSubscription extends Data implements NotificationSub
 		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|User $subscriber,
-		public Optional|Initiative $initiative,
 		public Optional|bool $active,
 		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
@@ -38,6 +37,7 @@ class InitiativeNotificationSubscription extends Data implements NotificationSub
 		public Optional|Cycle|null $cycle,
 		public Optional|IssueLabel|null $label,
 		public Optional|Project|null $project,
+		public Optional|Initiative|null $initiative,
 		public Optional|Team|null $team,
 		public Optional|User|null $user,
 		public Optional|ContextViewType|null $contextViewType,

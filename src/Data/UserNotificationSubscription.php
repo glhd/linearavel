@@ -25,7 +25,6 @@ class UserNotificationSubscription extends Data implements NotificationSubscript
 		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|User $subscriber,
-		public Optional|User $user,
 		public Optional|bool $active,
 		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
@@ -40,6 +39,7 @@ class UserNotificationSubscription extends Data implements NotificationSubscript
 		public Optional|Project|null $project,
 		public Optional|Initiative|null $initiative,
 		public Optional|Team|null $team,
+		public Optional|User|null $user,
 		public Optional|ContextViewType|null $contextViewType,
 		public Optional|UserContextViewType|null $userContextViewType
 	) {

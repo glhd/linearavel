@@ -25,7 +25,6 @@ class LabelNotificationSubscription extends Data implements NotificationSubscrip
 		#[LinearDate]
 		public Optional|CarbonImmutable $updatedAt,
 		public Optional|User $subscriber,
-		public Optional|IssueLabel $label,
 		public Optional|bool $active,
 		public Optional|bool $includeSubInitiativeUpdates,
 		/** @var Collection<int, string> */
@@ -36,6 +35,7 @@ class LabelNotificationSubscription extends Data implements NotificationSubscrip
 		public Optional|Customer|null $customer,
 		public Optional|CustomView|null $customView,
 		public Optional|Cycle|null $cycle,
+		public Optional|IssueLabel|null $label,
 		public Optional|Project|null $project,
 		public Optional|Initiative|null $initiative,
 		public Optional|Team|null $team,
