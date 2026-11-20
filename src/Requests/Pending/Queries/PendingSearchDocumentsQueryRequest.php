@@ -11,7 +11,7 @@ use Glhd\Linearavel\Support\GraphQueryBuilder;
 
 class PendingSearchDocumentsQueryRequest extends PendingLinearRequest
 {
-	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.title', 'nodes.slugId', 'nodes.sortOrder', 'nodes.url', 'nodes.metadata', 'nodes.archivedAt', 'nodes.icon', 'nodes.color', 'nodes.hiddenAt', 'nodes.trashed', 'nodes.content', 'nodes.documentContentId', 'nodes.workspaceAccess', 'totalCount'];
+	protected const DEFAULT_ATTRIBUTES = ['nodes.id', 'nodes.createdAt', 'nodes.updatedAt', 'nodes.title', 'nodes.slugId', 'nodes.sortOrder', 'nodes.url', 'nodes.metadata', 'nodes.archivedAt', 'nodes.icon', 'nodes.color', 'nodes.hiddenAt', 'nodes.trashed', 'nodes.content', 'nodes.documentContentId', 'nodes.generalAccess', 'nodes.workspaceAccess', 'totalCount'];
 
 	protected const ARGUMENT_TYPES = ['filter' => 'DocumentFilter', 'before' => 'String', 'after' => 'String', 'first' => 'Int', 'last' => 'Int', 'includeArchived' => 'Boolean', 'orderBy' => 'PaginationOrderBy', 'term' => 'String!', 'snippetSize' => 'Float', 'includeComments' => 'Boolean', 'teamId' => 'String'];
 

@@ -1467,7 +1467,13 @@ type Document implements Node {
   "The canonical url for the document."
   url: String!
 
-  "[Internal] What people who can open a document in a public team, or in a project with a public team, but are not members of its teams can do with it: edit, comment, or view. Never above general access. Null means the same as general access, and is always null on a personal document."
+  "The user whose personal space holds the document, who owns and manages it. Null if the document belongs to a different parent entity type."
+  personalUser: User
+
+  "What users other than the owner can do with a document that is not personal: edit, comment, or view. People shared on the document with a higher role keep it. Null on a personal document, which only its owner and the people it is shared with can access."
+  generalAccess: DocumentShareRole
+
+  "What people who can open a document in a public team, or in a project with a public team, but are not members of its teams can do with it: edit, comment, or view. Never above general access. Null means the same as general access, and is always null on a personal document."
   workspaceAccess: DocumentShareRole
 }
 
@@ -19523,7 +19529,13 @@ type DocumentSearchResult implements Node {
   "The canonical url for the document."
   url: String!
 
-  "[Internal] What people who can open a document in a public team, or in a project with a public team, but are not members of its teams can do with it: edit, comment, or view. Never above general access. Null means the same as general access, and is always null on a personal document."
+  "The user whose personal space holds the document, who owns and manages it. Null if the document belongs to a different parent entity type."
+  personalUser: User
+
+  "What users other than the owner can do with a document that is not personal: edit, comment, or view. People shared on the document with a higher role keep it. Null on a personal document, which only its owner and the people it is shared with can access."
+  generalAccess: DocumentShareRole
+
+  "What people who can open a document in a public team, or in a project with a public team, but are not members of its teams can do with it: edit, comment, or view. Never above general access. Null means the same as general access, and is always null on a personal document."
   workspaceAccess: DocumentShareRole
 
   "score reflects relevance by default, or can contain timestamp milliseconds when orderBy selects createdAt or updatedAt. Compare scores only within the same query and ordering. context is an empty object retained for compatibility."
@@ -21968,7 +21980,7 @@ type Mutation {
     id: String!
   ): CyclePayload!
 
-  "Creates a document in a project, issue, or release, with optional initial Markdown content. The returned document includes its assigned UUID and metadata; select content to read the resulting body."
+  "Creates a document in a project, issue, or release, or in your private documents with personalUserId, with optional initial Markdown content. The returned document includes its assigned UUID and metadata; select content to read the resulting body."
   documentCreate(
     "The document to create."
     input: DocumentCreateInput!
@@ -21983,7 +21995,43 @@ type Mutation {
     id: String!
   ): DocumentPayload!
 
-  "[Internal] Changes what people outside a document's teams can do with a document in a public team or in a project with a public team: edit, comment, or view. It can't be above the document's general access. Only the owner of the document, an owner of one of its teams, or a workspace admin can change it. Comment and view need an owner who can access the document."
+  "Shares a document and its sub-documents with workspace members at a role. On a personal document only the owner can share it. On any other document the owner, an owner of one of its teams, or a workspace admin can, the people must be able to see the document, and the role must be above its general access. People it is newly shared with are subscribed to the document. Users who already have another role move to the given one."
+  documentShare(
+    "The role to share the document at. Defaults to edit."
+    role: DocumentShareRole = edit
+
+    "The identifiers of the users to share the document with."
+    userIds: [String!]!
+
+    "The identifier of the document to share."
+    id: String!
+  ): DocumentPayload!
+
+  "Stops sharing a document and its sub-documents with users. Whoever can manage access to the document can remove anyone it is shared with; anyone else can only remove themselves."
+  documentUnshare(
+    "The identifiers of the users to remove from the document."
+    userIds: [String!]!
+
+    "The identifier of the document to stop sharing."
+    id: String!
+  ): DocumentPayload!
+
+  "Changes what users other than the owner can do with a document that is not personal: edit, comment, or view. Only the owner of the document, an owner of one of its teams, or a workspace admin can change it. Comment and view need an owner who can access the document."
+  documentUpdateGeneralAccess(
+    "The general access level of this document when the change was confirmed. When given, the change fails if the document has another level now."
+    previousGeneralAccess: String
+
+    "Whether to also change the sub-documents whose level equals the document's level before the change. Sub-documents with another level, without an owner who can access them, or that the user cannot loosen keep their level."
+    applyToSubDocuments: Boolean = false
+
+    "The new general access level: edit, comment, or view."
+    generalAccess: String!
+
+    "The identifier of the document."
+    id: String!
+  ): DocumentPayload!
+
+  "Changes what people outside a document's teams can do with a document in a public team or in a project with a public team: edit, comment, or view. It can't be above the document's general access. Only the owner of the document, an owner of one of its teams, or a workspace admin can change it. Comment and view need an owner who can access the document."
   documentUpdateWorkspaceAccess(
     "The workspace access level of this document when the change was confirmed. When given, the change fails if the document has another level now."
     previousWorkspaceAccess: String
@@ -21998,7 +22046,7 @@ type Mutation {
     id: String!
   ): DocumentPayload!
 
-  "Moves a document to the trash and archives it, including the sub-documents covered by its archive cascade. It is not permanently removed by this mutation. You must be allowed to manage the document; use documentUnarchive to restore it."
+  "Moves a document to the trash and archives it, including the sub-documents covered by its archive cascade. It is not permanently removed by this mutation. You must be allowed to manage the document, or to edit it when it is a page of a private document; use documentUnarchive to restore it."
   documentDelete(
     "[Internal] Only trash the document if it is still a sub-document of this document. Otherwise the mutation fails and the document is left unchanged."
     ifParentDocumentId: String
@@ -22007,7 +22055,7 @@ type Mutation {
     id: String!
   ): DocumentArchivePayload!
 
-  "Restores a trashed document and its eligible sub-documents. You must be allowed to manage the restored documents. If the containing resource is archived, restore that resource first."
+  "Restores a trashed document and its eligible sub-documents. You must be allowed to manage the restored documents, or to edit them when they are pages of a private document. If the containing resource is archived, restore that resource first."
   documentUnarchive(
     "The identifier of the document to restore."
     id: String!
@@ -22372,6 +22420,9 @@ type Mutation {
 
   "Connects a GitHub App installation to the workspace using its installation ID and OAuth grant. If replacing a connection would make repositories used by GitHub Issues sync inaccessible, the call stops and returns gitHub.lostRepositoryNames. Review that list, then repeat with confirmReplace set to true to accept the change. GitHub Enterprise Cloud connections require the corresponding workspace plan feature."
   integrationGithubConnect(
+    "[Internal] Set to true to keep the organization's code access integration and use this basic GitHub App installation for pull request linking and GitHub Issues sync in the repositories that the code access app cannot read."
+    addLinkingInstallation: Boolean = false
+
     "Confirm replacing an existing installation after a prior call reported lostRepositoryNames. Defaults to false."
     confirmReplace: Boolean = false
 
@@ -22970,7 +23021,7 @@ type Mutation {
     issueImportId: String!
   ): IssueImportDeletePayload!
 
-  "Saves the supplied mappings and schedules creation of Linear records from the fetched source data. The import must be inProgress; otherwise the mappings are saved but success is false. A successful response means processing was accepted, not that it has finished. Linear-to-Linear migrations can only be managed from the Linear app."
+  "Saves the supplied mappings and schedules creation of Linear records from the fetched source data. Fails without saving the mappings when an external-service import has not finished fetching its source data. The import must be inProgress; otherwise the mappings are saved but success is false. A successful response means processing was accepted, not that it has finished. Linear-to-Linear migrations can only be managed from the Linear app."
   issueImportProcess(
     "The mapping configuration to use for processing the import."
     mapping: JSONObject!
@@ -22979,7 +23030,7 @@ type Mutation {
     issueImportId: String!
   ): IssueImportPayload!
 
-  "Saves mapping choices without starting the import. For external-service imports, supply the full replacement mapping. Requires workspace import permission; Linear-to-Linear migrations can only be managed from the Linear app."
+  "Saves mapping choices without starting the import. For external-service imports, supply the full replacement mapping, and wait until the import has fetched its source data. Requires workspace import permission; Linear-to-Linear migrations can only be managed from the Linear app."
   issueImportUpdate(
     "The properties of the issue import to update."
     input: IssueImportUpdateInput!
@@ -23318,7 +23369,7 @@ type Mutation {
     id: String!
   ): OAuthApplicationArchivePayload!
 
-  "[ALPHA] Replaces the client secret for an application created by the caller and returns the new secret. Store it before discarding the response; it cannot be retrieved later. Tokens issued through client_credentials are revoked, while tokens from the authorization-code flow remain valid. The caller must be able to manage the application’s credentials, including its private-team access, as well as have workspace API management permission."
+  "[ALPHA] Replaces the client secret for an application created by the caller and returns the new secret. Store it before discarding the response; it cannot be retrieved later. The old secret stops working at once, as does a previous secret that a planned rotation kept working. Tokens issued through client_credentials are revoked, while tokens from the authorization-code flow remain valid. The caller must be able to manage the application’s credentials, including its private-team access, as well as have workspace API management permission."
   oauthApplicationRotateSecret(
     "The identifier of the OAuth application for which to rotate the secret."
     id: String!
@@ -25547,6 +25598,9 @@ input DocumentCreateInput {
 
   "The position among the container’s resources, with lower values first. Omit it to place the document last. Positions are shared with external links where the container supports them, and collisions may be adjusted."
   sortOrder: Float
+
+  "Creates the document in this user's private documents. Must be the acting user, or for a sub-document the owner of its private parent document."
+  personalUserId: String
 }
 
 "The metadata or Markdown content to change on a document. Omitted fields keep their values. Supplying a destination project, issue, or release moves the document out of its current container and can change who can access it."
@@ -25586,6 +25640,9 @@ input DocumentUpdateInput {
 
   "The trash marker for an already archived document. Set true to mark it as trashed, or null to remove that marker while keeping it archived. Use documentDelete to trash an active document and documentUnarchive to restore it."
   trashed: Boolean
+
+  "Moves the document and its sub-documents into this user's personal space. Must be the acting user."
+  personalUserId: String
 }
 
 "The result of archiving or restoring a resource."

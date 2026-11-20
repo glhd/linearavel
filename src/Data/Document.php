@@ -41,6 +41,8 @@ class Document extends Data implements Node
 		public Optional|bool|null $trashed,
 		public Optional|string|null $content,
 		public Optional|string|null $documentContentId,
+		public Optional|User|null $personalUser,
+		public Optional|DocumentShareRole|null $generalAccess,
 		public Optional|DocumentShareRole|null $workspaceAccess
 	) {
 	}

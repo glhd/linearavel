@@ -3,6 +3,7 @@
 namespace Glhd\Linearavel\Connectors;
 
 use DateTimeInterface;
+use Glhd\Linearavel\Data\Enums\DocumentShareRole;
 use Glhd\Linearavel\Data\Enums\ExternalSyncService;
 use Glhd\Linearavel\Data\Enums\GitLinkKind;
 use Glhd\Linearavel\Data\Enums\NotificationCategory;
@@ -206,7 +207,10 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleStartUpcomingCycleTod
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingCycleUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentCreateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentDeleteMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentShareMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUnarchiveMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUnshareMutationRequest;
+use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateGeneralAccessMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingDocumentUpdateWorkspaceAccessMutationRequest;
 use Glhd\Linearavel\Requests\Pending\Mutations\PendingEmailIntakeAddressCreateMutationRequest;
@@ -879,6 +883,21 @@ trait MutatesLinear
 		return new PendingDocumentUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
 	}
 
+	public function documentShareMutation(iterable $userIds, string $id, ?DocumentShareRole $role = null): PendingDocumentShareMutationRequest
+	{
+		return new PendingDocumentShareMutationRequest($this, ['userIds' => $userIds, 'id' => $id, 'role' => $role]);
+	}
+
+	public function documentUnshareMutation(iterable $userIds, string $id): PendingDocumentUnshareMutationRequest
+	{
+		return new PendingDocumentUnshareMutationRequest($this, ['userIds' => $userIds, 'id' => $id]);
+	}
+
+	public function documentUpdateGeneralAccessMutation(string $generalAccess, string $id, ?string $previousGeneralAccess = null, ?bool $applyToSubDocuments = null): PendingDocumentUpdateGeneralAccessMutationRequest
+	{
+		return new PendingDocumentUpdateGeneralAccessMutationRequest($this, ['generalAccess' => $generalAccess, 'id' => $id, 'previousGeneralAccess' => $previousGeneralAccess, 'applyToSubDocuments' => $applyToSubDocuments]);
+	}
+
 	public function documentUpdateWorkspaceAccessMutation(string $workspaceAccess, string $id, ?string $previousWorkspaceAccess = null, ?bool $applyToSubDocuments = null): PendingDocumentUpdateWorkspaceAccessMutationRequest
 	{
 		return new PendingDocumentUpdateWorkspaceAccessMutationRequest($this, ['workspaceAccess' => $workspaceAccess, 'id' => $id, 'previousWorkspaceAccess' => $previousWorkspaceAccess, 'applyToSubDocuments' => $applyToSubDocuments]);
@@ -1144,9 +1163,9 @@ trait MutatesLinear
 		return new PendingIntegrationGithubCommitCreateMutationRequest($this, []);
 	}
 
-	public function integrationGithubConnectMutation(string $code, string $installationId, ?bool $confirmReplace = null, ?string $githubHost = null, ?bool $codeAccess = null): PendingIntegrationGithubConnectMutationRequest
+	public function integrationGithubConnectMutation(string $code, string $installationId, ?bool $addLinkingInstallation = null, ?bool $confirmReplace = null, ?string $githubHost = null, ?bool $codeAccess = null): PendingIntegrationGithubConnectMutationRequest
 	{
-		return new PendingIntegrationGithubConnectMutationRequest($this, ['code' => $code, 'installationId' => $installationId, 'confirmReplace' => $confirmReplace, 'githubHost' => $githubHost, 'codeAccess' => $codeAccess]);
+		return new PendingIntegrationGithubConnectMutationRequest($this, ['code' => $code, 'installationId' => $installationId, 'addLinkingInstallation' => $addLinkingInstallation, 'confirmReplace' => $confirmReplace, 'githubHost' => $githubHost, 'codeAccess' => $codeAccess]);
 	}
 
 	public function integrationGithubRemoveCodeAccessMutation(string $integrationId): PendingIntegrationGithubRemoveCodeAccessMutationRequest
