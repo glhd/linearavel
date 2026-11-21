@@ -30128,6 +30128,30 @@ type WorkflowStateArchivePayload implements ArchivePayload {
 }
 
 type Subscription {
+  "Triggered when a workflow state is created"
+  workflowStateCreated: WorkflowState!
+
+  "Triggered when a workflow state is updated"
+  workflowStateUpdated: WorkflowState!
+
+  "Triggered when a workflow state is archived"
+  workflowStateArchived: WorkflowState!
+
+  "Triggered when an issue history is created"
+  issueHistoryCreated: IssueHistory!
+
+  "Triggered when an issue history is updated"
+  issueHistoryUpdated: IssueHistory!
+
+  "Triggered when an issue relation is created"
+  issueRelationCreated: IssueRelation!
+
+  "Triggered when an issue relation is updated"
+  issueRelationUpdated: IssueRelation!
+
+  "Triggered when an issue relation is deleted"
+  issueRelationDeleted: IssueRelation!
+
   "Triggered when an agent activity is created"
   agentActivityCreated: AgentActivity!
 
@@ -30145,24 +30169,6 @@ type Subscription {
 
   "Triggered when a project label is deleted"
   projectLabelDeleted: ProjectLabel!
-
-  "Triggered when a workflow state is created"
-  workflowStateCreated: WorkflowState!
-
-  "Triggered when a workflow state is updated"
-  workflowStateUpdated: WorkflowState!
-
-  "Triggered when a workflow state is archived"
-  workflowStateArchived: WorkflowState!
-
-  "Triggered when an issue relation is created"
-  issueRelationCreated: IssueRelation!
-
-  "Triggered when an issue relation is updated"
-  issueRelationUpdated: IssueRelation!
-
-  "Triggered when an issue relation is deleted"
-  issueRelationDeleted: IssueRelation!
 
   "Triggered when an user settings is updated"
   userSettingsUpdated: UserSettings!
@@ -30203,23 +30209,11 @@ type Subscription {
   "Triggered when a notification is deleted"
   notificationDeleted: Notification!
 
-  "Triggered when a favorite is created"
-  favoriteCreated: Favorite!
+  "Triggered when a document content is created"
+  documentContentCreated: DocumentContent!
 
-  "Triggered when a favorite is updated"
-  favoriteUpdated: Favorite!
-
-  "Triggered when a favorite is deleted"
-  favoriteDeleted: Favorite!
-
-  "Triggered when an issue label is created"
-  issueLabelCreated: IssueLabel!
-
-  "Triggered when an issue label is updated"
-  issueLabelUpdated: IssueLabel!
-
-  "Triggered when an issue label is deleted"
-  issueLabelDeleted: IssueLabel!
+  "Triggered when a document content is updated"
+  documentContentUpdated: DocumentContent!
 
   "Triggered when a team membership is created"
   teamMembershipCreated: TeamMembership!
@@ -30230,6 +30224,15 @@ type Subscription {
   "Triggered when a team membership is deleted"
   teamMembershipDeleted: TeamMembership!
 
+  "Triggered when an issue label is created"
+  issueLabelCreated: IssueLabel!
+
+  "Triggered when an issue label is updated"
+  issueLabelUpdated: IssueLabel!
+
+  "Triggered when an issue label is deleted"
+  issueLabelDeleted: IssueLabel!
+
   "Triggered when a team is created"
   teamCreated: Team!
 
@@ -30239,11 +30242,35 @@ type Subscription {
   "Triggered when a team is deleted"
   teamDeleted: Team!
 
-  "Triggered when an issue history is created"
-  issueHistoryCreated: IssueHistory!
+  "Triggered when a favorite is created"
+  favoriteCreated: Favorite!
 
-  "Triggered when an issue history is updated"
-  issueHistoryUpdated: IssueHistory!
+  "Triggered when a favorite is updated"
+  favoriteUpdated: Favorite!
+
+  "Triggered when a favorite is deleted"
+  favoriteDeleted: Favorite!
+
+  "Triggered when a roadmap is created"
+  roadmapCreated: Roadmap!
+
+  "Triggered when a roadmap is updated"
+  roadmapUpdated: Roadmap!
+
+  "Triggered when a roadmap is deleted"
+  roadmapDeleted: Roadmap!
+
+  "Triggered when a project is created"
+  projectCreated: Project!
+
+  "Triggered when a project is updated"
+  projectUpdated: Project!
+
+  "Triggered when a project is archived"
+  projectArchived: Project!
+
+  "Triggered when a project is unarchived"
+  projectUnarchived: Project!
 
   "Triggered when a cycle is created"
   cycleCreated: Cycle!
@@ -30265,15 +30292,6 @@ type Subscription {
 
   "Triggered when a document is unarchived"
   documentUnarchived: Document!
-
-  "Triggered when a roadmap is created"
-  roadmapCreated: Roadmap!
-
-  "Triggered when a roadmap is updated"
-  roadmapUpdated: Roadmap!
-
-  "Triggered when a roadmap is deleted"
-  roadmapDeleted: Roadmap!
 
   "Triggered when an initiative is created"
   initiativeCreated: Initiative!
@@ -30331,24 +30349,6 @@ type Subscription {
 
   "Triggered when an user is updated"
   userUpdated: User!
-
-  "Triggered when a project is created"
-  projectCreated: Project!
-
-  "Triggered when a project is updated"
-  projectUpdated: Project!
-
-  "Triggered when a project is archived"
-  projectArchived: Project!
-
-  "Triggered when a project is unarchived"
-  projectUnarchived: Project!
-
-  "Triggered when a document content is created"
-  documentContentCreated: DocumentContent!
-
-  "Triggered when a document content is updated"
-  documentContentUpdated: DocumentContent!
 
   "Triggered when an agent session is created"
   agentSessionCreated: AgentSession!
