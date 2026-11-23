@@ -21343,6 +21343,9 @@ type Mutation {
 
   "Links a URL to an issue and, when recognized, uses the workspace’s matching integration to fetch richer details. Supported integrations can add behaviors such as status updates. If no matching integration can enrich the link, Linear creates a basic URL attachment."
   attachmentLinkURL(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21357,13 +21360,13 @@ type Mutation {
 
     "The issue for which to link the url. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
-
-    "The id for the attachment."
-    id: String
   ): AttachmentPayload!
 
   "Links a GitLab merge request to an issue. Supply the merge-request URL, number, and full project path including any groups. Linear uses a matching integration when available and otherwise creates a basic URL attachment."
   attachmentLinkGitLabMR(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21375,9 +21378,6 @@ type Mutation {
 
     "The issue for which to link the GitLab merge request. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
-
-    "Optional attachment ID that may be provided through the API."
-    id: String
 
     "The URL of the GitLab merge request to link."
     url: String!
@@ -21391,6 +21391,9 @@ type Mutation {
 
   "Link a GitHub issue to a Linear issue. Uses the matching GitHub integration and sync mapping when available; may fall back to a URL attachment."
   attachmentLinkGitHubIssue(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21403,15 +21406,15 @@ type Mutation {
     "The Linear issue for which to link the GitHub issue. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
 
-    "Optional attachment ID that may be provided through the API."
-    id: String
-
     "The URL of the GitHub issue to link."
     url: String!
   ): AttachmentPayload!
 
   "Link a GitHub pull request to an issue. Uses the matching GitHub integration when available; may fall back to a URL attachment."
   attachmentLinkGitHubPR(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21423,9 +21426,6 @@ type Mutation {
 
     "The issue for which to link the GitHub pull request. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
-
-    "Optional attachment ID that may be provided through the API."
-    id: String
 
     "The URL of the GitHub pull request to link."
     url: String!
@@ -21445,6 +21445,9 @@ type Mutation {
 
   "Link a Zendesk ticket to an issue. Requires a connected Zendesk integration."
   attachmentLinkZendesk(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21460,15 +21463,15 @@ type Mutation {
     "The issue for which to link the Zendesk ticket. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
 
-    "Optional attachment ID that may be provided through the API."
-    id: String
-
     "The URL of the Zendesk ticket to link."
     url: String
   ): AttachmentPayload!
 
   "Link a Discord message to an issue. Requires a connected Discord integration."
   attachmentLinkDiscord(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21480,9 +21483,6 @@ type Mutation {
 
     "The issue for which to link the Discord message. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
-
-    "Optional attachment ID that may be provided through the API."
-    id: String
 
     "The Discord channel ID for the message to link."
     channelId: String!
@@ -21502,6 +21502,9 @@ type Mutation {
 
   "Link an existing Slack message to an issue. This creates a rich attachment using the workspace's Slack integration."
   attachmentLinkSlack(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21526,15 +21529,15 @@ type Mutation {
     "The Slack message URL for the message to link."
     url: String!
 
-    "Optional attachment ID that may be provided through the API."
-    id: String
-
     "Sync the Slack thread with issue comments and import existing replies. Defaults to false; the thread cannot already be synced elsewhere."
     syncToCommentThread: Boolean
   ): AttachmentPayload!
 
   "Link a Front conversation to an issue. Requires a connected Front integration."
   attachmentLinkFront(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21549,13 +21552,13 @@ type Mutation {
 
     "The issue for which to link the Front conversation. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
-
-    "Optional attachment ID that may be provided through the API."
-    id: String
   ): FrontAttachmentPayload!
 
   "Link an Intercom conversation to an issue. Requires a connected Intercom integration."
   attachmentLinkIntercom(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21571,15 +21574,15 @@ type Mutation {
     "An optional Intercom conversation part ID to link to"
     partId: String
 
-    "Optional attachment ID that may be provided through the API."
-    id: String
-
     "The issue for which to link the Intercom conversation. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
   ): AttachmentPayload!
 
   "Links a Jira issue to a Linear issue. The URL selects a connected Jira site; if it identifies no connected site, Linear uses the workspace’s sole Jira integration. With multiple Jira integrations, provide a URL for the intended site."
   attachmentLinkJiraIssue(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21595,15 +21598,15 @@ type Mutation {
     "The Jira issue key or ID to link."
     jiraIssueId: String!
 
-    "Optional attachment ID that may be provided through the API."
-    id: String
-
     "URL used to select the connected Jira site and as a fallback if the Jira issue cannot be fetched."
     url: String
   ): AttachmentPayload!
 
   "Link a Salesforce case to an issue. Requires a connected Salesforce integration and a valid case URL."
   attachmentLinkSalesforce(
+    "The identifier in UUID format. If none is provided, the backend will generate one."
+    id: String
+
     "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
     createAsUser: String
 
@@ -21615,9 +21618,6 @@ type Mutation {
 
     "The issue for which to link the Salesforce case. Can be a UUID or issue identifier (e.g., 'LIN-123')."
     issueId: String!
-
-    "Optional attachment ID that may be provided through the API."
-    id: String
 
     "The URL of the Salesforce case to link."
     url: String!
@@ -22018,6 +22018,9 @@ type Mutation {
 
   "Changes what users other than the owner can do with a document that is not personal: edit, comment, or view. Only the owner of the document, an owner of one of its teams, or a workspace admin can change it. Comment and view need an owner who can access the document."
   documentUpdateGeneralAccess(
+    "The users whose roles to remove where this change makes the role give more access than the new level. It removes only those roles from this document and from each sub-document this change also changes. It leaves roles that were already above the document's previous level. Users who can't open the document's container keep their roles, because a role is their only access to it. If the change leaves a document's levels as they are, no role is removed from it."
+    removeCollaboratorIds: [String!]
+
     "The general access level of this document when the change was confirmed. When given, the change fails if the document has another level now."
     previousGeneralAccess: String
 

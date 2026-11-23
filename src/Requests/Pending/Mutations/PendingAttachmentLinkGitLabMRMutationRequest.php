@@ -13,7 +13,7 @@ class PendingAttachmentLinkGitLabMRMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'issueId' => 'String!', 'id' => 'String', 'url' => 'String!', 'projectPathWithNamespace' => 'String!', 'number' => 'Float!'];
+	protected const ARGUMENT_TYPES = ['id' => 'String', 'createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'issueId' => 'String!', 'url' => 'String!', 'projectPathWithNamespace' => 'String!', 'number' => 'Float!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

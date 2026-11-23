@@ -568,34 +568,34 @@ trait MutatesLinear
 		return new PendingAttachmentUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
 	}
 
-	public function attachmentLinkURLMutation(string $url, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null): PendingAttachmentLinkURLMutationRequest
+	public function attachmentLinkURLMutation(string $url, string $issueId, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null): PendingAttachmentLinkURLMutationRequest
 	{
-		return new PendingAttachmentLinkURLMutationRequest($this, ['url' => $url, 'issueId' => $issueId, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id]);
+		return new PendingAttachmentLinkURLMutationRequest($this, ['url' => $url, 'issueId' => $issueId, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title]);
 	}
 
-	public function attachmentLinkGitLabMRMutation(string $issueId, string $url, string $projectPathWithNamespace, float $number, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null): PendingAttachmentLinkGitLabMRMutationRequest
+	public function attachmentLinkGitLabMRMutation(string $issueId, string $url, string $projectPathWithNamespace, float $number, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null): PendingAttachmentLinkGitLabMRMutationRequest
 	{
-		return new PendingAttachmentLinkGitLabMRMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'projectPathWithNamespace' => $projectPathWithNamespace, 'number' => $number, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id]);
+		return new PendingAttachmentLinkGitLabMRMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'projectPathWithNamespace' => $projectPathWithNamespace, 'number' => $number, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title]);
 	}
 
-	public function attachmentLinkGitHubIssueMutation(string $issueId, string $url, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null): PendingAttachmentLinkGitHubIssueMutationRequest
+	public function attachmentLinkGitHubIssueMutation(string $issueId, string $url, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null): PendingAttachmentLinkGitHubIssueMutationRequest
 	{
-		return new PendingAttachmentLinkGitHubIssueMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id]);
+		return new PendingAttachmentLinkGitHubIssueMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title]);
 	}
 
-	public function attachmentLinkGitHubPRMutation(string $issueId, string $url, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null, ?string $owner = null, ?string $repo = null, ?float $number = null, ?GitLinkKind $linkKind = null): PendingAttachmentLinkGitHubPRMutationRequest
+	public function attachmentLinkGitHubPRMutation(string $issueId, string $url, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $owner = null, ?string $repo = null, ?float $number = null, ?GitLinkKind $linkKind = null): PendingAttachmentLinkGitHubPRMutationRequest
 	{
-		return new PendingAttachmentLinkGitHubPRMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id, 'owner' => $owner, 'repo' => $repo, 'number' => $number, 'linkKind' => $linkKind]);
+		return new PendingAttachmentLinkGitHubPRMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'owner' => $owner, 'repo' => $repo, 'number' => $number, 'linkKind' => $linkKind]);
 	}
 
-	public function attachmentLinkZendeskMutation(string $ticketId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null, ?string $url = null): PendingAttachmentLinkZendeskMutationRequest
+	public function attachmentLinkZendeskMutation(string $ticketId, string $issueId, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $url = null): PendingAttachmentLinkZendeskMutationRequest
 	{
-		return new PendingAttachmentLinkZendeskMutationRequest($this, ['ticketId' => $ticketId, 'issueId' => $issueId, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id, 'url' => $url]);
+		return new PendingAttachmentLinkZendeskMutationRequest($this, ['ticketId' => $ticketId, 'issueId' => $issueId, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'url' => $url]);
 	}
 
-	public function attachmentLinkDiscordMutation(string $issueId, string $channelId, string $messageId, string $url, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null): PendingAttachmentLinkDiscordMutationRequest
+	public function attachmentLinkDiscordMutation(string $issueId, string $channelId, string $messageId, string $url, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null): PendingAttachmentLinkDiscordMutationRequest
 	{
-		return new PendingAttachmentLinkDiscordMutationRequest($this, ['issueId' => $issueId, 'channelId' => $channelId, 'messageId' => $messageId, 'url' => $url, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id]);
+		return new PendingAttachmentLinkDiscordMutationRequest($this, ['issueId' => $issueId, 'channelId' => $channelId, 'messageId' => $messageId, 'url' => $url, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title]);
 	}
 
 	public function attachmentSyncToSlackMutation(string $id): PendingAttachmentSyncToSlackMutationRequest
@@ -603,29 +603,29 @@ trait MutatesLinear
 		return new PendingAttachmentSyncToSlackMutationRequest($this, ['id' => $id]);
 	}
 
-	public function attachmentLinkSlackMutation(string $issueId, string $url, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $channel = null, ?string $ts = null, ?string $latest = null, ?string $id = null, ?bool $syncToCommentThread = null): PendingAttachmentLinkSlackMutationRequest
+	public function attachmentLinkSlackMutation(string $issueId, string $url, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $channel = null, ?string $ts = null, ?string $latest = null, ?bool $syncToCommentThread = null): PendingAttachmentLinkSlackMutationRequest
 	{
-		return new PendingAttachmentLinkSlackMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'channel' => $channel, 'ts' => $ts, 'latest' => $latest, 'id' => $id, 'syncToCommentThread' => $syncToCommentThread]);
+		return new PendingAttachmentLinkSlackMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'channel' => $channel, 'ts' => $ts, 'latest' => $latest, 'syncToCommentThread' => $syncToCommentThread]);
 	}
 
-	public function attachmentLinkFrontMutation(string $conversationId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null): PendingAttachmentLinkFrontMutationRequest
+	public function attachmentLinkFrontMutation(string $conversationId, string $issueId, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null): PendingAttachmentLinkFrontMutationRequest
 	{
-		return new PendingAttachmentLinkFrontMutationRequest($this, ['conversationId' => $conversationId, 'issueId' => $issueId, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id]);
+		return new PendingAttachmentLinkFrontMutationRequest($this, ['conversationId' => $conversationId, 'issueId' => $issueId, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title]);
 	}
 
-	public function attachmentLinkIntercomMutation(string $conversationId, string $issueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $partId = null, ?string $id = null): PendingAttachmentLinkIntercomMutationRequest
+	public function attachmentLinkIntercomMutation(string $conversationId, string $issueId, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $partId = null): PendingAttachmentLinkIntercomMutationRequest
 	{
-		return new PendingAttachmentLinkIntercomMutationRequest($this, ['conversationId' => $conversationId, 'issueId' => $issueId, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'partId' => $partId, 'id' => $id]);
+		return new PendingAttachmentLinkIntercomMutationRequest($this, ['conversationId' => $conversationId, 'issueId' => $issueId, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'partId' => $partId]);
 	}
 
-	public function attachmentLinkJiraIssueMutation(string $issueId, string $jiraIssueId, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null, ?string $url = null): PendingAttachmentLinkJiraIssueMutationRequest
+	public function attachmentLinkJiraIssueMutation(string $issueId, string $jiraIssueId, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $url = null): PendingAttachmentLinkJiraIssueMutationRequest
 	{
-		return new PendingAttachmentLinkJiraIssueMutationRequest($this, ['issueId' => $issueId, 'jiraIssueId' => $jiraIssueId, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id, 'url' => $url]);
+		return new PendingAttachmentLinkJiraIssueMutationRequest($this, ['issueId' => $issueId, 'jiraIssueId' => $jiraIssueId, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'url' => $url]);
 	}
 
-	public function attachmentLinkSalesforceMutation(string $issueId, string $url, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null, ?string $id = null): PendingAttachmentLinkSalesforceMutationRequest
+	public function attachmentLinkSalesforceMutation(string $issueId, string $url, ?string $id = null, ?string $createAsUser = null, ?string $displayIconUrl = null, ?string $title = null): PendingAttachmentLinkSalesforceMutationRequest
 	{
-		return new PendingAttachmentLinkSalesforceMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title, 'id' => $id]);
+		return new PendingAttachmentLinkSalesforceMutationRequest($this, ['issueId' => $issueId, 'url' => $url, 'id' => $id, 'createAsUser' => $createAsUser, 'displayIconUrl' => $displayIconUrl, 'title' => $title]);
 	}
 
 	public function attachmentDeleteMutation(string $id): PendingAttachmentDeleteMutationRequest
@@ -893,9 +893,9 @@ trait MutatesLinear
 		return new PendingDocumentUnshareMutationRequest($this, ['userIds' => $userIds, 'id' => $id]);
 	}
 
-	public function documentUpdateGeneralAccessMutation(string $generalAccess, string $id, ?string $previousGeneralAccess = null, ?bool $applyToSubDocuments = null): PendingDocumentUpdateGeneralAccessMutationRequest
+	public function documentUpdateGeneralAccessMutation(string $generalAccess, string $id, ?iterable $removeCollaboratorIds = null, ?string $previousGeneralAccess = null, ?bool $applyToSubDocuments = null): PendingDocumentUpdateGeneralAccessMutationRequest
 	{
-		return new PendingDocumentUpdateGeneralAccessMutationRequest($this, ['generalAccess' => $generalAccess, 'id' => $id, 'previousGeneralAccess' => $previousGeneralAccess, 'applyToSubDocuments' => $applyToSubDocuments]);
+		return new PendingDocumentUpdateGeneralAccessMutationRequest($this, ['generalAccess' => $generalAccess, 'id' => $id, 'removeCollaboratorIds' => $removeCollaboratorIds, 'previousGeneralAccess' => $previousGeneralAccess, 'applyToSubDocuments' => $applyToSubDocuments]);
 	}
 
 	public function documentUpdateWorkspaceAccessMutation(string $workspaceAccess, string $id, ?string $previousWorkspaceAccess = null, ?bool $applyToSubDocuments = null): PendingDocumentUpdateWorkspaceAccessMutationRequest

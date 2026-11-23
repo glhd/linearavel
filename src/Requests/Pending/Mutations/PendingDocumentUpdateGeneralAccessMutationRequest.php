@@ -13,7 +13,7 @@ class PendingDocumentUpdateGeneralAccessMutationRequest extends PendingLinearReq
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['previousGeneralAccess' => 'String', 'applyToSubDocuments' => 'Boolean', 'generalAccess' => 'String!', 'id' => 'String!'];
+	protected const ARGUMENT_TYPES = ['removeCollaboratorIds' => '[String!]', 'previousGeneralAccess' => 'String', 'applyToSubDocuments' => 'Boolean', 'generalAccess' => 'String!', 'id' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{

@@ -1,1 +1,3 @@
-The schema changed, but only in ways that do not affect the generated types.
+### Added or widened
+
+- An optional arg removeCollaboratorIds on Mutation.documentUpdateGeneralAccess was added

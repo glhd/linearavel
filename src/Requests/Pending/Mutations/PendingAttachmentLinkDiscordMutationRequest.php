@@ -13,7 +13,7 @@ class PendingAttachmentLinkDiscordMutationRequest extends PendingLinearRequest
 {
 	protected const DEFAULT_ATTRIBUTES = ['lastSyncId', 'success'];
 
-	protected const ARGUMENT_TYPES = ['createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'issueId' => 'String!', 'id' => 'String', 'channelId' => 'String!', 'messageId' => 'String!', 'url' => 'String!'];
+	protected const ARGUMENT_TYPES = ['id' => 'String', 'createAsUser' => 'String', 'displayIconUrl' => 'String', 'title' => 'String', 'issueId' => 'String!', 'channelId' => 'String!', 'messageId' => 'String!', 'url' => 'String!'];
 
 	public function __construct(LinearConnector $connector, public array $args = [])
 	{
