@@ -25,6 +25,7 @@ class NullableIssueFilterInput
 		public ?NullableDateComparatorInput $autoClosedAt = null,
 		public ?NullableDateComparatorInput $autoArchivedAt = null,
 		public ?NullableDateComparatorInput $addedToCycleAt = null,
+		public ?NullableDateComparatorInput $addedToProjectAt = null,
 		public ?CyclePeriodComparatorInput $addedToCyclePeriod = null,
 		public ?NullableTimelessDateComparatorInput $dueDate = null,
 		public ?NullableDateComparatorInput $accumulatedStateUpdatedAt = null,

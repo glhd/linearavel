@@ -2850,6 +2850,9 @@ input IssueFilter {
   "Conditions on when the issue joined its current cycle. Changing cycles resets this time; removing the cycle clears it."
   addedToCycleAt: NullableDateComparator
 
+  "Conditions on when the issue joined its current project. Changing projects resets this time; removing the project clears it. Issues added to a project before this time was recorded have none."
+  addedToProjectAt: NullableDateComparator
+
   "Conditions on when the issue joined its cycle. before includes the cycle’s first 24 hours; during covers the remaining time before closure, and after covers times at or after closure."
   addedToCyclePeriod: CyclePeriodComparator
 
@@ -3494,6 +3497,9 @@ input IssueCollectionFilter {
 
   "Conditions on when the issue joined its current cycle. Changing cycles resets this time; removing the cycle clears it."
   addedToCycleAt: NullableDateComparator
+
+  "Conditions on when the issue joined its current project. Changing projects resets this time; removing the project clears it. Issues added to a project before this time was recorded have none."
+  addedToProjectAt: NullableDateComparator
 
   "Conditions on when the issue joined its cycle. before includes the cycle’s first 24 hours; during covers the remaining time before closure, and after covers times at or after closure."
   addedToCyclePeriod: CyclePeriodComparator
@@ -4179,6 +4185,9 @@ input NullableIssueFilter {
 
   "Conditions on when the issue joined its current cycle. Changing cycles resets this time; removing the cycle clears it."
   addedToCycleAt: NullableDateComparator
+
+  "Conditions on when the issue joined its current project. Changing projects resets this time; removing the project clears it. Issues added to a project before this time was recorded have none."
+  addedToProjectAt: NullableDateComparator
 
   "Conditions on when the issue joined its cycle. before includes the cycle’s first 24 hours; during covers the remaining time before closure, and after covers times at or after closure."
   addedToCyclePeriod: CyclePeriodComparator
@@ -8372,13 +8381,13 @@ type AgentSession implements Node {
   summary: String
 
   "JSON object describing the integration, application, or automation that created this session. Available keys depend on the source type; agentSessionMetadata.sourceCommentId can identify the comment that converted an existing thread into a session. Null when no source metadata is recorded."
-  sourceMetadata: JSON
+  sourceMetadata: JSONObject
 
   "The agent's current plan as a JSON object with entries and updatedAt. entries contains each step's content and status (pending, inProgress, completed, or canceled); updatedAt is the ISO timestamp when Linear accepted the plan. The owning app updates the entries through agentSessionUpdate. Null means no plan is stored. Entering error or stale status clears the plan."
-  plan: JSON
+  plan: JSONObject
 
   "JSON array of entity references supplied as context to the session, such as issues or projects referenced in chat. These provide additional context beyond the session's primary issue or comment. An empty array means no such entity context is recorded."
-  context: JSON!
+  context: JSONObject!
 
   "[DEPRECATED] The type of the agent session."
   type: AgentSessionType @deprecated(reason: "This field is slated for removal.")
@@ -8452,7 +8461,7 @@ type AgentActivity implements Node {
   user: User!
 
   "JSON object attributing the activity to the integration, application, or automation that created it. Available properties depend on the source type. Null means no external source was recorded; user identifies the activity's author separately."
-  sourceMetadata: JSON
+  sourceMetadata: JSONObject
 
   "How Linear or the agent should handle this activity beyond its content type. continue keeps a response from ending the turn; auth and select turn an elicitation into an authentication or selection request; stop appears on user prompts that request cancellation. Null means normal handling for the content type."
   signal: AgentActivitySignal
