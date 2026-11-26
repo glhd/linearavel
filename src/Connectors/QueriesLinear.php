@@ -202,6 +202,63 @@ use Glhd\Linearavel\Requests\Pending\Queries\PendingWorkflowStatesQueryRequest;
 trait QueriesLinear
 {
 	/**
+	 * @param ?AttachmentFilterInput $filter filter returned attachments
+	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
+	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
+	 * @param ?int $first The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`.
+	 * @param ?int $last The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`.
+	 * @param ?bool $includeArchived Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources.
+	 * @param ?PaginationOrderBy $orderBy Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them.
+	 * @returns PendingAttachmentsQueryRequest
+	 */
+	public function attachments(?AttachmentFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingAttachmentsQueryRequest
+	{
+		return new PendingAttachmentsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
+	}
+
+	/**
+	 * @param string $id The attachment UUID or URL. A URL returns one matching attachment.
+	 * @returns PendingAttachmentQueryRequest
+	 */
+	public function attachment(string $id): PendingAttachmentQueryRequest
+	{
+		return new PendingAttachmentQueryRequest($this, ['id' => $id]);
+	}
+
+	/**
+	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
+	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
+	 * @param ?int $first The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`.
+	 * @param ?int $last The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`.
+	 * @param ?bool $includeArchived Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources.
+	 * @param ?PaginationOrderBy $orderBy Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them.
+	 * @param string $url the attachment URL
+	 * @returns PendingAttachmentsForURLQueryRequest
+	 */
+	public function attachmentsForURL(string $url, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingAttachmentsForURLQueryRequest
+	{
+		return new PendingAttachmentsForURLQueryRequest($this, ['url' => $url, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
+	}
+
+	/**
+	 * @param string $id `id` of the attachment for which you'll want to get the issue for. [Deprecated] `url` as the `id` parameter.
+	 * @returns PendingAttachmentIssueQueryRequest
+	 */
+	public function attachmentIssue(string $id): PendingAttachmentIssueQueryRequest
+	{
+		return new PendingAttachmentIssueQueryRequest($this, ['id' => $id]);
+	}
+
+	/**
+	 * @param ?string $teamId (optional) if provided will only return attachment sources for the given team
+	 * @returns PendingAttachmentSourcesQueryRequest
+	 */
+	public function attachmentSources(?string $teamId = null): PendingAttachmentSourcesQueryRequest
+	{
+		return new PendingAttachmentSourcesQueryRequest($this, ['teamId' => $teamId]);
+	}
+
+	/**
 	 * @returns PendingOrganizationQueryRequest
 	 */
 	public function organization(): PendingOrganizationQueryRequest
@@ -304,63 +361,6 @@ trait QueriesLinear
 	public function oauthApplicationCodingSessionTrustedSource(): PendingOauthApplicationCodingSessionTrustedSourceQueryRequest
 	{
 		return new PendingOauthApplicationCodingSessionTrustedSourceQueryRequest($this, []);
-	}
-
-	/**
-	 * @param ?AttachmentFilterInput $filter filter returned attachments
-	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
-	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
-	 * @param ?int $first The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`.
-	 * @param ?int $last The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`.
-	 * @param ?bool $includeArchived Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources.
-	 * @param ?PaginationOrderBy $orderBy Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them.
-	 * @returns PendingAttachmentsQueryRequest
-	 */
-	public function attachments(?AttachmentFilterInput $filter = null, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingAttachmentsQueryRequest
-	{
-		return new PendingAttachmentsQueryRequest($this, ['filter' => $filter, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
-	}
-
-	/**
-	 * @param string $id The attachment UUID or URL. A URL returns one matching attachment.
-	 * @returns PendingAttachmentQueryRequest
-	 */
-	public function attachment(string $id): PendingAttachmentQueryRequest
-	{
-		return new PendingAttachmentQueryRequest($this, ['id' => $id]);
-	}
-
-	/**
-	 * @param ?string $before Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`.
-	 * @param ?string $after Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`.
-	 * @param ?int $first The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`.
-	 * @param ?int $last The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`.
-	 * @param ?bool $includeArchived Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources.
-	 * @param ?PaginationOrderBy $orderBy Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them.
-	 * @param string $url the attachment URL
-	 * @returns PendingAttachmentsForURLQueryRequest
-	 */
-	public function attachmentsForURL(string $url, ?string $before = null, ?string $after = null, ?int $first = null, ?int $last = null, ?bool $includeArchived = null, ?PaginationOrderBy $orderBy = null): PendingAttachmentsForURLQueryRequest
-	{
-		return new PendingAttachmentsForURLQueryRequest($this, ['url' => $url, 'before' => $before, 'after' => $after, 'first' => $first, 'last' => $last, 'includeArchived' => $includeArchived, 'orderBy' => $orderBy]);
-	}
-
-	/**
-	 * @param string $id `id` of the attachment for which you'll want to get the issue for. [Deprecated] `url` as the `id` parameter.
-	 * @returns PendingAttachmentIssueQueryRequest
-	 */
-	public function attachmentIssue(string $id): PendingAttachmentIssueQueryRequest
-	{
-		return new PendingAttachmentIssueQueryRequest($this, ['id' => $id]);
-	}
-
-	/**
-	 * @param ?string $teamId (optional) if provided will only return attachment sources for the given team
-	 * @returns PendingAttachmentSourcesQueryRequest
-	 */
-	public function attachmentSources(?string $teamId = null): PendingAttachmentSourcesQueryRequest
-	{
-		return new PendingAttachmentSourcesQueryRequest($this, ['teamId' => $teamId]);
 	}
 
 	/**

@@ -14950,6 +14950,72 @@ type AgentSessionNotification implements Notification & Entity & Node {
 }
 
 type Query {
+  "Issue attachments the caller can access, with cursor pagination. Use attachmentsForURL to look up a resource URL."
+  attachments(
+    "Filter returned attachments."
+    filter: AttachmentFilter
+
+    "Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`."
+    before: String
+
+    "Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`."
+    after: String
+
+    "The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`."
+    first: Int
+
+    "The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`."
+    last: Int
+
+    "Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources."
+    includeArchived: Boolean
+
+    "Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them."
+    orderBy: PaginationOrderBy
+  ): AttachmentConnection!
+
+  "An attachment by UUID or URL. A URL returns one matching attachment; use attachmentsForURL to retrieve all matches."
+  attachment(
+    "The attachment UUID or URL. A URL returns one matching attachment."
+    id: String!
+  ): Attachment!
+
+  "Finds the attachments for a resource URL across issues you can access. A URL can appear on several issues, so use this connection and select each attachment’s issue to find all linked issues."
+  attachmentsForURL(
+    "Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`."
+    before: String
+
+    "Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`."
+    after: String
+
+    "The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`."
+    first: Int
+
+    "The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`."
+    last: Int
+
+    "Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources."
+    includeArchived: Boolean
+
+    "Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them."
+    orderBy: PaginationOrderBy
+
+    "The attachment URL."
+    url: String!
+  ): AttachmentConnection!
+
+  "The issue linked to an attachment. Deprecated; use attachmentsForURL and select each attachment’s issue."
+  attachmentIssue(
+    "`id` of the attachment for which you'll want to get the issue for. [Deprecated] `url` as the `id` parameter."
+    id: String!
+  ): Issue! @deprecated(reason: "Will be removed in near future, please use `attachmentsForURL` to get attachments and their issues instead.")
+
+  "Lists distinct sources on accessible, non-archived issue attachments. API and OAuth attachment sources are grouped by URL domain; other sources are grouped by type. Each group includes the oldest attachment's source metadata. Results may be cached for up to one hour."
+  attachmentSources(
+    "(optional) if provided will only return attachment sources for the given team."
+    teamId: String
+  ): AttachmentSourcesPayload!
+
   "Returns the workspace associated with the credentials used for this request. Its ID and URL key identify the workspace, and its fields expose shared settings and resources."
   organization: Organization!
 
@@ -15054,72 +15120,6 @@ type Query {
 
   "Returns the authenticated OAuth application's trusted-source status for Coding Sessions in the workspace. Requires an OAuth access token with the `read` scope."
   oauthApplicationCodingSessionTrustedSource: OAuthApplicationCodingSessionTrustedSource!
-
-  "Issue attachments the caller can access, with cursor pagination. Use attachmentsForURL to look up a resource URL."
-  attachments(
-    "Filter returned attachments."
-    filter: AttachmentFilter
-
-    "Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`."
-    before: String
-
-    "Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`."
-    after: String
-
-    "The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`."
-    first: Int
-
-    "The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`."
-    last: Int
-
-    "Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources."
-    includeArchived: Boolean
-
-    "Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them."
-    orderBy: PaginationOrderBy
-  ): AttachmentConnection!
-
-  "An attachment by UUID or URL. A URL returns one matching attachment; use attachmentsForURL to retrieve all matches."
-  attachment(
-    "The attachment UUID or URL. A URL returns one matching attachment."
-    id: String!
-  ): Attachment!
-
-  "Finds the attachments for a resource URL across issues you can access. A URL can appear on several issues, so use this connection and select each attachment’s issue to find all linked issues."
-  attachmentsForURL(
-    "Returns results before this cursor. Pair with `last` to paginate backward, using a cursor returned by the same connection. Keep the filters and ordering unchanged between pages. Cannot be combined with `first` or `after`."
-    before: String
-
-    "Returns results after this cursor. Pair with `first` and the previous page's `endCursor` to fetch the next page. Keep the filters and ordering unchanged between pages. Cannot be combined with `last` or `before`."
-    after: String
-
-    "The maximum number of results to return, starting after `after` if supplied. Between 1 and 250. Defaults to 50 when neither `first` nor `last` is supplied. Cannot be combined with `last` or `before`."
-    first: Int
-
-    "The maximum number of results to return, ending before `before` if supplied. Between 1 and 250. Cannot be combined with `first` or `after`."
-    last: Int
-
-    "Includes archived resources alongside active ones. Defaults to false, which returns only active resources. This does not include deleted resources."
-    includeArchived: Boolean
-
-    "Orders results by creation time or last meaningful update time. Defaults to `createdAt`. Results are newest first with `first` and oldest first with `last`; use the returned `endCursor` as `before` to continue backward. Cannot be combined with custom `sort` options on fields that support them."
-    orderBy: PaginationOrderBy
-
-    "The attachment URL."
-    url: String!
-  ): AttachmentConnection!
-
-  "The issue linked to an attachment. Deprecated; use attachmentsForURL and select each attachment’s issue."
-  attachmentIssue(
-    "`id` of the attachment for which you'll want to get the issue for. [Deprecated] `url` as the `id` parameter."
-    id: String!
-  ): Issue! @deprecated(reason: "Will be removed in near future, please use `attachmentsForURL` to get attachments and their issues instead.")
-
-  "Lists distinct sources on accessible, non-archived issue attachments. API and OAuth attachment sources are grouped by URL domain; other sources are grouped by type. Each group includes the oldest attachment's source metadata. Results may be cached for up to one hour."
-  attachmentSources(
-    "(optional) if provided will only return attachment sources for the given team."
-    teamId: String
-  ): AttachmentSourcesPayload!
 
   "Lists supported audit action identifiers and a description of each action. Use the returned type values to interpret AuditEntry.type or filter auditEntries. Requires permission to view the workspace audit log."
   auditEntryTypes: [AuditEntryType!]!
@@ -17033,6 +17033,12 @@ type Query {
   ): WorkflowState!
 }
 
+"The result of an attachment sources query."
+type AttachmentSourcesPayload {
+  "A unique list of all source types used in this workspace."
+  sources: JSONObject!
+}
+
 "Response for checking whether a workspace exists."
 type OrganizationExistsPayload {
   "Whether the operation was successful."
@@ -17190,12 +17196,6 @@ enum CodingSessionsDisabledReason {
 
   "Coding Sessions and trusted external sources are available, but the application's source is not approved or is no longer available in the workspace."
   APP_NOT_TRUSTED
-}
-
-"The result of an attachment sources query."
-type AttachmentSourcesPayload {
-  "A unique list of all source types used in this workspace."
-  sources: JSONObject!
 }
 
 "An audit event identifier and its meaning."
@@ -21251,90 +21251,6 @@ enum ViewType {
 }
 
 type Mutation {
-  "Updates the workspace associated with your credentials. Omitted fields keep their current values. Most changes require workspace-settings permission; project and initiative reminder schedules require schedule-management permission. Some settings also depend on the workspace’s plan."
-  organizationUpdate(
-    "A partial workspace object to update the workspace with."
-    input: OrganizationUpdateInput!
-  ): OrganizationPayload!
-
-  "Requests a deletion confirmation code for the workspace. The code is sent to the requesting user's email and must be used with the organizationDelete mutation to confirm deletion."
-  organizationDeleteChallenge: OrganizationDeletePayload!
-
-  "Schedules deletion of the workspace and its data after validating the code from organizationDeleteChallenge. This does not finish the deletion during the request. Use organizationCancelDelete while cancellation is still available."
-  organizationDelete(
-    "Information required to delete the workspace."
-    input: DeleteOrganizationInput!
-  ): OrganizationDeletePayload!
-
-  "Cancels a scheduled workspace deletion while the deletion process still permits cancellation. Requires workspace-settings permission."
-  organizationCancelDelete: OrganizationCancelDeletePayload!
-
-  "Starts a trial for the workspace on the specified plan type. The workspace must not already be on a paid plan or in an active trial."
-  organizationStartTrialForPlan(
-    "Plan details for trial"
-    input: OrganizationStartTrialInput!
-  ): OrganizationStartTrialPayload!
-
-  "[DEPRECATED] Starts a trial for the workspace."
-  organizationStartTrial: OrganizationStartTrialPayload! @deprecated(reason: "Use organizationStartTrialForPlan")
-
-  "Publishes an activity to your agent’s session and updates its lifecycle. Thoughts and actions report ongoing work; a response completes the turn unless it has the continue signal, an elicitation waits for user input, and an error records a failed turn. The session must be unarchived and owned by the authenticated app user. Use the agent app’s OAuth or workload identity token; personal API keys cannot publish agent activities."
-  agentActivityCreate(
-    "The agent activity object to create."
-    input: AgentActivityCreateInput!
-  ): AgentActivityPayload!
-
-  "Starts an active session for your authenticated agent app on an existing issue comment thread. Supply the UUID of an unarchived root comment; replies and threads that already have a session are rejected. The caller must have access to the issue. Use the returned session ID when publishing activities."
-  agentSessionCreateOnComment(
-    "The agent session object to create."
-    input: AgentSessionCreateOnComment!
-  ): AgentSessionPayload!
-
-  "Starts an active session for your authenticated agent app and creates its comment thread on the issue. The issue must be accessible and writable. Supply its UUID or identifier, then use the returned session ID to publish progress and results with agentActivityCreate."
-  agentSessionCreateOnIssue(
-    "The agent session object to create."
-    input: AgentSessionCreateOnIssue!
-  ): AgentSessionPayload!
-
-  "Updates external links on a session owned by the authenticated agent app. A pending or stale session becomes active."
-  agentSessionUpdateExternalUrl(
-    "The agent session object to update."
-    input: AgentSessionUpdateExternalUrlInput!
-
-    "The identifier of the agent session to update."
-    id: String!
-  ): AgentSessionPayload!
-
-  "Updates your agent’s session title, external links, or plan. Only the app user that owns the session can change these fields. Omitted fields remain unchanged, while each supplied plan or externalUrls list replaces that value. Updates other than a title-only change acknowledge a pending or stale session by making it active; publishing an activity still determines the next turn status."
-  agentSessionUpdate(
-    "A partial agent session object to update the agent session with."
-    input: AgentSessionUpdateInput!
-
-    "The identifier of the agent session to update."
-    id: String!
-  ): AgentSessionPayload!
-
-  "Creates reusable Markdown instructions for the Linear Agent, owned by the authenticated user. Omit teamId for a personal skill, or provide a team UUID to share it with that team. Creating a team skill requires permission to manage the team’s agent skills. The returned skill contains the saved instructions and display details."
-  agentSkillCreate(
-    "The agent skill object to create."
-    input: AgentSkillCreateInput!
-  ): AgentSkillPayload!
-
-  "Updates a skill the caller can manage. Omitted fields remain unchanged, and a supplied body replaces the full instruction text. For a team skill, the caller needs agent skill management permission; moving it also requires that permission in the destination team. Inherited copies cannot be edited directly—update their source skill instead."
-  agentSkillUpdate(
-    "Data to update the agent skill with."
-    input: AgentSkillUpdateInput!
-
-    "The identifier of the agent skill to update."
-    id: String!
-  ): AgentSkillPayload!
-
-  "Deletes an agent skill and its inherited copies. Inherited skills must be deleted from the team that owns the source skill."
-  agentSkillDelete(
-    "The identifier of the agent skill to delete."
-    id: String!
-  ): DeletePayload!
-
   "Creates an attachment, or updates the existing attachment with the same URL on the same issue. This is useful for links and metadata managed by your integration. Use attachmentLinkURL or a service-specific link mutation when you want Linear to fetch integration metadata and apply its supported link behavior."
   attachmentCreate(
     "The attachment object to create."
@@ -21635,6 +21551,90 @@ type Mutation {
   "Deletes the attachment record from its issue. This removes the link in Linear; it does not delete the external resource."
   attachmentDelete(
     "The identifier of the attachment to delete."
+    id: String!
+  ): DeletePayload!
+
+  "Updates the workspace associated with your credentials. Omitted fields keep their current values. Most changes require workspace-settings permission; project and initiative reminder schedules require schedule-management permission. Some settings also depend on the workspace’s plan."
+  organizationUpdate(
+    "A partial workspace object to update the workspace with."
+    input: OrganizationUpdateInput!
+  ): OrganizationPayload!
+
+  "Requests a deletion confirmation code for the workspace. The code is sent to the requesting user's email and must be used with the organizationDelete mutation to confirm deletion."
+  organizationDeleteChallenge: OrganizationDeletePayload!
+
+  "Schedules deletion of the workspace and its data after validating the code from organizationDeleteChallenge. This does not finish the deletion during the request. Use organizationCancelDelete while cancellation is still available."
+  organizationDelete(
+    "Information required to delete the workspace."
+    input: DeleteOrganizationInput!
+  ): OrganizationDeletePayload!
+
+  "Cancels a scheduled workspace deletion while the deletion process still permits cancellation. Requires workspace-settings permission."
+  organizationCancelDelete: OrganizationCancelDeletePayload!
+
+  "Starts a trial for the workspace on the specified plan type. The workspace must not already be on a paid plan or in an active trial."
+  organizationStartTrialForPlan(
+    "Plan details for trial"
+    input: OrganizationStartTrialInput!
+  ): OrganizationStartTrialPayload!
+
+  "[DEPRECATED] Starts a trial for the workspace."
+  organizationStartTrial: OrganizationStartTrialPayload! @deprecated(reason: "Use organizationStartTrialForPlan")
+
+  "Publishes an activity to your agent’s session and updates its lifecycle. Thoughts and actions report ongoing work; a response completes the turn unless it has the continue signal, an elicitation waits for user input, and an error records a failed turn. The session must be unarchived and owned by the authenticated app user. Use the agent app’s OAuth or workload identity token; personal API keys cannot publish agent activities."
+  agentActivityCreate(
+    "The agent activity object to create."
+    input: AgentActivityCreateInput!
+  ): AgentActivityPayload!
+
+  "Starts an active session for your authenticated agent app on an existing issue comment thread. Supply the UUID of an unarchived root comment; replies and threads that already have a session are rejected. The caller must have access to the issue. Use the returned session ID when publishing activities."
+  agentSessionCreateOnComment(
+    "The agent session object to create."
+    input: AgentSessionCreateOnComment!
+  ): AgentSessionPayload!
+
+  "Starts an active session for your authenticated agent app and creates its comment thread on the issue. The issue must be accessible and writable. Supply its UUID or identifier, then use the returned session ID to publish progress and results with agentActivityCreate."
+  agentSessionCreateOnIssue(
+    "The agent session object to create."
+    input: AgentSessionCreateOnIssue!
+  ): AgentSessionPayload!
+
+  "Updates external links on a session owned by the authenticated agent app. A pending or stale session becomes active."
+  agentSessionUpdateExternalUrl(
+    "The agent session object to update."
+    input: AgentSessionUpdateExternalUrlInput!
+
+    "The identifier of the agent session to update."
+    id: String!
+  ): AgentSessionPayload!
+
+  "Updates your agent’s session title, external links, or plan. Only the app user that owns the session can change these fields. Omitted fields remain unchanged, while each supplied plan or externalUrls list replaces that value. Updates other than a title-only change acknowledge a pending or stale session by making it active; publishing an activity still determines the next turn status."
+  agentSessionUpdate(
+    "A partial agent session object to update the agent session with."
+    input: AgentSessionUpdateInput!
+
+    "The identifier of the agent session to update."
+    id: String!
+  ): AgentSessionPayload!
+
+  "Creates reusable Markdown instructions for the Linear Agent, owned by the authenticated user. Omit teamId for a personal skill, or provide a team UUID to share it with that team. Creating a team skill requires permission to manage the team’s agent skills. The returned skill contains the saved instructions and display details."
+  agentSkillCreate(
+    "The agent skill object to create."
+    input: AgentSkillCreateInput!
+  ): AgentSkillPayload!
+
+  "Updates a skill the caller can manage. Omitted fields remain unchanged, and a supplied body replaces the full instruction text. For a team skill, the caller needs agent skill management permission; moving it also requires that permission in the destination team. Inherited copies cannot be edited directly—update their source skill instead."
+  agentSkillUpdate(
+    "Data to update the agent skill with."
+    input: AgentSkillUpdateInput!
+
+    "The identifier of the agent skill to update."
+    id: String!
+  ): AgentSkillPayload!
+
+  "Deletes an agent skill and its inherited copies. Inherited skills must be deleted from the team that owns the source skill."
+  agentSkillDelete(
+    "The identifier of the agent skill to delete."
     id: String!
   ): DeletePayload!
 
@@ -23894,7 +23894,7 @@ type Mutation {
     id: String!
   ): TeamArchivePayload!
 
-  "Permanently deletes all cycles for a team and disables cycles. Issues are kept, but their cycle associations are removed. Requires permission to manage the team."
+  "Permanently deletes all cycles for a team. Cycles must be disabled on the team first. Issues are kept, but their cycle associations are removed. Requires permission to manage the team."
   teamCyclesDelete(
     "The identifier of the team, which cycles will be deleted."
     id: String!
@@ -24157,6 +24157,109 @@ type Mutation {
     "The identifier of the state to archive."
     id: String!
   ): WorkflowStateArchivePayload!
+}
+
+"The result of an attachment mutation."
+type AttachmentPayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "The attachment created or updated by the operation."
+  attachment: Attachment!
+
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+"The URL and display details to attach to an issue. If that URL is already attached to the issue, the existing attachment is updated. A supplied commentBody creates a linked comment only when a new attachment is created."
+input AttachmentCreateInput {
+  "The identifier in UUID v4 format. If none is provided, the backend will generate one."
+  id: String
+
+  "Title displayed for the attachment, up to 2,048 characters."
+  title: String!
+
+  "Subtitle displayed below the title, up to 2,048 characters."
+  subtitle: String
+
+  "Resource URL. If the same URL is already attached to issueId, that attachment is updated."
+  url: String!
+
+  "The issue to associate the attachment with. Can be a UUID or issue identifier (e.g., 'LIN-123')."
+  issueId: String!
+
+  "An icon url to display with the attachment. Should be of jpg or png format. Maximum of 1MB in size. Dimensions should be 20x20px for optimal display quality."
+  iconUrl: String
+
+  "Custom data to display with the attachment. messages is an array of objects with optional subject, Markdown body, and timestamp strings; attributes is an array of name/value string pairs. id may be a string or number and title a string; other top-level keys are allowed. When updating an existing URL, this replaces its metadata."
+  metadata: JSONObject
+
+  "Indicates if attachments for the same source application should be grouped in the Linear UI."
+  groupBySource: Boolean
+
+  "Markdown for a linked comment. Ignored when updating an attachment with the same URL."
+  commentBody: String
+
+  "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
+  createAsUser: String
+
+  "Avatar URL for createAsUser. Requires createAsUser and an OAuth application using actor=app."
+  displayIconUrl: String
+}
+
+"The display details to update on an existing attachment. title is required; omitted optional fields keep their values. Supplied metadata replaces the entire object. The attachment’s URL and issue cannot be changed through this input."
+input AttachmentUpdateInput {
+  "The attachment title."
+  title: String!
+
+  "The attachment subtitle."
+  subtitle: String
+
+  "Replacement attachment data. messages accepts optional subject, body (Markdown), and timestamp strings; attributes accepts name/value string pairs. Include existing keys that should be kept."
+  metadata: JSONObject
+
+  "An icon url to display with the attachment. Should be of jpg or png format. Maximum of 1MB in size. Dimensions should be 20x20px for optimal display quality."
+  iconUrl: String
+}
+
+"[Internal] The kind of link between an issue and a pull request."
+enum GitLinkKind {
+  closes
+  contributes
+  links
+}
+
+"The result of a Front attachment mutation."
+type FrontAttachmentPayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "The issue attachment that was created."
+  attachment: Attachment!
+
+  "Whether the operation was successful."
+  success: Boolean!
+}
+
+"The result of a delete mutation. The mutation determines whether the resource is deleted immediately or scheduled for deletion."
+type DeletePayload implements ArchivePayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "Whether the operation was successful."
+  success: Boolean!
+
+  "The ID of the resource targeted by the delete operation. Use this to remove the resource from your local state after a successful mutation."
+  entityId: String!
+}
+
+"The result of archiving, restoring, or deleting a resource."
+interface ArchivePayload {
+  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
+  lastSyncId: Float!
+
+  "Whether the operation was successful."
+  success: Boolean!
 }
 
 "Workspace update operation response."
@@ -24550,109 +24653,6 @@ input AgentSkillUpdateInput {
 
   "Hex color for the skill icon, such as #5E6AD2."
   color: String
-}
-
-"The result of a delete mutation. The mutation determines whether the resource is deleted immediately or scheduled for deletion."
-type DeletePayload implements ArchivePayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "Whether the operation was successful."
-  success: Boolean!
-
-  "The ID of the resource targeted by the delete operation. Use this to remove the resource from your local state after a successful mutation."
-  entityId: String!
-}
-
-"The result of archiving, restoring, or deleting a resource."
-interface ArchivePayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
-"The result of an attachment mutation."
-type AttachmentPayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "The attachment created or updated by the operation."
-  attachment: Attachment!
-
-  "Whether the operation was successful."
-  success: Boolean!
-}
-
-"The URL and display details to attach to an issue. If that URL is already attached to the issue, the existing attachment is updated. A supplied commentBody creates a linked comment only when a new attachment is created."
-input AttachmentCreateInput {
-  "The identifier in UUID v4 format. If none is provided, the backend will generate one."
-  id: String
-
-  "Title displayed for the attachment, up to 2,048 characters."
-  title: String!
-
-  "Subtitle displayed below the title, up to 2,048 characters."
-  subtitle: String
-
-  "Resource URL. If the same URL is already attached to issueId, that attachment is updated."
-  url: String!
-
-  "The issue to associate the attachment with. Can be a UUID or issue identifier (e.g., 'LIN-123')."
-  issueId: String!
-
-  "An icon url to display with the attachment. Should be of jpg or png format. Maximum of 1MB in size. Dimensions should be 20x20px for optimal display quality."
-  iconUrl: String
-
-  "Custom data to display with the attachment. messages is an array of objects with optional subject, Markdown body, and timestamp strings; attributes is an array of name/value string pairs. id may be a string or number and title a string; other top-level keys are allowed. When updating an existing URL, this replaces its metadata."
-  metadata: JSONObject
-
-  "Indicates if attachments for the same source application should be grouped in the Linear UI."
-  groupBySource: Boolean
-
-  "Markdown for a linked comment. Ignored when updating an attachment with the same URL."
-  commentBody: String
-
-  "Display name credited with creating the attachment. Available only to OAuth applications using actor=app."
-  createAsUser: String
-
-  "Avatar URL for createAsUser. Requires createAsUser and an OAuth application using actor=app."
-  displayIconUrl: String
-}
-
-"The display details to update on an existing attachment. title is required; omitted optional fields keep their values. Supplied metadata replaces the entire object. The attachment’s URL and issue cannot be changed through this input."
-input AttachmentUpdateInput {
-  "The attachment title."
-  title: String!
-
-  "The attachment subtitle."
-  subtitle: String
-
-  "Replacement attachment data. messages accepts optional subject, body (Markdown), and timestamp strings; attributes accepts name/value string pairs. Include existing keys that should be kept."
-  metadata: JSONObject
-
-  "An icon url to display with the attachment. Should be of jpg or png format. Maximum of 1MB in size. Dimensions should be 20x20px for optimal display quality."
-  iconUrl: String
-}
-
-"[Internal] The kind of link between an issue and a pull request."
-enum GitLinkKind {
-  closes
-  contributes
-  links
-}
-
-"The result of a Front attachment mutation."
-type FrontAttachmentPayload {
-  "Synchronization cursor used by Linear clients. External integrations can ignore this field."
-  lastSyncId: Float!
-
-  "The issue attachment that was created."
-  attachment: Attachment!
-
-  "Whether the operation was successful."
-  success: Boolean!
 }
 
 "Acknowledges an email sign-in challenge. The authentication token is sent by email and is not returned in this payload. A successful request does not by itself sign the account in."

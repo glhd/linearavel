@@ -488,76 +488,6 @@ use Glhd\Linearavel\Requests\Pending\Mutations\PendingWorkflowStateUpdateMutatio
 
 trait MutatesLinear
 {
-	public function organizationUpdateMutation(OrganizationUpdateInput $input): PendingOrganizationUpdateMutationRequest
-	{
-		return new PendingOrganizationUpdateMutationRequest($this, ['input' => $input]);
-	}
-
-	public function organizationDeleteChallengeMutation(): PendingOrganizationDeleteChallengeMutationRequest
-	{
-		return new PendingOrganizationDeleteChallengeMutationRequest($this, []);
-	}
-
-	public function organizationDeleteMutation(DeleteOrganizationInput $input): PendingOrganizationDeleteMutationRequest
-	{
-		return new PendingOrganizationDeleteMutationRequest($this, ['input' => $input]);
-	}
-
-	public function organizationCancelDeleteMutation(): PendingOrganizationCancelDeleteMutationRequest
-	{
-		return new PendingOrganizationCancelDeleteMutationRequest($this, []);
-	}
-
-	public function organizationStartTrialForPlanMutation(OrganizationStartTrialInput $input): PendingOrganizationStartTrialForPlanMutationRequest
-	{
-		return new PendingOrganizationStartTrialForPlanMutationRequest($this, ['input' => $input]);
-	}
-
-	public function organizationStartTrialMutation(): PendingOrganizationStartTrialMutationRequest
-	{
-		return new PendingOrganizationStartTrialMutationRequest($this, []);
-	}
-
-	public function agentActivityCreateMutation(AgentActivityCreateInput $input): PendingAgentActivityCreateMutationRequest
-	{
-		return new PendingAgentActivityCreateMutationRequest($this, ['input' => $input]);
-	}
-
-	public function agentSessionCreateOnCommentMutation(AgentSessionCreateOnCommentInput $input): PendingAgentSessionCreateOnCommentMutationRequest
-	{
-		return new PendingAgentSessionCreateOnCommentMutationRequest($this, ['input' => $input]);
-	}
-
-	public function agentSessionCreateOnIssueMutation(AgentSessionCreateOnIssueInput $input): PendingAgentSessionCreateOnIssueMutationRequest
-	{
-		return new PendingAgentSessionCreateOnIssueMutationRequest($this, ['input' => $input]);
-	}
-
-	public function agentSessionUpdateExternalUrlMutation(AgentSessionUpdateExternalUrlInput $input, string $id): PendingAgentSessionUpdateExternalUrlMutationRequest
-	{
-		return new PendingAgentSessionUpdateExternalUrlMutationRequest($this, ['input' => $input, 'id' => $id]);
-	}
-
-	public function agentSessionUpdateMutation(AgentSessionUpdateInput $input, string $id): PendingAgentSessionUpdateMutationRequest
-	{
-		return new PendingAgentSessionUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
-	}
-
-	public function agentSkillCreateMutation(AgentSkillCreateInput $input): PendingAgentSkillCreateMutationRequest
-	{
-		return new PendingAgentSkillCreateMutationRequest($this, ['input' => $input]);
-	}
-
-	public function agentSkillUpdateMutation(AgentSkillUpdateInput $input, string $id): PendingAgentSkillUpdateMutationRequest
-	{
-		return new PendingAgentSkillUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
-	}
-
-	public function agentSkillDeleteMutation(string $id): PendingAgentSkillDeleteMutationRequest
-	{
-		return new PendingAgentSkillDeleteMutationRequest($this, ['id' => $id]);
-	}
-
 	public function attachmentCreateMutation(AttachmentCreateInput $input): PendingAttachmentCreateMutationRequest
 	{
 		return new PendingAttachmentCreateMutationRequest($this, ['input' => $input]);
@@ -631,6 +561,76 @@ trait MutatesLinear
 	public function attachmentDeleteMutation(string $id): PendingAttachmentDeleteMutationRequest
 	{
 		return new PendingAttachmentDeleteMutationRequest($this, ['id' => $id]);
+	}
+
+	public function organizationUpdateMutation(OrganizationUpdateInput $input): PendingOrganizationUpdateMutationRequest
+	{
+		return new PendingOrganizationUpdateMutationRequest($this, ['input' => $input]);
+	}
+
+	public function organizationDeleteChallengeMutation(): PendingOrganizationDeleteChallengeMutationRequest
+	{
+		return new PendingOrganizationDeleteChallengeMutationRequest($this, []);
+	}
+
+	public function organizationDeleteMutation(DeleteOrganizationInput $input): PendingOrganizationDeleteMutationRequest
+	{
+		return new PendingOrganizationDeleteMutationRequest($this, ['input' => $input]);
+	}
+
+	public function organizationCancelDeleteMutation(): PendingOrganizationCancelDeleteMutationRequest
+	{
+		return new PendingOrganizationCancelDeleteMutationRequest($this, []);
+	}
+
+	public function organizationStartTrialForPlanMutation(OrganizationStartTrialInput $input): PendingOrganizationStartTrialForPlanMutationRequest
+	{
+		return new PendingOrganizationStartTrialForPlanMutationRequest($this, ['input' => $input]);
+	}
+
+	public function organizationStartTrialMutation(): PendingOrganizationStartTrialMutationRequest
+	{
+		return new PendingOrganizationStartTrialMutationRequest($this, []);
+	}
+
+	public function agentActivityCreateMutation(AgentActivityCreateInput $input): PendingAgentActivityCreateMutationRequest
+	{
+		return new PendingAgentActivityCreateMutationRequest($this, ['input' => $input]);
+	}
+
+	public function agentSessionCreateOnCommentMutation(AgentSessionCreateOnCommentInput $input): PendingAgentSessionCreateOnCommentMutationRequest
+	{
+		return new PendingAgentSessionCreateOnCommentMutationRequest($this, ['input' => $input]);
+	}
+
+	public function agentSessionCreateOnIssueMutation(AgentSessionCreateOnIssueInput $input): PendingAgentSessionCreateOnIssueMutationRequest
+	{
+		return new PendingAgentSessionCreateOnIssueMutationRequest($this, ['input' => $input]);
+	}
+
+	public function agentSessionUpdateExternalUrlMutation(AgentSessionUpdateExternalUrlInput $input, string $id): PendingAgentSessionUpdateExternalUrlMutationRequest
+	{
+		return new PendingAgentSessionUpdateExternalUrlMutationRequest($this, ['input' => $input, 'id' => $id]);
+	}
+
+	public function agentSessionUpdateMutation(AgentSessionUpdateInput $input, string $id): PendingAgentSessionUpdateMutationRequest
+	{
+		return new PendingAgentSessionUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
+	}
+
+	public function agentSkillCreateMutation(AgentSkillCreateInput $input): PendingAgentSkillCreateMutationRequest
+	{
+		return new PendingAgentSkillCreateMutationRequest($this, ['input' => $input]);
+	}
+
+	public function agentSkillUpdateMutation(AgentSkillUpdateInput $input, string $id): PendingAgentSkillUpdateMutationRequest
+	{
+		return new PendingAgentSkillUpdateMutationRequest($this, ['input' => $input, 'id' => $id]);
+	}
+
+	public function agentSkillDeleteMutation(string $id): PendingAgentSkillDeleteMutationRequest
+	{
+		return new PendingAgentSkillDeleteMutationRequest($this, ['id' => $id]);
 	}
 
 	public function emailUserAccountAuthChallengeMutation(EmailUserAccountAuthChallengeInput $input): PendingEmailUserAccountAuthChallengeMutationRequest
